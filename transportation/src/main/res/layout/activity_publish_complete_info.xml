@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation.activity.publish.PublishCompleteInfoActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/gray2"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="货主信息"
+        android:textColor="@color/gray_color"
+        android:textSize="@dimen/sp_14" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow style="@style/TableRow">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="货主姓名" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入货主姓名" />
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="货主电话" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入货主电话" />
+        </TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@color/gray2"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="物流公司信息"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/sp_14" />
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="联系人姓名" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="请输入联系人姓名" />
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="联系电话" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入联系电话" />
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="结算时间" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/TextViewWeight999"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableRight="@mipmap/sy_down"
+                android:hint="请选择" />
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="27dp"
+                android:text="信息费" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入信息费" />
+        </TableRow>
+    </TableLayout>
+
+    <com.arkui.fz_tools.view.ShapeButton
+        android:id="@+id/bt_confirm"
+        style="@style/Button"
+        android:layout_marginTop="191dp"
+        android:text="确定发布" />
+</LinearLayout>

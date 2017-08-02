@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/RefreshLayout" />
+            <option value="$PROJECT_DIR$/citypicker" />
+            <option value="$PROJECT_DIR$/fzTools" />
+            <option value="$PROJECT_DIR$/fz_net" />
+            <option value="$PROJECT_DIR$/transportation" />
+            <option value="$PROJECT_DIR$/transportation_owner" />
+            <option value="$PROJECT_DIR$/transportation_shipper" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

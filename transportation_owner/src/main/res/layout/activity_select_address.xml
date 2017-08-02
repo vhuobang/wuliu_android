@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_owner.activity.publish.SelectAddressActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp">
+
+        <TableRow
+            android:id="@+id/tl_city"
+            style="@style/TableRow">
+
+            <TextView
+                style="@style/TextView"
+                android:text="地址" />
+
+            <TextView
+                android:drawableRight="@mipmap/zh_down"
+                style="@style/TextViewWeight999"
+                android:text="河北-邢台"
+                android:textColor="@color/black_normal_color" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tl_detail"
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="25dp"
+                android:text="详细地址" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:hint="请输入详细地址"
+                android:textColor="@color/black_normal_color" />
+        </TableRow>
+    </TableLayout>
+
+    <com.arkui.fz_tools.view.ShapeButton
+        android:layout_marginTop="140dp"
+        style="@style/Button"
+        android:text="保存" />
+
+</LinearLayout>

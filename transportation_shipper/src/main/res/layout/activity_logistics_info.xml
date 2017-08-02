@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.arkui.transportation_shipper.owner.activity.waybill.LogisticsInfoActivity">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray">
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="公司名称" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="北京美化国际物流有限公司" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="公司地址" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="北京市昌平区立汤路186号" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+              android:background="@color/white"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="联系电话" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/phone_1" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_marginRight="26dp"
+                    android:text="经办人姓名" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="张无忌" />
+            </TableRow>
+
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="注册时长" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="2年" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="成交量" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="125" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="评星" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="13dp"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/custom_ratingbar_drawable_red"
+                        android:rating="3.5"
+                        android:stepSize="0.5" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="联系人姓名" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:background="@null"
+                    android:hint="汪红旗" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp"
+                android:background="@color/white"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="联系电话" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/phone_1" />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </LinearLayout>
+</ScrollView>

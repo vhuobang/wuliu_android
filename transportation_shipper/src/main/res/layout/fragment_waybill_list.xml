@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_shipper.owner.fragment.WaybillListFragment">
+
+    <com.arkui.fz_tools.view.PullRefreshRecyclerView
+        android:id="@+id/rl_waybill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

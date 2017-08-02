@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="北京昌平区"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="回龙观街道金域国际中心B栋308"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_13" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/sy_go" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="唐山迁安"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="回龙观街道金域国际中心"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@color/white">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物信息"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="甲醛/100吨/剩余40吨"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物密度"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="20.2吨/升"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费单价"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="100元/吨"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物单价"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1000元/吨"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="装车截止时间"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2017-6-23"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费支付方"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="甲醛/100吨/剩余40吨"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结算时间"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="7天内结算"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="压车费"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="100元"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="9dp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="装车开票人"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="吴建国"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+
+            <View style="@style/dividerLine" />
+
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_marginRight="26dp"
+                    android:text="联系电话" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="1581114578" />
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="9dp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸车联系人"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="汪红旗"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_marginRight="26dp"
+                    android:text="联系电话" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="1581114578" />
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="9dp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注信息"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/mainColor"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/fabu_tx" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6.5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张无忌"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="注册2年  发货106次"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+
+                <RatingBar
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:minHeight="13dp"
+                    android:numStars="5"
+                    android:progressDrawable="@drawable/custom_ratingbar_drawable"
+                    android:rating="3.5"
+                    android:stepSize="0.5" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/sy_pnhoe" />
+
+            <com.arkui.fz_tools.view.ShapeButton
+                android:id="@+id/bt_start"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:padding="0dp"
+                android:text="立即抢单"
+                android:textColor="@color/mainColor"
+                android:textSize="@dimen/sp_15"
+                app:buttonColor="@color/white"
+                app:radius="2dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

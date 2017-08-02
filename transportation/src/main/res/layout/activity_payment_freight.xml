@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp">
+
+        <TableRow style="@style/TableRow">
+
+            <TextView
+                style="@style/TextView"
+                android:text="货物数量" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:text="50吨" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="40dp"
+                android:text="货物单价" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:text="100元/吨" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:text="货物价格" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:text="100元/吨" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:text="耗损" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:text="100元/吨" />
+
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="9dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <View
+                android:layout_width="55dp"
+                android:layout_height="0.5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="运费详情"
+                android:textSize="@dimen/sp_14" />
+
+            <View
+                android:layout_width="55dp"
+                android:layout_height="0.5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/gray" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="运费"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="200000.0元"
+                android:textSize="@dimen/sp_14" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="耗损费"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="-400.0元"
+                android:textSize="@dimen/sp_14" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合计"
+                android:textColor="@color/red"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="20600.0元"
+                android:textColor="@color/red"
+                android:textSize="@dimen/sp_14" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_style"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不扣损耗"
+                android:textColor="@color/black_list_color" />
+
+        </LinearLayout>
+        
+        <com.arkui.fz_tools.view.ShapeButton
+            android:id="@+id/bt_pay"
+            android:text="确认支付20600元"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            style="@style/Button"/>
+        
+    </LinearLayout>
+
+</LinearLayout>

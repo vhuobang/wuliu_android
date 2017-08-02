@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:orientation="vertical"
+        tools:context="com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="北京昌平区"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="回龙观街道金域国际中心B栋308"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_13" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/zc_go" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="唐山迁安"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="回龙观街道金域国际中心"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp">
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="承运车辆" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:text="京P2345S" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="预装吨数" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:text="20吨" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物信息"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="甲醛/100吨/剩余40吨"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物密度"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="20.2吨/升"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    android:layout_marginRight="10dp"
+                    style="@style/TextView"
+                    android:text="装车截止时间" />
+
+                <TextView
+                    style="@style/TextViewWeight"
+                    android:text="2017-6-28 18:40:28" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="装车开票人"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="张无忌"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    style="@style/TextView"
+                    android:text="联系电话" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    style="@style/TextViewWeight"
+                    android:text="18900025478" />
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/phone_1" />
+
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸车联系人"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="赵敏"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+            <TableRow
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    style="@style/TextView"
+                    android:text="联系电话" />
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    style="@style/TextViewWeight"
+                    android:text="18900025478" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/phone_1" />
+
+            </TableRow>
+
+
+            <View style="@style/dividerLine" />
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="备注信息"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/mainColor"
+            android:gravity="center"
+            android:text="提交装货磅单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+    </LinearLayout>
+</ScrollView>

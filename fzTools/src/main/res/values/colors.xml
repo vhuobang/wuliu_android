@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <!-- 白 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 一般字体黑色 -->
+    <color name="black_normal_color">#323232</color>
+    <!-- 列表字体浅黑色 -->
+    <color name="black_list_color">#666666</color>
+    <!-- 字体灰色 -->
+    <color name="gray_color">#999999</color>
+    <color name="gray">#ebeded</color>
+    <color name="gray2">#eeeeee</color>
+    <color name="dividing_gray">#d1d1d1</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucence">#1A000000</color>
+    <!--主色-->
+    <color name="mainColor">#E77E23</color>
+    <!--绿色-->
+    <color name="green">#68dbc4</color>
+    <!--蓝色-->
+    <color name="blue">#72b6eb</color>
+    <!--红色-->
+    <color name="red">#d80808</color>
+</resources>

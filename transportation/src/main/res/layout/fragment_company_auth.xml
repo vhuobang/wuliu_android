@@ -1,0 +1,252 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp">
+
+        <TableRow style="@style/TableRow">
+
+            <TextView
+                style="@style/TextView"
+                android:text="姓名" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入姓名" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/close" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:text="地址" />
+
+            <TextView
+                style="@style/TextViewWeight999"
+                android:hint="请选择" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/down_go" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:text="详细地址" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入详细的地址" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/close" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+
+                android:text="营业执照号" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入营业执照号" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/close" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="20dp"
+                android:text="经办人姓名" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入经办人姓名" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/close" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_marginRight="10dp"
+                android:text="经办人身份证号码" />
+
+            <EditText
+                style="@style/TextViewWeight999"
+                android:background="@null"
+                android:hint="请输入身份证号码" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/close" />
+
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/hz_sc" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:text="正面照"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_12" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="9dp"
+                    android:text="营业执照" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                 >
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/hz_sc" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:text="反面照"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_12" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="9dp"
+                    android:text="经办人手持营业执照" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <com.arkui.fz_tools.view.ShapeButton
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="45dp"
+        android:text="提交审核"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:buttonColor="@color/mainColor"
+        app:radius="10dp" />
+
+</LinearLayout>

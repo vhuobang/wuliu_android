@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@color/gray">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_bq" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:layout_weight="1"
+                    android:text="车主信息" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单号：451245786"
+                    android:textColor="@color/black_list_color"
+                    android:textSize="@dimen/sp_14" />
+
+            </LinearLayout>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="26dp"
+                    android:text="车主姓名"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="张三丰"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车主电话"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/phone_1" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="承运车辆"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="京Q5457X"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
+
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="预装数量" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:text="100吨" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="评星" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="13dp"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/custom_ratingbar_drawable_red"
+                        android:rating="3.5"
+                        android:stepSize="0.5" />
+
+                </LinearLayout>
+            </TableRow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_bq" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:text="装货动态" />
+
+            </LinearLayout>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装货时间" />
+
+                <EditText
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:hint="未填写" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装货净重" />
+
+                <EditText
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:hint="未填写" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0.5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装货磅单" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <ImageView
+                            android:layout_width="85dp"
+                            android:layout_height="60dp"
+                            android:src="@mipmap/sc" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="未上传"
+                            android:textColor="@color/gray_color"
+                            android:textSize="@dimen/sp_12" />
+
+                    </FrameLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_bq" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:text="卸货动态" />
+
+            </LinearLayout>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="卸货时间" />
+
+                <EditText
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:hint="未填写" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="卸货净重" />
+
+
+                <EditText
+                    android:id="@+id/editText4"
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:hint="未填写" />
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0.5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装货磅单" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/sc" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:text="未上传"
+                            android:textColor="@color/gray_color"
+                            android:textSize="@dimen/sp_12" />
+                    </FrameLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tr_wait_pay"
+                style="@style/TableRow"
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_payment_name"
+                    style="@style/TextView"
+                    android:text="待结算金额" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="未填写"
+                    android:text="￥1100.00"
+                    android:textColor="@color/red"
+                    android:textSize="15sp" />
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_owner_info"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_1"
+                android:gravity="center"
+                android:text="货主信息"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_cargo_info"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_2"
+                android:gravity="center"
+                android:text="货物信息"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_logistics_info"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_3"
+                android:gravity="center"
+                android:text="物流公司"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_driver_location"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_4"
+                android:gravity="center"
+                android:text="司机位置"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_pay_freight"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_4"
+                android:gravity="center"
+                android:text="支付运费"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_evaluate"
+                style="@style/TextView"
+                android:background="@mipmap/yundanbq_4"
+                android:gravity="center"
+                android:text="评价"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

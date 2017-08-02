@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_owner.activity.my.AddBankActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray2"
+        android:padding="10dp"
+        android:text="请绑定持卡人本人的银行卡"
+        android:textColor="@color/black_list_color" />
+
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            style="@style/TextView"
+            android:text="持卡人" />
+
+        <EditText
+            android:gravity="right"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="李三"
+            android:textColor="@color/gray_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="0.5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            style="@style/TextView"
+            android:text="卡号" />
+
+        <EditText
+            android:hint="请输入银行卡号"
+            android:textColorHint="@color/gray_color"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/gray_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="0.5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            style="@style/TextView"
+            android:text="手机号" />
+
+        <EditText
+            android:text="15600024214"
+            android:textColorHint="@color/gray_color"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textColor="@color/gray_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="0.5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            style="@style/TextView"
+            android:text="验证码" />
+
+        <EditText
+          android:hint="请输入验证码"
+            android:textColorHint="@color/gray_color"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:background="@null"
+            android:textColor="@color/gray_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <com.arkui.fz_tools.view.ShapeTextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="获取验证码"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            app:stroke="0.2dp"
+            app:radius="10dp"
+            app:buttonColor="@color/gray_color"
+            android:textColor="@color/red"/>
+
+    </LinearLayout>
+</LinearLayout>

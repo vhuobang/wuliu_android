@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_shipper.owner.activity.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:id="@+id/rg_root"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/navigation_msg"
+            android:gravity="center"
+            android:text="消息"
+            android:textColor="@color/black_list_color"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/rb_asset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/navigation_asset"
+            android:gravity="center"
+            android:text="资产"
+            android:textColor="@color/black_list_color"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/iv_publish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/find" />
+
+        <RadioButton
+            android:id="@+id/rb_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/navigation_order"
+            android:gravity="center"
+            android:text="运单"
+            android:textColor="@color/black_list_color"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/rb_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/navigation_my"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/black_list_color"
+            android:textSize="10sp" />
+
+    </RadioGroup>
+</LinearLayout>

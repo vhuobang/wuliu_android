@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.arkui.transportation_shipper">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".owner.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".owner.activity.MessageDetailsActivity" />
+        <activity android:name=".owner.activity.asset.VehicleDetailsActivity" />
+        <activity
+            android:name=".owner.activity.asset.ViewVehicleLargeMapActivity"
+            android:theme="@style/TransparentAppTheme" />
+        <activity android:name=".owner.activity.asset.VehicleEditedActivity" />
+        <activity android:name=".owner.activity.asset.DriverDetailActivity" />
+        <activity android:name=".owner.activity.asset.DriverEditActivity" />
+        <activity android:name=".owner.activity.asset.AddDriverActivity" />
+        <activity android:name=".owner.activity.supply.WaybillDetailActivity" />
+        <activity android:name=".owner.activity.supply.ConfirmOrderActivity" />
+        <activity android:name=".owner.activity.supply.PayMessageFeeActivity" />
+        <activity
+            android:name=".owner.activity.waybill.WaybillListDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity android:name=".owner.activity.waybill.OwnerInfoActivity" />
+        <activity android:name=".owner.activity.waybill.CargoInfoActivity" />
+        <activity android:name=".owner.activity.waybill.LogisticsInfoActivity" />
+        <activity android:name=".owner.activity.waybill.DriverLocationActivity" />
+        <activity android:name=".owner.activity.waybill.PublishEvaluateActivity" />
+        <activity android:name=".owner.activity.my.ContactServiceActivity" />
+        <activity android:name=".owner.activity.my.SettingActivity" />
+        <activity android:name=".owner.activity.my.AboutActivity" />
+        <activity android:name=".owner.activity.my.FeedbackActivity" />
+        <activity android:name=".owner.activity.my.MyProfileActivity" />
+        <activity android:name=".owner.activity.my.MyAvatarActivity" />
+        <activity android:name=".owner.activity.my.MyDataActivity" />
+        <activity android:name=".owner.activity.my.MyBalanceActivity" />
+        <activity android:name=".owner.activity.my.AccountRechargeActivity" />
+        <activity android:name=".owner.activity.my.RechargeSucceedActivity" />
+        <activity android:name=".owner.activity.my.DetailBillActivity" />
+        <activity android:name=".owner.activity.my.WithdrawActivity" />
+        <activity android:name=".owner.activity.my.WithdrawSucceedActivity" />
+        <activity android:name=".owner.activity.my.SelectBankCardActivity" />
+        <activity android:name=".owner.activity.my.AddBankActivity" />
+        <activity android:name=".owner.activity.my.MyPointActivity" />
+        <activity android:name=".owner.activity.my.PointWithdrawActivity" />
+        <activity android:name=".owner.activity.my.WithdrawRecordActivity" />
+        <activity android:name=".owner.activity.my.AuthActivity" />
+        <activity android:name=".common.activity.LoginActivity" />
+        <activity android:name=".common.activity.ForgetPasswordActivity" />
+        <activity android:name=".common.activity.PasswordResetActivity" />
+        <activity android:name=".common.activity.RegisterActivity" />
+        <activity android:name=".common.activity.ClauseActivity" />
+        <activity android:name=".common.activity.DriverLoginActivity" />
+        <activity android:name=".driver.activity.DriverMainActivity" />
+        <activity android:name=".driver.activity.waybill.DriverWaybillDetailActivity" />
+        <activity android:name=".driver.activity.waybill.LoadingBillActivity" />
+        <activity android:name=".driver.activity.waybill.DriverPoundBillDetailActivity" />
+        <activity android:name=".driver.activity.my.DriverAuthActivity" />
+        <activity android:name=".driver.activity.waybill.UnloadBillActivity" />
+        <activity android:name=".owner.activity.asset.AddVehicleActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_owner.activity.publish.PublishDeclareActivity">
+
+
+    <TextView
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/black_list_color"
+        android:padding="10dp"
+        android:text="1.发布货源时请确保货源的真实性 \n2.下边太长就不写了,反正以后这里肯定放个网页"
+        android:id="@+id/tv_content"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:text="同意声明并发布"
+       style="@style/TextViewCenter" />
+</LinearLayout>

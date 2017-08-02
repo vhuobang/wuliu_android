@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray">
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="货主姓名" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="张三丰" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tl_owner_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货主电话"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_phone" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tl_owner_time"
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="注册时长" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="2年" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tl_owner_number"
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="发货数量" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="125" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tl_ratingBar"
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="评星" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="13dp"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/custom_ratingbar_drawable_red"
+                        android:rating="3.5"
+                        android:stepSize="0.5" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="9dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装车开票人" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="吴建国" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_phone" />
+
+            </TableRow>
+
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="9dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_marginRight="26dp"
+                    android:text="卸车联系人" />
+
+                <TextView
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:hint="汪红旗" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15811145479"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_phone" />
+
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>

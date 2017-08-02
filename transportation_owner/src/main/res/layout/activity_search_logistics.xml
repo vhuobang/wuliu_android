@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_owner.activity.logistics.SearchLogisticsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/mainColor"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+
+        <com.arkui.fz_tools.view.ShapeEditText
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_city"
+            android:layout_toStartOf="@+id/tv_cancel"
+            android:drawableLeft="@mipmap/wuliu_ss"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号或物流公司名称"
+            android:paddingLeft="20dp"
+            android:textColorHint="@color/gray_color"
+            android:textSize="@dimen/sp_12"
+            app:buttonColor="@color/white"
+            app:radius="10dp" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="取消"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <com.arkui.fz_tools.view.PullRefreshRecyclerView
+        android:id="@+id/rl_list"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.arkui.fz_tools.view.PullRefreshRecyclerView
+        android:id="@+id/rl_search"
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:text="完成"
+        android:visibility="gone"
+        style="@style/TextViewCenter" />
+</LinearLayout>

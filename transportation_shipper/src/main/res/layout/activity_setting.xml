@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical"
+    tools:context="com.arkui.transportation_shipper.owner.activity.my.SettingActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp">
+
+
+        <TableRow
+            android:id="@+id/tl_about"
+            style="@style/TableRow">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_weight="1"
+                android:drawableRight="@mipmap/set_right"
+                android:text="关于我们" />
+
+        </TableRow>
+
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:drawableRight="@mipmap/set_right"
+                style="@style/TextView"
+                android:text="软件说明" />
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/tr_feedback"
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:drawableRight="@mipmap/set_right"
+                style="@style/TextView"
+                android:text="意见反馈" />
+
+        </TableRow>
+        <TableRow
+            style="@style/TableRow"
+            android:layout_marginTop="0.5dp">
+
+            <TextView
+                android:layout_weight="1"
+                style="@style/TextView"
+                android:text="版本信息" />
+
+            <TextView
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/gray_color"
+                android:text="2.1"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <com.arkui.fz_tools.view.ShapeButton
+        android:text="退出登录"
+        android:id="@+id/bt_out"
+        app:buttonColor="@color/mainColor"
+        app:radius="10dp"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/white"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+</LinearLayout>

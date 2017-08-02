@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray">
+
+    <com.arkui.fz_tools.view.ShapeLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:radius="2dp"
+        android:orientation="vertical"
+        app:buttonColor="@color/white">
+
+        <EditText
+            android:textColorHint="@color/gray_color"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:hint="请尽量详细描述反馈..."
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            style="@style/dividerLine"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+
+            <TextView
+                android:gravity="center"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/black_list_color"
+                android:text="手机号"
+                android:layout_width="85dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:background="@color/gray"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"/>
+
+
+                <EditText
+                    android:layout_marginLeft="20dp"
+                    android:textColorHint="@color/gray_color"
+                    android:hint="方便我们更快的向你反馈哦"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </com.arkui.fz_tools.view.ShapeLinearLayout>
+
+
+</LinearLayout>

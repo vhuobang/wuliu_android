@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginTop="9dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/circle_green"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/right"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="金域国际中心"
+                android:textSize="@dimen/sp_14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:drawableLeft="@drawable/circle_orange"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/right"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="廊坊市东海路321路"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@color/white">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物信息"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="甲醛/100吨/剩余40吨"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:src="@mipmap/sy_close" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物数量"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="20.2吨/升"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text="吨"
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物密度"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:text="20.2吨/升"
+                            android:textColor="@color/gray_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/tv_density"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:drawableRight="@mipmap/sy_down"
+                            android:text="吨"
+                            android:textColor="@color/black_normal_color"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费单价"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="100元/吨"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_freight_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text="元/吨"
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="货物单价"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="1000元/吨"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tv_cargo_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text="元/吨"
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="装车截止时间"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:id="@+id/ll_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2017-6-23"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text=""
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费支付方"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:id="@+id/ll_payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="甲醛/100吨/剩余40吨"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text=""
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结算时间"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:id="@+id/ll_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="7天内结算"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@mipmap/sy_down"
+                        android:text=""
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="压车费"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="100元"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:text="元"
+                        android:textColor="@color/black_normal_color"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="5dp" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="装车开票人"
+                    android:textColor="@color/black_normal_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="赵敏"
+                        android:textColor="@color/gray_color"
+                        android:textSize="@dimen/sp_14" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:src="@mipmap/sy_close" />
+                </LinearLayout>
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="装车联系电话" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        style="@style/TextViewWeight999"
+                        android:background="@null"
+                        android:text="15244478521" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:src="@mipmap/sy_close" />
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="5dp" />
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/TextView"
+                    android:text="卸车联系人" />
+
+                <EditText
+                    style="@style/TextViewWeight999"
+                    android:background="@null"
+                    android:text="张无忌" />
+            </TableRow>
+
+            <View style="@style/dividerLine" />
+
+            <TableRow style="@style/TableRow">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="卸车联系电话" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        style="@style/TextViewWeight999"
+                        android:background="@null"
+                        android:text="15244478521" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="5dp"
+                        android:src="@mipmap/sy_close" />
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                style="@style/dividerLine"
+                android:layout_height="5dp" />
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_selected_1"
+                    android:layout_width="70dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/selected_text_bg"
+                    android:gravity="center"
+                    android:text="随时装货"
+                    android:textColor="@drawable/selected_text"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tv_selected_2"
+                    android:layout_width="70dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/selected_text_bg"
+                    android:gravity="center"
+                    android:text="罐车"
+                    android:textColor="@drawable/selected_text"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <com.arkui.fz_tools.view.ShapeEditText
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_gravity="top"
+                android:layout_marginTop="15dp"
+                android:gravity="top"
+                android:padding="10dp"
+                android:text="尽快装货，减少货物亏损；尽快装货，减少货物亏损"
+                android:textColor="@color/gray_color"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/sp_14"
+                app:buttonColor="@color/black_list_color"
+                app:stroke="0.2dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:background="@color/mainColor"
+                android:gravity="center"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/tv_publish"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:gravity="center"
+                android:text="立即发布"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
