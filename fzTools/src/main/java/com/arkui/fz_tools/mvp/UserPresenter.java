@@ -79,7 +79,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 //注册失败
-                Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -96,6 +96,12 @@ public class UserPresenter extends BasePresenter<UserModel> {
         VerifyDao.getInstance().sendVer(mContext, mMobile, mVerificationCode, new ResultCallBack() {
             @Override
             public void onSuccess(JsonData data) {
+
+            }
+
+            @Override
+            public void onSuccess(String string) {
+                super.onSuccess(string);
                 Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
             }
         });
