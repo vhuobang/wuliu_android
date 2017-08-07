@@ -1,6 +1,5 @@
 package com.arkui.transportation_shipper.owner.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
-import com.arkui.transportation_shipper.owner.activity.MessageDetailsActivity;
-import com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity;
 import com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.OrderMessageAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,12 +23,12 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class OrderFragment extends BaseFragment implements  EasyRefreshLayout.EasyEvent {
+public class OrderFragment extends BaseFragment implements OnRefreshListener {
 
     @BindView(R.id.rl_order)
     PullRefreshRecyclerView mRlOrder;
-   // @BindView(R.id.refresh)
-   // EasyRefreshLayout mRefresh;
+    // @BindView(R.id.refresh)
+    // EasyRefreshLayout mRefresh;
     private OrderMessageAdapter mOrderMessageAdapter;
 
     @Override
@@ -45,7 +43,7 @@ public class OrderFragment extends BaseFragment implements  EasyRefreshLayout.Ea
         mRlOrder.setLayoutManager(new LinearLayoutManager(mContext));
         mOrderMessageAdapter = new OrderMessageAdapter();
         mRlOrder.setAdapter(mOrderMessageAdapter);
-        mRlOrder.addEasyEvent(this);
+        mRlOrder.setOnRefreshListener(this);
 
         //mRlOrder.autoRefresh();
         mRlOrder.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
@@ -73,12 +71,16 @@ public class OrderFragment extends BaseFragment implements  EasyRefreshLayout.Ea
                 mOrderMessageAdapter.addData("车辆已装货");
                 mRlOrder.refreshComplete();
             }
-        },2000);
+        }, 2000);
 
     }
 
-    @Override
     public void onRefreshing() {
         onRefresh();
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

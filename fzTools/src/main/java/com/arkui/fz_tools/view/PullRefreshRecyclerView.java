@@ -14,8 +14,9 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.R;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 /**
  * Created by nmliz on 2017/6/20.
@@ -24,7 +25,7 @@ import com.arkui.fz_tools.R;
 public class PullRefreshRecyclerView extends FrameLayout {
 
     private ViewStub mProgress;
-    private EasyRefreshLayout mPtrLayout;
+    private SmartRefreshLayout mPtrLayout;
     private ViewStub mEmpty;
     private RecyclerView mRecycler;
     private ImageView mIvProgress;
@@ -47,7 +48,10 @@ public class PullRefreshRecyclerView extends FrameLayout {
 
     private void initView() {
         View v = LayoutInflater.from(getContext()).inflate(R.layout.view_progress_recycler, this);
-        mPtrLayout = (EasyRefreshLayout) v.findViewById(R.id.ptr_layout);
+        mPtrLayout = (SmartRefreshLayout) v.findViewById(R.id.ptr_layout);
+        mPtrLayout.setRefreshHeader(new RefreshHeaderView(getContext()));
+        mPtrLayout.setHeaderHeight(70);
+
         mRecycler = (RecyclerView) v.findViewById(R.id.recycler);
 
         mProgress = (ViewStub) v.findViewById(android.R.id.progress);
@@ -98,12 +102,12 @@ public class PullRefreshRecyclerView extends FrameLayout {
         mRecycler.addItemDecoration(decor);
     }
 
-    public void addEasyEvent(EasyRefreshLayout.EasyEvent event) {
-        mPtrLayout.addEasyEvent(event);
+    public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
+        mPtrLayout.setOnRefreshListener(onRefreshListener);
     }
 
     public void refreshComplete() {
-        mPtrLayout.refreshComplete();
+        mPtrLayout.finishRefresh();
     }
 
     public void autoRefresh() {
@@ -112,8 +116,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
 
     //开启或关闭下拉刷新
     public void setEnablePullToRefresh(boolean enable) {
-        mPtrLayout.setEnablePullToRefresh(enable);
-
+        mPtrLayout.setEnableRefresh(enable);
     }
 
     public void setRecyclerBackgroundColor(int color){

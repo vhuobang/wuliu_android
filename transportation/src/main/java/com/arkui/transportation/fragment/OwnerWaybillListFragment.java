@@ -19,6 +19,7 @@ import com.arkui.transportation.listener.TextAdapter;
 import com.arkui.transportation.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +78,6 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<String> {
         return ownerWaybillListFragment;
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -99,5 +99,10 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<String> {
                 break;
         }
         helper.addOnClickListener(R.id.ll_location);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

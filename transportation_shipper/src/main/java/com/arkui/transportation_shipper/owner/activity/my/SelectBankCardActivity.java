@@ -2,7 +2,6 @@ package com.arkui.transportation_shipper.owner.activity.my;
 
 import android.os.Handler;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
@@ -10,12 +9,14 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class SelectBankCardActivity extends BaseActivity implements OnBindViewHolderListener<String>,EasyRefreshLayout.EasyEvent {
+public class SelectBankCardActivity extends BaseActivity implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_bank)
     PullRefreshRecyclerView mRlBank;
@@ -36,7 +37,7 @@ public class SelectBankCardActivity extends BaseActivity implements OnBindViewHo
 
         mSelectBankCardAdapter = CommonAdapter.getInstance(R.layout.item_select_bank,this);
         mRlBank.setAdapter(mSelectBankCardAdapter);
-        mRlBank.addEasyEvent(this);
+        mRlBank.setOnRefreshListener(this);
 
         onRefreshing();
     }
@@ -46,7 +47,6 @@ public class SelectBankCardActivity extends BaseActivity implements OnBindViewHo
 
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -57,5 +57,10 @@ public class SelectBankCardActivity extends BaseActivity implements OnBindViewHo
                 mRlBank.refreshComplete();
             }
         },500);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

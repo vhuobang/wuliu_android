@@ -3,13 +3,10 @@ package com.arkui.transportation_shipper.owner.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
-import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
@@ -19,6 +16,8 @@ import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +26,7 @@ import butterknife.ButterKnife;
  * 基于基类的Fragment
  */
 
-public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>, EasyRefreshLayout.EasyEvent {
+public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_waybill)
     PullRefreshRecyclerView mRlWaybill;
@@ -44,7 +43,7 @@ public class WaybillListFragment extends BaseLazyFragment implements OnBindViewH
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mWaybillListAdapter = CommonAdapter.getInstance(R.layout.item_waybill, this);
-        mRlWaybill.addEasyEvent(this);
+        mRlWaybill.setOnRefreshListener(this);
         mRlWaybill.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         mRlWaybill.setLinearLayoutManager();
         mRlWaybill.setAdapter(mWaybillListAdapter);
@@ -79,7 +78,6 @@ public class WaybillListFragment extends BaseLazyFragment implements OnBindViewH
         }
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -106,4 +104,8 @@ public class WaybillListFragment extends BaseLazyFragment implements OnBindViewH
         return waybillListFragment;
     }
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
+    }
 }

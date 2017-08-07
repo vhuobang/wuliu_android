@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.dialog.AddressPicker;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.City;
@@ -21,6 +20,8 @@ import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.arkui.transportation_shipper.owner.utils.LoadCityData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 基于基类的Fragment
  */
-public class SupplyFragment extends BaseFragment implements OnBindViewHolderListener<String>, EasyRefreshLayout.EasyEvent, BaseQuickAdapter.OnItemClickListener {
+public class SupplyFragment extends BaseFragment implements OnBindViewHolderListener<String>, BaseQuickAdapter.OnItemClickListener, OnRefreshListener {
 
     @BindView(R.id.rl_supply)
     PullRefreshRecyclerView mRlSupply;
@@ -56,7 +57,7 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         mRlSupply.setAdapter(mSupplyAdapter);
         mRlSupply.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         onRefreshing();
-        mRlSupply.addEasyEvent(this);
+        mRlSupply.setOnRefreshListener(this);
         mSupplyAdapter.setOnItemClickListener(this);
         initDialog();
     }
@@ -122,7 +123,6 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         }
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -148,5 +148,10 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         showActivity(WaybillDetailActivity.class);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

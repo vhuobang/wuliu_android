@@ -54,10 +54,7 @@ public class MyInfoFeeActivity extends BaseListActivity<String> {
         onRefreshing();
     }
 
-    @Override
     public void onRefreshing() {
-        super.onRefreshing();
-
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 mCommonAdapter.addData("积分更新啦！");

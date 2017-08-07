@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <com.ajguan.library.EasyRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/ptr_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:visibility="invisible" />
 
-    </com.ajguan.library.EasyRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <ViewStub
         android:id="@+id/empty"

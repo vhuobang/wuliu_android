@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
@@ -14,6 +13,8 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.owner.activity.asset.VehicleDetailsActivity;
 import com.arkui.transportation_shipper.owner.adapter.VehicleManageAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
  * 基于基类的Fragment
  * 车辆管理
  */
-public class VehicleManageFragment extends BaseFragment implements EasyRefreshLayout.EasyEvent, BaseQuickAdapter.OnItemClickListener {
+public class VehicleManageFragment extends BaseFragment implements  BaseQuickAdapter.OnItemClickListener, OnRefreshListener {
 
     @BindView(R.id.rl_vehicle)
     PullRefreshRecyclerView mRlVehicle;
@@ -43,12 +44,11 @@ public class VehicleManageFragment extends BaseFragment implements EasyRefreshLa
         mVehicleManageAdapter.setOnItemClickListener(this);
 
         mRlVehicle.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        mRlVehicle.addEasyEvent(this);
+        mRlVehicle.setOnRefreshListener(this);
         onRefreshing();
     }
 
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -64,5 +64,10 @@ public class VehicleManageFragment extends BaseFragment implements EasyRefreshLa
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         showActivity(VehicleDetailsActivity.class);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

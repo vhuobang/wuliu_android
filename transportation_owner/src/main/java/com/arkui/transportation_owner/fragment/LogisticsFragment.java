@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.transportation_owner.activity.logistics.CityPickerActivity;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
@@ -21,6 +20,8 @@ import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.transportation_owner.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 /**
  * 物流
  */
-public class LogisticsFragment extends BaseFragment implements OnBindViewHolderListener<String>,EasyRefreshLayout.EasyEvent {
+public class LogisticsFragment extends BaseFragment implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.tv_city)
     TextView mTvCity;
@@ -50,7 +51,7 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         mLogisticsAdapter = new CommonAdapter<>(R.layout.item_logistics,this);
         mRlList.setLinearLayoutManager();
         mRlList.setAdapter(mLogisticsAdapter);
-        mRlList.addEasyEvent(this);
+        mRlList.setOnRefreshListener(this);
         mRlList.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
 
         mLogisticsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -88,7 +89,6 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         helper.addOnClickListener(R.id.iv_head);
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable(){
             public void run() {
@@ -97,5 +97,10 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
             }
         }, 1000);
 
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

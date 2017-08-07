@@ -10,6 +10,7 @@ import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.my.AuthActivity;
 import com.arkui.transportation.activity.my.ContactServiceActivity;
+import com.arkui.transportation.activity.my.InviteFriendActivity;
 import com.arkui.transportation.activity.my.MyBalanceActivity;
 import com.arkui.transportation.activity.my.MyInfoFeeActivity;
 import com.arkui.transportation.activity.my.MyPointActivity;
@@ -48,7 +49,8 @@ public class MyFragment extends BaseFragment {
                 showActivity(MyPointActivity.class);
                 break;
             case R.id.ll_share:
-                mShareDialog.show(getChildFragmentManager(), "share");
+                //mShareDialog.show(getChildFragmentManager(), "share");
+                showActivity(InviteFriendActivity.class);
                 break;
             case R.id.ll_service:
                 showActivity(ContactServiceActivity.class);

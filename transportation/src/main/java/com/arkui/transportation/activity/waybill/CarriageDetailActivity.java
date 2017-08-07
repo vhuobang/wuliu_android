@@ -3,7 +3,6 @@ package com.arkui.transportation.activity.waybill;
 import android.os.Handler;
 import android.view.View;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
@@ -13,13 +12,15 @@ import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.utils.ListData;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class CarriageDetailActivity extends BaseActivity implements  EasyRefreshLayout.EasyEvent, OnBindViewHolderListener<String> {
+public class CarriageDetailActivity extends BaseActivity implements  OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
@@ -43,7 +44,7 @@ public class CarriageDetailActivity extends BaseActivity implements  EasyRefresh
 
         mCarriageDetailAdapter = new CommonAdapter<>(R.layout.item_carriage_detail, this);
 
-        mRlList.addEasyEvent(this);
+        mRlList.setOnRefreshListener(this);
         mRlList.setAdapter(mCarriageDetailAdapter);
 
         View mCarriageHeaderView = getLayoutInflater().inflate(R.layout.layout_carriage_header, mRlList, false);
@@ -61,7 +62,6 @@ public class CarriageDetailActivity extends BaseActivity implements  EasyRefresh
         showActivity(EditPlanPublishDetailActivity.class);
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -80,5 +80,10 @@ public class CarriageDetailActivity extends BaseActivity implements  EasyRefresh
     @Override
     public void convert(BaseViewHolder helper, String item) {
 
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

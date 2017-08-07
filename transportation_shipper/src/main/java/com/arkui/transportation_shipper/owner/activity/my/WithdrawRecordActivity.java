@@ -2,7 +2,6 @@ package com.arkui.transportation_shipper.owner.activity.my;
 
 import android.os.Handler;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.utils.DividerItemDecoration2;
@@ -11,12 +10,14 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHolderListener<String>,EasyRefreshLayout.EasyEvent {
+public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_record)
     PullRefreshRecyclerView mRlRecord;
@@ -37,7 +38,7 @@ public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHo
         mWithdrawRecord = CommonAdapter.getInstance(R.layout.item_withdraw_record,this);
         mRlRecord.setAdapter(mWithdrawRecord);
         mRlRecord.addItemDecoration(new DividerItemDecoration2(mActivity,DividerItemDecoration.VERTICAL_LIST));
-        mRlRecord.addEasyEvent(this);
+        mRlRecord.setOnRefreshListener(this);
         mRlRecord.setEnablePullToRefresh(false);
         onRefreshing();
     }
@@ -47,7 +48,6 @@ public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHo
 
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -58,5 +58,10 @@ public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHo
                 mRlRecord.refreshComplete();
             }
         },500);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+
     }
 }

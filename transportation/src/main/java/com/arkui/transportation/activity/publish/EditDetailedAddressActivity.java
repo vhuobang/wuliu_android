@@ -45,7 +45,6 @@ public class EditDetailedAddressActivity extends BaseListActivity<String> {
         finish();
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable(){
             public void run() {

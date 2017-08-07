@@ -46,9 +46,7 @@ public class SelectLogisticsActivity extends BaseListActivity<String> {
         onRefreshing();
     }
 
-    @Override
     public void onRefreshing() {
-        super.onRefreshing();
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 mCommonAdapter.addData(ListData.getTestData(""));

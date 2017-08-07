@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
@@ -20,6 +19,8 @@ import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.transportation_owner.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class WaybillListFragment extends BaseLazyFragment implements EasyRefreshLayout.EasyEvent, OnBindViewHolderListener<String> {
+public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
@@ -45,7 +46,7 @@ public class WaybillListFragment extends BaseLazyFragment implements EasyRefresh
         ButterKnife.bind(this, parentView);
 
         mRlList.setLinearLayoutManager();
-        mRlList.addEasyEvent(this);
+        mRlList.setOnRefreshListener(this);
         mType = getArguments().getInt("type");
 
         switch (mType) {
@@ -106,7 +107,6 @@ public class WaybillListFragment extends BaseLazyFragment implements EasyRefresh
         return waybillListFragment;
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -146,5 +146,10 @@ public class WaybillListFragment extends BaseLazyFragment implements EasyRefresh
         }
 
         helper.addOnClickListener(R.id.ll_location);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

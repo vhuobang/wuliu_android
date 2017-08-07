@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.ui.BaseActivity;
@@ -19,13 +18,15 @@ import com.arkui.transportation_owner.activity.logistics.SearchLogisticsActivity
 import com.arkui.transportation_owner.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LogisticsListActivity extends BaseActivity implements OnBindViewHolderListener<String>, EasyRefreshLayout.EasyEvent {
+public class LogisticsListActivity extends BaseActivity implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.tv_city)
     TextView mTvCity;
@@ -46,7 +47,7 @@ public class LogisticsListActivity extends BaseActivity implements OnBindViewHol
         mLogisticsAdapter = new CommonAdapter<>(R.layout.item_logistics, this);
         mRlList.setLinearLayoutManager();
         mRlList.setAdapter(mLogisticsAdapter);
-        mRlList.addEasyEvent(this);
+        mRlList.setOnRefreshListener(this);
         mRlList.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL_LIST));
 
         mLogisticsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -86,7 +87,6 @@ public class LogisticsListActivity extends BaseActivity implements OnBindViewHol
         helper.addOnClickListener(R.id.iv_head);
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -100,5 +100,10 @@ public class LogisticsListActivity extends BaseActivity implements OnBindViewHol
     @OnClick(R.id.tv_next)
     public void onClick() {
         showActivity(PublishDeclareActivity.class);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

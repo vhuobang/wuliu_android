@@ -6,17 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.transportation_shipper.owner.activity.asset.DriverDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.DriverManageAdapter;
-import com.arkui.transportation_shipper.owner.adapter.VehicleManageAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * 基于基类的Fragment
  * 司机管理
  */
-public class DriverManageFragment extends BaseFragment implements EasyRefreshLayout.EasyEvent, BaseQuickAdapter.OnItemClickListener, OnBindViewHolderListener<String> {
+public class DriverManageFragment extends BaseFragment implements  BaseQuickAdapter.OnItemClickListener, OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_driver)
     PullRefreshRecyclerView mRlVehicle;
@@ -46,14 +46,13 @@ public class DriverManageFragment extends BaseFragment implements EasyRefreshLay
         mRlVehicle.setAdapter(mDriverManageAdapter);
 
         mRlVehicle.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        mRlVehicle.addEasyEvent(this);
+        mRlVehicle.setOnRefreshListener(this);
 
         mDriverManageAdapter.setOnItemClickListener(this);
 
         onRefreshing();
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -79,5 +78,10 @@ public class DriverManageFragment extends BaseFragment implements EasyRefreshLay
     @Override
     public void convert(BaseViewHolder helper, String item) {
         helper.setText(R.id.tv_content,"1532222214578 出车数：236");
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

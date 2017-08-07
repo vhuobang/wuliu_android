@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.ui.BaseActivity;
@@ -17,13 +16,15 @@ import com.arkui.transportation_owner.activity.publish.PublishDeclareActivity;
 import com.arkui.transportation_owner.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SearchLogisticsActivity extends BaseActivity<String> implements EasyRefreshLayout.EasyEvent, OnBindViewHolderListener<String> {
+public class SearchLogisticsActivity extends BaseActivity<String> implements  OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
@@ -69,7 +70,7 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements Eas
         mLogisticsAdapter = new CommonAdapter<>(R.layout.item_logistics, this);
         mRlSearch.setLinearLayoutManager();
         mRlSearch.setAdapter(mLogisticsAdapter);
-        mRlSearch.addEasyEvent(this);
+        mRlSearch.setOnRefreshListener(this);
         mRlSearch.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL_LIST));
 
         mLogisticsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -103,7 +104,6 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements Eas
         }
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -117,5 +117,10 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements Eas
     @Override
     public void convert(BaseViewHolder helper, String item) {
 
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

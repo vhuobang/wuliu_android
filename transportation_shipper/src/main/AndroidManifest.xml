@@ -2,7 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arkui.transportation_shipper">
 
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
+        android:name=".common.base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -67,7 +81,29 @@
         <activity android:name=".driver.activity.waybill.DriverPoundBillDetailActivity" />
         <activity android:name=".driver.activity.my.DriverAuthActivity" />
         <activity android:name=".driver.activity.waybill.UnloadBillActivity" />
-        <activity android:name=".owner.activity.asset.AddVehicleActivity"></activity>
+        <activity android:name=".owner.activity.asset.AddVehicleActivity" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="b727e798a88da5e186fa8a88e789ba32" />
+
+        <activity android:name=".owner.activity.my.InviteFriendActivity"/>
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1106145523" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.arkui.share.wxapi.WXEntryActivity"/>
+        <activity-alias
+            android:name="com.arkui.transportation_shipper.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.arkui.share.wxapi.WXEntryActivity" />
     </application>
 
 </manifest>

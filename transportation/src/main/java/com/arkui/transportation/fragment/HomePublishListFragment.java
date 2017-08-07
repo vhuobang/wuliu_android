@@ -18,6 +18,7 @@ import com.arkui.transportation.activity.home.SupplyDetailActivity;
 import com.arkui.transportation.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +88,6 @@ public class HomePublishListFragment extends BaseListLazyFragment<String> {
 
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable(){
             public void run() {
@@ -95,5 +95,10 @@ public class HomePublishListFragment extends BaseListLazyFragment<String> {
                 mRlList.refreshComplete();
             }
         }, 300);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

@@ -7,17 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.driver.activity.waybill.DriverWaybillDetailActivity;
-import com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * 基于基类的Fragment
  */
 
-public class DriverWaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>, EasyRefreshLayout.EasyEvent {
+public class DriverWaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>,OnRefreshListener {
 
     @BindView(R.id.rl_waybill)
     PullRefreshRecyclerView mRlWaybill;
@@ -42,7 +42,7 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mWaybillListAdapter = CommonAdapter.getInstance(R.layout.item_driver_waybill, this);
-        mRlWaybill.addEasyEvent(this);
+        mRlWaybill.setOnRefreshListener(this);
         mRlWaybill.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         mRlWaybill.setLinearLayoutManager();
         mRlWaybill.setAdapter(mWaybillListAdapter);
@@ -64,7 +64,6 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
     public void convert(BaseViewHolder helper, String item) {
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -91,4 +90,8 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
         return waybillListFragment;
     }
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
+    }
 }

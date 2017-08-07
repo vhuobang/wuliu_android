@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/yqoqing" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:src="@mipmap/qr_cord" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="面对面邀请好友\n扫一扫"
+        android:textSize="@dimen/sp_13" />
+
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:background="@color/white"
+            android:text="我的邀请码"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/black_list_color"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
+        <TextView
+            android:paddingLeft="18dp"
+            android:gravity="center|left"
+            android:background="@color/white"
+            android:text="265Lnuw"
+            android:layout_weight="1"
+            android:textSize="@dimen/sp_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:background="@color/mainColor"
+            android:text="复制"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/white"
+            android:layout_width="75dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已邀请"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="位好友"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/yq_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="查看受邀好友列表"
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/sp_13" />
+    </LinearLayout>
+
+    <View
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_weight="1"
+            android:background="#adadad"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="@dimen/sp_14"
+            android:layout_width="wrap_content"
+            android:text="分享到"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_weight="1"
+            android:background="#adadad"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_wx"
+            android:src="@mipmap/weixin"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/iv_qq"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:src="@mipmap/qq"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:id="@+id/iv_wx_circle"
+            android:src="@mipmap/pyq"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</LinearLayout>

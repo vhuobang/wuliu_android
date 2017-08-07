@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.arkui.transportation_owner.activity.user.RegisterActivity">
+    android:orientation="vertical">
 
     <com.arkui.fz_tools.view.ShapeEditText
         android:id="@+id/et_phone"
@@ -123,13 +122,33 @@
         app:radius="10dp"
         app:stroke="0.2dp" />
 
-
+    <com.arkui.fz_tools.view.ShapeEditText
+        android:layout_below="@+id/et_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/et_invite"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@null"
+        android:drawableLeft="@mipmap/register_qrcode"
+        android:drawablePadding="10dp"
+        android:hint="输入邀请码（可不填）"
+        android:inputType="textPassword"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:singleLine="true"
+        android:textColorHint="@color/gray_color"
+        android:textSize="@dimen/sp_14"
+        app:buttonColor="@color/black_list_color"
+        app:radius="10dp"
+        app:stroke="0.2dp" />
     <com.arkui.fz_tools.view.ShapeButton
 
         android:id="@+id/bt_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_confirm_password"
+        android:layout_below="@+id/et_invite"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="90dp"
@@ -156,6 +175,8 @@
             android:textSize="@dimen/sp_13" />
 
         <CheckBox
+            android:padding="3dp"
+            android:button="@drawable/register_checkbox_style"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/tv_clause"
             android:layout_width="wrap_content"
@@ -168,7 +189,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="5dp"
             android:text="免责声明"
             android:textSize="@dimen/sp_13" />
     </RelativeLayout>

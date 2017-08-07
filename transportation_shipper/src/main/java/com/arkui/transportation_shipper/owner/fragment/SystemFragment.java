@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
@@ -16,6 +15,8 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.owner.activity.MessageDetailsActivity;
 import com.arkui.transportation_shipper.owner.adapter.SystemMessageAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * 系统消息
  */
-public class SystemFragment extends BaseFragment implements EasyRefreshLayout.EasyEvent {
+public class SystemFragment extends BaseFragment implements OnRefreshListener {
 
     @BindView(R.id.rl_system)
     PullRefreshRecyclerView mRlSystem;
@@ -40,7 +41,7 @@ public class SystemFragment extends BaseFragment implements EasyRefreshLayout.Ea
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
-        mRlSystem.addEasyEvent(this);
+        mRlSystem.setOnRefreshListener(this);
         mAdapter = new SystemMessageAdapter();
         mRlSystem.setLayoutManager(new LinearLayoutManager(mContext));
         mRlSystem.setAdapter(mAdapter);
@@ -57,7 +58,6 @@ public class SystemFragment extends BaseFragment implements EasyRefreshLayout.Ea
         onRefreshing();
     }
 
-    @Override
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -68,5 +68,10 @@ public class SystemFragment extends BaseFragment implements EasyRefreshLayout.Ea
                 mRlSystem.refreshComplete();
             }
         }, 2000);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        onRefreshing();
     }
 }

@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.arkui.fz_tools.R;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
@@ -50,13 +49,16 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
        // SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
        // SystemBarHelper.setStatusBarDarkMode(this);
         initView();
+        initView(savedInstanceState);
         initData();
     }
 
     public void initView() {
 
     }
+    public void initView(Bundle savedInstanceState) {
 
+    }
 
     /**
      * 设置root界面

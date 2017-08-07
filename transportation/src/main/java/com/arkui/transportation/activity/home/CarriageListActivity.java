@@ -9,6 +9,7 @@ import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.utils.ListData;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,12 +34,11 @@ public class CarriageListActivity extends BaseListActivity<String> {
 
         mCommonAdapter = initAdapter(mRlList, R.layout.item_carriage_list);
         mRlList.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL_LIST));
-        onRefreshing();
+        onRefresh(null);
     }
 
     @Override
-    public void onRefreshing() {
-        super.onRefreshing();
+    public void onRefresh(RefreshLayout refreshlayout) {
         new Handler().postDelayed(new Runnable(){
             public void run() {
                 mCommonAdapter.addData(ListData.getTestData(""));
@@ -46,4 +46,10 @@ public class CarriageListActivity extends BaseListActivity<String> {
             }
         }, 300);
     }
+
+    /* @Override
+    public void onRefreshing(RefreshLayout refreshLayout) {
+        super.onRefreshing(refreshLayout);
+
+    }*/
 }
