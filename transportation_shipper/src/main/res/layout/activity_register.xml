@@ -19,6 +19,7 @@
         android:drawablePadding="10dp"
         android:hint="请输入您的手机号"
         android:inputType="phone"
+        android:maxLength="11"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:singleLine="true"
@@ -51,12 +52,15 @@
 
 
         <EditText
+            android:id="@+id/et_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@null"
             android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="6"
             android:maxLines="1"
             android:singleLine="true"
             android:textColorHint="@color/gray_color"
@@ -72,6 +76,7 @@
             android:background="@color/gray" />
 
         <TextView
+            android:id="@+id/tv_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="获取验证码"
@@ -168,6 +173,7 @@
         android:layout_marginRight="30dp">
 
         <TextView
+            android:id="@+id/tv_back_login"
             android:layout_centerVertical="true"
             android:textColor="@color/gray_color"
             android:layout_width="wrap_content"
@@ -177,6 +183,7 @@
             android:textSize="@dimen/sp_13" />
 
         <CheckBox
+            android:id="@+id/checkbox"
             android:padding="3dp"
             android:button="@drawable/register_checkbox_style"
             android:layout_centerVertical="true"
