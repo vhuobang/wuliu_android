@@ -90,18 +90,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
         timeCountUtil.start();
         mMobile=mobile;
         mVerificationCode = (int) ((Math.random() * 9 + 1) * 100000);
-        VerifyDao.getInstance().sendVer(mContext, mMobile, mVerificationCode, new ResultCallBack() {
-            @Override
-            public void onSuccess(JsonData data) {
-
-            }
-
-            @Override
-            public void onSuccess(String string) {
-                super.onSuccess(string);
-                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mModel.getCode(mobile,mVerificationCode,mContext);
     }
 
 }
