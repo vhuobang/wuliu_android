@@ -13,16 +13,15 @@ import android.widget.TextView;
 public class TimeCountUtil extends CountDownTimer {
  
 	private View view;// 按钮
-	public TimeCountUtil(Activity mActivity, long millisInFuture,
-			long countDownInterval, View view) {
-		super(millisInFuture, countDownInterval);
+	public TimeCountUtil(View view) {
+		super(1000*60,1000 );
 		this.view = view;
 	}
 
 	@Override
 	public void onTick(long millisUntilFinished) {
 		view.setClickable(false); // 设置不能点击。
-		((TextView) view).setText(millisUntilFinished / 1000 + "秒后可重发"); // 设置倒计时时间。
+		((TextView) view).setText(millisUntilFinished / 1000 + "S后重新发送"); // 设置倒计时时间。
 
 	}
 

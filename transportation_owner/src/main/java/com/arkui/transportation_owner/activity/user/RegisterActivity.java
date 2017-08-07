@@ -1,19 +1,17 @@
 package com.arkui.transportation_owner.activity.user;
 
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arkui.fz_tools.model.Constants;
-import com.arkui.fz_tools.model.UserPresenter;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserInterface;
 import com.arkui.fz_tools.mvp.UserModel;
+import com.arkui.fz_tools.mvp.UserPresenter;
+import com.arkui.fz_tools.utils.TimeCountUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.fz_tools.view.ShapeEditText;
-import com.arkui.fz_tools.view.ShapeLinearLayout;
 import com.arkui.transportation_owner.R;
 
 import butterknife.BindView;
@@ -37,6 +35,9 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
     ShapeButton mBtRegister;
     @BindView(R.id.tv_clause)
     TextView mTvClause;
+    TimeCountUtil mTimeCountUtil;
+    @BindView(R.id.tv_code)
+    TextView mTvCode;
 
     @Override
     public void setRootView() {
@@ -48,9 +49,10 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        mTimeCountUtil = new TimeCountUtil( mTvCode);
     }
 
-    @OnClick({R.id.bt_register, R.id.tv_clause})
+    @OnClick({R.id.bt_register, R.id.tv_clause, R.id.tv_code})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_register:
@@ -60,6 +62,10 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
             case R.id.tv_clause:
                 showActivity(ClauseActivity.class);
                 break;
+            case R.id.tv_code:
+                //获取验证码
+                mPresenter.getCode(mEtPhone.getText().toString().trim(),mTimeCountUtil);
+                break;
         }
     }
 
@@ -68,17 +74,19 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
         String newPasswordText = mEtNewPassword.getText().toString().trim();
         String confirmPasswordText = mEtConfirmPassword.getText().toString().trim();
         String invite = mEtInvite.getText().toString().trim();
-        mPresenter.getRegister(phoneText,newPasswordText,confirmPasswordText, Constants.OWNER,invite);
+        String code = mEtCode.getText().toString();
+        mPresenter.getRegister(phoneText, code, newPasswordText, confirmPasswordText, Constants.OWNER, invite);
     }
 
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this,mModel);
+        mPresenter.setUserInterface(this, mModel);
     }
 
-    //操作成功
+    //登录 操作成功
     @Override
     public void onSucceed() {
-
+        // showActivity(LoginActivity.class);
+        finish();
     }
 }
