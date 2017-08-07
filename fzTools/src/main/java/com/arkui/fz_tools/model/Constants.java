@@ -2,6 +2,7 @@ package com.arkui.fz_tools.model;
 
 /**
  * Created by nmliz on 2016/6/16.
+ * 常量类
  */
 public class Constants {
     /***********************
@@ -32,4 +33,9 @@ public class Constants {
     public static final String END_TIME="end_time";
     //时间戳格式
     public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
+    //身份类别 1、货主；2、物流；3、车主；4、司机
+    public static final int OWNER=1;
+    public static final int LOGISTICS=2;
+    public static final int CAR_OWNER=3;
+
 }

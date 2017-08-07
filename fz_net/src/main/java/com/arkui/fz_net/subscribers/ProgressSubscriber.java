@@ -23,7 +23,7 @@ import io.reactivex.disposables.Disposable;
  * 调用者自己对请求数据进行处理
  * Created by liukun on 16/3/10.
  */
-public abstract class ProgressSubscriber<T> implements ProgressCancelListener, SubscriberOnNextListener ,Observer {
+public abstract class ProgressSubscriber<T> implements ProgressCancelListener, SubscriberOnNextListener ,Observer<T> {
 
     private ProgressDialogHandler mProgressDialogHandler;
 
