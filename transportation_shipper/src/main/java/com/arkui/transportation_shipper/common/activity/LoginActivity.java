@@ -25,7 +25,7 @@ public class LoginActivity extends BaseActivity {
         SystemBarHelper.setStatusBarDarkMode(this);
     }
 
-    @OnClick({R.id.bt_login, R.id.tv_forget, R.id.tv_register,R.id.tv_driver_login})
+    @OnClick({R.id.bt_login, R.id.tv_forget, R.id.tv_register, R.id.tv_driver_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
