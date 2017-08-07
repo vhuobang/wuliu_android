@@ -1,10 +1,8 @@
 package com.arkui.transportation_owner.activity.user;
 
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.model.UserPresenter;
@@ -13,7 +11,6 @@ import com.arkui.fz_tools.mvp.UserInterface;
 import com.arkui.fz_tools.mvp.UserModel;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.fz_tools.view.ShapeEditText;
-import com.arkui.fz_tools.view.ShapeLinearLayout;
 import com.arkui.transportation_owner.R;
 
 import butterknife.BindView;

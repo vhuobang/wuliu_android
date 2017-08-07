@@ -21,7 +21,6 @@ public class UserPresenter extends BasePresenter<UserModel> {
 
     UserInterface mUserInterface;
 
-
     public void setUserInterface(UserInterface userInterface,UserModel userModel) {
         mUserInterface = userInterface;
         this.mModel=userModel;
