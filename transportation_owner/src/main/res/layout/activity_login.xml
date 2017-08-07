@@ -122,7 +122,6 @@
         android:layout_marginRight="30dp">
 
 
-
         <TextView
             android:id="@+id/tv_forget"
             android:layout_width="wrap_content"
