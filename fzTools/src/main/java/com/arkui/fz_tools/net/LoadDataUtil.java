@@ -50,13 +50,13 @@ public class LoadDataUtil {
         return ourInstance;
     }
 
-    public void getData(final Context context, String url, Map<String, Object> map, boolean showLoading, final ResultCallBack callBack) {
+    public void getData(final Context context, String url, Map<String, Object> map, String string, final ResultCallBack callBack) {
         if (!NetUtil.isConnected(context)) {
             Toast.makeText(context, "连接失败，请检查您的网络链接情况", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (showLoading) {
-            showDialog(context, "加载中");
+        if (string != null) {
+            showDialog(context, string);
         }
         url += getParams(map);
         LogUtil.i("url=" + url);
