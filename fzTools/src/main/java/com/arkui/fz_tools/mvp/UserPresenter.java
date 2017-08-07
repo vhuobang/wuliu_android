@@ -8,9 +8,6 @@ import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.model.VerifyDao;
-import com.arkui.fz_tools.mvp.BasePresenter;
-import com.arkui.fz_tools.mvp.UserInterface;
-import com.arkui.fz_tools.mvp.UserModel;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.net.ResultCallBack;
 import com.arkui.fz_tools.utils.StrUtil;
@@ -53,7 +50,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
         int verificationCode = Integer.parseInt(code);
 
         if (verificationCode != mVerificationCode) {
-            Toast.makeText(mContext, "验证码输入正确", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "验证码输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
 
