@@ -16,6 +16,7 @@ import com.arkui.fz_tools.model.UserApi;
 import com.arkui.fz_tools.model.VerifyDao;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.net.ResultCallBack;
+import com.arkui.fz_tools.utils.Md5Util;
 import com.arkui.fz_tools.utils.UserType;
 
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class UserModel implements BaseModel {
     public void getRegister(@NonNull String mobile, @NonNull String password, @UserType int type, @Nullable String invitation_code, ProgressSubscriber<BaseHttpResult> progressSubscriber) {
         Map<String,Object> parameter=new HashMap<>();
         parameter.put("mobile",mobile);
-        parameter.put("password",password);
+        parameter.put("password", Md5Util.getStringMD5(password));
         parameter.put("type",type);
         if(!TextUtils.isEmpty(invitation_code)){
             parameter.put("invitation_code",invitation_code);

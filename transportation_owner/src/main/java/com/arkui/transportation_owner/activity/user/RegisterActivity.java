@@ -1,6 +1,7 @@
 package com.arkui.transportation_owner.activity.user;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
     TimeCountUtil mTimeCountUtil;
     @BindView(R.id.tv_code)
     TextView mTvCode;
+    @BindView(R.id.cb_deal)
+    CheckBox mCbDeal;
 
     @Override
     public void setRootView() {
@@ -49,10 +52,10 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        mTimeCountUtil = new TimeCountUtil( mTvCode);
+        mTimeCountUtil = new TimeCountUtil(mTvCode);
     }
 
-    @OnClick({R.id.bt_register, R.id.tv_clause, R.id.tv_code})
+    @OnClick({R.id.bt_register, R.id.tv_clause, R.id.tv_code, R.id.tv_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_register:
@@ -64,12 +67,19 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
                 break;
             case R.id.tv_code:
                 //获取验证码
-                mPresenter.getCode(mEtPhone.getText().toString().trim(),mTimeCountUtil);
+                mPresenter.getCode(mEtPhone.getText().toString().trim(), mTimeCountUtil);
+                break;
+            case R.id.tv_back:
+                finish();
                 break;
         }
     }
 
     private void getRegister() {
+        if(!mCbDeal.isChecked()){
+            ShowToast("请勾选免责声明");
+            return;
+        }
         String phoneText = mEtPhone.getText().toString().trim();
         String newPasswordText = mEtNewPassword.getText().toString().trim();
         String confirmPasswordText = mEtConfirmPassword.getText().toString().trim();
