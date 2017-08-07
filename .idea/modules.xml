@@ -3,15 +3,25 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RefreshLayout/RefreshLayout.iml" filepath="$PROJECT_DIR$/RefreshLayout/RefreshLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RefreshLayout/RefreshLayout.iml" filepath="$PROJECT_DIR$/RefreshLayout/RefreshLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/Transportation.iml" filepath="$PROJECT_DIR$/Transportation.iml" />
       <module fileurl="file://$PROJECT_DIR$/citypicker/citypicker.iml" filepath="$PROJECT_DIR$/citypicker/citypicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/citypicker/citypicker.iml" filepath="$PROJECT_DIR$/citypicker/citypicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fzTools/fzTools.iml" filepath="$PROJECT_DIR$/fzTools/fzTools.iml" />
       <module fileurl="file://$PROJECT_DIR$/fzTools/fzTools.iml" filepath="$PROJECT_DIR$/fzTools/fzTools.iml" />
       <module fileurl="file://$PROJECT_DIR$/fz_net/fz_net.iml" filepath="$PROJECT_DIR$/fz_net/fz_net.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fz_net/fz_net.iml" filepath="$PROJECT_DIR$/fz_net/fz_net.iml" />
+      <module fileurl="file://$PROJECT_DIR$/refresh-layout/refresh-layout.iml" filepath="$PROJECT_DIR$/refresh-layout/refresh-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/refresh-layout/refresh-layout.iml" filepath="$PROJECT_DIR$/refresh-layout/refresh-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transportation/transportation.iml" filepath="$PROJECT_DIR$/transportation/transportation.iml" />
       <module fileurl="file://$PROJECT_DIR$/transportation/transportation.iml" filepath="$PROJECT_DIR$/transportation/transportation.iml" />
       <module fileurl="file://$PROJECT_DIR$/transportation_owner/transportation_owner.iml" filepath="$PROJECT_DIR$/transportation_owner/transportation_owner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transportation_owner/transportation_owner.iml" filepath="$PROJECT_DIR$/transportation_owner/transportation_owner.iml" />
       <module fileurl="file://$PROJECT_DIR$/transportation_shipper/transportation_shipper.iml" filepath="$PROJECT_DIR$/transportation_shipper/transportation_shipper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transportation_shipper/transportation_shipper.iml" filepath="$PROJECT_DIR$/transportation_shipper/transportation_shipper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wuliu_android.iml" filepath="$PROJECT_DIR$/wuliu_android.iml" />
     </modules>
   </component>
 </project>

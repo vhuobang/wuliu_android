@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mHomeFragment = new HomeFragment();
-
         mMessageFragment = new MessageFragment();
         mWaybillFragment = new WaybillFragment();
         mMyFragment = new MyFragment();
