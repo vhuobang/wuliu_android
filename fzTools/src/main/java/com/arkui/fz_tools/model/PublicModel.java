@@ -22,10 +22,10 @@ import io.reactivex.Observable;
 
 public class PublicModel implements BaseModel {
 
-    public PublicApi mPublicApi;
+
 
     public void initModel() {
-           mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
+
     }
 
     /**
@@ -33,24 +33,18 @@ public class PublicModel implements BaseModel {
      */
     public void getFaceBack(@NonNull String userId, @NonNull String content, @NonNull String tel,
                             ProgressSubscriber<BaseHttpResult> progressSubscriber){
-        HashMap<String,Object> hashMap = new HashMap<>();
+      /*  HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("user_id",userId);
         hashMap.put("content",content);
         hashMap.put("tel",tel);
         Observable<BaseHttpResult> observable = mPublicApi.getFreedBack(hashMap);
-        HttpMethod.getInstance().getNetData(observable,progressSubscriber);
+        HttpMethod.getInstance().getNetData(observable,progressSubscriber);*/
 
     }
     //获得消息列表
     public void getNoticeList(@NonNull String userId, @NonNull String type, @NonNull int page, @NonNull int pageSize,
                            ProgressSubscriber<List<NoticeEntity>> progressSubscriber){
-        HashMap<String ,Object> hashMap = new HashMap<>();
-        hashMap.put("user_id",userId);
-        hashMap.put("type",type);
-        hashMap.put("page",page);
-        hashMap.put("pagesize",pageSize);
-        Observable<List<NoticeEntity>> observable = mPublicApi.getNoticeList(hashMap).map(new HttpResultFunc<List<NoticeEntity>>());
-        HttpMethod.getInstance().getNetData(observable,progressSubscriber);
+
     }
 
     @Override

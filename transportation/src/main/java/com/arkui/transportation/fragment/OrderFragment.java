@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class OrderFragment extends BaseMvpFragment<NoticePresenter,PublicModel> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface{
+public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface{
 
     @BindView(R.id.rl_order)
     PullRefreshRecyclerView mRlOrder;
@@ -143,6 +143,6 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter,PublicModel> 
 
     @Override
     public void initPresenter() {
-       mPresenter.setNoticeInterface(this,mModel);
+       mPresenter.setNoticeInterface(this);
     }
 }

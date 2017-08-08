@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class DriverLoginActivity extends BaseMvpActivity<UserPresenter,UserModel>implements UserInterface {
+public class DriverLoginActivity extends BaseMvpActivity<UserPresenter>implements UserInterface {
 
     @Override
     public void setRootView() {
@@ -44,7 +44,7 @@ public class DriverLoginActivity extends BaseMvpActivity<UserPresenter,UserModel
 
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this,mModel);
+        mPresenter.setUserInterface(this);
     }
 
     @Override

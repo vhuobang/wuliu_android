@@ -19,7 +19,7 @@ import butterknife.OnClick;
  * 车主登陆界面
  */
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel>implements UserInterface {
+public class LoginActivity extends BaseMvpActivity<UserPresenter>implements UserInterface {
 
     @Override
     public void setRootView() {
@@ -58,7 +58,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel>imple
 
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this,mModel);
+        mPresenter.setUserInterface(this);
     }
 
     @Override

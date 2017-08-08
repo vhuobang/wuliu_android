@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FeedbackActivity extends BaseMvpActivity<PublicPresenter, PublicModel> implements PublicInterface {
+public class FeedbackActivity extends BaseMvpActivity<PublicPresenter> implements PublicInterface {
 
 
     @BindView(R.id.et_content)
@@ -62,7 +62,7 @@ public class FeedbackActivity extends BaseMvpActivity<PublicPresenter, PublicMod
 
     @Override
     public void initPresenter() {
-        mPresenter.setPublicInterface(this, mModel);
+        mPresenter.setPublicInterface(this);
     }
 
 }
