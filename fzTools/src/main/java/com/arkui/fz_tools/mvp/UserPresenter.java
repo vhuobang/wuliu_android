@@ -15,7 +15,6 @@ import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.api.UserApi;
 import com.arkui.fz_tools.api.VerifyDao;
 import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.model.UserModel;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.net.ResultCallBack;
 import com.arkui.fz_tools.utils.Md5Util;
@@ -42,17 +41,9 @@ public class UserPresenter extends BasePresenter {
     public UserPresenter() {
     }
 
-    public UserPresenter(UserInterface userInterface) {
-        super();
-        this.mUserInterface = userInterface;
-        // this.mModel = userModel;
-        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
-    }
-
     public void setUserInterface(UserInterface userInterface) {
         mUserInterface = userInterface;
-        // this.mModel = userModel;
-        // mModel.initModel();
+        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
 
     public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code) {
@@ -88,8 +79,6 @@ public class UserPresenter extends BasePresenter {
             return;
         }
 
-       /* mModel.getRegister(mobile, password, type, invitation_code,*/
-
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("mobile", mobile);
         parameter.put("password", Md5Util.getStringMD5(password));
@@ -111,7 +100,6 @@ public class UserPresenter extends BasePresenter {
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 //注册失败
-                // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -125,7 +113,6 @@ public class UserPresenter extends BasePresenter {
         timeCountUtil.start();
         mMobile = mobile;
         mVerificationCode = (int) ((Math.random() * 9 + 1) * 100000);
-        //mModel.getCode(mobile,mVerificationCode,mContext);
         VerifyDao.getInstance().sendVer(mContext, mMobile, mVerificationCode, new ResultCallBack() {
             @Override
             public void onSuccess(JsonData data) {
@@ -151,8 +138,6 @@ public class UserPresenter extends BasePresenter {
             Toast.makeText(mContext, "密码长度不够", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        /*mModel.getLogin(mobile, password, type, */
 
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("mobile", mobile);

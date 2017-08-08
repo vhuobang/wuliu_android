@@ -8,7 +8,6 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.NoticeInterface;
 import com.arkui.fz_tools.api.PublicApi;
 import com.arkui.fz_tools.entity.NoticeEntity;
-import com.arkui.fz_tools.model.PublicModel;
 
 import java.util.HashMap;
 import java.util.List;

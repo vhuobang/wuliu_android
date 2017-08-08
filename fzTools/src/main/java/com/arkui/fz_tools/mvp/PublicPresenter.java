@@ -11,7 +11,6 @@ import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.api.PublicApi;
-import com.arkui.fz_tools.model.PublicModel;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.utils.ToastUtil;
 

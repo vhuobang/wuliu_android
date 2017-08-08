@@ -10,7 +10,6 @@ import com.arkui.fz_tools._interface.NoticeInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
-import com.arkui.fz_tools.model.PublicModel;
 import com.arkui.fz_tools.mvp.BaseMvpFragment;
 import com.arkui.fz_tools.mvp.NoticePresenter;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
