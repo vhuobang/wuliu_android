@@ -126,4 +126,10 @@ public class PullRefreshRecyclerView extends FrameLayout {
     public RecyclerView getRecyclerView() {
         return mRecycler;
     }
+
+    public void carStop(){
+     //   mRecycler.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.GONE);
+        mAnimationDrawable.stop();
+    }
 }

@@ -26,5 +26,7 @@ public class CommonAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
         if (mOnBindViewHolderListener != null) {
             mOnBindViewHolderListener.convert(helper, item);
         }
+
+
     }
 }

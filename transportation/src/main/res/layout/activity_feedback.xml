@@ -18,6 +18,7 @@
         app:buttonColor="@color/white">
 
         <EditText
+            android:id="@+id/et_content"
             android:textColorHint="@color/gray_color"
             android:padding="10dp"
             android:layout_weight="1"
@@ -51,6 +52,7 @@
 
 
                 <EditText
+                    android:id="@+id/et_phone"
                     android:layout_marginLeft="20dp"
                     android:textColorHint="@color/gray_color"
                     android:hint="方便我们更快的向你反馈哦"

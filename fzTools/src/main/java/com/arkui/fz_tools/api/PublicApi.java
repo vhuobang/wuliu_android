@@ -1,8 +1,10 @@
 package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -19,4 +21,9 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.FREED_BACK)
     Observable<BaseHttpResult> getFreedBack(@FieldMap Map<String,Object> parameter);
+    // 消息列表
+    @FormUrlEncoded
+    @POST(NetConstants.NOTICE_LIST)
+    Observable<BaseHttpResult<List<NoticeEntity>>> getNoticeList(@FieldMap Map<String,Object> parameter);
+
 }

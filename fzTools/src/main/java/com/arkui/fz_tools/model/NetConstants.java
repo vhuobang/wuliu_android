@@ -12,4 +12,6 @@ public class NetConstants {
     public static final String LOGIN=BASE_URL+"index.php/App/Users/login";
     //意见反馈  App/Public/freed_back
     public static final String FREED_BACK=BASE_URL+"index.php/App/Public/freed_back";
+    // 消息列表  App/Notice/noticeList
+    public static final String NOTICE_LIST=BASE_URL+"index.php/App/Notice/noticeList";
 }

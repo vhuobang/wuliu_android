@@ -7,4 +7,5 @@ package com.arkui.fz_tools._interface;
 
 public interface PublicInterface {
     void onSuccess();
+    void onFail(String message);
 }

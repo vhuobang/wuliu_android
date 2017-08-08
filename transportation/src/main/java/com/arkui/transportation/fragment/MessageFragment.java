@@ -33,7 +33,6 @@ public class MessageFragment extends BaseFragment {
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_message, container, false);
     }
-
     @Override
     protected void initView(View parentView) {
         super.initView(parentView);
@@ -43,7 +42,6 @@ public class MessageFragment extends BaseFragment {
         List<BaseFragment> baseFragmentList = new ArrayList<>();
         OrderFragment orderFragment = new OrderFragment();
         SystemFragment systemFragment = new SystemFragment();
-
 
         baseFragmentList.add(orderFragment);
         baseFragmentList.add(systemFragment);
