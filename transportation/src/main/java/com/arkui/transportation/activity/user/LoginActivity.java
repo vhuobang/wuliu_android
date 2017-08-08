@@ -11,6 +11,7 @@ import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.model.UserModel;
 import com.arkui.fz_tools.mvp.UserPresenter;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.utils.SystemBarHelper;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.fz_tools.view.ShapeLinearLayout;
@@ -53,8 +54,12 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> imp
         ButterKnife.bind(this);
         SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
         SystemBarHelper.setStatusBarDarkMode(this);
+        boolean isLogin = SPUtil.getInstance(this).read(Constants.IS_LOGIN, false);
+        if (isLogin){
+            showActivity(MainActivity.class);
+            finish();
+        }
     }
-
     @OnClick({R.id.bt_login, R.id.tv_forget, R.id.tv_register})
     public void onClick(View view) {
         switch (view.getId()) {

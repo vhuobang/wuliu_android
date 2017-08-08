@@ -2,17 +2,16 @@ package com.arkui.transportation_shipper.common.activity;
 
 import android.view.View;
 
-import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.UserModel;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.utils.SystemBarHelper;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.owner.activity.MainActivity;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -29,7 +28,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel>imple
     @Override
     public void initView() {
         super.initView();
-        ButterKnife.bind(this);
+
         SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
         SystemBarHelper.setStatusBarDarkMode(this);
     }
