@@ -12,7 +12,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @IntDef({
-        Constants.OWNER, Constants.LOGISTICS, Constants.CAR_OWNER
+        Constants.OWNER, Constants.LOGISTICS, Constants.CAR_OWNER,Constants.DRIVER
 })
 @Retention(RetentionPolicy.SOURCE)
 public @interface UserType {

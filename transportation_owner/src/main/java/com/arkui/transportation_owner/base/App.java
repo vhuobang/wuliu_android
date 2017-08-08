@@ -2,17 +2,24 @@ package com.arkui.transportation_owner.base;
 
 import android.app.Application;
 
+import com.alibaba.fastjson.JSON;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.model.Constants;
+import com.arkui.fz_tools.net.JsonData;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.socialize.PlatformConfig;
+
+import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
 
 
 public class App extends Application {
 
-    //private UserInfoEntity mUserInfoEntity;
+    private static  UserEntity mUserEntity;
 
-    private String mUser_id;
+    private static String mUser_id;
 
     private static App mApp;
 
@@ -25,7 +32,6 @@ public class App extends Application {
         super.onCreate();
         mApp = this;
         JPushInterface.init(this);
-       // UMShareAPI.get(this);
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
@@ -37,35 +43,45 @@ public class App extends Application {
         PlatformConfig.setQQZone("1106145377", "Nn7ceRa1ba4Bx95v");
     }
 
-   /* public UserInfoEntity getUserInfoEntity() {
-        if (mUserInfoEntity == null) {
-            return (UserInfoEntity) FileUtil.read(mApp, Constants.USER_OBJECT);
+    public static UserEntity getUserEntity() {
+        if (mUserEntity == null) {
+            String userObject = SPUtil.getInstance(mApp).read(Constants.USER_OBJECT, null);
+            if (userObject != null) {
+               return JsonData.getBean(UserEntity.class, userObject);
+            }
+            //return (UserEntity) FileUtil.read(mApp, Constants.USER_OBJECT);
         }
-        return mUserInfoEntity;
-    }*/
-
-   /* public void setUserInfoEntity(UserInfoEntity userInfoEntity) {
-        FileUtil.delete(mApp, Constants.USER_OBJECT);
-        FileUtil.save(mApp, Constants.USER_OBJECT, userInfoEntity);
-        mUserInfoEntity = userInfoEntity;
+        return mUserEntity;
     }
 
-    public String getUser_id() {
+    public static void setUserEntity(UserEntity userInfoEntity) {
+       /* FileUtil.delete(mApp, Constants.USER_OBJECT);
+        FileUtil.save(mApp, Constants.USER_OBJECT, userInfoEntity);
+        mUserInfoEntity = userInfoEntity;*/
+        SPUtil.getInstance(mApp).remove(Constants.USER_OBJECT);
+        String userObject = JSON.toJSONString(userInfoEntity);
+        SPUtil.getInstance(mApp).save(Constants.USER_OBJECT,userObject);
+        SPUtil.getInstance(mApp).save(Constants.IS_LOGIN,true);
+        mUserEntity=userInfoEntity;
+    }
+
+    public static String getUser_id() {
         if(mUser_id==null){
-            if(getUserInfoEntity()==null){
+            if(getUserEntity()==null){
                 return null;
             }else{
-                mUser_id=getUserInfoEntity().getUserId();
+                mUser_id=getUserEntity().getId();
             }
         }
         return mUser_id;
-    }*/
+    }
 
-    /*public void deleteUserInfo(){
+    public void deleteUserInfo(){
         mUser_id=null;
-        mUserInfoEntity=null;
-        FileUtil.delete(mApp, Constants.USER_OBJECT);
+        mUserEntity=null;
+       // FileUtil.delete(mApp, Constants.USER_OBJECT);
+        SPUtil.getInstance(mApp).remove(Constants.USER_OBJECT);
         SPUtil.getInstance(mApp).remove(Constants.IS_LOGIN);
-    }*/
+    }
 
 }

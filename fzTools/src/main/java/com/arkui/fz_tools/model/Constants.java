@@ -37,4 +37,5 @@ public class Constants {
     public static final int OWNER=1;
     public static final int LOGISTICS=2;
     public static final int CAR_OWNER=3;
+    public static final int DRIVER=4;
 }

@@ -1,7 +1,6 @@
 package com.arkui.fz_tools.mvp;
 
 import android.app.Activity;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,9 +8,10 @@ import android.widget.Toast;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
-import com.arkui.fz_tools.model.Constants;
+import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.UserApi;
 import com.arkui.fz_tools.model.VerifyDao;
 import com.arkui.fz_tools.net.JsonData;
@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 
 /**
  * Created by nmliz on 2017/8/7.
@@ -32,22 +31,33 @@ import io.reactivex.functions.Action;
 
 public class UserModel implements BaseModel {
 
-    //登录接口
-    public void getLogin() {
+    private UserApi mUserApi;
 
+    public void initModel(){
+        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
 
-    //注册接口 没有邀请码 写Null
-    public void getRegister(@NonNull String mobile, @NonNull String password, @UserType int type, @Nullable String invitation_code, ProgressSubscriber<BaseHttpResult> progressSubscriber) {
-        Map<String,Object> parameter=new HashMap<>();
-        parameter.put("mobile",mobile);
+    //登录接口
+    public void getLogin(@NonNull String mobile,@NonNull String password,@UserType int type,ProgressSubscriber<UserEntity> progressSubscriber) {
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("mobile", mobile);
         parameter.put("password", Md5Util.getStringMD5(password));
         parameter.put("type",type);
-        if(!TextUtils.isEmpty(invitation_code)){
-            parameter.put("invitation_code",invitation_code);
-        }
-        Observable<BaseHttpResult> observable = RetrofitFactory.createRetrofit(UserApi.class).getRegister(parameter);
+        Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
         HttpMethod.getInstance().getNetData(observable,progressSubscriber);
+    }
+
+    //注册接口
+    public void getRegister(@NonNull String mobile, @NonNull String password, @UserType int type, @Nullable String invitation_code, ProgressSubscriber<BaseHttpResult> progressSubscriber) {
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("mobile", mobile);
+        parameter.put("password", Md5Util.getStringMD5(password));
+        parameter.put("type", type);
+        if (!TextUtils.isEmpty(invitation_code)) {
+            parameter.put("invitation_code", invitation_code);
+        }
+        Observable<BaseHttpResult> observable = mUserApi.getRegister(parameter);
+        HttpMethod.getInstance().getNetData(observable, progressSubscriber);
     }
 
     //获取验证码
@@ -65,6 +75,7 @@ public class UserModel implements BaseModel {
             }
         });
     }
+
 
     @Override
     public void onDestroy() {

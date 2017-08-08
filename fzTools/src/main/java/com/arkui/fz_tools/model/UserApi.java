@@ -1,6 +1,7 @@
 package com.arkui.fz_tools.model;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_tools.entity.UserEntity;
 
 import java.util.Map;
 
@@ -19,4 +20,10 @@ public interface UserApi {
     @FormUrlEncoded
     @POST(NetConstants.REGISTER)
     Observable<BaseHttpResult> getRegister(@FieldMap Map<String,Object> parameter);
+
+    //登录接口
+    @FormUrlEncoded
+    @POST(NetConstants.LOGIN)
+    Observable<BaseHttpResult<UserEntity>> getLogin(@FieldMap Map<String,Object> parameter);
+
 }
