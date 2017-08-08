@@ -2,17 +2,20 @@ package com.arkui.transportation_shipper.common.activity;
 
 import android.view.View;
 
-import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
+import com.arkui.fz_tools.mvp.UserInterface;
+import com.arkui.fz_tools.mvp.UserModel;
+import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.driver.activity.DriverMainActivity;
-import com.arkui.transportation_shipper.owner.activity.asset.DriverDetailActivity;
-import com.arkui.transportation_shipper.owner.adapter.DriverManageAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class DriverLoginActivity extends BaseActivity {
+public class DriverLoginActivity extends BaseMvpActivity<UserPresenter,UserModel>implements UserInterface {
 
     @Override
     public void setRootView() {
@@ -37,5 +40,26 @@ public class DriverLoginActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void initPresenter() {
+        mPresenter.setUserInterface(this,mModel);
+    }
+
+    @Override
+    public void onSucceed() {
+
+    }
+
+    /**
+     * 登陆成功
+     * @param userEntity
+     */
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+        App.setUserEntity(userEntity);
+        showActivity(DriverMainActivity.class);
+        finish();
     }
 }

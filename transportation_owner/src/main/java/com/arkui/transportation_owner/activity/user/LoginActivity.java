@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.listener.LoginSucceedListener;
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserInterface;
@@ -20,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> implements UserInterface, LoginSucceedListener {
+public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> implements UserInterface {
 
     @BindView(R.id.et_phone)
     EditText mEtPhone;
@@ -60,7 +59,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> imp
     private void getLogin() {
         String phone = mEtPhone.getText().toString().trim();
         String password = mEtPassword.getText().toString();
-        mPresenter.getLogin(phone,password, Constants.OWNER,this);
+        mPresenter.getLogin(phone,password, Constants.OWNER);
     }
 
     @Override

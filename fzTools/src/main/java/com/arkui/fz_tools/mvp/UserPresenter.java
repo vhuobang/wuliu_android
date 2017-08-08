@@ -8,10 +8,6 @@ import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.listener.LoginSucceedListener;
-import com.arkui.fz_tools.model.VerifyDao;
-import com.arkui.fz_tools.net.JsonData;
-import com.arkui.fz_tools.net.ResultCallBack;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.utils.TimeCountUtil;
 import com.arkui.fz_tools.utils.UserType;
@@ -31,7 +27,6 @@ public class UserPresenter extends BasePresenter<UserModel> {
         this.mModel = userModel;
         mModel.initModel();
     }
-
 
     public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code) {
 
@@ -97,7 +92,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
     }
 
     //登录
-    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type,final LoginSucceedListener loginSucceedListener){
+    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type){
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
@@ -111,8 +106,8 @@ public class UserPresenter extends BasePresenter<UserModel> {
         mModel.getLogin(mobile, password, type, new ProgressSubscriber<UserEntity>(mContext) {
             @Override
             public void onNext(UserEntity userEntity) {
-                if(loginSucceedListener!=null){
-                    loginSucceedListener.loginSucceed(userEntity);
+                if(mUserInterface!=null){
+                    mUserInterface.loginSucceed(userEntity);
                 }
             }
         });

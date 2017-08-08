@@ -2,15 +2,24 @@ package com.arkui.transportation_shipper.common.activity;
 
 import android.view.View;
 
-import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
+import com.arkui.fz_tools.mvp.UserInterface;
+import com.arkui.fz_tools.mvp.UserModel;
+import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.utils.SystemBarHelper;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.owner.activity.MainActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 车主登陆界面
+ */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel>implements UserInterface {
 
     @Override
     public void setRootView() {
@@ -29,6 +38,7 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
+                getLogin();
                 break;
             case R.id.tv_forget:
                 showActivity(ForgetPasswordActivity.class);
@@ -40,5 +50,30 @@ public class LoginActivity extends BaseActivity {
                 showActivity(DriverLoginActivity.class);
                 break;
         }
+    }
+
+    private void getLogin() {
+
+    }
+
+    @Override
+    public void initPresenter() {
+        mPresenter.setUserInterface(this,mModel);
+    }
+
+    @Override
+    public void onSucceed() {
+
+    }
+
+    /**
+     * 登陆成功回掉
+     * @param userEntity
+     */
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+        App.setUserEntity(userEntity);
+        showActivity(MainActivity.class);
+        finish();
     }
 }

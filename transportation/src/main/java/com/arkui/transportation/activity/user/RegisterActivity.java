@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserInterface;
@@ -116,5 +117,14 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter,UserModel>im
     @Override
     public void onSucceed() {
            finish();
+    }
+
+    /**
+     * 这个是登陆回调 暂时不用
+     * @param userEntity
+     */
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+
     }
 }

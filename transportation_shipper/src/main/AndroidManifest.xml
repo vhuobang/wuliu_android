@@ -24,6 +24,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".owner.activity.MainActivity">
+
+        </activity>
+
+        <activity android:name=".common.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,7 +73,8 @@
         <activity android:name=".owner.activity.my.PointWithdrawActivity" />
         <activity android:name=".owner.activity.my.WithdrawRecordActivity" />
         <activity android:name=".owner.activity.my.AuthActivity" />
-        <activity android:name=".common.activity.LoginActivity" />
+
+
         <activity android:name=".common.activity.ForgetPasswordActivity" />
         <activity android:name=".common.activity.PasswordResetActivity" />
         <activity android:name=".common.activity.RegisterActivity" />
