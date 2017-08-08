@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools._interface.UserInterface;
@@ -98,5 +99,10 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter, UserModel> 
     public void onSucceed() {
         // showActivity(LoginActivity.class);
         finish();
+    }
+
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+
     }
 }

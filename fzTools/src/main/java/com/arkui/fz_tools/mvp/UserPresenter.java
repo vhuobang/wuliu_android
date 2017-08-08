@@ -24,6 +24,15 @@ public class UserPresenter extends BasePresenter<UserModel> {
     private int mVerificationCode = -1;
     private String mMobile = null;
 
+    public UserPresenter() {
+    }
+
+    public UserPresenter(UserInterface userInterface, UserModel userModel) {
+        super();
+        this.mUserInterface=userInterface;
+        this.mModel = userModel;
+    }
+
     public void setUserInterface(UserInterface userInterface, UserModel userModel) {
         mUserInterface = userInterface;
         this.mModel = userModel;

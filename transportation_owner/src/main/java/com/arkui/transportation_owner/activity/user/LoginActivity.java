@@ -3,23 +3,25 @@ package com.arkui.transportation_owner.activity.user;
 import android.view.View;
 import android.widget.EditText;
 
+import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.Constants;
-import com.arkui.fz_tools.mvp.BaseMvpActivity;
-import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.model.UserModel;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserPresenter;
+import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.SystemBarHelper;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.MainActivity;
 import com.arkui.transportation_owner.base.App;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> implements UserInterface {
+public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel> implements UserInterface {
 
     @BindView(R.id.et_phone)
     EditText mEtPhone;
@@ -62,11 +64,11 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> imp
         mPresenter.getLogin(phone,password, Constants.OWNER);
     }
 
-    @Override
+   /* @Override
     public void initPresenter() {
         mPresenter.setUserInterface(this, mModel);
     }
-
+*/
     @Override
     public void onSucceed() {
 
@@ -77,5 +79,10 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> imp
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+    }
+
+    @Override
+    public void initPresenter() {
+        mPresenter.setUserInterface(this, mModel);
     }
 }

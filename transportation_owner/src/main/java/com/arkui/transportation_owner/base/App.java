@@ -10,8 +10,6 @@ import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.socialize.PlatformConfig;
 
-import org.json.JSONObject;
-
 import cn.jpush.android.api.JPushInterface;
 
 
@@ -22,6 +20,7 @@ public class App extends Application {
     private static String mUser_id;
 
     private static App mApp;
+
 
     public static App getInstance() {
         return mApp;
@@ -41,6 +40,7 @@ public class App extends Application {
         // Normal app init code...
         PlatformConfig.setWeixin("wx96bfd7f8eafa5940", "e30acd76f48dcb72946ca0ecf818a778");
         PlatformConfig.setQQZone("1106145377", "Nn7ceRa1ba4Bx95v");
+      //  mActivityComponent = Dag.builder().appModule(new AppModule(this)).build();
     }
 
     public static UserEntity getUserEntity() {

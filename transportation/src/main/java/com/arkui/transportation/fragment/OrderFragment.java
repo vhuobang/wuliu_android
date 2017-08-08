@@ -137,7 +137,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter,PublicModel> 
     public void onFail(String message) {
         mOrderMessageAdapter.loadMoreEnd();
         mRlOrder.refreshComplete();
-        mRlOrder.carStop();
+        mRlOrder.loadFail();
 
     }
 

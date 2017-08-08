@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.arkui.fz_tools.R;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by nmliz on 2017/6/20.
@@ -30,6 +33,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
     private RecyclerView mRecycler;
     private ImageView mIvProgress;
     private AnimationDrawable mAnimationDrawable;
+    private TextView mTvFailName;
 
     public PullRefreshRecyclerView(@NonNull Context context) {
         super(context);
@@ -63,6 +67,9 @@ public class PullRefreshRecyclerView extends FrameLayout {
         mAnimationDrawable.start();
 
         mEmpty = (ViewStub) v.findViewById(R.id.empty);
+        mEmpty.setLayoutResource(R.layout.view_empty);
+        View empty_view = mEmpty.inflate();
+        mTvFailName = (TextView) empty_view.findViewById(R.id.tv_name);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -127,9 +134,15 @@ public class PullRefreshRecyclerView extends FrameLayout {
         return mRecycler;
     }
 
-    public void carStop(){
+    public void loadFail(){
      //   mRecycler.setVisibility(View.VISIBLE);
         mProgress.setVisibility(View.GONE);
         mAnimationDrawable.stop();
+        mEmpty.setVisibility(View.VISIBLE);
+    }
+
+    public void loadFail(String name){
+        loadFail();
+        mTvFailName.setText(name);
     }
 }
