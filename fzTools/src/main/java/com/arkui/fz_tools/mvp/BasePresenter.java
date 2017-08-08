@@ -1,7 +1,8 @@
 package com.arkui.fz_tools.mvp;
 
 import android.app.Activity;
-import android.content.Context;
+
+import com.arkui.fz_tools._interface.BaseModel;
 
 /**
  * Author: 姚智胜

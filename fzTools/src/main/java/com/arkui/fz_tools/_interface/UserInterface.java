@@ -1,4 +1,4 @@
-package com.arkui.fz_tools.mvp;
+package com.arkui.fz_tools._interface;
 
 import com.arkui.fz_tools.entity.UserEntity;
 

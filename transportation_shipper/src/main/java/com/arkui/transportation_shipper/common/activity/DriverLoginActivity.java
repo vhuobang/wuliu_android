@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
-import com.arkui.fz_tools.mvp.UserInterface;
-import com.arkui.fz_tools.mvp.UserModel;
+import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.model.UserModel;
 import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;

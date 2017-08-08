@@ -1,7 +1,8 @@
-package com.arkui.fz_tools.model;
+package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.model.NetConstants;
 
 import java.util.Map;
 

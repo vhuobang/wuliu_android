@@ -10,4 +10,6 @@ public class NetConstants {
     public static final String REGISTER=BASE_URL+"index.php/App/Users/register";
     //登录
     public static final String LOGIN=BASE_URL+"index.php/App/Users/login";
+    //意见反馈  App/Public/freed_back
+    public static final String FREED_BACK=BASE_URL+"index.php/App/Public/freed_back";
 }

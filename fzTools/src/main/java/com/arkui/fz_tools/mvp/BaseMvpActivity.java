@@ -2,6 +2,7 @@ package com.arkui.fz_tools.mvp;
 
 import android.os.Bundle;
 
+import com.arkui.fz_tools._interface.BaseModel;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.TUtil;
 

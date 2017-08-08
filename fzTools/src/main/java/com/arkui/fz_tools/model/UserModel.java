@@ -1,4 +1,4 @@
-package com.arkui.fz_tools.mvp;
+package com.arkui.fz_tools.model;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -11,9 +11,10 @@ import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools._interface.BaseModel;
 import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.model.UserApi;
-import com.arkui.fz_tools.model.VerifyDao;
+import com.arkui.fz_tools.api.UserApi;
+import com.arkui.fz_tools.api.VerifyDao;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.net.ResultCallBack;
 import com.arkui.fz_tools.utils.Md5Util;
@@ -61,7 +62,7 @@ public class UserModel implements BaseModel {
     }
 
     //获取验证码
-    void getCode(@NonNull String mobile, int verificationCode, final @NonNull Activity activity) {
+    public void getCode(@NonNull String mobile, int verificationCode, final @NonNull Activity activity) {
         VerifyDao.getInstance().sendVer(activity, mobile, verificationCode, new ResultCallBack() {
             @Override
             public void onSuccess(JsonData data) {
