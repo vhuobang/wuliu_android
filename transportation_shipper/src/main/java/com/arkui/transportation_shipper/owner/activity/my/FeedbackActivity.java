@@ -3,7 +3,6 @@ package com.arkui.transportation_shipper.owner.activity.my;
 import android.widget.EditText;
 
 import com.arkui.fz_tools._interface.PublicInterface;
-import com.arkui.fz_tools.model.PublicModel;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.PublicPresenter;
 import com.arkui.fz_tools.utils.ToastUtil;
