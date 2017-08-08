@@ -11,7 +11,6 @@ import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.api.PublicApi;
-import com.arkui.fz_tools.model.PublicModel;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.utils.ToastUtil;
 
@@ -30,8 +29,7 @@ public class PublicPresenter extends BasePresenter {
 
     public void setPublicInterface(PublicInterface publicInterface) {
         mPublicInterface = publicInterface;
-       /* mModel = publicModel;
-        mModel.initModel();*/
+
         mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
 
@@ -63,7 +61,7 @@ public class PublicPresenter extends BasePresenter {
                 super.onApiError(e);
                 mPublicInterface.onFail(e.getMessage());
             }
-       /* mModel.getFaceBack(userId, content, tel,*/
+
         });
 
     }
