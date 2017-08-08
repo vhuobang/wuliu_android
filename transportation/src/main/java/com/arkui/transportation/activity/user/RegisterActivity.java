@@ -26,7 +26,7 @@ import static com.arkui.transportation.R.id.et_new_password;
 import static com.arkui.transportation.R.id.et_phone;
 
 
-public class RegisterActivity extends BaseMvpActivity<UserPresenter,UserModel>implements UserInterface {
+public class RegisterActivity extends BaseMvpActivity<UserPresenter>implements UserInterface {
 
     @BindView(et_phone)
     ShapeEditText etPhone;
@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter,UserModel>im
     // 初始化
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this,mModel);
+        mPresenter.setUserInterface(this);
     }
 
     /**

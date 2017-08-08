@@ -6,24 +6,33 @@ import android.widget.Toast;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.PublicInterface;
+import com.arkui.fz_tools.api.PublicApi;
 import com.arkui.fz_tools.model.PublicModel;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.utils.ToastUtil;
+
+import java.util.HashMap;
+
+import io.reactivex.Observable;
 
 /**
  * Created by 84658 on 2017/8/8.
  */
 
-public class PublicPresenter extends BasePresenter<PublicModel> {
+public class PublicPresenter extends BasePresenter {
 
     public PublicInterface mPublicInterface;
+    public PublicApi mPublicApi;
 
-    public void setPublicInterface(PublicInterface publicInterface, PublicModel publicModel) {
+    public void setPublicInterface(PublicInterface publicInterface) {
         mPublicInterface = publicInterface;
-        mModel = publicModel;
-        mModel.initModel();
+       /* mModel = publicModel;
+        mModel.initModel();*/
+        mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
 
     // 意见反馈
@@ -36,7 +45,13 @@ public class PublicPresenter extends BasePresenter<PublicModel> {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
-        mModel.getFaceBack(userId, content, tel, new ProgressSubscriber<BaseHttpResult>(mContext) {
+
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("user_id",userId);
+        hashMap.put("content",content);
+        hashMap.put("tel",tel);
+        Observable<BaseHttpResult> observable = mPublicApi.getFreedBack(hashMap);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override
             public void onNext(BaseHttpResult value) {
                 mPublicInterface.onSuccess();
@@ -48,6 +63,7 @@ public class PublicPresenter extends BasePresenter<PublicModel> {
                 super.onApiError(e);
                 mPublicInterface.onFail(e.getMessage());
             }
+       /* mModel.getFaceBack(userId, content, tel,*/
         });
 
     }

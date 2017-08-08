@@ -2,41 +2,57 @@ package com.arkui.fz_tools.mvp;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
+import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.api.UserApi;
+import com.arkui.fz_tools.api.VerifyDao;
 import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.UserModel;
+import com.arkui.fz_tools.net.JsonData;
+import com.arkui.fz_tools.net.ResultCallBack;
+import com.arkui.fz_tools.utils.Md5Util;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.utils.TimeCountUtil;
 import com.arkui.fz_tools.utils.UserType;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.Observable;
 
 /**
  * Created by nmliz on 2017/8/7.
  */
 
-public class UserPresenter extends BasePresenter<UserModel> {
+public class UserPresenter extends BasePresenter {
 
     private UserInterface mUserInterface;
     private int mVerificationCode = -1;
     private String mMobile = null;
+    private UserApi mUserApi;
 
     public UserPresenter() {
     }
 
-    public UserPresenter(UserInterface userInterface, UserModel userModel) {
+    public UserPresenter(UserInterface userInterface) {
         super();
-        this.mUserInterface=userInterface;
-        this.mModel = userModel;
+        this.mUserInterface = userInterface;
+        // this.mModel = userModel;
+        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
 
-    public void setUserInterface(UserInterface userInterface, UserModel userModel) {
+    public void setUserInterface(UserInterface userInterface) {
         mUserInterface = userInterface;
-        this.mModel = userModel;
-        mModel.initModel();
+        // this.mModel = userModel;
+        // mModel.initModel();
     }
 
     public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code) {
@@ -46,7 +62,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
             return;
         }
 
-        if(!mMobile.equals(mobile)){
+        if (!mMobile.equals(mobile)) {
             Toast.makeText(mContext, "请重新获取验证码", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -72,7 +88,17 @@ public class UserPresenter extends BasePresenter<UserModel> {
             return;
         }
 
-        mModel.getRegister(mobile, password, type, invitation_code, new ProgressSubscriber<BaseHttpResult>(mContext) {
+       /* mModel.getRegister(mobile, password, type, invitation_code,*/
+
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("mobile", mobile);
+        parameter.put("password", Md5Util.getStringMD5(password));
+        parameter.put("type", type);
+        if (!TextUtils.isEmpty(invitation_code)) {
+            parameter.put("invitation_code", invitation_code);
+        }
+        Observable<BaseHttpResult> observable = mUserApi.getRegister(parameter);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override
             public void onNext(BaseHttpResult value) {
                 Toast.makeText(mContext, value.getMessage(), Toast.LENGTH_SHORT).show();
@@ -85,7 +111,7 @@ public class UserPresenter extends BasePresenter<UserModel> {
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 //注册失败
-               // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -97,13 +123,25 @@ public class UserPresenter extends BasePresenter<UserModel> {
             return;
         }
         timeCountUtil.start();
-        mMobile=mobile;
+        mMobile = mobile;
         mVerificationCode = (int) ((Math.random() * 9 + 1) * 100000);
-        mModel.getCode(mobile,mVerificationCode,mContext);
+        //mModel.getCode(mobile,mVerificationCode,mContext);
+        VerifyDao.getInstance().sendVer(mContext, mMobile, mVerificationCode, new ResultCallBack() {
+            @Override
+            public void onSuccess(JsonData data) {
+
+            }
+
+            @Override
+            public void onSuccess(String string) {
+                super.onSuccess(string);
+                Toast.makeText(mContext, "发送成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //登录
-    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type){
+    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type) {
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
@@ -114,10 +152,17 @@ public class UserPresenter extends BasePresenter<UserModel> {
             return;
         }
 
-        mModel.getLogin(mobile, password, type, new ProgressSubscriber<UserEntity>(mContext) {
+        /*mModel.getLogin(mobile, password, type, */
+
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("mobile", mobile);
+        parameter.put("password", Md5Util.getStringMD5(password));
+        parameter.put("type", type);
+        Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext) {
             @Override
             public void onNext(UserEntity userEntity) {
-                if(mUserInterface!=null){
+                if (mUserInterface != null) {
                     mUserInterface.loginSucceed(userEntity);
                 }
             }

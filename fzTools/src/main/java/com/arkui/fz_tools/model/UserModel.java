@@ -32,25 +32,20 @@ import io.reactivex.Observable;
 
 public class UserModel implements BaseModel {
 
-    private UserApi mUserApi;
+   // private UserApi mUserApi;
 
     public void initModel(){
-        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
+      //  mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
 
     //登录接口
     public void getLogin(@NonNull String mobile,@NonNull String password,@UserType int type,ProgressSubscriber<UserEntity> progressSubscriber) {
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("mobile", mobile);
-        parameter.put("password", Md5Util.getStringMD5(password));
-        parameter.put("type",type);
-        Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
-        HttpMethod.getInstance().getNetData(observable,progressSubscriber);
+
     }
 
     //注册接口
     public void getRegister(@NonNull String mobile, @NonNull String password, @UserType int type, @Nullable String invitation_code, ProgressSubscriber<BaseHttpResult> progressSubscriber) {
-        Map<String, Object> parameter = new HashMap<>();
+      /*  Map<String, Object> parameter = new HashMap<>();
         parameter.put("mobile", mobile);
         parameter.put("password", Md5Util.getStringMD5(password));
         parameter.put("type", type);
@@ -58,7 +53,7 @@ public class UserModel implements BaseModel {
             parameter.put("invitation_code", invitation_code);
         }
         Observable<BaseHttpResult> observable = mUserApi.getRegister(parameter);
-        HttpMethod.getInstance().getNetData(observable, progressSubscriber);
+        HttpMethod.getInstance().getNetData(observable, progressSubscriber);*/
     }
 
     //获取验证码

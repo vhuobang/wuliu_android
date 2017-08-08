@@ -10,15 +10,15 @@ import com.arkui.fz_tools.utils.TUtil;
  * Created by nmliz on 2017/8/7.
  */
 
-public abstract class BaseMvpActivity<T extends BasePresenter, E extends BaseModel> extends BaseActivity {
+public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActivity {
     public T mPresenter;
-    public E mModel;
+   // public E mModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = TUtil.getT(this, 0);
-        mModel = TUtil.getT(this, 1);
+      //  mModel = TUtil.getT(this, 1);
         if (mPresenter != null) {
             mPresenter.mContext = this;
         }
@@ -33,5 +33,8 @@ public abstract class BaseMvpActivity<T extends BasePresenter, E extends BaseMod
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter=null;
     }
+
+
 }

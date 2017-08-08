@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel> implements UserInterface {
+public class LoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
 
     @BindView(R.id.et_phone)
     EditText mEtPhone;
@@ -83,6 +83,6 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter,UserModel> impl
 
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this, mModel);
+        mPresenter.setUserInterface(this);
     }
 }

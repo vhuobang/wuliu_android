@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> implements UserInterface {
+public class LoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
 
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
@@ -92,7 +92,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> imp
      */
     @Override
     public void initPresenter() {
-        mPresenter.setUserInterface(this, mModel);
+        mPresenter.setUserInterface(this);
     }
 
     @Override

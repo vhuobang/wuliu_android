@@ -8,14 +8,14 @@ import com.arkui.fz_tools.utils.TUtil;
  * Created by 84658 on 2017/8/8.
  */
 
-public abstract  class BaseMvpFragment<T extends BasePresenter, E extends BaseModel> extends BaseFragment {
+public abstract  class BaseMvpFragment<T extends BasePresenter> extends BaseFragment {
 
     public T mPresenter;
-    public E mModel;
+    //public E mModel;
     @Override
     protected void initMvp() {
         mPresenter = TUtil.getT(this, 0);
-        mModel = TUtil.getT(this, 1);
+      //  mModel = TUtil.getT(this, 1);
         if (mPresenter != null) {
             mPresenter.mContext = mContext;
         }
@@ -34,9 +34,9 @@ public abstract  class BaseMvpFragment<T extends BasePresenter, E extends BaseMo
         if (mPresenter!=null){
             mPresenter=null;
         }
-        if (mModel!=null){
+       /* if (mModel!=null){
             mModel=null;
-        }
+        }*/
 
     }
 }
