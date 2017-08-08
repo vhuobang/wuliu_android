@@ -1,17 +1,31 @@
 package com.arkui.transportation_owner.activity.user;
 
 import android.view.View;
+import android.widget.EditText;
 
-import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.listener.LoginSucceedListener;
+import com.arkui.fz_tools.model.Constants;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
+import com.arkui.fz_tools.mvp.UserInterface;
+import com.arkui.fz_tools.mvp.UserModel;
+import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.utils.SystemBarHelper;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.MainActivity;
+import com.arkui.transportation_owner.base.App;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseMvpActivity<UserPresenter, UserModel> implements UserInterface, LoginSucceedListener {
+
+    @BindView(R.id.et_phone)
+    EditText mEtPhone;
+    @BindView(R.id.et_password)
+    EditText mEtPassword;
 
     @Override
     public void setRootView() {
@@ -30,7 +44,8 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
-                showActivity(MainActivity.class);
+                //showActivity(MainActivity.class);
+                getLogin();
                 break;
             case R.id.tv_forget:
                 showActivity(ForgetPasswordActivity.class);
@@ -40,5 +55,28 @@ public class LoginActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    private void getLogin() {
+        String phone = mEtPhone.getText().toString().trim();
+        String password = mEtPassword.getText().toString();
+        mPresenter.getLogin(phone,password, Constants.OWNER,this);
+    }
+
+    @Override
+    public void initPresenter() {
+        mPresenter.setUserInterface(this, mModel);
+    }
+
+    @Override
+    public void onSucceed() {
+
+    }
+
+    //登录成功回调
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+        App.setUserEntity(userEntity);
+        showActivity(MainActivity.class);
     }
 }
