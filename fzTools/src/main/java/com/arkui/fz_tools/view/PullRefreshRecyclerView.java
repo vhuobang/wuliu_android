@@ -70,6 +70,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
         mEmpty.setLayoutResource(R.layout.view_empty);
         View empty_view = mEmpty.inflate();
         mTvFailName = (TextView) empty_view.findViewById(R.id.tv_name);
+        mEmpty.setVisibility(View.GONE);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -86,6 +87,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
                     } else {
                         mAnimationDrawable.start();
                         mRecycler.setVisibility(View.GONE);
+                        mEmpty.setVisibility(View.GONE);
                         mProgress.setVisibility(View.VISIBLE);
                     }
                 }
