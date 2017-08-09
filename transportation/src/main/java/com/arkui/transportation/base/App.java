@@ -76,7 +76,7 @@ public class App extends Application {
         return mUser_id;
     }
 
-    public void deleteUserInfo(){
+    public  void deleteUserInfo(){
         mUser_id=null;
         mUserEntity=null;
         // FileUtil.delete(mApp, Constants.USER_OBJECT);

@@ -37,7 +37,7 @@ public class UserEntity implements Serializable{
     @SerializedName("avatar")
     private String avatar;
     @SerializedName("qq")
-    private Object qq;
+    private String qq;
     @SerializedName("integral")
     private String integral;
     @SerializedName("balance")
@@ -52,6 +52,28 @@ public class UserEntity implements Serializable{
     private Object invitationCode;
     @SerializedName("register_time")
     private String registerTime;
+    //is_user_certificate 个人认证
+    @SerializedName("is_user_certificate")
+    private String isUserCertificate;
+    // 公司认证  is_company_certificate
+    @SerializedName("is_company_certificate")
+    private String isCompanyCertificate;
+
+    public String getIsUserCertificate() {
+        return isUserCertificate;
+    }
+
+    public void setIsUserCertificate(String isUserCertificate) {
+        this.isUserCertificate = isUserCertificate;
+    }
+
+    public String getIsCompanyCertificate() {
+        return isCompanyCertificate;
+    }
+
+    public void setIsCompanyCertificate(String isCompanyCertificate) {
+        this.isCompanyCertificate = isCompanyCertificate;
+    }
 
     public String getId() {
         return id;
@@ -93,11 +115,11 @@ public class UserEntity implements Serializable{
         this.avatar = avatar;
     }
 
-    public Object getQq() {
+    public String getQq() {
         return qq;
     }
 
-    public void setQq(Object qq) {
+    public void setQq(String qq) {
         this.qq = qq;
     }
 

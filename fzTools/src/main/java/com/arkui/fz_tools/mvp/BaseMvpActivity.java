@@ -2,7 +2,6 @@ package com.arkui.fz_tools.mvp;
 
 import android.os.Bundle;
 
-import com.arkui.fz_tools._interface.BaseModel;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.TUtil;
 
@@ -16,9 +15,10 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         mPresenter = TUtil.getT(this, 0);
-      //  mModel = TUtil.getT(this, 1);
+        //  mModel = TUtil.getT(this, 1);
         if (mPresenter != null) {
             mPresenter.mContext = this;
         }

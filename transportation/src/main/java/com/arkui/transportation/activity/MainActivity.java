@@ -3,10 +3,10 @@ package com.arkui.transportation.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.publish.MyDeliverActivity;
@@ -22,7 +22,7 @@ import butterknife.OnClick;
  * @author nmliz 主页
  * @time 2017/6/19 10:08
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private long mPressedTime = 0;
     protected BaseFragment currentSupportFragment;
@@ -34,13 +34,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentViewNoTitle(R.layout.activity_main);
         ButterKnife.bind(this);
         mHomeFragment = new HomeFragment();
         mMessageFragment = new MessageFragment();
         mWaybillFragment = new WaybillFragment();
         mMyFragment = new MyFragment();
         changeFragment(R.id.fl_content,mHomeFragment);
+    }
+
+    @Override
+    public void setRootView() {
+
     }
 
 

@@ -14,4 +14,12 @@ public class NetConstants {
     public static final String FREED_BACK=BASE_URL+"index.php/App/Public/freed_back";
     // 消息列表  App/Notice/noticeList
     public static final String NOTICE_LIST=BASE_URL+"index.php/App/Notice/noticeList";
+    // 邀请列表 index.php/App/Users/shareCode
+    public static final String SHARE_CODE =BASE_URL+"index.php/App/Users/shareCode";
+    // 修改密码 index.php/App/Users/forgetPassword
+    public static final String FORGET_PASSWORD =BASE_URL+"index.php/App/Users/forgetPassword";
+    // 用户详情  index.php/App/Users/userInfo
+    public static final String USER_INFO =BASE_URL+"index.php/App/Users/userInfo";
+    // 完善用户信息 index.php/App/Users/userEdit
+    public static final String USER_EDIT =BASE_URL+"index.php/App/Users/userEdit";
 }

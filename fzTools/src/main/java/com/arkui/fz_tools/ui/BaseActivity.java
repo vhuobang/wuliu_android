@@ -15,12 +15,8 @@ import android.widget.Toast;
 
 import com.arkui.fz_tools.R;
 import com.arkui.fz_tools.adapter.CommonAdapter;
-import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.DestroyActivityUtils;
-import com.arkui.fz_tools.utils.DividerItemDecoration;
-import com.arkui.fz_tools.view.PullRefreshRecyclerView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 
 
 public abstract class BaseActivity<T> extends AppCompatActivity  {
@@ -51,6 +47,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
         initView();
         initView(savedInstanceState);
         initData();
+        AppManager.getAppManager().addActivity(this);
     }
 
     public void initView() {
@@ -194,6 +191,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppManager.getAppManager().removeActivity(this);
         DestroyActivityUtils.finishActivity(this);
     }
 
