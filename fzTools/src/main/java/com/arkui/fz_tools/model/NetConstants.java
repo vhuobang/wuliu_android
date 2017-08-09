@@ -22,4 +22,6 @@ public class NetConstants {
     public static final String USER_INFO =BASE_URL+"index.php/App/Users/userInfo";
     // 完善用户信息 index.php/App/Users/userEdit
     public static final String USER_EDIT =BASE_URL+"index.php/App/Users/userEdit";
+    //上传图片
+    public static final String IMAGE_UPLOAD=BASE_URL+"index.php/App/Upload/image_upload";
 }
