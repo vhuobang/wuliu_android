@@ -37,13 +37,16 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
         ButterKnife.bind(this);
         SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
         SystemBarHelper.setStatusBarDarkMode(this);
+        if(App.isLogin()){
+            showActivity(MainActivity.class);
+            finish();
+        }
     }
 
     @OnClick({R.id.bt_login, R.id.tv_forget, R.id.tv_register})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
-                //showActivity(MainActivity.class);
                 getLogin();
                 break;
             case R.id.tv_forget:
@@ -62,11 +65,6 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
         mPresenter.getLogin(phone,password, Constants.OWNER);
     }
 
-   /* @Override
-    public void initPresenter() {
-        mPresenter.setUserInterface(this, mModel);
-    }
-*/
     @Override
     public void onSucceed() {
 
@@ -77,6 +75,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+        finish();
     }
 
     @Override

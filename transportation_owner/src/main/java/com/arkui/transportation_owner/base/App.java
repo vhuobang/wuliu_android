@@ -15,7 +15,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class App extends Application {
 
-    private static  UserEntity mUserEntity;
+    private static UserEntity mUserEntity;
 
     private static String mUser_id;
 
@@ -40,14 +40,14 @@ public class App extends Application {
         // Normal app init code...
         PlatformConfig.setWeixin("wx96bfd7f8eafa5940", "e30acd76f48dcb72946ca0ecf818a778");
         PlatformConfig.setQQZone("1106145377", "Nn7ceRa1ba4Bx95v");
-      //  mActivityComponent = Dag.builder().appModule(new AppModule(this)).build();
+        //  mActivityComponent = Dag.builder().appModule(new AppModule(this)).build();
     }
 
     public static UserEntity getUserEntity() {
         if (mUserEntity == null) {
             String userObject = SPUtil.getInstance(mApp).read(Constants.USER_OBJECT, null);
             if (userObject != null) {
-               return JsonData.getBean(UserEntity.class, userObject);
+                return JsonData.getBean(UserEntity.class, userObject);
             }
             //return (UserEntity) FileUtil.read(mApp, Constants.USER_OBJECT);
         }
@@ -60,28 +60,32 @@ public class App extends Application {
         mUserInfoEntity = userInfoEntity;*/
         SPUtil.getInstance(mApp).remove(Constants.USER_OBJECT);
         String userObject = JSON.toJSONString(userInfoEntity);
-        SPUtil.getInstance(mApp).save(Constants.USER_OBJECT,userObject);
-        SPUtil.getInstance(mApp).save(Constants.IS_LOGIN,true);
-        mUserEntity=userInfoEntity;
+        SPUtil.getInstance(mApp).save(Constants.USER_OBJECT, userObject);
+        SPUtil.getInstance(mApp).save(Constants.IS_LOGIN, true);
+        mUserEntity = userInfoEntity;
     }
 
     public static String getUser_id() {
-        if(mUser_id==null){
-            if(getUserEntity()==null){
+        if (mUser_id == null) {
+            if (getUserEntity() == null) {
                 return null;
-            }else{
-                mUser_id=getUserEntity().getId();
+            } else {
+                mUser_id = getUserEntity().getId();
             }
         }
         return mUser_id;
     }
 
-    public void deleteUserInfo(){
-        mUser_id=null;
-        mUserEntity=null;
-       // FileUtil.delete(mApp, Constants.USER_OBJECT);
+    public void deleteUserInfo() {
+        mUser_id = null;
+        mUserEntity = null;
+        // FileUtil.delete(mApp, Constants.USER_OBJECT);
         SPUtil.getInstance(mApp).remove(Constants.USER_OBJECT);
         SPUtil.getInstance(mApp).remove(Constants.IS_LOGIN);
+    }
+
+    public static boolean isLogin() {
+        return SPUtil.getInstance(mApp).read(Constants.IS_LOGIN, false);
     }
 
 }

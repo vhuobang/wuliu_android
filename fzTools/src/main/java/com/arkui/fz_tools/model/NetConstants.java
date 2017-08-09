@@ -14,4 +14,6 @@ public class NetConstants {
     public static final String FREED_BACK=BASE_URL+"index.php/App/Public/freed_back";
     // 消息列表  App/Notice/noticeList
     public static final String NOTICE_LIST=BASE_URL+"index.php/App/Notice/noticeList";
+    //上传图片
+    public static final String IMAGE_UPLOAD=BASE_URL+"index.php/App/Upload/image_upload";
 }
