@@ -14,6 +14,7 @@ import com.arkui.fz_tools.entity.UserEntity;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/9.
@@ -47,6 +48,11 @@ public class UserEditPresenter extends BasePresenter {
             @Override
             public void onNext(UserEntity userEntity) {
                    mUserEditInterface.onSuccess(userEntity);
+            }
+
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
             }
 
             @Override

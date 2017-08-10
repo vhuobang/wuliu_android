@@ -221,6 +221,11 @@ public class UserPresenter extends BasePresenter {
             }
 
             @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
             public void onApiError(ApiException e) {
                 super.onApiError(e);
             }
