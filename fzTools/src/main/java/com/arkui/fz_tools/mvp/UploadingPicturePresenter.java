@@ -22,6 +22,7 @@ import java.io.File;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -64,6 +65,11 @@ public class UploadingPicturePresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressSubscriber<UpLoadEntity>(mContext) {
+                    @Override
+                    protected void getDisposable(Disposable d) {
+                        mDisposables.add(d);
+                    }
+
                     @Override
                     public void onNext(UpLoadEntity value) {
                         //回调给UI

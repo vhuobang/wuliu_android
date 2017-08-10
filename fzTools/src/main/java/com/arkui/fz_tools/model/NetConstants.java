@@ -16,4 +16,6 @@ public class NetConstants {
     public static final String NOTICE_LIST=BASE_URL+"index.php/App/Notice/noticeList";
     //上传图片
     public static final String IMAGE_UPLOAD=BASE_URL+"index.php/App/Upload/image_upload";
+    //个人认证
+    public static final String PERSONAL_AUTH=BASE_URL+"index.php/App/Users/personalAuth";
 }

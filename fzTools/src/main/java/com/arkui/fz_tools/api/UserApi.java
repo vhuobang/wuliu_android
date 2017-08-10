@@ -27,4 +27,9 @@ public interface UserApi {
     @POST(NetConstants.LOGIN)
     Observable<BaseHttpResult<UserEntity>> getLogin(@FieldMap Map<String,Object> parameter);
 
+    //个人认证接口
+    @FormUrlEncoded
+    @POST(NetConstants.PERSONAL_AUTH)
+    Observable<BaseHttpResult> postPersonalAuth(@FieldMap Map<String,Object> parameter);
+
 }

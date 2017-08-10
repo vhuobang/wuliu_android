@@ -50,6 +50,8 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
     private final int REQUEST_PHOTO = 234;
     private final int REQUEST_CROP = 235;
     private Uri mPhotoUri;
+    private int mAspectX=1;
+    private int mAspectY=1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -151,8 +153,8 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", mAspectX);
+        intent.putExtra("aspectY", mAspectY);
         // outputX,outputY 是剪裁图片的宽高
        /* intent.putExtra("outputX", 500);
         intent.putExtra("outputY", 500);*/
@@ -192,4 +194,11 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
         });
     }
 
+    public void setAspectX(int mAspectX) {
+        this.mAspectX = mAspectX;
+    }
+
+    public void setAspectY(int mAspectY) {
+        this.mAspectY = mAspectY;
+    }
 }
