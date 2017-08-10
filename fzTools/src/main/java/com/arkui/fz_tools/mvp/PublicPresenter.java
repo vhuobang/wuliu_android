@@ -1,5 +1,6 @@
 package com.arkui.fz_tools.mvp;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -28,9 +29,14 @@ public class PublicPresenter extends BasePresenter {
     public PublicInterface mPublicInterface;
     public PublicApi mPublicApi;
 
+    public PublicPresenter(PublicInterface mPublicInterface, Activity activity) {
+        this.mPublicInterface = mPublicInterface;
+        mContext = activity;
+        mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
+    }
+
     public void setPublicInterface(PublicInterface publicInterface) {
         mPublicInterface = publicInterface;
-
         mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
 
@@ -54,7 +60,6 @@ public class PublicPresenter extends BasePresenter {
             @Override
             public void onNext(BaseHttpResult value) {
                 mPublicInterface.onSuccess();
-
             }
 
             @Override
@@ -67,8 +72,29 @@ public class PublicPresenter extends BasePresenter {
                 super.onApiError(e);
                 mPublicInterface.onFail(e.getMessage());
             }
+        });
+    }
+    // 消息已读
+    public void getReadMessage(String id){
+        Observable<BaseHttpResult> observable = mPublicApi.getReadMessage(id);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                 mDisposables.add(d);
+            }
 
+            @Override
+            public void onNext(BaseHttpResult value) {
+              mPublicInterface.onSuccess();
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                mPublicInterface.onFail(e.getMessage());
+            }
         });
 
     }
+
 }

@@ -1,10 +1,12 @@
 package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_tools.entity.InviteFriendEntity;
 import com.arkui.fz_tools.entity.ShareCodeEntity;
 import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -48,5 +50,9 @@ public interface UserApi {
     @FormUrlEncoded
     @POST(NetConstants.PERSONAL_AUTH)
     Observable<BaseHttpResult> postPersonalAuth(@FieldMap Map<String,Object> parameter);
+    // index.php/App/Users/friendsList 我的好友邀请列表接口
+    @FormUrlEncoded
+    @POST(NetConstants.FRIENDS_LIST)
+    Observable<BaseHttpResult<List<InviteFriendEntity>>> getFriendList(@FieldMap Map<String,Object> parameter);
 
 }

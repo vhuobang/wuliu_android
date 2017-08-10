@@ -5,17 +5,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.arkui.fz_tools._interface.NoticeInterface;
+import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.mvp.BaseMvpFragment;
 import com.arkui.fz_tools.mvp.NoticePresenter;
+import com.arkui.fz_tools.mvp.PublicPresenter;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
+import com.arkui.transportation.api.MessageApi;
 import com.arkui.transportation.base.App;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -30,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface{
+public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface, PublicInterface {
 
     @BindView(R.id.rl_order)
     PullRefreshRecyclerView mRlOrder;
@@ -40,6 +44,8 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     private  int page=1;
     private int pageSize =10;
     private  String ORDER_TYPE="1";
+    private MessageApi messageApi;
+    private PublicPresenter publicPresenter;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -50,6 +56,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
+        publicPresenter = new PublicPresenter(this, getActivity());
         mRlOrder.setLayoutManager(new LinearLayoutManager(mContext));
         mOrderMessageAdapter = new CommonAdapter(R.layout.item_system_message,this);
         mRlOrder.setAdapter(mOrderMessageAdapter);
@@ -65,10 +72,15 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
                /* Intent intent=new Intent(mContext, MessageDetailsActivity.class);
                 intent.putExtra("title","运单消息");
                 startActivity(intent);*/
-               showActivity(WaybillDetailActivity.class);
+                NoticeEntity item = (NoticeEntity) adapter.getItem(position);
+                publicPresenter.getReadMessage(item.getId());
+
+                ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
+                readPoint.setVisibility(View.GONE);
+                showActivity(WaybillDetailActivity.class);
+
             }
         });
-
 
     }
 
@@ -136,9 +148,15 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         }
 
     }
-  /*
-    请求数据失败
-   */
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    /*
+        请求数据失败
+       */
     @Override
     public void onFail(String message) {
         mOrderMessageAdapter.loadMoreEnd();

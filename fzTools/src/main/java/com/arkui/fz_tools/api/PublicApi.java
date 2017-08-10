@@ -34,5 +34,8 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.IMAGE_UPLOAD)
     Observable<BaseHttpResult<UpLoadEntity>> upload(@Field("type") String type, @Field("img") String img);
-
+    // 消息已读
+    @FormUrlEncoded
+    @POST(NetConstants.READ_MESSAGE)
+    Observable<BaseHttpResult> getReadMessage(@Field("id") String messageId);
 }

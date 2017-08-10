@@ -69,7 +69,7 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
                 }
                 break;
             case R.id.tv_friend_list:
-
+                 showActivity(InviteFriendListActivity.class);
                 break;
         }
     }
