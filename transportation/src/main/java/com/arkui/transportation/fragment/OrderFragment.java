@@ -90,7 +90,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     }
 
     private void getLoadData() {
-        mPresenter.getNoticeList(App.getUser_id(),ORDER_TYPE,page,pageSize);
+        mPresenter.getNoticeList(App.getUserId(),ORDER_TYPE,page,pageSize);
     }
 
 

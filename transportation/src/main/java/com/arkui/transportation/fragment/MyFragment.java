@@ -65,7 +65,7 @@ public class MyFragment extends BaseFragment {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mShareDialog = new ShareDialog();
-        GlideUtils.getInstance().load(getActivity(), App.getUserEntity().getAvatar(),ivHead );
+        GlideUtils.getInstance().loadRound(getActivity(), App.getUserEntity().getAvatar(),ivHead );
         tvName.setText(App.getUserEntity().getNickname());
     }
 

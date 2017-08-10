@@ -30,7 +30,7 @@ public class RetrofitFactory {
         synchronized (RetrofitFactory.class) {
             if (mRetrofit == null) {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder().connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-                builder.addInterceptor(new LogInterceptor());
+                builder.addNetworkInterceptor(new LogInterceptor());
                 String BASE_URL = "http://wuliu.181858.com/";
                 mRetrofit = new Retrofit.Builder()
                         .client(builder.build())

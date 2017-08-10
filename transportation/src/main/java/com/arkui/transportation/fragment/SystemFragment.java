@@ -80,7 +80,7 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
         getLoadData();
     }
     private void getLoadData() {
-        mPresenter.getNoticeList(App.getUser_id(),SYSTEM_TYPE,page,pageSize);
+        mPresenter.getNoticeList(App.getUserId(),SYSTEM_TYPE,page,pageSize);
     }
 
     @Override

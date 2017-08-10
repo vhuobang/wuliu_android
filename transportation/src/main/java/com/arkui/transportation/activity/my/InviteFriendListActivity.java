@@ -54,7 +54,7 @@ public class InviteFriendListActivity extends BaseListActivity<InviteFriendEntit
     }
 
     private void loadNetData() {
-        mInviteFriendListPresenter.getInviteFriendList(App.getUser_id(), page, pageSize);
+        mInviteFriendListPresenter.getInviteFriendList(App.getUserId(), page, pageSize);
     }
 
     // 下拉刷新

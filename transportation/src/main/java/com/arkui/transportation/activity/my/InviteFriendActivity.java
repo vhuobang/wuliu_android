@@ -76,7 +76,7 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
 
     @Override
     public void initData() {
-        shareCodePresenter.getShareCode(App.getUser_id());
+        shareCodePresenter.getShareCode(App.getUserId());
     }
 
     public  void copy(String content, Context context) {

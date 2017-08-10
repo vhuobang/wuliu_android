@@ -162,62 +162,17 @@ public class GlideUtils {
 
     //-----------------------圆角图片----------------------
 
-    //下面代码有问题 暂时不要用 切记切记-----------------------------------
-
-    /**
-     * 加载设置圆角图片
-     * 使用Application上下文，Glide请求将不受Activity/Fragment生命周期控制
-     * <BR/>使用activity 会受到Activity生命周期控制
-     * <BR/>使用FragmentActivity 会受到FragmentActivity生命周期控制
-     *
-     * @param context
-     * @param path
-     * @param imageView
-     * @param roundradius 圆角大小（>0）
-     */
-    @SuppressWarnings("unchecked")
-    private void loadRound(Context context, String path, ImageView imageView, int roundradius) {
-        if (roundradius < 0) {
-            Glide.with(context).load(path).bitmapTransform(new GlideRoundTransform(context)).into(imageView);
-        } else {
-            Glide.with(context).load(path).bitmapTransform(new GlideRoundTransform(context, roundradius)).into(imageView);
-        }
+    public void loadRound(Context context, String path, ImageView imageView) {
+        Glide.with(context).load(addHttps(path)).bitmapTransform(new GlideRoundTransform(context)).into(imageView);
     }
 
-    /**
-     * Glide请求图片设置圆角，会受到android.app.Fragment生命周期控制
-     *
-     * @param fragment
-     * @param path
-     * @param imageView
-     * @param roundradius
-     */
-    @SuppressWarnings("unchecked")
-    private void loadRound(android.app.Fragment fragment, String path, ImageView imageView, int roundradius) {
-        if (roundradius < 0) {
-            Glide.with(fragment).load(path).bitmapTransform(new GlideRoundTransform(fragment.getActivity())).into(imageView);
-        } else {
-            Glide.with(fragment).load(path).bitmapTransform(new GlideRoundTransform(fragment.getActivity(), roundradius)).into(imageView);
-        }
+    public void loadRound(android.app.Fragment fragment, String path, ImageView imageView) {
+        Glide.with(fragment).load(addHttps(path)).bitmapTransform(new GlideRoundTransform(fragment.getActivity())).into(imageView);
     }
 
-    /**
-     * Glide请求图片设置圆角，会受到android.support.v4.app.Fragment生命周期控制
-     *
-     * @param fragment
-     * @param path
-     * @param imageView
-     * @param roundradius
-     */
-    @SuppressWarnings("unchecked")
-    private void loadRound(android.support.v4.app.Fragment fragment, String path, ImageView imageView, int roundradius) {
-        if (roundradius < 0) {
-            Glide.with(fragment).load(path).bitmapTransform(new GlideRoundTransform(fragment.getActivity())).into(imageView);
-        } else {
-            Glide.with(fragment).load(path).bitmapTransform(new GlideRoundTransform(fragment.getActivity(), roundradius)).into(imageView);
-        }
+    public void loadRound(Fragment fragment, String path, ImageView imageView) {
+        Glide.with(fragment).load(addHttps(path)).bitmapTransform(new GlideRoundTransform(fragment.getActivity())).into(imageView);
     }
-
     //--------------------------------------------------
 
     /**
@@ -269,10 +224,10 @@ public class GlideUtils {
      */
     public class GlideRoundTransform extends BitmapTransformation {
 
-        private float radius = 0f;
+        private float radius = 10f;
 
         public GlideRoundTransform(Context context) {
-            this(context, 4);
+            this(context, 10);
         }
 
         /**

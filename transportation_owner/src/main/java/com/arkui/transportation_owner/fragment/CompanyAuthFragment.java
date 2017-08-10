@@ -14,23 +14,26 @@ import com.arkui.fz_tools.dialog.AddressPicker;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.City;
 import com.arkui.fz_tools.entity.UpLoadEntity;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.AuthenticationPresenter;
 import com.arkui.fz_tools.mvp.BaseMvpPhotoFragment;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.base.App;
+import com.arkui.transportation_owner.utils.LoadCityData;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * 基于基类的Fragment
  */
-public class CompanyAuthFragment extends BaseMvpPhotoFragment implements UploadingPictureInterface, PublicInterface {
+public class CompanyAuthFragment extends BaseMvpPhotoFragment implements UploadingPictureInterface, PublicInterface, AddressPicker.OnEnsureClickListener {
 
     @BindView(R.id.et_name)
     EditText mEtName;
@@ -68,6 +71,22 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
         ButterKnife.bind(this, parentView);
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("个人认证").setContent("个人认证信息已提交到后台进行审核，请耐心等待！").setNoCancel();
+        mCommonDialog.setConfirmClick(new OnConfirmClick() {
+            @Override
+            public void onConfirmClick() {
+                getActivity().finish();
+            }
+        });
+        mAddressPicker = new AddressPicker();
+        //初始化其数据
+        LoadCityData.initData(mContext, new Consumer<List<City>>() {
+            @Override
+            public void accept(List<City> cityList) throws Exception {
+                mCityList = cityList;
+                mAddressPicker.setCities(mCityList);
+            }
+        });
+        mAddressPicker.setOnEnsureClickListener(this);
     }
 
     @OnClick({R.id.iv_name_clear, R.id.ll_address, R.id.iv_detail_address_clean, R.id.iv_business_license_clean, R.id.iv_license_name_clean, R.id.iv_license_number_clean, R.id.iv_license_pic, R.id.iv_license_pic2, R.id.bt_submit})
@@ -77,6 +96,7 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
                 mEtName.setText("");
                 break;
             case R.id.ll_address:
+                mAddressPicker.show(getFragmentManager(), "address");
                 break;
             case R.id.iv_detail_address_clean:
                 mTvDetailAddress.setText("");
@@ -99,7 +119,6 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
                 showPicturePicker();
                 break;
             case R.id.bt_submit:
-                //
                 submit();
                 break;
         }
@@ -113,9 +132,7 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
         String businessLicense = mEtBusinessLicense.getText().toString().trim();
         String licenseName = mEtLicenseName.getText().toString().trim();
         String licenseNumber = mEtLicenseNumber.getText().toString().trim();
-
-
-        //mAuthenticationPresenter.postCompanyAuth(App.getUserId(), );
+        mAuthenticationPresenter.postCompanyAuth(App.getUserId(), name, address, detailAddress, businessLicense, licenseName, licenseNumber, mPath0, mPath1);
     }
 
     @Override
@@ -132,11 +149,11 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
     @Override
     public void onUploadingSuccess(UpLoadEntity upLoadEntity) {
         switch (mType) {
-            case 1:
+            case 0:
                 mPath0 = upLoadEntity.getOriImg();
                 GlideUtils.getInstance().load(this, upLoadEntity.getOriImg(), mIvLicensePic);
                 break;
-            case 2:
+            case 1:
                 mPath1 = upLoadEntity.getOriImg();
                 GlideUtils.getInstance().load(this, upLoadEntity.getOriImg(), mIvLicensePic2);
                 break;
@@ -147,7 +164,6 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
     @Override
     public void onSuccess() {
         mCommonDialog.show(getFragmentManager(), "auth");
-        getActivity().finish();
     }
 
     //认证操作失败
@@ -164,5 +180,10 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
             mAuthenticationPresenter.onDestroy();
         }
 
+    }
+
+    @Override
+    public void onCityClick(String city) {
+        mTvAddress.setText(city);
     }
 }

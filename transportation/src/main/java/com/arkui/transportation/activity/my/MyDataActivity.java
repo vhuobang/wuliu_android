@@ -47,9 +47,9 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
             Toast.makeText(MyDataActivity.this, "输入要修改的内容", Toast.LENGTH_SHORT).show();
         }
         if (type == 101) { // qq昵称
-            mPresenter.getUserEdit(App.getUser_id(), content, App.getUserEntity().getAvatar(), App.getUserEntity().getQq());
+            mPresenter.getUserEdit(App.getUserId(), content, App.getUserEntity().getAvatar(), App.getUserEntity().getQq());
         } else {
-            mPresenter.getUserEdit(App.getUser_id(), App.getUserEntity().getNickname(), App.getUserEntity().getAvatar(), content);
+            mPresenter.getUserEdit(App.getUserId(), App.getUserEntity().getNickname(), App.getUserEntity().getAvatar(), content);
         }
 
     }
