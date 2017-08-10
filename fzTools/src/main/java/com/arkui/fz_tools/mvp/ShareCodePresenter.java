@@ -14,6 +14,7 @@ import com.arkui.fz_tools.entity.ShareCodeEntity;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/9.
@@ -39,6 +40,11 @@ public class ShareCodePresenter extends BasePresenter {
             @Override
             public void onNext(ShareCodeEntity shareCodeEntity) {
                 mShareCodeInterface.onSuccess(shareCodeEntity);
+            }
+
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
             }
 
             @Override
