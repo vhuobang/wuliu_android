@@ -39,7 +39,7 @@ public class FeedbackActivity extends BaseMvpActivity<PublicPresenter> implement
     protected void onRightClick() {
         String content = etFaceBack.getText().toString().trim();
         String phoneNumber = etPhoneNumber.getText().toString().trim();
-        mPresenter.getFaceBack(App.getUser_id(),content,phoneNumber);
+        mPresenter.getFaceBack(App.getUserId(),content,phoneNumber);
     }
 
 

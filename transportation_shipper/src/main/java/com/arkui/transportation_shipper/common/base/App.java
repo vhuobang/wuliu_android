@@ -67,7 +67,7 @@ public class App extends Application {
         mUserEntity=userInfoEntity;
     }
 
-    public static String getUser_id() {
+    public static String getUserId() {
         if(mUser_id==null){
             if(getUserEntity()==null){
                 return null;
