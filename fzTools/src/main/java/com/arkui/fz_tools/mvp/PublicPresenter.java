@@ -30,8 +30,7 @@ public class PublicPresenter extends BasePresenter {
 
     public void setPublicInterface(PublicInterface publicInterface) {
         mPublicInterface = publicInterface;
-       /* mModel = publicModel;
-        mModel.initModel();*/
+
         mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
 
@@ -68,7 +67,7 @@ public class PublicPresenter extends BasePresenter {
                 super.onApiError(e);
                 mPublicInterface.onFail(e.getMessage());
             }
-       /* mModel.getFaceBack(userId, content, tel,*/
+
         });
 
     }

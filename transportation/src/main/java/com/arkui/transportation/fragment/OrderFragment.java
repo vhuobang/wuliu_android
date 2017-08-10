@@ -39,6 +39,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     private CommonAdapter<NoticeEntity> mOrderMessageAdapter;
     private  int page=1;
     private int pageSize =10;
+    private  String ORDER_TYPE="1";
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -73,12 +74,11 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
 
     @Override
     protected void initData() {
-
         getLoadData();
     }
 
     private void getLoadData() {
-        mPresenter.getNoticeList(App.getUser_id(),"1",page,pageSize);
+        mPresenter.getNoticeList(App.getUser_id(),ORDER_TYPE,page,pageSize);
     }
 
 
@@ -90,7 +90,14 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     @Override
     public void convert(BaseViewHolder helper, NoticeEntity item) {
         helper.setText(R.id.tv_name,item.getTitle());
-
+        helper.setText(R.id.tv_time,item.getCreated_at());
+        helper.setText(R.id.tv_content,item.getContent());
+        String status = item.getStatus();
+        if ("1".equals(status)){
+            helper.getView(R.id.red_point).setVisibility(View.VISIBLE);
+        }else {
+            helper.getView(R.id.red_point).setVisibility(View.GONE);
+        }
 
     }
 
@@ -137,7 +144,6 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         mOrderMessageAdapter.loadMoreEnd();
         mRlOrder.refreshComplete();
         mRlOrder.loadFail();
-
     }
 
     @Override

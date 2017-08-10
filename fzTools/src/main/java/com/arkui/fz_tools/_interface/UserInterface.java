@@ -11,4 +11,5 @@ public interface UserInterface {
      void onSucceed();
     //登陆成功
     void loginSucceed(UserEntity userEntity);
+
 }
