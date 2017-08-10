@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <!--主色-->
     <color name="mainColor">#E77E23</color>
+    <!--字体颜色-->
+    <color name="front_color">#333333</color>
+    <color name="stoke_color">#999999</color>
+    <color name="wuliu_color">#dc2203</color>
+    <color name="chezhu_color">#</color>
 </resources>

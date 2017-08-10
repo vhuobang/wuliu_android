@@ -44,14 +44,13 @@ public class App extends Application {
     }
 
     public static UserEntity getUserEntity() {
-        if (mUserEntity == null) {
+
             String userObject = SPUtil.getInstance(mApp).read(Constants.USER_OBJECT, null);
             if (userObject != null) {
-                return JsonData.getBean(UserEntity.class, userObject);
+                mUserEntity= JsonData.getBean(UserEntity.class, userObject);
             }
             //return (UserEntity) FileUtil.read(mApp, Constants.USER_OBJECT);
-        }
-        return mUserEntity;
+              return mUserEntity;
     }
 
     public static void setUserEntity(UserEntity userInfoEntity) {

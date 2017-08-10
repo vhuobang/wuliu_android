@@ -2,7 +2,6 @@ package com.arkui.fz_tools.mvp;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +26,7 @@ import com.arkui.fz_tools.utils.TimeUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -73,10 +67,10 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
     @Override
     public void onClick(int position) {
         if (position == 0) {
-            //拍照
+            //选择图片
             selectPhoto();
         } else {
-            //选择图片
+            //拍照
             selectCamera();
         }
     }
