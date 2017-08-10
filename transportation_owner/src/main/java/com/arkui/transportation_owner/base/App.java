@@ -58,6 +58,7 @@ public class App extends Application {
        /* FileUtil.delete(mApp, Constants.USER_OBJECT);
         FileUtil.save(mApp, Constants.USER_OBJECT, userInfoEntity);
         mUserInfoEntity = userInfoEntity;*/
+        mUser_id=userInfoEntity.getId();
         SPUtil.getInstance(mApp).remove(Constants.USER_OBJECT);
         String userObject = JSON.toJSONString(userInfoEntity);
         SPUtil.getInstance(mApp).save(Constants.USER_OBJECT, userObject);
@@ -65,10 +66,10 @@ public class App extends Application {
         mUserEntity = userInfoEntity;
     }
 
-    public static String getUser_id() {
+    public static String getUserId() {
         if (mUser_id == null) {
             if (getUserEntity() == null) {
-                return null;
+                return "";
             } else {
                 mUser_id = getUserEntity().getId();
             }

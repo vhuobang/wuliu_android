@@ -26,11 +26,11 @@
                 android:hint="请输入姓名" />
 
             <ImageView
-                android:scaleType="center"
                 android:id="@+id/iv_name_clear"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
+                android:scaleType="center"
                 android:src="@mipmap/close" />
 
         </TableRow>
@@ -43,17 +43,24 @@
                 style="@style/TextView"
                 android:text="地址" />
 
-            <TextView
-                android:id="@+id/tv_address"
-                style="@style/TextViewWeight999"
-                android:hint="请选择" />
-
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ll_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/down_go" />
+                android:layout_weight="1">
 
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/TextViewWeight999"
+                    android:hint="请选择" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/down_go" />
+            </LinearLayout>
         </TableRow>
 
         <TableRow
@@ -71,11 +78,11 @@
                 android:hint="请输入详细的地址" />
 
             <ImageView
-                android:scaleType="center"
                 android:id="@+id/iv_detail_address"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
+                android:scaleType="center"
                 android:src="@mipmap/close" />
 
         </TableRow>
@@ -90,18 +97,18 @@
                 android:text="身份证号" />
 
             <EditText
-                android:digits="0123456789X"
                 android:id="@+id/et_number"
                 style="@style/TextViewWeight999"
                 android:background="@null"
+                android:digits="0123456789X"
                 android:hint="请输入身份证号" />
 
             <ImageView
-                android:scaleType="center"
                 android:id="@+id/iv_number_clear"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_gravity="center_vertical"
+                android:scaleType="center"
                 android:src="@mipmap/close" />
 
         </TableRow>
@@ -142,14 +149,14 @@
                         android:src="@mipmap/upload_photo3" />
 
                     <TextView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:text="正面照"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="@dimen/sp_12"
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -183,14 +190,14 @@
                         android:src="@mipmap/upload_photo2" />
 
                     <TextView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:text="反面照"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="@dimen/sp_12"
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -221,14 +228,14 @@
                         android:src="@mipmap/upload_photo1" />
 
                     <TextView
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:text="添加照片"
                         android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="@dimen/sp_12"
+                        android:visibility="gone" />
 
                 </FrameLayout>
 

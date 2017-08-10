@@ -73,6 +73,7 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
         if(v.getId()==R.id.tv_submit){
             if (onEnsureClickListener != null) {
                 onEnsureClickListener.onCityClick(getSelect());
+                dismiss();
             }
         }
     }

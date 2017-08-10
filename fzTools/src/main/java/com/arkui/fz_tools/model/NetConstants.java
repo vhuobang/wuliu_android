@@ -26,6 +26,8 @@ public class NetConstants {
     public static final String IMAGE_UPLOAD=BASE_URL+"index.php/App/Upload/image_upload";
     //个人认证
     public static final String PERSONAL_AUTH=BASE_URL+"index.php/App/Users/personalAuth";
+    //企业认证
+    public static final String COMPANY_AUTH=BASE_URL+"index.php/App/Users/companyAuth";
     //我的好友列表  index.php/App/Users/friendsList
     public static final String FRIENDS_LIST=BASE_URL+"index.php/App/Users/friendsList";
     // 消息已读
