@@ -1,5 +1,6 @@
 package com.arkui.fz_tools.mvp;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -39,8 +40,10 @@ public class UserPresenter extends BasePresenter {
     private String mMobile = null;
     private UserApi mUserApi;
 
-    public UserPresenter() {
-
+    public UserPresenter(UserInterface userInterface, Activity activity) {
+        mUserInterface = userInterface;
+        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
+        mContext = activity;
     }
 
 
@@ -231,6 +234,7 @@ public class UserPresenter extends BasePresenter {
             }
         });
     }
+   // 用户详情
 
 
 }
