@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/8.
@@ -43,6 +44,11 @@ public class NoticePresenter  extends BasePresenter{
             @Override
             public void onNext(List<NoticeEntity> noticeEntityList) {
                 mNoticeInterface.onSuccess(noticeEntityList);
+            }
+
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
             }
 
             @Override

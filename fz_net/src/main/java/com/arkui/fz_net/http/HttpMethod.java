@@ -4,6 +4,7 @@ package com.arkui.fz_net.http;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
@@ -38,7 +39,7 @@ public class HttpMethod {
      * @param <T>
      */
     protected <T> void toSubscribe(Observable<T> observable, Observer<T> subscriber) {
-        observable
+      observable
                 /*
                 订阅关系发生在IO线程中,Schedulers叫调度器，subsribeOn( )操作符可以指定observable运行的线程
                 而我设定的调度器的类型是Schedulers.io()。Schedulers.io()是 I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。

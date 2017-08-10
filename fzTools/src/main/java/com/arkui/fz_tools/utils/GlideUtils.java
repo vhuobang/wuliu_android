@@ -314,7 +314,7 @@ public class GlideUtils {
         }
     }
 
-    public static String addHttps(String url) {
+    public String addHttps(String url) {
         if (TextUtils.isEmpty(url)) {
             return "";
         }

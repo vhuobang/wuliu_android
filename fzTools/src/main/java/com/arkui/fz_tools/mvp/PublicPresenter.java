@@ -17,6 +17,7 @@ import com.arkui.fz_tools.utils.ToastUtil;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/8.
@@ -54,6 +55,11 @@ public class PublicPresenter extends BasePresenter {
             public void onNext(BaseHttpResult value) {
                 mPublicInterface.onSuccess();
 
+            }
+
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
             }
 
             @Override

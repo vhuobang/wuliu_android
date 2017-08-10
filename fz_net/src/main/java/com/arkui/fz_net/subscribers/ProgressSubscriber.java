@@ -75,11 +75,16 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, S
     @Override
     public void onSubscribe(Disposable d) {
         mDisposable=d;
+        getDisposable(d);
         if (mIsDialog) {
             showProgressDialog();
         }
     }
 
+    /**
+     * 获取disposable 在onDestroy方法中取消订阅disposable.dispose()
+     */
+    protected abstract void getDisposable(Disposable d);
     /**
      * 完成，隐藏ProgressDialog
      *//*

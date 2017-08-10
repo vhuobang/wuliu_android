@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by nmliz on 2017/8/7.
@@ -99,6 +100,11 @@ public class UserPresenter extends BasePresenter {
             }
 
             @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 //注册失败
@@ -148,6 +154,11 @@ public class UserPresenter extends BasePresenter {
         parameter.put("type", type);
         Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
             @Override
             public void onNext(UserEntity userEntity) {
                 if (mUserInterface != null) {
