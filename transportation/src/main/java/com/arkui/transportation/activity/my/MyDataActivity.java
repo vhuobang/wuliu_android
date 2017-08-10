@@ -2,6 +2,7 @@ package com.arkui.transportation.activity.my;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -46,9 +47,9 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
             Toast.makeText(MyDataActivity.this, "输入要修改的内容", Toast.LENGTH_SHORT).show();
         }
         if (type == 101) { // qq昵称
-            mPresenter.getUserEdit(App.getUser_id(), content, "", "");
+            mPresenter.getUserEdit(App.getUser_id(), content, App.getUserEntity().getAvatar(), App.getUserEntity().getQq());
         } else {
-            mPresenter.getUserEdit(App.getUser_id(), "", "", content);
+            mPresenter.getUserEdit(App.getUser_id(), App.getUserEntity().getNickname(), App.getUserEntity().getAvatar(), content);
         }
 
     }
@@ -62,8 +63,10 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
 
         if (type == 101) {
             mEtContent.setHint("请输入昵称");
+            mEtContent.setInputType(InputType.TYPE_CLASS_TEXT);
         } else {
             mEtContent.setHint("请输入QQ号码");
+            mEtContent.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
     }
 

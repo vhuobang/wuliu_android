@@ -45,7 +45,7 @@ public class MyAvatarActivity extends BasePhotoActivity implements UploadingPict
     protected void onCrop(String path) {
         Log.e("haha", "onCrop: " + path);
         uploadingPicturePresenter.upPicture(path, "Avatar");
-        GlideUtils.getInstance().load(MyAvatarActivity.this,path,ivAvatar);
+
     }
 
     @Override
@@ -63,6 +63,7 @@ public class MyAvatarActivity extends BasePhotoActivity implements UploadingPict
     public void onUploadingSuccess(UpLoadEntity upLoadEntity) {
         UserEntity userEntity = App.getUserEntity();
         userEntity.setAvatar(upLoadEntity.getOriImg());
+        GlideUtils.getInstance().load(MyAvatarActivity.this,upLoadEntity.getOriImg(),ivAvatar);
         App.setUserEntity(userEntity);
     }
 

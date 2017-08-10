@@ -168,4 +168,11 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     public void initPresenter() {
        mPresenter.setNoticeInterface(this);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+        publicPresenter.onDestroy();
+    }
 }
