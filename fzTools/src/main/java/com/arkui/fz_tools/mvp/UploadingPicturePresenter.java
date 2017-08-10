@@ -34,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UploadingPicturePresenter extends BasePresenter {
 
 
-    UploadingPictureInterface mUploadingPictureInterface;
+    private UploadingPictureInterface mUploadingPictureInterface;
     private final PublicApi mPublicApi;
 
     public UploadingPicturePresenter(UploadingPictureInterface mUploadingPictureInterface, Activity activity) {

@@ -5,7 +5,7 @@ package com.arkui.fz_tools.model;
  */
 
 public class NetConstants {
-    public static final String BASE_URL =  "http://wuliu.181858.com/";
+    public static final String BASE_URL =  "http://wuliufz.gotoip1.com/";
     //注册
     public static final String REGISTER=BASE_URL+"index.php/App/Users/register";
     //登录
@@ -26,4 +26,6 @@ public class NetConstants {
     public static final String IMAGE_UPLOAD=BASE_URL+"index.php/App/Upload/image_upload";
     //个人认证
     public static final String PERSONAL_AUTH=BASE_URL+"index.php/App/Users/personalAuth";
+    //企业认证
+    public static final String COMPANY_AUTH=BASE_URL+"index.php/App/Users/companyAuth";
 }

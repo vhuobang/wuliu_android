@@ -21,32 +21,41 @@ public interface UserApi {
     //注册接口
     @FormUrlEncoded
     @POST(NetConstants.REGISTER)
-    Observable<BaseHttpResult> getRegister(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult> getRegister(@FieldMap Map<String, Object> parameter);
 
     //登录接口
     @FormUrlEncoded
     @POST(NetConstants.LOGIN)
-    Observable<BaseHttpResult<UserEntity>> getLogin(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult<UserEntity>> getLogin(@FieldMap Map<String, Object> parameter);
+
     // 生成邀请码接口
     @FormUrlEncoded
     @POST(NetConstants.SHARE_CODE)
-    Observable<BaseHttpResult<ShareCodeEntity>> getShareCode(@FieldMap Map<String,Object> parameter);
-   // 修改密码接口 FORGET_PASSWORD
-   @FormUrlEncoded
-   @POST(NetConstants.FORGET_PASSWORD)
-   Observable<BaseHttpResult> getForgetPassword(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult<ShareCodeEntity>> getShareCode(@FieldMap Map<String, Object> parameter);
+
+    // 修改密码接口 FORGET_PASSWORD
+    @FormUrlEncoded
+    @POST(NetConstants.FORGET_PASSWORD)
+    Observable<BaseHttpResult> getForgetPassword(@FieldMap Map<String, Object> parameter);
+
     // 用户详情 index.php/App/Users/userInfo
     @FormUrlEncoded
     @POST(NetConstants.USER_INFO)
-    Observable<BaseHttpResult<UserEntity>> getUserInfo(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult<UserEntity>> getUserInfo(@FieldMap Map<String, Object> parameter);
+
     // 完善用户信息  USER_EDIT
     @FormUrlEncoded
     @POST(NetConstants.USER_EDIT)
-    Observable<BaseHttpResult<UserEntity>> getUserEdit(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult<UserEntity>> getUserEdit(@FieldMap Map<String, Object> parameter);
 
     //个人认证接口
     @FormUrlEncoded
     @POST(NetConstants.PERSONAL_AUTH)
-    Observable<BaseHttpResult> postPersonalAuth(@FieldMap Map<String,Object> parameter);
+    Observable<BaseHttpResult> postPersonalAuth(@FieldMap Map<String, Object> parameter);
+
+    //个人认证接口
+    @FormUrlEncoded
+    @POST(NetConstants.COMPANY_AUTH)
+    Observable<BaseHttpResult> postCompanyAuth(@FieldMap Map<String, Object> parameter);
 
 }
