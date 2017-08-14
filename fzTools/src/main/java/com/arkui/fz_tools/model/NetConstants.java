@@ -32,4 +32,6 @@ public class NetConstants {
     public static final String FRIENDS_LIST=BASE_URL+"index.php/App/Users/friendsList";
     // 消息已读
     public static final String READ_MESSAGE=BASE_URL+"index.php/App/Notice/read_message";
+    //获取物流列表
+    public static final String LOGISTICAL_LIST=BASE_URL+"index.php/App/logistical/logisticalList";
 }

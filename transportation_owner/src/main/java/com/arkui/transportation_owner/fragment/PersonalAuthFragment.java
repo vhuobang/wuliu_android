@@ -52,12 +52,13 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
     private CommonDialog mCommonDialog;
     private UploadingPicturePresenter mUploadingPicturePresenter;
     private AuthenticationPresenter mAuthenticationPresenter;
-    private String mPath0=null;
-    private String mPath1=null;
-    private String mPath2=null;
+    private String mPath0 = null;
+    private String mPath1 = null;
+    private String mPath2 = null;
     private AddressPicker mAddressPicker;
     private List<City> mCityList;
     private int mType;
+
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_personal_auth, container, false);
@@ -80,7 +81,7 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
         setAspectY(2);
         mAddressPicker = new AddressPicker();
         //初始化其数据
-        LoadCityData.initData(mContext,new Consumer<List<City>>() {
+        LoadCityData.initData(mContext, new Consumer<List<City>>() {
             @Override
             public void accept(List<City> cityList) throws Exception {
                 mCityList = cityList;
@@ -101,7 +102,7 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
         mUploadingPicturePresenter.upPicture(path, "Avatar");
     }
 
-    @OnClick({R.id.iv_pic1, R.id.iv_pic2, R.id.iv_pic3, R.id.bt_submit, R.id.iv_name_clear, R.id.iv_detail_address, R.id.iv_number_clear,R.id.ll_address})
+    @OnClick({R.id.iv_pic1, R.id.iv_pic2, R.id.iv_pic3, R.id.bt_submit, R.id.iv_name_clear, R.id.iv_detail_address, R.id.iv_number_clear, R.id.ll_address})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_pic1:
@@ -129,9 +130,9 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
                 mEtNumber.setText("");
                 break;
             case R.id.ll_address:
-                if(mCityList==null)
+                if (mCityList == null)
                     return;
-                mAddressPicker.show(getFragmentManager(),"city");
+                mAddressPicker.show(getFragmentManager(), "city");
                 break;
         }
     }
@@ -143,8 +144,8 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
         String name = mTvName.getText().toString().trim();
         String address = mTvAddress.getText().toString().trim();
         String detailAddress = mTvDetailAddress.getText().toString().trim();
-        String number= mEtNumber.getText().toString().trim();
-        mAuthenticationPresenter.postPersonalAuth(App.getUserId(),name,address,detailAddress,number,mPath0,mPath1,mPath2,null);
+        String number = mEtNumber.getText().toString().trim();
+        mAuthenticationPresenter.postPersonalAuth(App.getUserId(), name, address, detailAddress, number, mPath0, mPath1, mPath2, null);
     }
 
 
@@ -152,15 +153,15 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
     public void onUploadingSuccess(UpLoadEntity upLoadEntity) {
         switch (mType) {
             case 1:
-                mPath0= upLoadEntity.getOriImg();
+                mPath0 = upLoadEntity.getOriImg();
                 GlideUtils.getInstance().load(this, upLoadEntity.getOriImg(), mIvPic1);
                 break;
             case 2:
-                mPath1= upLoadEntity.getOriImg();
+                mPath1 = upLoadEntity.getOriImg();
                 GlideUtils.getInstance().load(this, upLoadEntity.getOriImg(), mIvPic2);
                 break;
             case 3:
-                mPath2= upLoadEntity.getOriImg();
+                mPath2 = upLoadEntity.getOriImg();
                 GlideUtils.getInstance().load(this, upLoadEntity.getOriImg(), mIvPic3);
                 break;
         }
@@ -177,7 +178,7 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
 
     @Override
     public void onSuccess() {
-        mCommonDialog.show(getFragmentManager(),"onSuccess");
+        mCommonDialog.show(getFragmentManager(), "onSuccess");
     }
 
     @Override

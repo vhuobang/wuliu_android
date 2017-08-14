@@ -49,6 +49,8 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     private SelectPicturePicker mSelectPicturePicker;
     private RxPermissions mRxPermissions;
     private CommonDialog mCommonDialog;
+    private int mAspectX=1;
+    private int mAspectY=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +66,20 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     }
 
     public void showPicturePicker(boolean isCrop) {
-        this.isCrop =isCrop;
+        this.isCrop = isCrop;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED &&ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED ){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
                 mSelectPicturePicker.show(getSupportFragmentManager(), "picture");
-            }else{
+            } else {
                 mCommonDialog.show(getSupportFragmentManager(), "dialog");
             }
         } else {
             mSelectPicturePicker.show(getSupportFragmentManager(), "picture");
         }
     }
+
     //初始化选择图片的选择器
     private void initDialog() {
         mSelectPicturePicker = new SelectPicturePicker();
@@ -84,6 +87,7 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("提示").setContent("为了上传图片需要存储权限和拍照权限，按确定继续！").setNoCancel().setConfirmClick(this);
     }
+
     @Override
     public void initView() {
         super.initView();
@@ -117,8 +121,8 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", mAspectX);
+        intent.putExtra("aspectY", mAspectY);
         intent.putExtra("return-data", false);
         intent.putExtra("noFaceDetection", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri_big);
@@ -136,19 +140,19 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
                     if (isCrop) {
                         cropBig(uri);
                     } else {
-                       // onSelectPic(uri, getUriPath(uri));
-                   onCrop(getUriPath(uri));
+                        // onSelectPic(uri, getUriPath(uri));
+                        onCrop(getUriPath(uri));
                     }
 
                     break;
                 case REQUEST_CROP_BIG:
                     if (uri_big != null) {
-                        onCrop( getUriPath(uri_big));
+                        onCrop(getUriPath(uri_big));
                     }
                     break;
                 case REQUEST_CAMERA_BIG:
                     if (isCrop) {
-                            cropBig(uri_big);
+                        cropBig(uri_big);
                     } else {
                         onCrop(getUriPath(uri));
                     }
@@ -204,7 +208,7 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
 
     @Override
     public void onClick(int position) {
-        switch (position){
+        switch (position) {
             case 0: //
                 selectPhoto(isCrop);
                 break;
@@ -226,5 +230,13 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
                 }
             }
         });
+    }
+
+    public void setAspectX(int mAspectX) {
+        this.mAspectX = mAspectX;
+    }
+
+    public void setAspectY(int mAspectY) {
+        this.mAspectY = mAspectY;
     }
 }
