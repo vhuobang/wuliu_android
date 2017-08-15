@@ -39,6 +39,9 @@ public class UserPresenter extends BasePresenter {
     private int mVerificationCode = -1;
     private String mMobile = null;
     private UserApi mUserApi;
+    public  UserPresenter(){
+
+    }
 
     public UserPresenter(UserInterface userInterface, Activity activity) {
         mUserInterface = userInterface;
@@ -235,6 +238,19 @@ public class UserPresenter extends BasePresenter {
         });
     }
    // 用户详情
+    public void getUserInfo(String userId){
+        Observable<UserEntity> observable = mUserApi.getUserInfo(userId).map(new HttpResultFunc<UserEntity>());
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext,false) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
 
+            @Override
+            public void onNext(UserEntity userEntity) {
+               mUserInterface.loginSucceed(userEntity);
+            }
+        });
+    }
 
 }

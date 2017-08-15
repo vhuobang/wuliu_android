@@ -1,16 +1,24 @@
 package com.arkui.transportation_shipper.common.activity;
 
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.arkui.fz_tools.entity.UserEntity;
-import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.model.Constants;
+import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserPresenter;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.utils.SystemBarHelper;
+import com.arkui.fz_tools.view.ShapeButton;
+import com.arkui.fz_tools.view.ShapeLinearLayout;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.owner.activity.MainActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -18,7 +26,26 @@ import butterknife.OnClick;
  * 车主登陆界面
  */
 
-public class LoginActivity extends BaseMvpActivity<UserPresenter>implements UserInterface {
+public class LoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
+
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
+    @BindView(R.id.et_phone_number)
+    EditText etPhoneNumber;
+    @BindView(R.id.ll_phone)
+    ShapeLinearLayout llPhone;
+    @BindView(R.id.et_password)
+    EditText etPassword;
+    @BindView(R.id.ll_password)
+    ShapeLinearLayout llPassword;
+    @BindView(R.id.bt_login)
+    ShapeButton btLogin;
+    @BindView(R.id.tv_driver_login)
+    TextView tvDriverLogin;
+    @BindView(R.id.tv_forget)
+    TextView tvForget;
+    @BindView(R.id.tv_register)
+    TextView tvRegister;
 
     @Override
     public void setRootView() {
@@ -31,6 +58,12 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter>implements User
         ButterKnife.bind(this);
         SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
         SystemBarHelper.setStatusBarDarkMode(this);
+        boolean isLogin = SPUtil.getInstance(this).read(Constants.IS_LOGIN, false);
+        if (isLogin){
+            showActivity(MainActivity.class);
+            finish();
+        }
+
     }
 
     @OnClick({R.id.bt_login, R.id.tv_forget, R.id.tv_register, R.id.tv_driver_login})
@@ -52,6 +85,9 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter>implements User
     }
 
     private void getLogin() {
+        String phoneNumber = etPhoneNumber.getText().toString().trim();
+        String passWord = etPassword.getText().toString().trim();
+        mPresenter.getLogin(phoneNumber, passWord, Constants.CAR_OWNER);
 
     }
 
@@ -67,6 +103,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter>implements User
 
     /**
      * 登陆成功回掉
+     *
      * @param userEntity
      */
     @Override
@@ -75,4 +112,6 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter>implements User
         showActivity(MainActivity.class);
         finish();
     }
+
+
 }

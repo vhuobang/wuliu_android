@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -43,7 +44,7 @@ public interface UserApi {
     // 用户详情 index.php/App/Users/userInfo
     @FormUrlEncoded
     @POST(NetConstants.USER_INFO)
-    Observable<BaseHttpResult<UserEntity>> getUserInfo(@FieldMap Map<String, Object> parameter);
+    Observable<BaseHttpResult<UserEntity>> getUserInfo(@Field("user_id") String userId);
 
     // 完善用户信息  USER_EDIT
     @FormUrlEncoded

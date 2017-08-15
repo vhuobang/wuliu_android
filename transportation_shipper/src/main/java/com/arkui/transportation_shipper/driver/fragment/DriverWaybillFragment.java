@@ -7,11 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.transportation_shipper.R;
-import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.transportation_shipper.owner.adapter.ViewPageLazyrAdapter;
-import com.arkui.transportation_shipper.owner.fragment.WaybillListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,6 @@ public class DriverWaybillFragment extends BaseFragment {
         DriverWaybillListFragment waybillListFragment2= DriverWaybillListFragment.getInstance(2);
 
         DriverWaybillListFragment waybillListFragment3= DriverWaybillListFragment.getInstance(3);
-
 
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
         fragmentList.add(waybillListFragment1);

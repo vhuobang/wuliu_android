@@ -51,15 +51,17 @@
             android:layout_height="match_parent"
             android:background="@color/gray"/>
         <TextView
+            android:id="@+id/tv_share_code"
             android:paddingLeft="18dp"
             android:gravity="center|left"
             android:background="@color/white"
-            android:text="265Lnuw"
+            android:text=""
             android:layout_weight="1"
             android:textSize="@dimen/sp_14"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <TextView
+            android:id="@+id/tv_copy"
             android:layout_marginLeft="5dp"
             android:gravity="center"
             android:background="@color/mainColor"
@@ -84,11 +86,13 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/tv_friend_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/mainColor"
-            android:textSize="@dimen/sp_13" />
+            android:textSize="@dimen/sp_13"
+             />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,6 +101,7 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/tv_friend_list"
             android:drawablePadding="5dp"
             android:drawableRight="@mipmap/yq_right"
             android:layout_width="wrap_content"

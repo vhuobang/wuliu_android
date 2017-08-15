@@ -29,6 +29,10 @@ public class PublicPresenter extends BasePresenter {
     public PublicInterface mPublicInterface;
     public PublicApi mPublicApi;
 
+    public  PublicPresenter(){
+
+    }
+
     public PublicPresenter(PublicInterface mPublicInterface, Activity activity) {
         this.mPublicInterface = mPublicInterface;
         mContext = activity;
@@ -77,7 +81,7 @@ public class PublicPresenter extends BasePresenter {
     // 消息已读
     public void getReadMessage(String id){
         Observable<BaseHttpResult> observable = mPublicApi.getReadMessage(id);
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext,false) {
             @Override
             protected void getDisposable(Disposable d) {
                  mDisposables.add(d);
@@ -90,8 +94,7 @@ public class PublicPresenter extends BasePresenter {
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
-                mPublicInterface.onFail(e.getMessage());
+
             }
         });
 

@@ -1,17 +1,20 @@
 package com.arkui.transportation_shipper.owner.activity.my;
 
-import android.content.Context;
 import android.view.View;
 
 import com.arkui.fz_tools.dialog.CommonDialog;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.activity.LoginActivity;
+import com.arkui.transportation_shipper.common.base.App;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements OnConfirmClick {
     private CommonDialog mOutDialog;
 
     @Override
@@ -26,6 +29,7 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         mOutDialog = new CommonDialog();
         mOutDialog.setTitle("退出登录").setContent("确定退出当前账户吗？");
+        mOutDialog.setConfirmClick(this);
     }
 
     @OnClick({R.id.tl_about, R.id.tr_feedback, R.id.bt_out})
@@ -41,5 +45,12 @@ public class SettingActivity extends BaseActivity {
                 mOutDialog.show(getSupportFragmentManager(),"out");
                 break;
         }
+    }
+   // 退出登陆
+    @Override
+    public void onConfirmClick() {
+        App.getInstance().deleteUserInfo();
+        AppManager.getAppManager().finishAllActivity();
+        showActivity(LoginActivity.class);
     }
 }

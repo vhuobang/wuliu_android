@@ -9,20 +9,22 @@
 
 
     <TextView
+        android:id="@+id/tv_time"
         android:layout_marginTop="25dp"
         android:textColor="@color/gray_color"
         android:textSize="@dimen/sp_12"
-        android:text="2017-6-21"
+
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_margin="10dp"
         android:textSize="@dimen/sp_14"
         android:textColor="@color/black_list_color"
         android:padding="10dp"
-        android:text="货物为天然气的运单，已有司机装货！车牌号：京45781D2 司机张三，承运。。。"
+
         android:background="@drawable/xiaoxi_bg"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"

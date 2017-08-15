@@ -15,13 +15,11 @@ import com.arkui.transportation.base.App;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.arkui.transportation.R.id.iv_avatar;
-
 
 public class MyAvatarActivity extends BasePhotoActivity implements UploadingPictureInterface {
 
 
-    @BindView(iv_avatar)
+    @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
     private UploadingPicturePresenter uploadingPicturePresenter;
 

@@ -72,7 +72,6 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter> implements 
                 }
                 break;
             case R.id.tv_clause:
-
                 showActivity(ClauseActivity.class);
                 break;
             case  R.id.tv_back_login:
@@ -113,10 +112,15 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter> implements 
         //注册成功
           finish();
     }
-
+    //暂不使用
     @Override
     public void loginSucceed(UserEntity userEntity) {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();
+        super.onDestroy();
+    }
 }

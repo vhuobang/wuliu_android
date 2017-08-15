@@ -34,7 +34,6 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
         String title = getIntent().getStringExtra("title");
         setTitle(title);
         setRight("确定");
-
     }
 
     /**
@@ -51,7 +50,6 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
         } else {
             mPresenter.getUserEdit(App.getUserId(), App.getUserEntity().getNickname(), App.getUserEntity().getAvatar(), content);
         }
-
     }
 
     @Override
@@ -85,7 +83,6 @@ public class MyDataActivity extends BaseMvpActivity<UserEditPresenter> implement
         intent.putExtra("userEntity",userEntity);
         setResult(RESULT_OK,intent);
         finish();
-
     }
 
     @Override

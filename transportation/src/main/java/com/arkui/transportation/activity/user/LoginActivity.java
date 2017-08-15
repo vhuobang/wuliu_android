@@ -111,4 +111,9 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();
+        super.onDestroy();
+    }
 }

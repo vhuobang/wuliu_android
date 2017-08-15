@@ -24,6 +24,7 @@ public class NoticePresenter  extends BasePresenter{
 
     public NoticeInterface mNoticeInterface;
     public PublicApi mPublicApi;
+   public NoticePresenter(){}
 
     public void setNoticeInterface(NoticeInterface noticeInterface){
         mNoticeInterface = noticeInterface;

@@ -19,7 +19,6 @@ import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
-import com.arkui.transportation.api.MessageApi;
 import com.arkui.transportation.base.App;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -44,7 +43,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     private  int page=1;
     private int pageSize =10;
     private  String ORDER_TYPE="1";
-    private MessageApi messageApi;
+
     private PublicPresenter publicPresenter;
 
     @Override
@@ -69,9 +68,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         mOrderMessageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-               /* Intent intent=new Intent(mContext, MessageDetailsActivity.class);
-                intent.putExtra("title","运单消息");
-                startActivity(intent);*/
+
                 NoticeEntity item = (NoticeEntity) adapter.getItem(position);
                 publicPresenter.getReadMessage(item.getId());
 

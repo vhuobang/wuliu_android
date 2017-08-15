@@ -37,6 +37,7 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
     @BindView(R.id.iv_wx_circle)
     ImageView ivWxCircle;
     ShareCodePresenter shareCodePresenter;
+
     @Override
     public void setRootView() {
         setContentView(R.layout.activity_invite_friend);
@@ -47,10 +48,10 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        shareCodePresenter= new ShareCodePresenter(this,this);
+        shareCodePresenter = new ShareCodePresenter(this, this);
     }
 
-    @OnClick({R.id.iv_wx, R.id.iv_qq, R.id.iv_wx_circle,R.id.tv_copy, R.id.tv_friend_list})
+    @OnClick({R.id.iv_wx, R.id.iv_qq, R.id.iv_wx_circle, R.id.tv_copy, R.id.tv_friend_list})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_wx:
@@ -64,12 +65,12 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
                 break;
             case R.id.tv_copy:
                 String shareCode = tvShareCode.getText().toString();
-                if (!TextUtils.isEmpty(shareCode)){
-                    copy(shareCode,InviteFriendActivity.this);
+                if (!TextUtils.isEmpty(shareCode)) {
+                    copy(shareCode, InviteFriendActivity.this);
                 }
                 break;
             case R.id.tv_friend_list:
-                 showActivity(InviteFriendListActivity.class);
+                showActivity(InviteFriendListActivity.class);
                 break;
         }
     }
@@ -79,12 +80,12 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
         shareCodePresenter.getShareCode(App.getUserId());
     }
 
-    public  void copy(String content, Context context) {
-           // 得到剪贴板管理器
+    public void copy(String content, Context context) {
+        // 得到剪贴板管理器
         ClipboardManager cmb = (ClipboardManager) context
                 .getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content.trim());
-        Toast.makeText(this,"已复制",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "已复制", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,6 +96,6 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
 
     @Override
     public void onFail(String message) {
-        Toast.makeText(InviteFriendActivity.this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(InviteFriendActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -6,13 +6,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.arkui.fz_tools._interface.NoticeInterface;
+import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.mvp.BaseMvpFragment;
 import com.arkui.fz_tools.mvp.NoticePresenter;
+import com.arkui.fz_tools.mvp.PublicPresenter;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
@@ -31,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * 系统消息
  */
-public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,NoticeInterface {
+public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,NoticeInterface, PublicInterface {
 
     @BindView(R.id.rl_system)
     PullRefreshRecyclerView mRlSystem;
@@ -41,7 +44,8 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
 
     private  int page=1;
     private int pageSize =10;
-    private  String SYSTEM_TYPE="1";
+    private  String SYSTEM_TYPE="2";
+    private PublicPresenter publicPresenter;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -53,6 +57,7 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mRlSystem.setOnRefreshListener(this);
+        publicPresenter = new PublicPresenter(this, getActivity());
         mAdapter = new CommonAdapter<NoticeEntity>(R.layout.item_system_message,this);
         mRlSystem.setLayoutManager(new LinearLayoutManager(mContext));
         mRlSystem.setAdapter(mAdapter);
@@ -62,17 +67,20 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent=new Intent(mContext, MessageDetailsActivity.class);
                 intent.putExtra("title","系统消息");
+                NoticeEntity item = (NoticeEntity) adapter.getItem(position);
+
+                publicPresenter.getReadMessage(item.getId());
+                ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
+                readPoint.setVisibility(View.GONE);
+                intent.putExtra("id",item.getId());
                 startActivity(intent);
             }
         });
         mAdapter.setOnLoadMoreListener(this,mRlSystem.getRecyclerView());
-
-
     }
 
     @Override
     protected void initData() {
-
         getLoadData();
     }
     public void onRefreshing() {
@@ -123,7 +131,13 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
             mRlSystem.refreshComplete();
         }
     }
-   // 加载数据失败
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    // 加载数据失败
     @Override
     public void onFail(String message) {
         mAdapter.loadMoreEnd();
@@ -134,5 +148,12 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
     @Override
     public void initPresenter() {
             mPresenter.setNoticeInterface(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        publicPresenter.onDestroy();
+        mPresenter.onDestroy();
+        super.onDestroy();
     }
 }

@@ -22,4 +22,10 @@
     <color name="blue">#72b6eb</color>
     <!--红色-->
     <color name="red">#d80808</color>
+    <color name="front_color">#333333</color>
+    <color name="stoke_color">#999999</color>
+    <color name="wuliu_color">#dc2203</color>
+    <color name="chezhu_color">#13b303</color>
+    <color name="huozhu_color">#e77e23</color>
+    <color name="siji_color">#058be0</color>
 </resources>

@@ -1,11 +1,11 @@
 package com.arkui.transportation.activity.my;
 
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.PublicPresenter;
-import com.arkui.fz_tools.utils.ToastUtil;
 import com.arkui.transportation.R;
 import com.arkui.transportation.base.App;
 
@@ -50,13 +50,14 @@ public class FeedbackActivity extends BaseMvpActivity<PublicPresenter> implement
 
     @Override
     public void onSuccess() {
-        ToastUtil.showToast(FeedbackActivity.this,"反馈成功");
+
+        Toast.makeText(FeedbackActivity.this,"反馈成功",Toast.LENGTH_SHORT).show();
         finish();
     }
 
     @Override
     public void onFail(String message) {
-        ToastUtil.showToast(FeedbackActivity.this,message);
+        Toast.makeText(FeedbackActivity.this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override

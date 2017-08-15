@@ -23,6 +23,8 @@ public class UserEntity implements Serializable{
      * star_rating : 0.00
      * status : 0
      * invitation_code : null
+     * is_user_certificate 个人认证
+     * is_company_certificate // 公司认证
      * register_time : 2017-08-07 15:40:55
      */
 
@@ -49,7 +51,7 @@ public class UserEntity implements Serializable{
     @SerializedName("status")
     private String status;
     @SerializedName("invitation_code")
-    private Object invitationCode;
+    private String invitationCode;
     @SerializedName("register_time")
     private String registerTime;
     //is_user_certificate 个人认证
@@ -163,11 +165,11 @@ public class UserEntity implements Serializable{
         this.status = status;
     }
 
-    public Object getInvitationCode() {
+    public String getInvitationCode() {
         return invitationCode;
     }
 
-    public void setInvitationCode(Object invitationCode) {
+    public void setInvitationCode(String invitationCode) {
         this.invitationCode = invitationCode;
     }
 

@@ -2,6 +2,7 @@ package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.NoticeEntity;
+import com.arkui.fz_tools.entity.SystemDetialEntity;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
@@ -38,4 +39,14 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.READ_MESSAGE)
     Observable<BaseHttpResult> getReadMessage(@Field("id") String messageId);
+    // 系统消息内容
+    @FormUrlEncoded
+    @POST(NetConstants.NOTICE_DETAILS)
+    Observable<BaseHttpResult<SystemDetialEntity>> getNoticeDetails(@Field("id") String messageId);
+    // 运单详情
+    @FormUrlEncoded
+    @POST(NetConstants.WAYBILL_DETAILS)
+    Observable<BaseHttpResult<SystemDetialEntity>> getWayBillDetails(@Field("waybill_id") String wayBillId);
+
+
 }
