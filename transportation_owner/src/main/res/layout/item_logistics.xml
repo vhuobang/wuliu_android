@@ -1,69 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@drawable/touch_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
-    <data>
-
-        <variable
-            name="logisticsEntity"
-            type="com.arkui.transportation_owner.entity.LogisticalListEntity" />
-    </data>
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/tupian" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@drawable/touch_bg"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            style="@style/TextView666"
+            android:layout_marginTop="8dp"
+            android:text="" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="@style/RatingBarOrange"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/tupian" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{logisticsEntity.name}" />
-
-            <TextView
-                style="@style/TextView666"
-                android:layout_marginTop="8dp"
-                android:text="@{`已注册`+logisticsEntity.registerYear+`年`+` `+`成交`+logisticsEntity.volume+`条`}" />
-
-            <RatingBar
-                style="@style/RatingBarOrange"
-                android:layout_marginTop="10dp"
-                android:rating="@{Float.parseFloat(logisticsEntity.starRating)}" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/iv_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:src="@mipmap/collect" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/collect" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="收藏"
-                android:textSize="@dimen/sp_13" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="收藏"
+            android:textSize="@dimen/sp_13" />
     </LinearLayout>
-</layout>
+</LinearLayout>

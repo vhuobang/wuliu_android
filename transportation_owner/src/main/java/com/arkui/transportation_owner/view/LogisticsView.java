@@ -14,6 +14,11 @@ public interface LogisticsView {
     //列表成功返回数据
     void onSucceed(List<LogisticalListEntity> logisticalList);
 
+    //失败没有数据
+    void onError();
+
+    //详情成功返回数据
+    void onSucceed(LogisticalListEntity logisticalDetails);
     //收藏成功 暂时不写
 
 }

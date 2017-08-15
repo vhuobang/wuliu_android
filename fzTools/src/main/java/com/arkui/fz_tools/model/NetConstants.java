@@ -38,4 +38,6 @@ public class NetConstants {
     public static final String WAYBILL_DETAILS=BASE_URL+"index.php/App/Waybill/waybill_details";
     //获取物流列表
     public static final String LOGISTICAL_LIST=BASE_URL+"index.php/App/logistical/logisticalList";
+    //物流详情
+    public static final String LOGISTICAL_DETAILS=BASE_URL+"index.php/App/logistical/logisticalDetails";
 }

@@ -3,6 +3,7 @@ package com.arkui.transportation_owner.mvp;
 import android.app.Activity;
 import android.content.Context;
 
+import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -27,7 +28,7 @@ import io.reactivex.disposables.Disposable;
 public class LogisticsPresenter extends BasePresenter {
 
 
-    LogisticsView mLogisticsView;
+    private LogisticsView mLogisticsView;
     private final LogisticalApi mLogisticalApi;
 
     public LogisticsPresenter(LogisticsView mLogisticsView, Activity context) {
@@ -48,7 +49,7 @@ public class LogisticsPresenter extends BasePresenter {
 
         Observable<List<LogisticalListEntity>> observable = mLogisticalApi.postLogisticalList(parameter).map(new HttpResultFunc<List<LogisticalListEntity>>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<LogisticalListEntity>>(mContext) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<LogisticalListEntity>>(mContext,false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -59,6 +60,30 @@ public class LogisticsPresenter extends BasePresenter {
                 if(mLogisticsView!=null){
                     mLogisticsView.onSucceed(value);
                 }
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                if(mLogisticsView!=null){
+                    mLogisticsView.onError();
+                }
+            }
+        });
+    }
+
+    public void postLogisticsDetail(String log_id){
+        Observable<LogisticalListEntity> observable = mLogisticalApi.postLogisticalDetail(log_id).map(new HttpResultFunc<LogisticalListEntity>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<LogisticalListEntity>() {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(LogisticalListEntity value) {
+                mLogisticsView.onSucceed(value);
             }
         });
     }
