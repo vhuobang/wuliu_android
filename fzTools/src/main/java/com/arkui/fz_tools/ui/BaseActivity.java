@@ -3,6 +3,8 @@ package com.arkui.fz_tools.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -68,6 +70,15 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
         vg = (ViewGroup) findViewById(R.id.linearlayout_base);
         getLayoutInflater().inflate(layoutResID, vg);
         setupView();
+    }
+
+    public ViewDataBinding setDataBindingContentView(int layoutResID) {
+        super.setContentView(R.layout.common_base);
+        vg = (ViewGroup) findViewById(R.id.linearlayout_base);
+        setupView();
+        ViewDataBinding inflate = DataBindingUtil.inflate(getLayoutInflater(), layoutResID, vg, false);
+        vg.addView(inflate.getRoot());
+        return inflate;
     }
 
     public void setContentViewNoTitle(int layoutResID) {

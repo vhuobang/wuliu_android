@@ -1,6 +1,7 @@
 package com.arkui.transportation_owner.fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,7 +50,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 物流
  */
-public class LogisticsFragment extends BaseFragment implements OnBindViewHolderListener<String>, OnRefreshListener, LogisticsView, AMapLocationListener {
+public class LogisticsFragment extends BaseFragment implements OnBindViewHolderListener<String>, OnRefreshListener, LogisticsView, AMapLocationListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.tv_city)
     TextView mTvCity;
@@ -63,6 +64,7 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
     private int mPage=1;
+    private String mCity;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -80,19 +82,19 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         mRlList.setOnRefreshListener(this);
         mRlList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
-        mLogisticsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(PersonageDetailActivity.class);
-            }
-        });
-
         mLogisticsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(CompanyDetailActivity.class);
+               // showActivity(CompanyDetailActivity.class);
+                String id = mLogisticsAdapter.getItem(position).getId();
+                String name = mLogisticsAdapter.getItem(position).getName();
+                Intent intent=new Intent(mContext,PersonageDetailActivity.class);
+                intent.putExtra("id",id);
+                intent.putExtra("title",name);
+                startActivity(intent);
             }
         });
+        mLogisticsAdapter.setOnLoadMoreListener(this,mRlList.getRecyclerView());
         //初始化定位
         mLocationClient = new AMapLocationClient(mContext);
         //设置定位回调监听
@@ -108,8 +110,6 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         mLocationOption.setOnceLocationLatest(true);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
-        //启动定位
-        mLocationClient.startLocation();
     }
 
     @Override
@@ -132,10 +132,14 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
                         mRlList.loadFail("缺少必要定位权限！");
                     } else {
                         //开始定位获取位置
-
+                        //启动定位
+                        mLocationClient.startLocation();
                     }
                 }
             });
+        }else{
+            //启动定位
+            mLocationClient.startLocation();
         }
     }
 
@@ -160,7 +164,12 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        mLogisticsPresenter.postLogisticsList("北京", "", 1);
+        if(mCity==null){
+            mRlList.refreshComplete();
+            return;
+        }
+        mPage=1;
+        mLogisticsPresenter.postLogisticsList(mCity, "", mPage);
     }
 
     @Override
@@ -168,9 +177,20 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         if(mPage==1){
             mLogisticsAdapter.setNewData(logisticalList);
             mRlList.refreshComplete();
+            mLogisticsAdapter.setEnableLoadMore(logisticalList.size()==20);
         }else{
             mLogisticsAdapter.addData(logisticalList);
             mLogisticsAdapter.loadMoreComplete();
+        }
+        mPage+=1;
+    }
+
+    @Override
+    public void onError() {
+        if(mPage==1){
+            mRlList.loadFail();
+        }else{
+            mLogisticsAdapter.loadMoreEnd();
         }
     }
 
@@ -180,8 +200,8 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
             if (aMapLocation.getErrorCode() == 0) {
              //可在其中解析amapLocation获取相应内容。
                 //Log.e("fz",aMapLocation.toString());
-                String  city= aMapLocation.getCity().replace("市", "");
-                mLogisticsPresenter.postLogisticsList(city, "", mPage);
+                mCity = aMapLocation.getCity().replace("市", "");
+                mLogisticsPresenter.postLogisticsList(mCity, "", mPage);
             }else {
                 Toast.makeText(mContext, "定位失败", Toast.LENGTH_SHORT).show();
             }
@@ -193,5 +213,19 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
         super.onDestroy();
         mLocationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
         mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
+        if(mLogisticsPresenter!=null){
+            mLogisticsPresenter.onDestroy();
+        }
     }
+
+    @Override
+    public void onLoadMoreRequested() {
+        mLogisticsPresenter.postLogisticsList(mCity, "", 1);
+    }
+
+    @Override
+    public void onSucceed(LogisticalListEntity logisticalDetails) {
+
+    }
+
 }

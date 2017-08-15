@@ -35,6 +35,27 @@ public class LogisticalListEntity {
     private String registerYear;
     @SerializedName("status")
     private String status;
+    /**
+     * auth_tatus : 0
+     */
+
+    @SerializedName("auth_tatus")
+    private String authTatus;
+    /**
+     * short_name :
+     * address : 北京昌平区
+     * tel : 18647624075
+     * handler_name : 333
+     */
+
+    @SerializedName("short_name")
+    private String shortName;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("tel")
+    private String tel;
+    @SerializedName("handler_name")
+    private String handlerName;
 
     public String getId() {
         return id;
@@ -98,5 +119,45 @@ public class LogisticalListEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAuthTatus() {
+        return authTatus;
+    }
+
+    public void setAuthTatus(String authTatus) {
+        this.authTatus = authTatus;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getHandlerName() {
+        return handlerName;
+    }
+
+    public void setHandlerName(String handlerName) {
+        this.handlerName = handlerName;
     }
 }
