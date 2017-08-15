@@ -27,7 +27,7 @@ public class SupplyDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
         mType = getIntent().getIntExtra("type", -1);
 
-        if (mType == 1) {
+        if (mType == 0) {
             mBtStart.setText("立即发布");
         }else {
             mBtStart.setText("承运详情");
@@ -36,7 +36,7 @@ public class SupplyDetailActivity extends BaseActivity {
 
     @OnClick(R.id.bt_start)
     public void onClick() {
-        if(mType==1){
+        if(mType==0){
             showActivity(CompleteInfoActivity.class);
         }else{
             showActivity(CarriageListActivity.class);

@@ -43,8 +43,8 @@ public class HomeFragment extends BaseFragment {
 
         List<BaseLazyFragment> baseLazyFragments = new ArrayList<>();
 
-        baseLazyFragments.add(HomePublishListFragment.getInstance(1));
-        baseLazyFragments.add(HomePublishListFragment.getInstance(2));
+        baseLazyFragments.add(HomePublishListFragment.getInstance(0)); // 待发布
+        baseLazyFragments.add(HomePublishListFragment.getInstance(1));  // 已发布
 
         ViewPageLazyAdapter mViewPagerAdapter = new ViewPageLazyAdapter(getChildFragmentManager(), baseLazyFragments, mTitles);
         mViewPage.setAdapter(mViewPagerAdapter);

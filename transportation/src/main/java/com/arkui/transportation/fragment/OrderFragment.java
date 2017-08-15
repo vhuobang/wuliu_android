@@ -134,14 +134,19 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
             mOrderMessageAdapter.setNewData(noticeEntityList);
             mRlOrder.refreshComplete();
             if(mOrderMessageAdapter.getItemCount()<10){
-                mOrderMessageAdapter.loadMoreEnd(true);
-            }else{
                 mOrderMessageAdapter.loadMoreEnd(false);
+            }else{
+                mOrderMessageAdapter.loadMoreEnd(true);
             }
         }else {
             mOrderMessageAdapter.addData(noticeEntityList);
             mOrderMessageAdapter.loadMoreComplete();
-            mRlOrder.refreshComplete();
+            if (noticeEntityList.size()<pageSize){
+                mOrderMessageAdapter.loadMoreEnd(false);
+            }else {
+                mOrderMessageAdapter.loadMoreEnd(true);
+            }
+
         }
 
     }

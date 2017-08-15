@@ -18,6 +18,8 @@ import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.DestroyActivityUtils;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 
 public abstract class BaseActivity<T> extends AppCompatActivity  {
 
@@ -33,6 +35,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
     protected TextView tv_rightAndIv;//右边左文字右图
     protected EditText mTvSearch;
     private CommonAdapter commonAdapter;
+    public CompositeDisposable mDisposables = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +196,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
         super.onDestroy();
         AppManager.getAppManager().removeActivity(this);
         DestroyActivityUtils.finishActivity(this);
+        mDisposables.clear();
     }
 
 

@@ -27,6 +27,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/tv_start_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
@@ -42,6 +43,7 @@
                 android:src="@mipmap/sy_go" />
 
             <TextView
+                android:id="@+id/tv_destination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
