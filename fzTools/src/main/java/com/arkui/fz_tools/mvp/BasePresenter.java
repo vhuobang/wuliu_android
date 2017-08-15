@@ -20,7 +20,7 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BasePresenter {
     public Activity mContext;
-    CompositeDisposable mDisposables = new CompositeDisposable();
+    public CompositeDisposable mDisposables = new CompositeDisposable();
 
     public void showToast(String str){
         Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show();

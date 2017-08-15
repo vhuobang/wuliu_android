@@ -70,7 +70,7 @@ public class RefreshHeaderView extends FrameLayout implements RefreshHeader {
     @Override
     public int onFinish(RefreshLayout layout, boolean success) {
        // mAnimationDrawable.stop();
-        return 500;
+        return 0;
     }
 
     @Override

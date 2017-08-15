@@ -70,7 +70,7 @@ public class App extends Application {
     public static String getUserId() {
         if(mUser_id==null){
             if(getUserEntity()==null){
-                return null;
+                return "";
             }else{
                 mUser_id=getUserEntity().getId();
             }
