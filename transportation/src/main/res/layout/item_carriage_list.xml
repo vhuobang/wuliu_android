@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="京F4W67X 汽油 预装20吨"
@@ -27,6 +28,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/tv_loading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
@@ -42,6 +44,7 @@
                 android:src="@mipmap/sy_go" />
 
             <TextView
+                android:id="@+id/tv_unloading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
@@ -51,6 +54,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_type"
         android:text="待装货"
         android:textColor="@color/mainColor"
         android:textSize="@dimen/sp_14"

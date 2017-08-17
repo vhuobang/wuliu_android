@@ -15,6 +15,7 @@
 
 
         <TextView
+            android:id="@+id/tv_good_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="京P564S2  汽油"
@@ -27,6 +28,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/tv_loading_address"
                 android:textColor="@color/black_list_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,6 +44,7 @@
                 android:src="@mipmap/sy_go" />
 
             <TextView
+                android:id="@+id/tv_unloading_address"
                 android:textColor="@color/black_list_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="北京美华国际物流有限公司"
+
             android:textColor="@color/black_list_color"
             android:textSize="@dimen/sp_14"
             android:visibility="gone" />

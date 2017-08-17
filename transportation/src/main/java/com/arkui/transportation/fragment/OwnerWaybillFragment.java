@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.arkui.fz_tools.adapter.ViewPageLazyAdapter;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.transportation.R;
-import com.arkui.fz_tools.ui.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,9 @@ public class OwnerWaybillFragment extends BaseLazyFragment {
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
 
         for (int i = 0; i < mTitles.length; i++) {
+
             fragmentList.add(OwnerWaybillListFragment.getInstance(i));
+
         }
 
         ViewPageLazyAdapter mViewPagerAdapter = new ViewPageLazyAdapter(getChildFragmentManager(), fragmentList, mTitles);

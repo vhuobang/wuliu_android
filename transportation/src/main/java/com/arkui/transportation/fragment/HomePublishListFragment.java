@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
@@ -75,8 +74,10 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         mCommonAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogisticalListEntity item = (LogisticalListEntity) adapter.getItem(position);
                 Intent intent=new Intent(mContext,SupplyDetailActivity.class);
                 intent.putExtra("type", mType);
+             //   intent.putExtra("cargo_id",item.getId());
                 startActivity(intent);
             }
         });
@@ -90,17 +91,17 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     @Override
     public void convert(BaseViewHolder helper, LogisticalListEntity item) {
         //helper.addOnClickListener(R.id.iv_had);
-        if(mType==0){ //待发布
-            ImageView  header = helper.getView(R.id.iv_head);
-          //  GlideUtils.getInstance().loadRound(mActivity,"",header);
-             helper.setText(R.id.tv_start_address,item.getLoadingAddress());
-            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
-            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
-        }else if (mType==1) { // 已经发布
-            helper.setText(R.id.tv_start_address,item.getLoadingAddress());
-            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
-            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
-        }
+//        if(mType==0){ //待发布
+//            ImageView  header = helper.getView(R.id.iv_head);
+//          //  GlideUtils.getInstance().loadRound(mActivity,"",header);
+//             helper.setText(R.id.tv_start_address,item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
+//        }else if (mType==1) { // 已经发布
+//            helper.setText(R.id.tv_start_address,item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
+//        }
 
     }
 
@@ -108,14 +109,18 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
      * 请求数据
      */
     public void onRefreshing() {
+                LogisticalListEntity logisticalListEntity = new LogisticalListEntity();
+                mCommonAdapter.addData(logisticalListEntity);
+                mRlList.refreshComplete();
+                mCommonAdapter.loadMoreComplete();
+                mCommonAdapter.loadMoreEnd();
 
-//        new Handler().postDelayed(new Runnable(){
-//            public void run() {
-//                mCommonAdapter.addData(ListData.getTestData(""));
-//                mRlList.refreshComplete);
-//            }
-//        }, 300);
-        HashMap<String,Object>  hashMap = new HashMap<>();
+
+    //    loadData();
+    }
+
+    private void loadData() {
+        HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("user_id", App.getUserId());
         hashMap.put("log_status",mType);
         hashMap.put("page",page);
@@ -158,16 +163,17 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
             }
         });
     }
-  //  下拉刷新数据
+
+    //  下拉刷新数据
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         page=1;
-        onRefreshing();
+       // onRefreshing();
     }
    // 上拉加载更多数据
     @Override
     public void onLoadMoreRequested() {
          page++;
-        onRefreshing();
+      //  onRefreshing();
     }
 }

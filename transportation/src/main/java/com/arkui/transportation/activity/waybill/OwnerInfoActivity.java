@@ -32,6 +32,7 @@ public class OwnerInfoActivity extends BaseActivity {
         super.initView();
         ButterKnife.bind(this);
         boolean isMy = getIntent().getBooleanExtra("isMy", false);
+
         if (isMy) {
             mTlOwnerTime.setVisibility(View.GONE);
             mTlOwnerNumber.setVisibility(View.GONE);

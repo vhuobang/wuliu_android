@@ -550,4 +550,65 @@ public class StrUtil {
         }
         return ""+num;
     }
+
+    // 根据所传数字获取单位
+    //：1、吨；2、方；3、件；4、趟
+    public static String formatUnit(String str){
+        String formatStr =null;
+        switch (str){
+            case "1":
+                formatStr ="吨";
+                break;
+            case "2":
+                formatStr="方";
+                break;
+            case "3":
+                formatStr="件";
+                break;
+            case "4":
+                formatStr="趟";
+                break;
+        }
+        return formatStr;
+    }
+
+    //：1、吨；2、方；3、件；4、趟
+    public static String formatMoneyUnit(String str){
+        String formatStr =null;
+        switch (str){
+            case "1":
+                formatStr ="元/吨";
+                break;
+            case "2":
+                formatStr="元/方";
+                break;
+            case "3":
+                formatStr="元/件";
+                break;
+            case "4":
+                formatStr="元/趟";
+                break;
+        }
+        return formatStr;
+    }
+
+    // 结算日期转化  货主结算时间：1、立即；2、7天；3、15天；4、30天
+    public static  String formatSettlementTime(String settlementTime){
+        String formatStr =null;
+        switch (settlementTime){
+            case "1":
+                formatStr ="立即结算";
+                break;
+            case "2":
+                formatStr="七天内结算";
+                break;
+            case "3":
+                formatStr="15天内结算";
+                break;
+            case "4":
+                formatStr="30天内结算";
+                break;
+        }
+        return formatStr;
+    }
 }

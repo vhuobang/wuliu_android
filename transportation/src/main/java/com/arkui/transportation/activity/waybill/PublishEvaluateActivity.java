@@ -21,7 +21,9 @@ public class PublishEvaluateActivity extends BaseActivity {
 
         mSuccessFullyDialog = new SuccessFullyDialog();
         mSuccessFullyDialog.setTitle("发布成功");
+
     }
+
 
     @Override
     public void initView() {

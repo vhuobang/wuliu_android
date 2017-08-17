@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arkui.fz_tools.adapter.CommonAdapter;
-import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.ui.BaseListLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.DriverLocationActivity;
 import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
-import com.arkui.transportation.listener.TextAdapter;
 import com.arkui.transportation.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -34,6 +32,14 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<String> {
     private CommonAdapter<String> mCommonAdapter;
     private int mType;
 
+  // 传入type
+    public static OwnerWaybillListFragment getInstance(int type) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        OwnerWaybillListFragment ownerWaybillListFragment = new OwnerWaybillListFragment();
+        ownerWaybillListFragment.setArguments(bundle);
+        return ownerWaybillListFragment;
+    }
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_owner_waybill_list, container, false);
@@ -70,13 +76,7 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<String> {
         onRefreshing();
     }
 
-    public static OwnerWaybillListFragment getInstance(int type) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
-        OwnerWaybillListFragment ownerWaybillListFragment = new OwnerWaybillListFragment();
-        ownerWaybillListFragment.setArguments(bundle);
-        return ownerWaybillListFragment;
-    }
+
 
     public void onRefreshing() {
         new Handler().postDelayed(new Runnable() {
