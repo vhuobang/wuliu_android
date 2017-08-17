@@ -40,17 +40,6 @@ public class SelectTypePicker extends BaseDialogFragment implements View.OnClick
     @Override
     protected void initView(View mRootView) {
         mWvType = (WheelView) mRootView.findViewById(R.id.wv_type);
-       /* mWvType.setTextSize(16);
-        mWvType.setTextColor(ContextCompat.getColor(getActivity(), R.color.black_normal_color), ContextCompat.getColor(getActivity(), R.color.black_normal_color));
-        mWvType.setLineVisible(true);
-        mWvType.setOffset(2);
-        mWvType.setItems(mStringList,0);*/
-       /* mWvType.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(boolean isUserScroll, int selectedIndex, String item) {
-
-            }
-        });*/
         StringAdapter stringAdapter=new StringAdapter(getActivity(),mStringList);
         mWvType.setViewAdapter(stringAdapter);
 
@@ -82,7 +71,7 @@ public class SelectTypePicker extends BaseDialogFragment implements View.OnClick
         } else if (id == R.id.tv_confirm) {
             String selectedItem = mStringList.get(mWvType.getCurrentItem());
             if (onVehicleTypeClickListener != null) {
-                onVehicleTypeClickListener.OnVehicleTypeClick(selectedItem);
+                onVehicleTypeClickListener.OnVehicleTypeClick(selectedItem,mWvType.getCurrentItem());
             }
         }
         dismiss();

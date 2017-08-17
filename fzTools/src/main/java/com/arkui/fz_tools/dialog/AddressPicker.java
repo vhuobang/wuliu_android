@@ -95,7 +95,7 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
         } else {
             strings[1] = cities.get(pIndex).getSub().get(mWvCity.getCurrentItem()).getName();
         }
-        return strings[0]+strings[1];
+        return strings[0]+"-"+strings[1];
     }
 
 

@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arkui.fz_tools.R;
 import com.arkui.fz_tools.adapter.CityAdapter;
@@ -24,7 +25,7 @@ import java.util.List;
  * Created by nmliz on 2017/6/30.
  */
 
-public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedListener {
+public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedListener, View.OnClickListener {
 
     private WheelView mWvMonth;
     private WheelView mWvHour;
@@ -33,6 +34,9 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
     private int month;
     private int day;
     String listItem;
+    String selectedmonth = "今天";
+    private List<String> minList;
+    private int hour;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -44,6 +48,10 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
         mWvMonth = (WheelView) mRootView.findViewById(R.id.wv_month);
         mWvHour = (WheelView) mRootView.findViewById(R.id.wv_hour);
         mWvMin = (WheelView) mRootView.findViewById(R.id.wv_min);
+        TextView tv_title = (TextView) mRootView.findViewById(R.id.tv_title);
+        tv_title.setText("截至时间");
+        mRootView.findViewById(R.id.tv_confirm).setOnClickListener(this);
+        mRootView.findViewById(R.id.tv_cancel).setOnClickListener(this);
         initData();
     }
 
@@ -58,15 +66,15 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
         }
 
         //60分钟集合
-        List<String> minList = new ArrayList<>();
-        for (int i = 0; i <= 60; i++) {
+        minList = new ArrayList<>();
+        for (int i = 0; i < 60; i++) {
             minList.add(DateUtils.fillZero(i) + "分");
         }
 
         Calendar c = Calendar.getInstance();
         month = c.get(Calendar.MONTH) + 1;
         day = c.get(Calendar.DAY_OF_MONTH);
-        int hour = c.get(Calendar.HOUR_OF_DAY);
+        hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         int year = c.get(Calendar.YEAR);
         //当前时间的集合
@@ -76,7 +84,7 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
             currentHourList.add(DateUtils.fillZero(i) + "时");
         }
 
-        for (int i = minute; i <= 60; i++) {
+        for (int i = minute; i < 60; i++) {
             currentMinList.add(DateUtils.fillZero(i) + "分");
         }
 
@@ -93,23 +101,26 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                 this.day = day + 1;
             }
 
+            String monthStr = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
+                    "日";
+
             switch (i) {
                 case 0:
                     this.listItem = "今天";
-                    mTimeList.add(new TimeEntity(listItem, currentHourList, currentMinList));
+                    mTimeList.add(new TimeEntity(listItem, monthStr, currentHourList, currentMinList));
                     break;
                 case 1:
                     this.listItem = "明天";
-                    mTimeList.add(new TimeEntity(listItem, hourList, minList));
+                    mTimeList.add(new TimeEntity(listItem, monthStr, hourList, minList));
                     break;
                 case 2:
                     this.listItem = "后天";
-                    mTimeList.add(new TimeEntity(listItem, hourList, minList));
+                    mTimeList.add(new TimeEntity(listItem, monthStr, hourList, minList));
                     break;
                 default:
-                    this.listItem = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
-                            "日";
-                    mTimeList.add(new TimeEntity(listItem, hourList, minList));
+                 /*   this.listItem = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
+                            "日";*/
+                    mTimeList.add(new TimeEntity(listItem, monthStr, hourList, minList));
                     break;
             }
             //便于判断这个月最大天数
@@ -139,10 +150,56 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        mWvHour.setViewAdapter(new StringAdapter(getContext(), mTimeList.get(newValue).getHourList()));
-        mWvHour.setCurrentItem(0);
-        mWvMin.setViewAdapter(new StringAdapter(getContext(), mTimeList.get(newValue).getMinList()));
-        mWvMin.setCurrentItem(0);
+        if (wheel == mWvMonth) {
+            TimeEntity timeEntity = mTimeList.get(newValue);
+            selectedmonth = timeEntity.getMonth();
+            mWvHour.setViewAdapter(new StringAdapter(getContext(), mTimeList.get(newValue).getHourList()));
+            mWvHour.setCurrentItem(0);
+            mWvMin.setViewAdapter(new StringAdapter(getContext(), mTimeList.get(newValue).getMinList()));
+            mWvMin.setCurrentItem(0);
+        } else if (wheel == mWvHour) {
+            //  mTimeList.get(newValue).getHourList().get(0);  )
+            if (newValue == 0 && selectedmonth.equals("今天")) {
+                mWvMin.setViewAdapter(new StringAdapter(getContext(), mTimeList.get(newValue).getMinList()));
+            } else {
+                mWvMin.setViewAdapter(new StringAdapter(getContext(), minList));
+            }
+            mWvMin.setCurrentItem(0);
+        }
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.tv_confirm){
+          if(onEnsureListener!=null){
+              int monthCurrentItem = mWvMonth.getCurrentItem();
+              int hourCurrentItem = mWvHour.getCurrentItem();
+              int minCurrentItem = mWvMin.getCurrentItem();
+
+              TimeEntity timeEntity = mTimeList.get(monthCurrentItem);
+              String month = timeEntity.getMonth().replace("月","-").replace("日"," ");
+              String hour1 = timeEntity.getHourList().get(hourCurrentItem).replace("时",":");
+              int   hour2=  Integer.parseInt(timeEntity.getHourList().get(hourCurrentItem).replace("时", ""));
+              String min;
+              if (hour == hour2){
+                  min = timeEntity.getMinList().get(minCurrentItem).replace("分"," ");
+              }else {
+                  min= minList.get(minCurrentItem).replace("分"," ");
+              }
+
+              onEnsureListener.onEnsureClick(month+ hour1+min);
+          }
+        }
+        dismiss();
+    }
+
+    public interface OnEnsureListener {
+        void onEnsureClick(String time);
+    }
+
+    private OnEnsureListener onEnsureListener;
+
+    public void setOnEnsureListener(OnEnsureListener onEnsureListener) {
+        this.onEnsureListener = onEnsureListener;
+    }
 }

@@ -16,18 +16,21 @@
 
 
         <com.arkui.fz_tools.view.ShapeEditText
-            android:background="@null"
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/tv_city"
             android:layout_toStartOf="@+id/tv_cancel"
+            android:background="@null"
             android:drawableLeft="@mipmap/wuliu_ss"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:hint="请输入手机号或物流公司名称"
+            android:imeOptions="actionSearch"
             android:paddingLeft="20dp"
+            android:singleLine="true"
             android:textColorHint="@color/gray_color"
             android:textSize="@dimen/sp_12"
             app:buttonColor="@color/white"
@@ -46,19 +49,20 @@
 
     <com.arkui.fz_tools.view.PullRefreshRecyclerView
         android:id="@+id/rl_list"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
     <com.arkui.fz_tools.view.PullRefreshRecyclerView
         android:id="@+id/rl_search"
-        android:visibility="gone"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_next"
+        style="@style/TextViewCenter"
         android:text="完成"
-        android:visibility="gone"
-        style="@style/TextViewCenter" />
+        android:visibility="gone" />
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.arkui.transportation_owner.mvp;
 import android.app.Activity;
 import android.content.Context;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
@@ -72,10 +73,11 @@ public class LogisticsPresenter extends BasePresenter {
         });
     }
 
+    //物流详情
     public void postLogisticsDetail(String log_id){
-        Observable<LogisticalListEntity> observable = mLogisticalApi.postLogisticalDetail(log_id).map(new HttpResultFunc<LogisticalListEntity>());
+        Observable<LogisticalListEntity> observable = mLogisticalApi.postLogisticalDetail(App.getUserId(),log_id).map(new HttpResultFunc<LogisticalListEntity>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<LogisticalListEntity>() {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<LogisticalListEntity>(mContext) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -88,4 +90,20 @@ public class LogisticsPresenter extends BasePresenter {
         });
     }
 
+    //收藏与未收藏
+    public void postCollectionLogistical(String log_id,final int position){
+        Observable<BaseHttpResult> observable = mLogisticalApi.postCollectionLogistical(App.getUserId(),log_id);
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                mLogisticsView.onSucceed(position);
+            }
+        });
+    }
 }

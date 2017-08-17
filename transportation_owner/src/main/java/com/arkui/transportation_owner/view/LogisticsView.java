@@ -19,6 +19,7 @@ public interface LogisticsView {
 
     //详情成功返回数据
     void onSucceed(LogisticalListEntity logisticalDetails);
-    //收藏成功 暂时不写
 
+    //收藏成功
+    void onSucceed(int position);
 }

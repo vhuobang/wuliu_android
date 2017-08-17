@@ -75,15 +75,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity  {
         setupView();
     }
 
-    public ViewDataBinding setDataBindingContentView(int layoutResID) {
-        super.setContentView(R.layout.common_base);
-        vg = (ViewGroup) findViewById(R.id.linearlayout_base);
-        setupView();
-        ViewDataBinding inflate = DataBindingUtil.inflate(getLayoutInflater(), layoutResID, vg, false);
-        vg.addView(inflate.getRoot());
-        return inflate;
-    }
-
     public void setContentViewNoTitle(int layoutResID) {
         super.setContentView(layoutResID);
     }

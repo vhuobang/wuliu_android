@@ -67,4 +67,5 @@ dependencies {
     compile project(':share')
     compile 'com.amap.api:location:3.5.0'
     compile 'com.amap.api:3dmap:5.2.1'
+    compile 'com.amap.api:search:latest.integration'
 }

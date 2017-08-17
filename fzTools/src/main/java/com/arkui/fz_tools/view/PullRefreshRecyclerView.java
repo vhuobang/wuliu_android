@@ -83,6 +83,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
                     if (mRecycler.getAdapter().getItemCount() > 0) {
                         mRecycler.setVisibility(View.VISIBLE);
                         mProgress.setVisibility(View.GONE);
+                        mEmpty.setVisibility(View.GONE);
                         mAnimationDrawable.stop();
                     } else {
                         mAnimationDrawable.start();
@@ -139,6 +140,7 @@ public class PullRefreshRecyclerView extends FrameLayout {
     public void loadFail(){
      //   mRecycler.setVisibility(View.VISIBLE);
         mProgress.setVisibility(View.GONE);
+        mRecycler.setVisibility(View.GONE);
         mAnimationDrawable.stop();
         mEmpty.setVisibility(View.VISIBLE);
     }
@@ -146,5 +148,13 @@ public class PullRefreshRecyclerView extends FrameLayout {
     public void loadFail(String name){
         loadFail();
         mTvFailName.setText(name);
+    }
+
+    //开始动画
+    public void starLoad(){
+        mAnimationDrawable.start();
+        mRecycler.setVisibility(View.GONE);
+        mEmpty.setVisibility(View.GONE);
+        mProgress.setVisibility(View.VISIBLE);
     }
 }
