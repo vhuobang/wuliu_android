@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.arkui.fz_tools.ui.BaseFragment;
@@ -15,11 +16,14 @@ import com.arkui.transportation_owner.fragment.MessageFragment;
 import com.arkui.transportation_owner.fragment.MyFragment;
 import com.arkui.transportation_owner.fragment.WaybillFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.rg_root)
+    RadioGroup mRgRoot;
     private long mPressedTime = 0;
     protected BaseFragment currentSupportFragment;
     private LogisticsFragment mLogisticsFragment;
@@ -86,14 +90,27 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(R.id.fl_content, mMessageFragment);
                 break;
             case R.id.iv_publish:
-                Intent intent=new Intent(this,MyDeliverActivity.class);
+                Intent intent = new Intent(this, MyDeliverActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rb_order:
-                changeFragment(R.id.fl_content,mWaybillFragment);
+                changeFragment(R.id.fl_content, mWaybillFragment);
                 break;
             case R.id.rb_my:
-                changeFragment(R.id.fl_content,mMyFragment);
+                changeFragment(R.id.fl_content, mMyFragment);
+                break;
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int type = intent.getIntExtra("type", -1);
+
+        switch (type) {
+            case 3:
+                mRgRoot.check(R.id.rb_order);
+                changeFragment(R.id.fl_content, mWaybillFragment);
                 break;
         }
     }

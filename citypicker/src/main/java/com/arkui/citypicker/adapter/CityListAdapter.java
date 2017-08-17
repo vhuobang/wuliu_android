@@ -114,7 +114,7 @@ public class CityListAdapter extends BaseAdapter {
                 TextView state = (TextView) view.findViewById(R.id.tv_located_city);
                 switch (locateState){
                     case LocateState.LOCATING:
-                        state.setText("北京市");
+                        state.setText("定位中");
                         break;
                     case LocateState.FAILED:
                         state.setText(R.string.cp_located_failed);

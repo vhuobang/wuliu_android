@@ -38,7 +38,6 @@
                 android:id="@+id/tv_located_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
                 android:text="@string/cp_locating"
                 android:textSize="14sp"
                 android:textColor="@color/cp_gray_deep"/>

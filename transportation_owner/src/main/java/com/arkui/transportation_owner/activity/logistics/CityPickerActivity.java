@@ -95,7 +95,7 @@ public class CityPickerActivity extends BaseActivity implements View.OnClickList
         });
 
         mResultAdapter = new ResultListAdapter(this, null);
-        //initLocation();
+        initLocation();
     }
 
     public void initView() {
@@ -188,6 +188,6 @@ public class CityPickerActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // mLocationClient.stopLocation();
+        mLocationClient.stopLocation();
     }
 }

@@ -39,7 +39,7 @@ public class LogisticalListEntity {
      * auth_tatus : 0
      */
 
-    @SerializedName("auth_tatus")
+    @SerializedName("auth_status")
     private String authTatus;
     /**
      * short_name :

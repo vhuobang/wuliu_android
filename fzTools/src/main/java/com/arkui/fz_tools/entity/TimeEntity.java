@@ -8,13 +8,23 @@ import java.util.List;
 
 public class TimeEntity {
 
-    public TimeEntity(String month, List<String> hourList, List<String> minList) {
+    public TimeEntity(String monthName, String month, List<String> hourList, List<String> minList) {
         this.month = month;
+        this.monthName = monthName;
         this.hourList = hourList;
         this.minList = minList;
     }
 
     String month;
+    String monthName;
+
+    public String getMonthName() {
+        return monthName;
+    }
+
+    public void setMonthName(String monthName) {
+        this.monthName = monthName;
+    }
 
     List<String> hourList;
     List<String> minList;

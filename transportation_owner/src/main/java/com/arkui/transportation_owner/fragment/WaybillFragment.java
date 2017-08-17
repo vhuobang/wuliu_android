@@ -7,16 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
+import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.transportation_owner.R;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.transportation_owner.adapter.ViewPageLazyAdapter;
+import com.arkui.transportation_owner.entity.RefreshWaybill;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * 基于基类的Fragment
@@ -57,5 +62,22 @@ public class WaybillFragment extends BaseFragment {
         ViewPageLazyAdapter mViewPagerAdapter = new ViewPageLazyAdapter(getChildFragmentManager(), fragmentList, mTitles);
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        Disposable subscribe = RxBus.getDefault().toObservableSticky(RefreshWaybill.class).subscribe(new Consumer<RefreshWaybill>() {
+            @Override
+            public void accept(RefreshWaybill refreshWaybill) throws Exception {
+                switch (refreshWaybill.getType()){
+                    case 0:
+                        LogUtil.e("收到刷新指令！");
+                        break;
+                }
+            }
+        });
+
+        mDisposables.add(subscribe);
     }
 }

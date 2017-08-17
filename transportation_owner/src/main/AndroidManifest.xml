@@ -86,7 +86,8 @@
         <activity android:name=".activity.user.PasswordResetActivity" />
         <activity android:name=".activity.user.RegisterActivity" />
         <activity android:name=".activity.user.ClauseActivity" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".activity.my.InviteFriendActivity" />
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"

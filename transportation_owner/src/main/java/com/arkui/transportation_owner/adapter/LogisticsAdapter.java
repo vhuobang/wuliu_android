@@ -26,6 +26,6 @@ public class LogisticsAdapter extends BaseQuickAdapter<LogisticalListEntity,Base
         helper.setRating(R.id.rating,Float.parseFloat(item.getStarRating()));
         helper.setText(R.id.tv_collect,"1".equals(item.getStatus())?"已收藏":"收藏");
         helper.setImageResource(R.id.iv_collect,"1".equals(item.getStatus())?R.mipmap.collect_2:R.mipmap.collect);
-        helper.addOnClickListener(R.id.iv_head);
+        helper.addOnClickListener(R.id.ll_collect);
     }
 }
