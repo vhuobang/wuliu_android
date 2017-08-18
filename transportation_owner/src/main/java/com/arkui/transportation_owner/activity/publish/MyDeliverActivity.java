@@ -24,11 +24,14 @@ import com.arkui.fz_tools.entity.PublishEntity;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 
 public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, PublicInterface, OnConfirmClick, EndTimePicker.OnEnsureListener {
@@ -90,6 +93,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     private int mPaymentTerms = -1;
     private int mSettlementTime = -1;
     private PublishPresenter mPublishPresenter;
+    public boolean mIsSave=false;
 
     @Override
     public void setRootView() {
@@ -163,7 +167,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
                 break;
             case R.id.ll_payment:
                 mType = 6;
-                mSelectTypePicker.setData(mPaymentList).show(getSupportFragmentManager(), "payment");
+                mSelectTypePicker.setData(mPaymentList).setTitle("支付运费").show(getSupportFragmentManager(), "payment");
                 break;
             case R.id.ll_end_time:
                 mType = 7;
@@ -181,10 +185,10 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
                 break;
             case R.id.tv_publish:
                 //跳转到选择物流页面
-                showActivity(SelectLogisticsActivity.class);
+                postSave(false);
                 break;
             case R.id.tv_save:
-                postSave();
+                postSave(true);
                 break;
             case R.id.tv_send:
                 SelectAddressActivity.openActivity(mActivity, 1);
@@ -232,10 +236,10 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         }
     }
 
-    private void postSave() {
-        //构造传递对象
-        PublishEntity publishEntity = new PublishEntity();
+    //
+    private void postSave(boolean isSave) {
 
+        //构造传递对象
         //你是不是想知道 这些参数都什么意思？很遗憾我没有写任何注释
         //但是你可以去 https://www.easyapi.com/dashboard/api/?code=wuliuapi&documentId=9646&categoryId=16661&apiId=66226&head=api
         //这里看
@@ -257,6 +261,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         String unloading_tel = mEtUnloadingTel.getText().toString();
         String remarks = mEtRemarks.getText().toString().trim();
 
+
+
         if (TextUtils.isEmpty(loading_address)) {
             ShowToast("请输入装货地址");
             return;
@@ -266,7 +272,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             return;
         }
         if (TextUtils.isEmpty(cargo_name)) {
-            ShowToast("请输入货物地址");
+            ShowToast("请输入货物信息");
             return;
         }
         if (TextUtils.isEmpty(cargo_num)) {
@@ -318,29 +324,45 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             return;
         }
        
-        publishEntity.setUser_id(App.getUserId());
-        publishEntity.setOp_status(0);
-        publishEntity.setLoading_address(loading_address);
-        publishEntity.setUnloading_address(unloading_address);
-        publishEntity.setCargo_name(cargo_name);
-        publishEntity.setCargo_num(cargo_num);
-        publishEntity.setCargo_density(cargo_density);
-        publishEntity.setFreight_price(freight_price);
-        publishEntity.setCargo_price(cargo_price);
-        publishEntity.setLoading_time(loading_time);
-        publishEntity.setPayment_terms(mPaymentTerms);
-        publishEntity.setSettlement_time(mSettlementTime);
-        publishEntity.setPress_charges(press_charges);
-        publishEntity.setTruck_drawer(truck_drawer);
-        publishEntity.setTruck_tel(truck_tel);
-        publishEntity.setUnloading_contact(unloading_contact);
-        publishEntity.setUnloading_tel(unloading_tel);
-        publishEntity.setType(mPublishType);
-        publishEntity.setRemarks(remarks);
-        publishEntity.setUnit(mUnit);
+        Map<String,Object> map=new HashMap<>();
+        map.put("user_id",App.getUserId());
+        map.put("op_status",isSave?0:1);
+        map.put("loading_address",loading_address);
+        map.put("unloading_address",unloading_address);
+        map.put("cargo_name",cargo_name);
+        map.put("cargo_num",cargo_num);
+        map.put("cargo_density",cargo_density);
+        map.put("freight_price",freight_price);
+        map.put("cargo_price",cargo_price);
+        map.put("loading_time",loading_time);
+        map.put("payment_terms",mPaymentTerms);
+        map.put("settlement_time",mSettlementTime);
+        map.put("press_charges",press_charges);
+        map.put("truck_drawer",truck_drawer);
+        map.put("truck_tel",truck_tel);
+        map.put("unloading_contact",unloading_contact);
+        map.put("unloading_tel",unloading_tel);
+        map.put("type",mPublishType);
+        map.put("remarks",remarks);
+        map.put("unit",mUnit);
 
         //传给后台
-        mPublishPresenter.postSave(publishEntity);
+        if(isSave){
+            mPublishPresenter.postSave(map);
+        }else{
+            //去发布
+            //showActivity(SelectLogisticsActivity.class);
+            /**
+             *
+             发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
+             好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
+             */
+            RxBus.getDefault().postSticky(map);
+            Intent intent=new Intent(mActivity,SelectLogisticsActivity.class);
+            //intent.putExtra("data",map);
+            showActivity(intent);
+        }
+
     }
 
     @Override
@@ -366,6 +388,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     //时间回调
     @Override
     public void onEnsureClick(String time) {
-        mTvEndTime.setText(time);
+        mTvLoadingTime.setText(time);
     }
+
+
 }

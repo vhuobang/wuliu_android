@@ -12,6 +12,8 @@ import com.arkui.fz_tools.api.PublicApi;
 import com.arkui.fz_tools.api.PublishApi;
 import com.arkui.fz_tools.entity.PublishEntity;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
@@ -31,8 +33,8 @@ public class PublishPresenter extends BasePresenter {
         mPublishApi = RetrofitFactory.createRetrofit(PublishApi.class);
     }
 
-    public void postSave(PublishEntity publishEntity){
-        Observable<BaseHttpResult> observable = mPublishApi.postSaveCargo(publishEntity);
+    public void postSave(Map<String,Object> map){
+        Observable<BaseHttpResult> observable = mPublishApi.postSaveCargo(map);
 
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override

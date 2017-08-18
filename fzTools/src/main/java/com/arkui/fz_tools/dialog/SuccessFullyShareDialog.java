@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.arkui.fz_tools.R;
 import com.arkui.fz_tools.listener.OnConfirmClick;
+import com.arkui.fz_tools.listener.OnDialogClick;
 
 /**
  * Created by nmliz on 2017/6/23.
@@ -16,7 +17,7 @@ import com.arkui.fz_tools.listener.OnConfirmClick;
 public class SuccessFullyShareDialog extends BaseDialogFragment implements View.OnClickListener {
 
 
-    OnConfirmClick onConfirmClick;
+    OnDialogClick onConfirmClick;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -27,16 +28,23 @@ public class SuccessFullyShareDialog extends BaseDialogFragment implements View.
     @Override
     protected void initView(View mRootView) {
         mRootView.findViewById(R.id.tv_share).setOnClickListener(this);
+        mRootView.findViewById(R.id.tv_cancel).setOnClickListener(this);
+
     }
 
 
     @Override
     public void onClick(View v) {
-        if(onConfirmClick!=null)
-            onConfirmClick.onConfirmClick();
+        if(v.getId()==R.id.tv_cancel){
+            if(onConfirmClick!=null)
+                onConfirmClick.onCancelClick();
+        }else{
+            if(onConfirmClick!=null)
+                onConfirmClick.onConfirmClick();
+        }
     }
 
-    public void setOnConfirmClick(OnConfirmClick onConfirmClick) {
+    public void setOnConfirmClick(OnDialogClick onConfirmClick) {
         this.onConfirmClick = onConfirmClick;
     }
 

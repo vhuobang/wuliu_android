@@ -39,4 +39,9 @@ public interface LogisticalApi {
     @POST(NetConstants.COLLECTION_LOGISTICAL)
     Observable<BaseHttpResult> postCollectionLogistical(@Field("user_id") String user_id,@Field("log_id") String log_id);
 
+    //收藏物流列表
+    @FormUrlEncoded
+    @POST(NetConstants.MY_COLLECTION)
+    Observable<BaseHttpResult<List<LogisticalListEntity>>> postCollectionLogisticalList(@Field("user_id") String user_id,@Field("page") int page,@Field("pagesize") int pagesize);
+
 }

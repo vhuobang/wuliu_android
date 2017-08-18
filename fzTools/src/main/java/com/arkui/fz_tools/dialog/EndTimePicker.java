@@ -97,9 +97,9 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                 //年份加1 日期回归到1 取余和归1貌似一样的
                 this.day = 1;
                 year += 1;
-            } else {
+            } /*else {
                 this.day = day + 1;
-            }
+            }*/
 
             String monthStr = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
                     "日";
@@ -120,10 +120,11 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                 default:
                  /*   this.listItem = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
                             "日";*/
-                    mTimeList.add(new TimeEntity(listItem, monthStr, hourList, minList));
+                    mTimeList.add(new TimeEntity(monthStr, monthStr, hourList, minList));
                     break;
             }
             //便于判断这个月最大天数
+            this.day = day + 1;
             c.set(year, month - 1, day);
 
         }
@@ -139,6 +140,7 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
         mWvMin.setViewAdapter(minAdapter);
 
         mWvMonth.addChangingListener(this);
+        mWvHour.addChangingListener(this);
     }
 
 

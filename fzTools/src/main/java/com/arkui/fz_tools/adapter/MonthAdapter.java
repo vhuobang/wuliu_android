@@ -20,7 +20,7 @@ public class MonthAdapter extends AbstractWheelTextAdapter {
 
     @Override
     protected CharSequence getItemText(int index) {
-        return list.get(index).getMonth();
+        return list.get(index).getMonthName();
     }
 
     @Override

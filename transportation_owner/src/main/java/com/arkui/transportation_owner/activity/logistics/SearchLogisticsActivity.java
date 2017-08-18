@@ -14,14 +14,18 @@ import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.LogisticsBusEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.utils.HistorySearchDividerItem;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation_owner.R;
+import com.arkui.transportation_owner.activity.publish.LogisticsListActivity;
 import com.arkui.transportation_owner.activity.publish.PublishDeclareActivity;
 import com.arkui.transportation_owner.adapter.LogisticsAdapter;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
+import com.arkui.transportation_owner.entity.RefreshLogistics;
+import com.arkui.transportation_owner.entity.RefreshWaybill;
 import com.arkui.transportation_owner.mvp.LogisticsPresenter;
 import com.arkui.transportation_owner.utils.ListData;
 import com.arkui.transportation_owner.view.LogisticsView;
@@ -53,6 +57,7 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
     private boolean mIsSelect;
     private LogisticsPresenter mLogisticsPresenter;
     private int mPage = 1;
+    private boolean mIsChange=false;
 
     @Override
     public void setRootView() {
@@ -130,7 +135,13 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
                 finish();
                 break;
             case R.id.tv_next:
-                showActivity(PublishDeclareActivity.class);
+                //showActivity(PublishDeclareActivity.class);
+                AppManager.getAppManager().finishActivity(LogisticsListActivity.class);
+                if(mIsChange){
+                    //发送给下一页 让他执行刷新
+                    RxBus.getDefault().post(new RefreshLogistics(101));
+                }
+                finish();
                 break;
         }
     }
@@ -206,6 +217,7 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
 
     @Override
     public void onSucceed(int position) {
+        mIsChange=true;
         mLogisticsAdapter.getItem(position).setStatus("1".equals(mLogisticsAdapter.getItem(position).getStatus())?"0":"1");
         mLogisticsAdapter.notifyItemChanged(position);
     }

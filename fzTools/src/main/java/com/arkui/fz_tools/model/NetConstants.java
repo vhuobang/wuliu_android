@@ -44,4 +44,6 @@ public class NetConstants {
     public static final String COLLECTION_LOGISTICAL=BASE_URL+"index.php/App/logistical/collectionLogistical";
     //发布
     public static final String ADD_CARGO=BASE_URL+"index.php/App/logistical/addCargo";
+    //已收藏物流列表
+    public static final String MY_COLLECTION=BASE_URL+"index.php/App/logistical/myCollection";
 }

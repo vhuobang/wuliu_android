@@ -189,5 +189,6 @@ public class CityPickerActivity extends BaseActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         mLocationClient.stopLocation();
+        mLocationClient.onDestroy();
     }
 }
