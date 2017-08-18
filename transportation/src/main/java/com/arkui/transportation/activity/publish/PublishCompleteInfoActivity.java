@@ -1,6 +1,5 @@
 package com.arkui.transportation.activity.publish;
 
-import android.os.Handler;
 import android.view.View;
 
 import com.arkui.fz_tools.dialog.SelectTypePicker;
@@ -55,7 +54,7 @@ public class PublishCompleteInfoActivity extends BaseActivity implements OnVehic
     }
 
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item,int pos) {
 
     }
 }

@@ -79,7 +79,7 @@ public class VehicleEditedActivity extends BaseActivity implements OnVehicleType
      * @param item
      */
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item ,int pos) {
         mTvVehicleModel.setText(item);
     }
 }

@@ -75,7 +75,7 @@ public class CarriageListActivity extends BaseListActivity<CargoCarrierListEntit
     @Override
     public void initData() {
         Observable<List<CargoCarrierListEntity>> observable = mLogisticalApi.getCargoCarrierList(cargoId).map(new HttpResultFunc<List<CargoCarrierListEntity>>());
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<CargoCarrierListEntity>>() {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<CargoCarrierListEntity>>(CarriageListActivity.this) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);

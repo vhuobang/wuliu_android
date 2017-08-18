@@ -142,7 +142,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     }
 
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item,int position) {
         switch (mType) {
             case 1:
                 mTvAmount.setText(item);

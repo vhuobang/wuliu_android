@@ -2,6 +2,7 @@ package com.arkui.fz_tools.mvp;
 
 import android.app.Activity;
 
+import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -33,12 +34,18 @@ public class ReleaseDetailPresenter extends BasePresenter {
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<ReleaseDetailsEntity>(mContext) {
             @Override
             protected void getDisposable(Disposable d) {
-
+               mDisposables.add(d);
             }
 
             @Override
             public void onNext(ReleaseDetailsEntity value) {
+                    mReleaseDetailInterface.onSuccess(value);
+            }
 
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                mReleaseDetailInterface.onFail(e.getMessage());
             }
         });
     }

@@ -63,7 +63,7 @@ public class AddVehicleActivity extends BaseActivity implements OnVehicleTypeCli
     }
 
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item,int pos) {
 
     }
 }

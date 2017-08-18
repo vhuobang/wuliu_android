@@ -611,4 +611,21 @@ public class StrUtil {
         }
         return formatStr;
     }
+
+    //1、货主网上支付；2、物流网上支付；3货到付款
+    public static  String formatPayMent(String payment){
+        String formatStr =null;
+        switch (payment){
+            case "1":
+                formatStr ="货主网上支付";
+                break;
+            case "2":
+                formatStr="物流网上支付";
+                break;
+            case "3":
+                formatStr="3货到付款";
+                break;
+        }
+        return formatStr;
+    }
 }

@@ -87,7 +87,7 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
     }
 
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item,int pos) {
         tvTime.setText(item);
         payMoneyTime= item;//结算时间
     }
@@ -119,7 +119,7 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
                 hashMap.put("log_contact_name",name);
                 hashMap.put("log_contact_tel",phone);
                 Observable<BaseHttpResult> observable= mLogisticalApi.getLogisticalForward(hashMap);
-                HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>() {
+                HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(CompleteInfoActivity.this) {
                     @Override
                     protected void getDisposable(Disposable d) {
                         mDisposables.add(d);

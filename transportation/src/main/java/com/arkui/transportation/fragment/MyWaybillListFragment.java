@@ -83,9 +83,13 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
         mListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                 switch (mType) {
                     case 0:
-                        showActivity(PlanPublishDetailActivity.class);
+                        CarGoListEntity item = (CarGoListEntity) adapter.getItem(position);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("carGoId",item.getId());
+                        showActivity(PlanPublishDetailActivity.class,bundle);
                         break;
                     case 1:
                         showActivity(CarriageDetailActivity.class);

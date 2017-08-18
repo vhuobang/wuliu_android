@@ -137,7 +137,7 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
     }
 
     @Override
-    public void OnVehicleTypeClick(String item) {
+    public void OnVehicleTypeClick(String item,int pos) {
         switch (mType) {
             case 1:
                 mTvAmount.setText(item);
