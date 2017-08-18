@@ -4,6 +4,8 @@ import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.PublishEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -21,6 +23,6 @@ public interface PublishApi {
     //保存发布信息
     @FormUrlEncoded
     @POST(NetConstants.ADD_CARGO)
-    Observable<BaseHttpResult> postSaveCargo(@Body()PublishEntity publishEntity);
+    Observable<BaseHttpResult> postSaveCargo(@FieldMap Map<String,Object> map);
 
 }

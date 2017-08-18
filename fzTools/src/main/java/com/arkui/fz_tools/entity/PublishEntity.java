@@ -25,6 +25,9 @@ public class PublishEntity {
     private String truck_tel;
     private String unloading_contact;
 
+    public PublishEntity() {
+    }
+
     public String getUnloading_tel() {
         return unloading_tel;
     }

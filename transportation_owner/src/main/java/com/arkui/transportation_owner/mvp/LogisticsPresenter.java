@@ -106,4 +106,32 @@ public class LogisticsPresenter extends BasePresenter {
             }
         });
     }
+
+    //获取已收藏列表
+    public void postCollectionLogisticsList(int page){
+
+        Observable<List<LogisticalListEntity>> observable = mLogisticalApi.postCollectionLogisticalList( App.getUserId(),page,20).map(new HttpResultFunc<List<LogisticalListEntity>>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<LogisticalListEntity>>(mContext,false) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(List<LogisticalListEntity> value) {
+                if(mLogisticsView!=null){
+                    mLogisticsView.onSucceed(value);
+                }
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                if(mLogisticsView!=null){
+                    mLogisticsView.onError();
+                }
+            }
+        });
+    }
 }

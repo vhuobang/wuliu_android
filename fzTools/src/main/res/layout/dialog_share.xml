@@ -49,6 +49,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_cancel"
         android:textSize="@dimen/sp_16"
         android:textColor="@color/black_normal_color"
         android:gravity="center"

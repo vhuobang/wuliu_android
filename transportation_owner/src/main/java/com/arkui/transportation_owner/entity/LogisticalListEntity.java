@@ -35,6 +35,7 @@ public class LogisticalListEntity {
     private String registerYear;
     @SerializedName("status")
     private String status;
+    private boolean isCheck;
     /**
      * auth_tatus : 0
      */
@@ -56,6 +57,14 @@ public class LogisticalListEntity {
     private String tel;
     @SerializedName("handler_name")
     private String handlerName;
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
 
     public String getId() {
         return id;

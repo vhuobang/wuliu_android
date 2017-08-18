@@ -6,13 +6,13 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="10dp"
-   android:paddingRight="5dp" >
+    android:paddingRight="5dp">
 
     <ImageView
         android:id="@+id/iv_head"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/wl_photo" />
+        android:src="@mipmap/tupian" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -23,27 +23,30 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="北京美华国际物流有限公司" />
 
         <TextView
+            android:id="@+id/tv_info"
             style="@style/TextView666"
             android:layout_marginTop="10dp"
             android:text="已注册2年  成交1823条" />
 
         <RatingBar
+            android:id="@+id/rating"
             style="@style/RatingBarOrange"
             android:layout_marginTop="10dp" />
     </LinearLayout>
 
 
     <ImageView
-        android:padding="5dp"
         android:id="@+id/iv_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:padding="5dp"
         android:src="@drawable/selected_logistics" />
 
 
