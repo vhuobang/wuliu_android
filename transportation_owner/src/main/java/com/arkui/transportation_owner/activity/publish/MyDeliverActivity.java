@@ -381,7 +381,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         intent.putExtra("type",3);
         startActivity(intent);
         //发送刷新命令
-        RxBus.getDefault().postSticky(new RefreshWaybill(0));
+        //刷新保存那个界面
+        RxBus.getDefault().postSticky(new RefreshWaybill(1));
         finish();
     }
 

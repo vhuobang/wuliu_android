@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 /**
- * TODO 这里还却分享
+ * TODO 这里还缺少分享
  */
 public class PublishDeclareActivity extends BaseActivity implements OnConfirmClick, PublicInterface, OnDialogClick {
 
@@ -92,7 +92,8 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         intent.putExtra("type", 3);
         startActivity(intent);
         //发送刷新命令
-        RxBus.getDefault().postSticky(new RefreshWaybill(0));
+        //刷新已发布的
+        RxBus.getDefault().postSticky(new RefreshWaybill(2));
     }
 
     @Override

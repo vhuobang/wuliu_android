@@ -623,7 +623,7 @@ public class StrUtil {
                 formatStr="物流网上支付";
                 break;
             case "3":
-                formatStr="3货到付款";
+                formatStr="货到付款";
                 break;
         }
         return formatStr;

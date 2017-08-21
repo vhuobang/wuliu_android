@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/17.
+ * 预发布详情
  */
 
 public class ReleaseDetailPresenter extends BasePresenter {
