@@ -32,7 +32,7 @@ public class WaybillFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
-    private String[] mTitles = {"预发布","已发布","待装货", "运输中","待付款","已完成"};
+    private String[] mTitles = {"预发布", "已发布", "待装货", "运输中", "待付款", "已完成"};
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -43,17 +43,18 @@ public class WaybillFragment extends BaseFragment {
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
-
-        WaybillListFragment waybillListFragment1= WaybillListFragment.getInstance(1);
-        WaybillListFragment waybillListFragment2= WaybillListFragment.getInstance(2);
-        WaybillListFragment waybillListFragment3= WaybillListFragment.getInstance(3);
-        WaybillListFragment waybillListFragment4= WaybillListFragment.getInstance(4);
-        WaybillListFragment waybillListFragment5= WaybillListFragment.getInstance(5);
-        WaybillListFragment waybillListFragment6= WaybillListFragment.getInstance(6);
+        // WaybillListFragment waybillListFragment1= WaybillListFragment.getInstance(1);
+        //  WaybillListFragment waybillListFragment2= WaybillListFragment.getInstance(2);
+        PublishListFragment publishListFragment1 = PublishListFragment.getInstance(1);
+        PublishListFragment publishListFragment2 = PublishListFragment.getInstance(2);
+        WaybillListFragment waybillListFragment3 = WaybillListFragment.getInstance(3);
+        WaybillListFragment waybillListFragment4 = WaybillListFragment.getInstance(4);
+        WaybillListFragment waybillListFragment5 = WaybillListFragment.getInstance(5);
+        WaybillListFragment waybillListFragment6 = WaybillListFragment.getInstance(6);
 
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
-        fragmentList.add(waybillListFragment1);
-        fragmentList.add(waybillListFragment2);
+        fragmentList.add(publishListFragment1);
+        fragmentList.add(publishListFragment2);
         fragmentList.add(waybillListFragment3);
         fragmentList.add(waybillListFragment4);
         fragmentList.add(waybillListFragment5);
@@ -67,17 +68,6 @@ public class WaybillFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        Disposable subscribe = RxBus.getDefault().toObservableSticky(RefreshWaybill.class).subscribe(new Consumer<RefreshWaybill>() {
-            @Override
-            public void accept(RefreshWaybill refreshWaybill) throws Exception {
-                switch (refreshWaybill.getType()){
-                    case 0:
-                        LogUtil.e("收到刷新指令！");
-                        break;
-                }
-            }
-        });
 
-        mDisposables.add(subscribe);
     }
 }

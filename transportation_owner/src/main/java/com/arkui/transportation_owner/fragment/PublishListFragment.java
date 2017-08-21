@@ -1,29 +1,26 @@
 package com.arkui.transportation_owner.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.CarGoListInterface;
 import com.arkui.fz_tools.entity.CarGoListEntity;
 import com.arkui.fz_tools.mvp.CarGoListPresenter;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
+import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.waybill.CarriageDetailActivity;
-import com.arkui.transportation_owner.activity.waybill.DriverLocationActivity;
 import com.arkui.transportation_owner.activity.waybill.PlanPublishDetailActivity;
 import com.arkui.transportation_owner.activity.waybill.WaybillDetailActivity;
-import com.arkui.fz_tools.adapter.CommonAdapter;
-import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.transportation_owner.adapter.PublishAdapter;
 import com.arkui.transportation_owner.base.App;
-import com.arkui.transportation_owner.utils.ListData;
+import com.arkui.transportation_owner.entity.RefreshWaybill;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -31,18 +28,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * 基于基类的Fragment
+ * 预发布 已发布
  */
-public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>, OnRefreshListener, CarGoListInterface {
+public class PublishListFragment extends BaseLazyFragment implements OnRefreshListener, CarGoListInterface, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
-    private CommonAdapter<String> mListAdapter;
     private int mType;
     private CarGoListPresenter mCargoListPresenter;
-    private int mPage=1;
+    private int mPage = 1;
     private PublishAdapter mPublishAdapter;
 
     @Override
@@ -54,135 +53,119 @@ public class WaybillListFragment extends BaseLazyFragment implements OnBindViewH
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
-
         mRlList.setLinearLayoutManager();
         mRlList.setOnRefreshListener(this);
         mType = getArguments().getInt("type");
-
-        switch (mType) {
-            case 1:
-            case 2:
-               // mListAdapter = new CommonAdapter<>(R.layout.item_waybill_publish, this);
-
-                initPublishAdapter();
-                break;
-            default:
-                mListAdapter = new CommonAdapter<>(R.layout.item_waybill, this);
-                break;
-        }
-
+        initPublishAdapter();
         mRlList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-
-
     }
 
     private void initPublishAdapter() {
         mPublishAdapter = new PublishAdapter();
         mRlList.setAdapter(mPublishAdapter);
+        mPublishAdapter.setOnLoadMoreListener(this,mRlList.getRecyclerView());
         mPublishAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (mType) {
                     case 1:
-                        showActivity(PlanPublishDetailActivity.class);
+                        String id = mPublishAdapter.getItem(position).getId();
+                        //showActivity(PlanPublishDetailActivity.class);
+                        PlanPublishDetailActivity.showActivity(mActivity,id);
                         break;
                     case 2:
                         showActivity(CarriageDetailActivity.class);
                         break;
-                    case 3:
+                   /* case 3:
                     case 4:
                         showActivity(WaybillDetailActivity.class);
                         break;
                     case 5:
                     case 6:
                         WaybillDetailActivity.openActivity(mContext, mType);
-                        break;
+                        break;*/
                 }
             }
         });
-
     }
 
     @Override
     protected void initData() {
         super.initData();
         mCargoListPresenter = new CarGoListPresenter(this, getActivity());
+        Disposable subscribe = RxBus.getDefault().toObservableSticky(RefreshWaybill.class).subscribe(new Consumer<RefreshWaybill>() {
+            @Override
+            public void accept(RefreshWaybill refreshWaybill) throws Exception {
+                LogUtil.e("收到刷新指令！");
+                mPage = 1;
+                switch (refreshWaybill.getType()) {
+                    case 1:
+                        mCargoListPresenter.getCarGoList(App.getUserId(), "0", mPage, 20);
+                        break;
+                    case 2:
+                        mCargoListPresenter.getCarGoList(App.getUserId(), "1", mPage, 20);
+                        break;
+                }
+                RxBus.getDefault().removeStickyEvent(RefreshWaybill.class);
+            }
+        });
+
+        mDisposables.add(subscribe);
     }
 
     @Override
     protected void lazyLoadData() {
-        //onRefreshing();
-        switch (mType) {
-            case 1:
-                mCargoListPresenter.getCarGoList(App.getUserId(),"0",mPage,20);
-                break;
-            case 2:
-                mCargoListPresenter.getCarGoList(App.getUserId(),"1",mPage,20);
-                break;
-        }
+        mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
     }
 
-    public static WaybillListFragment getInstance(int type) {
+    /**
+     * @param type 决定已发布还是未发布
+     * @return
+     */
+    public static PublishListFragment getInstance(int type) {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
-        WaybillListFragment waybillListFragment = new WaybillListFragment();
+        PublishListFragment waybillListFragment = new PublishListFragment();
         waybillListFragment.setArguments(bundle);
         return waybillListFragment;
     }
 
-    public void onRefreshing() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mListAdapter.addData(ListData.getTestData(""));
-                mRlList.refreshComplete();
-            }
-        }, 1000);
-    }
-
-    @Override
-    public void convert(BaseViewHolder helper, String item) {
-        switch (mType) {
-            case 1:
-            case 2:
-                helper.setText(R.id.tv_company, "500元/吨 7日内结算");
-                break;
-            case 3:
-                helper.setVisible(R.id.ll_location, true);
-                helper.setVisible(R.id.tv_state, false);
-                helper.setText(R.id.tv_company, "北京美华国际物流有限公司");
-                helper.setText(R.id.tv_name, "京P564S2  汽油");
-
-                break;
-            case 4:
-                helper.setVisible(R.id.ll_location, true);
-                helper.setVisible(R.id.tv_state, false);
-                helper.setText(R.id.tv_company, "北京美华国际物流有限公司");
-                break;
-            case 5:
-                helper.setText(R.id.tv_state, "运费：2000元      ");
-                break;
-            case 6:
-                helper.setVisible(R.id.ll_location, false);
-                helper.setVisible(R.id.tv_state, false);
-                break;
-        }
-
-        helper.addOnClickListener(R.id.ll_location);
-    }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        onRefreshing();
+        mPage=1;
+        mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
     }
 
     @Override
     public void onCarGoListSuccess(List<CarGoListEntity> carGoListEntityList) {
-        mPublishAdapter.setNewData(carGoListEntityList);
+        if(mPage==1){
+            mPublishAdapter.setNewData(carGoListEntityList);
+            mRlList.refreshComplete();
+            mPublishAdapter.setEnableLoadMore(carGoListEntityList.size() == 20);
+        }else{
+            mPublishAdapter.addData(carGoListEntityList);
+            mPublishAdapter.loadMoreComplete();
+        }
     }
 
     @Override
     public void onCarGoListFail(String errorMessage) {
+        if(mPage==1){
+            mRlList.loadFail();
+        }else{
+            mPublishAdapter.loadMoreEnd();
+        }
+        mRlList.refreshComplete();
+    }
 
+    //请求未发布和已发布
+    private String getType() {
+        return mType == 1 ? "0" : "1";
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
     }
 }

@@ -32,7 +32,7 @@ public class CarGoListPresenter extends BasePresenter {
     // 请求 预发布  已发布列表
     public void getCarGoList(String userId,String opStatus,int page,int pageSize){
         Observable<List<CarGoListEntity>> observable = mPublicApi.getCargoList(userId, opStatus, page, pageSize).map(new HttpResultFunc<List<CarGoListEntity>>());
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<CarGoListEntity>>(mContext) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<CarGoListEntity>>(mContext,false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -50,5 +50,7 @@ public class CarGoListPresenter extends BasePresenter {
             }
         });
     }
+
+
 
 }

@@ -25,21 +25,21 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_loading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="北京昌平区"
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
 
                 <TextView
+                    android:id="@+id/tv_loading_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心B栋308"
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
 
@@ -61,21 +61,21 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_unloading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="唐山迁安"
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
 
                 <TextView
+                    android:id="@+id/tv_unloading_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心"
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -102,10 +102,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_cargo_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="甲醛/100吨/剩余40吨"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -126,10 +126,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_cargo_density"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="20.2吨/升"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -150,10 +150,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_freight_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="100元/吨"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -174,10 +174,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_cargo_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="1000元/吨"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -199,10 +199,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_loading_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2017-6-23"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -223,10 +223,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_payment_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="甲醛/100吨/剩余40吨"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -247,10 +247,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_settlement_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="7天内结算"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -271,10 +271,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_press_charges"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="100元"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -297,10 +297,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_truck_drawer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="赵敏"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -316,7 +316,7 @@
 
                 <TextView
                     style="@style/TextViewWeight999"
-                    android:text="15244478521" />
+                    android:id="@+id/tv_truck_tel"/>
             </TableRow>
 
             <View style="@style/dividerLine" />
@@ -329,20 +329,23 @@
 
                 <TextView
                     style="@style/TextViewWeight999"
-                    android:text="张无忌" />
+                    android:id="@+id/tv_unloading_contact"/>
             </TableRow>
 
             <View style="@style/dividerLine" />
 
-            <TableRow style="@style/TableRow">
+            <TableRow
+                style="@style/TableRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
                     style="@style/TextView"
                     android:text="联系电话" />
 
                 <TextView
-                    style="@style/TextViewWeight999"
-                    android:text="15244478521" />
+                    android:id="@+id/tv_unloading_tel"
+                    style="@style/TextViewWeight999" />
             </TableRow>
 
             <View
@@ -362,10 +365,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_remarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -374,6 +377,7 @@
         </TableLayout>
 
         <TextView
+            android:id="@+id/tv_publish"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="9dp"

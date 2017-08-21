@@ -90,7 +90,7 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
 
         for (int i = 0; i <= 30; i++) {
             int maxDayOfMonth = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-            if (day >= maxDayOfMonth) {
+            if (day > maxDayOfMonth) {
                 //跨年了 年份要加1 便于上边那行 判断闰年
                 this.month = (this.month += 1) == 13 ? 1 : this.month;
                 //this.day = day % maxDayOfMonth;
@@ -101,9 +101,9 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                 this.day = day + 1;
             }*/
 
-            String monthStr = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
+            String monthShowStr = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
                     "日";
-
+            String monthStr = year + "-" +String.format("%02d", this.month) + "-" + String.format("%02d", this.day);
             switch (i) {
                 case 0:
                     this.listItem = "今天";
@@ -120,7 +120,7 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                 default:
                  /*   this.listItem = String.format("%02d", this.month) + "月" + String.format("%02d", this.day) +
                             "日";*/
-                    mTimeList.add(new TimeEntity(monthStr, monthStr, hourList, minList));
+                    mTimeList.add(new TimeEntity(monthShowStr, monthStr, hourList, minList));
                     break;
             }
             //便于判断这个月最大天数
@@ -179,7 +179,8 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
               int minCurrentItem = mWvMin.getCurrentItem();
 
               TimeEntity timeEntity = mTimeList.get(monthCurrentItem);
-              String month = timeEntity.getMonth().replace("月","-").replace("日"," ");
+              //String month = timeEntity.getMonth().replace("月","-").replace("日"," ");
+              String month=timeEntity.getMonth();
               String hour1 = timeEntity.getHourList().get(hourCurrentItem).replace("时",":");
               int   hour2=  Integer.parseInt(timeEntity.getHourList().get(hourCurrentItem).replace("时", ""));
               String min;
@@ -189,7 +190,7 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
                   min= minList.get(minCurrentItem).replace("分"," ");
               }
 
-              onEnsureListener.onEnsureClick(month+ hour1+min);
+              onEnsureListener.onEnsureClick(month+" "+ hour1+min);
           }
         }
         dismiss();
