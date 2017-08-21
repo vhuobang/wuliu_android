@@ -5,7 +5,6 @@ import android.content.Intent;
 import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.dialog.ShareDialog;
-import com.arkui.fz_tools.dialog.SuccessFullyDialog;
 import com.arkui.fz_tools.dialog.SuccessFullyShareDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnDialogClick;
@@ -19,7 +18,6 @@ import com.arkui.transportation_owner.entity.RefreshWaybill;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -73,6 +71,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         }
         String ids = getIntent().getStringExtra("ids");
         mMap.put("logistical_ids", ids);
+
         mPublishPresenter.postSave(mMap);
     }
 

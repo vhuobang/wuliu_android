@@ -98,7 +98,7 @@ public class SupplyDetailActivity extends BaseActivity {
     // 请求数据
     @Override
     public void initData() {
-      //  loadData();
+        loadData();
     }
 
     private void loadData() {

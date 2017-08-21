@@ -177,8 +177,6 @@ public class SegmentTabLayout extends FrameLayout implements ValueAnimator.Anima
         setTabData(titles);
     }
 
-
-
     /** 更新数据 */
     public void notifyDataSetChanged() {
         mTabsContainer.removeAllViews();

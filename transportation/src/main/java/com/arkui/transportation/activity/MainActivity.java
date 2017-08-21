@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.arkui.fz_tools.ui.BaseActivity;
@@ -15,6 +16,7 @@ import com.arkui.transportation.fragment.MessageFragment;
 import com.arkui.transportation.fragment.MyFragment;
 import com.arkui.transportation.fragment.WaybillFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -24,6 +26,9 @@ import butterknife.OnClick;
  */
 public class MainActivity extends BaseActivity {
 
+
+    @BindView(R.id.rg_root)
+    RadioGroup mRgRoot;
     private long mPressedTime = 0;
     protected BaseFragment currentSupportFragment;
     private HomeFragment mHomeFragment;
@@ -105,4 +110,18 @@ public class MainActivity extends BaseActivity {
             this.finish();
         }
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int type = intent.getIntExtra("type", -1);
+        switch (type) {
+            case 3:
+                mRgRoot.check(R.id.rb_waybill);
+                mWaybillFragment.setFragmentPosition(1);
+                changeFragment(R.id.fl_content, mWaybillFragment);
+                break;
+        }
+    }
+
 }

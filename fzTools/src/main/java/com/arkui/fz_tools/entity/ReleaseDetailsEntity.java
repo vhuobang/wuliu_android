@@ -2,11 +2,13 @@ package com.arkui.fz_tools.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by 84658 on 2017/8/17.
  */
 
-public class ReleaseDetailsEntity {
+public class ReleaseDetailsEntity implements Serializable{
 
     /**
      * loading_address : 北京
@@ -27,7 +29,80 @@ public class ReleaseDetailsEntity {
      * truck_tel : 18735111111
      * id : 10
      * remarks : 注意安全
+     *
+     *
+     *
+     * // 新加的字段
+     * owner_name  货主名字
+     * owner_tel 货主电话
+     * infomation_fee 信息费用
+     * log_settlement_time 物流截至时间
+     *log_contact_name 物流联系人
+     * log_contact_tel//物流联系人电话
+     * type
      */
+//
+//    * // 新加的字段
+//            * owner_name  货主名字
+//    * owner_tel 货主电话
+//    * infomation_fee 信息费用
+//    * log_settlement_time 物流截至时间
+//    *log_contact_name 物流联系人
+//    * log_contact_tel//物流联系人电话
+    private String owner_name;
+    private String owner_tel;
+    private String infomation_fee;
+    private String log_settlement_time;
+    private String log_contact_name;
+    private String log_contact_tel;
+
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
+    }
+
+    public String getOwner_tel() {
+        return owner_tel;
+    }
+
+    public void setOwner_tel(String owner_tel) {
+        this.owner_tel = owner_tel;
+    }
+
+    public String getInfomation_fee() {
+        return infomation_fee;
+    }
+
+    public void setInfomation_fee(String infomation_fee) {
+        this.infomation_fee = infomation_fee;
+    }
+
+    public String getLog_settlement_time() {
+        return log_settlement_time;
+    }
+
+    public void setLog_settlement_time(String log_settlement_time) {
+        this.log_settlement_time = log_settlement_time;
+    }
+
+    public String getLog_contact_name() {
+        return log_contact_name;
+    }
+
+    public void setLog_contact_name(String log_contact_name) {
+        this.log_contact_name = log_contact_name;
+    }
+
+    public String getLog_contact_tel() {
+        return log_contact_tel;
+    }
+
+    public void setLog_contact_tel(String log_contact_tel) {
+        this.log_contact_tel = log_contact_tel;
+    }
 
     @SerializedName("loading_address")
     private String loadingAddress;
@@ -65,6 +140,18 @@ public class ReleaseDetailsEntity {
     private String id;
     @SerializedName("remarks")
     private String remarks;
+    @SerializedName("type")
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 
     public String getLoadingAddress() {
         return loadingAddress;

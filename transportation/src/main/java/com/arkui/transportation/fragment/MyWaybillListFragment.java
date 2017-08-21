@@ -68,6 +68,7 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
            case 0:
            case 1:
                mListAdapter = new CarGoListAdapter(R.layout.item_my_waybill_list);
+               initReleaseAdapter();
                break;
            case 2:
            case 3:
@@ -77,6 +78,10 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
                break;
         }
 
+
+    }
+
+    private void initReleaseAdapter() {
         mRlList.setAdapter(mListAdapter);
         mRlList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 

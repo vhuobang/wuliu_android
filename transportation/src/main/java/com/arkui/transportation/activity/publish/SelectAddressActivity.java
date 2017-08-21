@@ -1,8 +1,10 @@
 package com.arkui.transportation.activity.publish;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.arkui.fz_tools.dialog.AddressPicker;
 import com.arkui.fz_tools.entity.City;
@@ -12,17 +14,21 @@ import com.arkui.transportation.utils.LoadCityData;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public class SelectAddressActivity extends BaseActivity {
+public class SelectAddressActivity extends BaseActivity implements AddressPicker.OnEnsureClickListener {
 
+    @BindView(R.id.tv_address)
+    TextView mTvAddress;
+    @BindView(R.id.tv_detail_address)
+    TextView mTvDetailAddress;
     private AddressPicker mAddressPicker;
     List<City> mCityList;
-    private Disposable mDisposable;
+    private String mCity;
 
     @Override
     public void setRootView() {
@@ -38,25 +44,14 @@ public class SelectAddressActivity extends BaseActivity {
         mAddressPicker = new AddressPicker();
 
         //初始化其数据
-        /*  @Override
-          public void call(List<City> cityList) {
-              mCityList=cityList;
-              mAddressPicker.setCities(mCityList);
-          }*/
-        mDisposable = LoadCityData.initData(mActivity, new Consumer<List<City>>() {
+        LoadCityData.initData(mActivity, new Consumer<List<City>>() {
             @Override
             public void accept(List<City> cityList) throws Exception {
                 mCityList = cityList;
                 mAddressPicker.setCities(mCityList);
             }
-
-          /*  @Override
-            public void call(List<City> cityList) {
-                mCityList=cityList;
-                mAddressPicker.setCities(mCityList);
-            }*/
         });
-
+        mAddressPicker.setOnEnsureClickListener(this);
     }
 
     @Override
@@ -65,31 +60,66 @@ public class SelectAddressActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    public static void openActivity(Context context, int type) {
+    public static void openActivity(Activity context, int type) {
         Intent intent = new Intent(context, SelectAddressActivity.class);
         intent.putExtra("type", type);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, type);
     }
 
-    @OnClick({R.id.tl_city, R.id.tl_detail})
+    @OnClick({R.id.tl_city, R.id.tl_detail,R.id.bt_save})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tl_city:
-                if(mCityList==null)
+                if (mCityList == null)
                     return;
-                mAddressPicker.show(getSupportFragmentManager(),"city");
+                mAddressPicker.show(getSupportFragmentManager(), "city");
                 break;
             case R.id.tl_detail:
-                showActivity(EditDetailedAddressActivity.class);
+                if(mCity==null){
+                    ShowToast("请选择地址！");
+                    return;
+                }
+                // showActivity(EditDetailedAddressActivity.class);
+                Intent intent=new Intent(mActivity,EditDetailedAddressActivity.class);
+                intent.putExtra("city",mCity);
+                startActivityForResult(intent,101);
+                break;
+            case R.id.bt_save:
+                String address = mTvAddress.getText().toString().trim();
+                String detailAddress = mTvDetailAddress.getText().toString().trim();
+                if(TextUtils.isEmpty(address)&&TextUtils.isEmpty(detailAddress)){
+                    ShowToast("请选择地址");
+                    return;
+                }
+                Intent intent1=new Intent();
+                intent1.putExtra("address",address+" "+detailAddress);
+                setResult(Activity.RESULT_OK,intent1);
+                finish();
                 break;
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(mDisposable.isDisposed()){
-            mDisposable.dispose();
+    public void onCityClick(String city) {
+        String[] split = city.split("-");
+        if(split.length<2){
+            ShowToast("请选择");
+            return;
+        }
+
+        if("北京".equals( split[0])||"上海".equals( split[0])||"天津".equals( split[0])||"重庆".equals( split[0])){
+            mCity = split[0];
+        }else{
+            mCity = split[1];
+        }
+        mTvAddress.setText(city);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(101==requestCode&&resultCode==Activity.RESULT_OK){
+            mTvDetailAddress.setText(data.getStringExtra("address"));
         }
     }
 }

@@ -7,15 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arkui.fz_tools.adapter.ViewPagerAdapter;
-import com.arkui.fz_tools.listener.OnTabSelectListener;
-import com.arkui.fz_tools.ui.BaseLazyFragment;
+import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.view.SegmentTabLayout;
 import com.arkui.transportation.R;
-import com.arkui.fz_tools.ui.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +37,6 @@ public class WaybillFragment extends BaseFragment {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
 
-
         ArrayList<Fragment> baseFragmentList = new ArrayList<>();
 
         OwnerWaybillFragment ownerWaybillFragment=new OwnerWaybillFragment();
@@ -51,39 +46,14 @@ public class WaybillFragment extends BaseFragment {
         baseFragmentList.add(myWaybillFragment);
 
         mTab.setTabData(mTitles,getChildFragmentManager(),R.id.fl_content,baseFragmentList);
-       /* ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), baseFragmentList, mTitles);
 
-        mViewPager.setAdapter(viewPagerAdapter);
-
-        mTab.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                mViewPager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mTab.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        mViewPager.setCurrentItem(0);*/
+        mTab.setCurrentTab(position);
     }
+    int position;
+   // 显示货主运单  我的运单
+    public void setFragmentPosition(int position){
+        this.position=position;
+    }
+
+
 }

@@ -30,6 +30,7 @@
                 android:text="货主姓名" />
 
             <EditText
+                android:id="@+id/et_host_name"
                 style="@style/TextViewWeight999"
                 android:background="@null"
                 android:hint="请输入货主姓名" />
@@ -45,8 +46,10 @@
                 android:text="货主电话" />
 
             <EditText
+                android:id="@+id/et_host_phone"
                 style="@style/TextViewWeight999"
                 android:background="@null"
+                android:inputType="phone"
                 android:hint="请输入货主电话" />
         </TableRow>
 
@@ -70,6 +73,7 @@
                 android:text="联系人姓名" />
 
             <EditText
+                android:id="@+id/contact_name"
                 style="@style/TextViewWeight999"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -86,6 +90,7 @@
                 android:text="联系电话" />
 
             <EditText
+                android:id="@+id/et_contact_phone"
                 style="@style/TextViewWeight999"
                 android:background="@null"
                 android:hint="请输入联系电话" />
@@ -119,6 +124,7 @@
                 android:text="信息费" />
 
             <EditText
+                android:id="@+id/info_fee"
                 style="@style/TextViewWeight999"
                 android:background="@null"
                 android:hint="请输入信息费" />
