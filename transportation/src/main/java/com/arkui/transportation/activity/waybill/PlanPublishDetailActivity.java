@@ -1,5 +1,6 @@
 package com.arkui.transportation.activity.waybill;
 
+import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     TextView tvPublish;
     private ReleaseDetailPresenter releaseDetailPresenter;
     private String carGoId;
+    private  ReleaseDetailsEntity releaseDetailsEntity;
 
     @Override
     public void setRootView() {
@@ -95,10 +97,9 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
      * 加载数据
      */
     private void loadData() {
-        if (carGoId!=null){
+        if (carGoId != null) {
             releaseDetailPresenter.getReleaseDetail(carGoId);
         }
-
     }
 
     @Override
@@ -106,20 +107,25 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         super.onRightClick();
         showActivity(EditPlanPublishDetailActivity.class);
     }
-
-
     //立即发布
     @OnClick(R.id.tv_publish)
     public void onViewClicked() {
-        showActivity(PublishCompleteInfoActivity.class);
+        if (releaseDetailsEntity!=null){
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("releaseDetails",releaseDetailsEntity);
+            showActivity(PublishCompleteInfoActivity.class,bundle);
+        }
+
     }
-  //数据请求成功的回调
+
+    //数据请求成功的回调
     @Override
     public void onSuccess(ReleaseDetailsEntity entity) {
-              tvLoadingAddress.setText(entity.getLoadingAddress());
+        releaseDetailsEntity = entity;
+        tvLoadingAddress.setText(entity.getLoadingAddress());
         tvUnloadingAddress.setText(entity.getUnloadingAddress());
         String unit = StrUtil.formatUnit(entity.getUnit());
-        tvGoodInfo.setText(entity.getCargoName()+"/"+entity.getCargoNum()+unit );
+        tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + unit);
         cargoDensity.setText(entity.getCargoDensity());
         freightPrice.setText(entity.getFreightPrice());
         cargoPrice.setText(entity.getCargoPrice());
@@ -136,6 +142,6 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
 
     @Override
     public void onFail(String errorMessage) {
-        Toast.makeText(PlanPublishDetailActivity.this,errorMessage,Toast.LENGTH_SHORT).show();
+        Toast.makeText(PlanPublishDetailActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

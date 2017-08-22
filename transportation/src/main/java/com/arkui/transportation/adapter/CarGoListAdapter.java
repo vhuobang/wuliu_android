@@ -34,33 +34,36 @@ public class CarGoListAdapter extends BaseQuickAdapter<CarGoListEntity, BaseView
         //：1、吨；2、方；3、件；4、趟
         String cStatus = item.getCStatus();
         String freightPrice = item.getFreightPrice();
-        helper.setText(R.id.tv_loading_address, item.getLoadingAddress());
-        helper.setText(R.id.tv_unloading_address,item.getUnloadingAddress());
+        String[] loadingAddress = item.getLoadingAddress().split(" ");
+        String[] unloadingAddress = item.getUnloadingAddress().split(" ");
+
+        helper.setText(R.id.tv_loading_address, loadingAddress.length>=0?loadingAddress[0]:"");
+        helper.setText(R.id.tv_unloading_address,unloadingAddress.length>=0?unloadingAddress[0]:"");
         helper.setVisible(R.id.tv_company, true);
-      String unit= StrUtil.formatUnit(item.getUnit());
-        helper.setText(R.id.tv_company,freightPrice+ StrUtil.formatMoneyUnit(item.getUnit())+"/"+ StrUtil.formatSettlementTime(item.getSettlementTime()));
+        String unit = StrUtil.formatUnit(item.getUnit());
+        helper.setText(R.id.tv_company, freightPrice + StrUtil.formatMoneyUnit(item.getUnit()) + "/" + StrUtil.formatSettlementTime(item.getSettlementTime()));
         switch (cStatus) {
             case "0": //预发布
                 helper.setVisible(R.id.tv_state, false);
-                helper.setText(R.id.tv_good_info, item.getCargoName() + "/" + item.getCargoNum() +unit);
+                helper.setText(R.id.tv_good_info, item.getCargoName() + "/" + item.getCargoNum() + unit);
                 break;
             case "1"://发布中
                 helper.setVisible(R.id.tv_state, true);
-                helper.setText(R.id.tv_state,"发布中");
+                helper.setText(R.id.tv_state, "发布中");
                 helper.setText(R.id.tv_good_info, item.getCargoName() + "/" + item.getCargoNum()
-                        + unit+ "/"+item.getSurplusNum()+unit);
+                        + unit + "/" + item.getSurplusNum() + unit);
                 break;
             case "2": // 已抢完
                 helper.setVisible(R.id.tv_state, true);
-                helper.setText(R.id.tv_state,"已抢完");
+                helper.setText(R.id.tv_state, "已抢完");
                 helper.setText(R.id.tv_good_info, item.getCargoName() + "/" + item.getCargoNum()
-                        + unit+ "/"+item.getSurplusNum()+unit);
+                        + unit + "/" + item.getSurplusNum() + unit);
                 break;
             case "3": // 已停止
                 helper.setVisible(R.id.tv_state, true);
-                helper.setText(R.id.tv_state,"已停止");
+                helper.setText(R.id.tv_state, "已停止");
                 helper.setText(R.id.tv_good_info, item.getCargoName() + "/" + item.getCargoNum()
-                        + unit+ "/"+item.getSurplusNum()+unit);
+                        + unit + "/" + item.getSurplusNum() + unit);
                 break;
         }
 

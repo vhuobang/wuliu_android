@@ -9,15 +9,16 @@
     android:gravity="center_vertical">
 
     <TextView
-
-        android:text="北京美华国际物流公司"
+            android:id="@+id/tv_logistics_name"
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/logistics_info"
         android:textSize="@dimen/sp_13"
         android:layout_marginTop="5dp"
-        android:text="委派车辆数：3  承运数量：20吨"
+        android:text=""
         android:textColor="@color/black_list_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

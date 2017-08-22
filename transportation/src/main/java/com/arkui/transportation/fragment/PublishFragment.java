@@ -15,7 +15,6 @@ import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.CarriageDetailActivity;
 import com.arkui.transportation.activity.waybill.DriverLocationActivity;
 import com.arkui.transportation.activity.waybill.PlanPublishDetailActivity;
-import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
 import com.arkui.transportation.adapter.CarGoListAdapter;
 import com.arkui.transportation.base.App;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,27 +27,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 基于基类的Fragment
+ * Created by 84658 on 2017/8/21.
  */
-public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefreshListener, CarGoListInterface {
+
+public class PublishFragment extends BaseLazyFragment implements OnRefreshListener, CarGoListInterface {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
-    private BaseQuickAdapter mListAdapter;
     private int mType;
     private CarGoListAdapter mCarGoListAdapter;
     private CarGoListPresenter carGoListPresenter;
-    int page =1;
-    int pageSize =10;
+    int page = 1;
+    int pageSize = 10;
 
     // 提供一个实例
-    public static MyWaybillListFragment getInstance(int type) {
+    public static PublishFragment getInstance(int type) {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
-        MyWaybillListFragment waybillListFragment = new MyWaybillListFragment();
-        waybillListFragment.setArguments(bundle);
-        return waybillListFragment;
+        PublishFragment publishFragment = new PublishFragment();
+        publishFragment.setArguments(bundle);
+        return publishFragment;
     }
+
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_waybill_list, container, false);
@@ -64,57 +64,37 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
         //请求已发布预发布的p层
         carGoListPresenter = new CarGoListPresenter(this, getActivity());
         // 根据不同的type设置不同的adapter
-       switch (mType){
-           case 0:
-           case 1:
-               mListAdapter = new CarGoListAdapter(R.layout.item_my_waybill_list);
-               initReleaseAdapter();
-               break;
-           case 2:
-           case 3:
-           case 4:
-           case 5:
-
-               break;
-        }
-
-
+        mCarGoListAdapter = new CarGoListAdapter(R.layout.item_my_waybill_list);
+        initReleaseAdapter();
     }
 
     private void initReleaseAdapter() {
-        mRlList.setAdapter(mListAdapter);
+        mRlList.setAdapter(mCarGoListAdapter);
         mRlList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
-        mListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mCarGoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                CarGoListEntity item = (CarGoListEntity) adapter.getItem(position);
                 switch (mType) {
-                    case 0:
-                        CarGoListEntity item = (CarGoListEntity) adapter.getItem(position);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("carGoId",item.getId());
-                        showActivity(PlanPublishDetailActivity.class,bundle);
-                        break;
                     case 1:
-                        showActivity(CarriageDetailActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("carGoId", item.getId());
+                        showActivity(PlanPublishDetailActivity.class, bundle);
                         break;
                     case 2:
-                    case 3:
-                        WaybillDetailActivity.openActivity(mContext, 3, true, "");
-                        //showActivity(CarriageDetailActivity.class);
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putString("carGoId", item.getId());
+                        showActivity(CarriageDetailActivity.class,bundle2);
                         break;
-                    case 4:
-                        WaybillDetailActivity.openActivity(mContext, 2, true, "");
-                        break;
-                    case 5:
-                        WaybillDetailActivity.openActivity(mContext, 4, true, "");
-                        break;
+
+
                 }
             }
         });
 
-        mListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mCarGoListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 showActivity(DriverLocationActivity.class);
@@ -124,44 +104,24 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
 
     @Override
     protected void lazyLoadData() {
-        switch (mType) {
-            case 0:
-            case 1:
-                //已发布 预发布接口
-                loadCarGoListData();
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:// 运单列表
-                loadWayBillListData();
-                break;
-
-        }
-    }
-
-    /**
-     * 运单列表
-     */
-    private void loadWayBillListData() {
-
+        //已发布 预发布接口
+        loadCarGoListData();
     }
 
     /**
      * 预发布 已发布
      */
     private void loadCarGoListData() {
-        switch (mType){
-            case 0:
-                carGoListPresenter.getCarGoList(App.getUserId(),"0",page,pageSize);
-                break;
+        switch (mType) {
             case 1:
-                carGoListPresenter.getCarGoList(App.getUserId(),"1",page,pageSize);
+                carGoListPresenter.getCarGoList(App.getUserId(), "0", page, pageSize);
+                break;
+            case 2:
+                carGoListPresenter.getCarGoList(App.getUserId(), "1", page, pageSize);
                 break;
         }
 
     }
-
 
 
 //
@@ -194,49 +154,50 @@ public class MyWaybillListFragment extends BaseLazyFragment implements  OnRefres
 //                break;*/
 //        }
 //
-     //  helper.addOnClickListener(R.id.ll_location);
+    //  helper.addOnClickListener(R.id.ll_location);
 //    }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        page=1;
+        page = 1;
         loadCarGoListData();
     }
 
     /**
      * 预发布 已发布 数据成功回调
+     *
      * @param carGoListEntityList
      */
     @Override
     public void onCarGoListSuccess(List<CarGoListEntity> carGoListEntityList) {
-        if (page==1){
-            mListAdapter.setNewData(carGoListEntityList);
+        if (page == 1) {
+            mCarGoListAdapter.setNewData(carGoListEntityList);
             mRlList.refreshComplete();
-            if(mListAdapter.getItemCount()<10){
-                mListAdapter.loadMoreEnd(false);
-            }else{
-                mListAdapter.loadMoreEnd(true);
+            if (mCarGoListAdapter.getItemCount() < 10) {
+                mCarGoListAdapter.loadMoreEnd(false);
+            } else {
+                mCarGoListAdapter.loadMoreEnd(true);
             }
-        }else {
-            mListAdapter.addData(carGoListEntityList);
-            mListAdapter.loadMoreComplete();
-            if (carGoListEntityList.size()<pageSize){
-                mListAdapter.loadMoreEnd(false);
-            }else {
-                mListAdapter.loadMoreEnd(true);
+        } else {
+            mCarGoListAdapter.addData(carGoListEntityList);
+            mCarGoListAdapter.loadMoreComplete();
+            if (carGoListEntityList.size() < pageSize) {
+                mCarGoListAdapter.loadMoreEnd(false);
+            } else {
+                mCarGoListAdapter.loadMoreEnd(true);
             }
-
         }
 
     }
 
     /**
      * 已发布 预发布 数据失败回调
+     *
      * @param errorMessage
      */
     @Override
     public void onCarGoListFail(String errorMessage) {
-        mListAdapter.loadMoreEnd();
+        mCarGoListAdapter.loadMoreEnd();
         mRlList.refreshComplete();
         mRlList.loadFail();
     }

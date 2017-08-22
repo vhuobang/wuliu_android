@@ -4,6 +4,7 @@ import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.transportation.entity.CargoCarrierListEntity;
 import com.arkui.transportation.entity.LogisticalDetailEntity;
 import com.arkui.transportation.entity.LogisticalListEntity;
+import com.arkui.transportation.entity.PublishDetialEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,9 @@ public interface LogisticalApi {
     @FormUrlEncoded
     @POST(UrlContents.CARGO_CARRIER_LIST)
     Observable<BaseHttpResult<List<CargoCarrierListEntity>>> getCargoCarrierList(@Field ("cargo_id")  String  carGoId);
+    //5.已发布货源详情  PUBLISH_DETAILS
+    @FormUrlEncoded
+    @POST(UrlContents.PUBLISH_DETAILS)
+    Observable<BaseHttpResult<PublishDetialEntity>> getPublishDetails(@Field ("cargo_id") String carGoId, @Field("user_id") String UserID);
+
 }

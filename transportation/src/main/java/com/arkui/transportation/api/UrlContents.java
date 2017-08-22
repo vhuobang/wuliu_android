@@ -16,4 +16,6 @@ public class UrlContents {
    public static final String LOGISTICAL_FORWARD_CARGO = BASE_URL + "App/logistical/logisticalForwardCargo";
    // 4. 物流端承运详情列表
    public static final String CARGO_CARRIER_LIST = BASE_URL + "App/logistical/cargoCarrierList";
+    // 5.物流端已发布货源详情
+    public static final String PUBLISH_DETAILS = BASE_URL + "App/logistical/publishDetails";
 }
