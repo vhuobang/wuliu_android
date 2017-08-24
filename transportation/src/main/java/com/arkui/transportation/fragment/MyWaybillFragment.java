@@ -26,7 +26,8 @@ public class MyWaybillFragment extends BaseLazyFragment {
     TabLayout mTabLayout;
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
-    private String[] mTitles = {"预发布","已发布","待装货", "运输中","待付款","已完成"};
+    private String[] mTitles = {"预发布", "已发布", "待装货", "运输中", "待付款", "已完成"};
+
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_my_waybill, container, false);
@@ -41,19 +42,17 @@ public class MyWaybillFragment extends BaseLazyFragment {
 
         PublishFragment publishFragment0 = PublishFragment.getInstance(1);
         PublishFragment publishFragment1 = PublishFragment.getInstance(2);
-        MyWaybillListFragment myWaybillListFragment2 = MyWaybillListFragment.getInstance(3);
-        MyWaybillListFragment myWaybillListFragment3 = MyWaybillListFragment.getInstance(4);
-        MyWaybillListFragment myWaybillListFragment4= MyWaybillListFragment.getInstance(5);
-        MyWaybillListFragment myWaybillListFragment5 = MyWaybillListFragment.getInstance(6);
+        MyWaybillListFragment myWaybillListFragment2 = MyWaybillListFragment.getInstance(1);
+        MyWaybillListFragment myWaybillListFragment3 = MyWaybillListFragment.getInstance(2);
+        MyWaybillListFragment myWaybillListFragment4 = MyWaybillListFragment.getInstance(3);
+        MyWaybillListFragment myWaybillListFragment5 = MyWaybillListFragment.getInstance(5);
 
-            fragmentList.add(publishFragment0);
-            fragmentList.add(publishFragment1);
-            fragmentList.add(myWaybillListFragment2);
-            fragmentList.add(myWaybillListFragment3);
-            fragmentList.add(myWaybillListFragment4);
-            fragmentList.add(myWaybillListFragment5);
-
-
+        fragmentList.add(publishFragment0);
+        fragmentList.add(publishFragment1);
+        fragmentList.add(myWaybillListFragment2);
+        fragmentList.add(myWaybillListFragment3);
+        fragmentList.add(myWaybillListFragment4);
+        fragmentList.add(myWaybillListFragment5);
 
 
         ViewPageLazyAdapter mViewPagerAdapter = new ViewPageLazyAdapter(getChildFragmentManager(), fragmentList, mTitles);

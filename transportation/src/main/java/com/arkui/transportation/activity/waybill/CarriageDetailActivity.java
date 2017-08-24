@@ -3,6 +3,7 @@ package com.arkui.transportation.activity.waybill;
 import android.view.View;
 import android.widget.TextView;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
@@ -11,6 +12,7 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration2;
 import com.arkui.fz_tools.utils.StrUtil;
@@ -32,10 +34,12 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
-public class CarriageDetailActivity extends BaseActivity implements  OnBindViewHolderListener<PublishDetialEntity.CarrierInfoBean>,OnRefreshListener {
+public class CarriageDetailActivity extends BaseActivity implements OnBindViewHolderListener<PublishDetialEntity.CarrierInfoBean>, OnRefreshListener, OnConfirmClick {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
+    @BindView(R.id.tv_state)
+    TextView tvState;
     private CommonAdapter<PublishDetialEntity.CarrierInfoBean> mCarriageDetailAdapter;
     private CommonDialog mCommonDialog;
     private LogisticalApi logisticalApi;
@@ -46,6 +50,8 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
     private TextView mDetailUnloading;
     private TextView mProductInfo;
     private TextView mSurplusNum;
+    private PublishDetialEntity mPublishDetialEntity;
+    private String cStatus;
 
     @Override
     public void setRootView() {
@@ -59,6 +65,9 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
         super.initView();
         ButterKnife.bind(this);
         carGoId = getIntent().getStringExtra("carGoId");
+        cStatus = getIntent().getStringExtra("c_status");
+        tvState.setText(StrUtil.formatCStatus(cStatus));
+        statuClickable();
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
 
@@ -70,18 +79,31 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
         View mCarriageHeaderView = getLayoutInflater().inflate(R.layout.layout_carriage_header, mRlList, false);
         mCarriageDetailAdapter.setHeaderView(mCarriageHeaderView);
         mLoadingAddress = (TextView) mCarriageHeaderView.findViewById(R.id.tv_loading_address);
-        mDetailAddress = (TextView)   mCarriageHeaderView.findViewById(R.id.tv_detail_address);
-        mUnloadingAddress = (TextView)   mCarriageHeaderView.findViewById(R.id.tv_unloading_address);
-        mDetailUnloading = (TextView)   mCarriageHeaderView.findViewById(R.id.tv_detail_unloading);
-        mProductInfo = (TextView)   mCarriageHeaderView.findViewById(R.id.tv_product_info);
-        mSurplusNum = (TextView)   mCarriageHeaderView.findViewById(R.id.surplus_num);
-
-        onRefreshing();
+        mDetailAddress = (TextView) mCarriageHeaderView.findViewById(R.id.tv_detail_address);
+        mUnloadingAddress = (TextView) mCarriageHeaderView.findViewById(R.id.tv_unloading_address);
+        mDetailUnloading = (TextView) mCarriageHeaderView.findViewById(R.id.tv_detail_unloading);
+        mProductInfo = (TextView) mCarriageHeaderView.findViewById(R.id.tv_product_info);
+        mSurplusNum = (TextView) mCarriageHeaderView.findViewById(R.id.surplus_num);
 
         mCommonDialog = new CommonDialog();
-        mCommonDialog.setTitle("停止抢单").setContent("该运单还剩20吨没有被抢，确定要停止发布吗？");
-
+        mCommonDialog.setTitle("停止抢单").setContent("确定要停止发布吗？");
+        mCommonDialog.setConfirmClick(this);
         logisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
+        onRefreshing();
+    }
+
+    private void statuClickable() {
+        switch (cStatus){
+            case "1": //发布中
+                tvState.setClickable(true);
+                break;
+            case "2":// 已抢完
+                tvState.setClickable(false);
+                break;
+            case "3"://已停止
+                tvState.setClickable(false);
+                break;
+        }
     }
 
     @Override
@@ -94,13 +116,7 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
      * 请求数据
      */
     public void onRefreshing() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                mCarriageDetailAdapter.addData(ListData.getTestData(""));
-//                mRlList.refreshComplete();
-//            }
-//        }, 1000);
+
         Observable<PublishDetialEntity> observable = logisticalApi.getPublishDetails(carGoId, App.getUserId())
                 .map(new HttpResultFunc<PublishDetialEntity>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<PublishDetialEntity>(mActivity) {
@@ -111,14 +127,16 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
 
             @Override
             public void onNext(PublishDetialEntity entity) {
+                mPublishDetialEntity = entity;
+                mRlList.refreshComplete();
                 String[] loadingAddress = entity.getLoadingAddress().split(" ");
                 String[] unloadingAddress = entity.getUnloadingAddress().split(" ");
                 mLoadingAddress.setText(loadingAddress[0]);
                 mUnloadingAddress.setText(unloadingAddress[0]);
-               mDetailAddress.setText(loadingAddress[1]);
+                mDetailAddress.setText(loadingAddress[1]);
                 mDetailUnloading.setText(unloadingAddress[1]);
-                mProductInfo.setText(entity.getCargoName()+ " " + entity.getCargoNum()+ StrUtil.formatUnit(entity.getUnit()));
-                mSurplusNum.setText("剩余："+entity.getSurplusNum()+ StrUtil.formatUnit(entity.getUnit()));
+                mProductInfo.setText(entity.getCargoName() + " " + entity.getCargoNum() + StrUtil.formatUnit(entity.getUnit()));
+                mSurplusNum.setText("剩余：" + entity.getSurplusNum() + StrUtil.formatUnit(entity.getUnit()));
                 List<PublishDetialEntity.CarrierInfoBean> carrierInfo = entity.getCarrierInfo();
                 mCarriageDetailAdapter.setNewData(carrierInfo);
             }
@@ -132,16 +150,46 @@ public class CarriageDetailActivity extends BaseActivity implements  OnBindViewH
 
     @OnClick(R.id.tv_state)
     public void onClick() {
-        mCommonDialog.show(getSupportFragmentManager(),"state");
+        mCommonDialog.show(getSupportFragmentManager(), "state");
     }
 
     @Override
     public void convert(BaseViewHolder helper, PublishDetialEntity.CarrierInfoBean item) {
-          // helper.setText(R.id.tv_logistics_name,item.getLogistical())
+        helper.setText(R.id.license_plate, item.getLicensePlate());
+        helper.setText(R.id.product, mPublishDetialEntity.getCargoName());
+        helper.setText(R.id.tv_product_number, item.getCarrierNum() + StrUtil.formatUnit(mPublishDetialEntity.getUnit()));
+        String[] loadingAddress = mPublishDetialEntity.getLoadingAddress().split(" ");
+        String[] unloadingAddress = mPublishDetialEntity.getUnloadingAddress().split(" ");
+        helper.setText(R.id.tv_loading_address, loadingAddress[0]);
+        helper.setText(R.id.tv_unloading_address, unloadingAddress[0]);
+        helper.setText(R.id.tv_status, item.getLogistical());
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         onRefreshing();
+    }
+
+    // 确定按钮
+    @Override
+    public void onConfirmClick() {
+        Observable<BaseHttpResult> observable = logisticalApi.upCargoStatus(carGoId);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+              tvState.setText("已停止");
+                tvState.setClickable(false);
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+            }
+        });
     }
 }

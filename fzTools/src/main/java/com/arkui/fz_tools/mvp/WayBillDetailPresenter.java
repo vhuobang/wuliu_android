@@ -35,9 +35,9 @@ public class WayBillDetailPresenter extends BasePresenter {
         this.mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
     // 请求运单详情
-     public void getWayBillDetail(String wayBillId){
+     public void getWayBillDetail(String wayBillId,String userId){
 
-         Observable<WayBillDetailEntity> observable = mPublicApi.getWayBillDetails(wayBillId).map(new HttpResultFunc<WayBillDetailEntity>());
+         Observable<WayBillDetailEntity> observable = mPublicApi.getWayBillDetails(wayBillId,userId).map(new HttpResultFunc<WayBillDetailEntity>());
          HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<WayBillDetailEntity>(mContext) {
              @Override
              protected void getDisposable(Disposable d) {

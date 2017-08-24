@@ -39,6 +39,7 @@
                     android:text="车主信息" />
 
                 <TextView
+                    android:id="@+id/waybill_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="单号：451245786"
@@ -60,6 +61,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_car_owner_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,6 +89,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_car_owner_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -112,6 +115,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_car_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -130,6 +134,7 @@
                     android:text="预装数量" />
 
                 <TextView
+                    android:id="@+id/tv_product_number"
                     style="@style/TextViewWeight999"
                     android:text="100吨" />
             </TableRow>
@@ -149,6 +154,7 @@
                     android:layout_weight="1">
 
                     <RatingBar
+                        android:id="@+id/rating_bar"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -190,6 +196,7 @@
                     android:text="装货时间" />
 
                 <EditText
+                    android:id="@+id/creat_time"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:enabled="false"
@@ -206,6 +213,7 @@
                     android:text="装货净重" />
 
                 <EditText
+                    android:id="@+id/et_loading_weight"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:enabled="false"
@@ -236,18 +244,19 @@
 
 
                         <ImageView
+                            android:id="@+id/iv_list"
                             android:layout_width="85dp"
                             android:layout_height="60dp"
                             android:src="@mipmap/hz_sc" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:text="未上传"
-                            android:textColor="@color/gray_color"
-                            android:textSize="@dimen/sp_12" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="未上传"-->
+                            <!--android:textColor="@color/gray_color"-->
+                            <!--android:textSize="@dimen/sp_12" />-->
 
                     </FrameLayout>
                 </LinearLayout>
@@ -284,6 +293,7 @@
                     android:text="卸货时间" />
 
                 <EditText
+                    android:id="@+id/unloading_time"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:enabled="false"
@@ -300,7 +310,7 @@
 
 
                 <EditText
-                    android:id="@+id/editText4"
+                    android:id="@+id/unloading_weight"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:enabled="false"
@@ -328,19 +338,19 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/unloading_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/hz_sc" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:text="未上传"
-                            android:textColor="@color/gray_color"
-                            android:textSize="@dimen/sp_12" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="未上传"-->
+                            <!--android:textColor="@color/gray_color"-->
+                            <!--android:textSize="@dimen/sp_12" />-->
                     </FrameLayout>
                 </LinearLayout>
             </TableRow>
@@ -357,6 +367,7 @@
                     android:text="需付款" />
 
                 <TextView
+                    android:id="@+id/payment_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

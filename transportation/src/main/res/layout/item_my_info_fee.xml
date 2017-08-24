@@ -7,14 +7,16 @@
     android:paddingRight="10dp"
     android:background="@drawable/touch_bg">
     <TextView
+        android:id="@+id/tv_way_bill_number"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:text="DH12324356"
+
         android:textSize="@dimen/sp_13"
         android:layout_width="0dp"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/information_fee"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:text="1000"
@@ -23,6 +25,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/tv_create_time"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:text="2017-7-7 11:14:10"
