@@ -55,7 +55,7 @@
             android:id="@+id/tv_info"
             style="@style/TextView666"
             android:layout_marginTop="10dp"
-            android:text="已注册2年  成交1823条" />
+            android:text="" />
 
     </LinearLayout>
 

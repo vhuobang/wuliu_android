@@ -8,8 +8,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class LogisticalListEntity {
 
+
     /**
      * loading_address : 北京
+     * surplus_num : 100
+     * unit : 1
      * unloading_address : 上海
      * cargo_num : 1000
      * cargo_name : 铁
@@ -18,6 +21,10 @@ public class LogisticalListEntity {
 
     @SerializedName("loading_address")
     private String loadingAddress;
+    @SerializedName("surplus_num")
+    private String surplusNum;
+    @SerializedName("unit")
+    private String unit;
     @SerializedName("unloading_address")
     private String unloadingAddress;
     @SerializedName("cargo_num")
@@ -33,6 +40,22 @@ public class LogisticalListEntity {
 
     public void setLoadingAddress(String loadingAddress) {
         this.loadingAddress = loadingAddress;
+    }
+
+    public String getSurplusNum() {
+        return surplusNum;
+    }
+
+    public void setSurplusNum(String surplusNum) {
+        this.surplusNum = surplusNum;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getUnloadingAddress() {
