@@ -19,21 +19,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_loading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="北京昌平区"
                 android:textColor="@color/black_list_color"
                 android:textSize="@dimen/sp_14" />
 
 
             <TextView
+                android:id="@+id/tv_loading_detail_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="回龙观街道金域国际中心B栋308"
                 android:textColor="@color/black_list_color"
                 android:textSize="@dimen/sp_13" />
 
@@ -55,21 +55,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_unloading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="唐山迁安"
                 android:textColor="@color/black_list_color"
                 android:textSize="@dimen/sp_14" />
 
 
             <TextView
+                android:id="@+id/tv_unloading_detail_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="回龙观街道金域国际中心"
                 android:textColor="@color/black_list_color"
                 android:textSize="@dimen/sp_13" />
         </LinearLayout>
@@ -85,11 +85,12 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/tv_cargo_name"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="甲醛 200吨"
+            android:text=""
             android:textColor="@color/mainColor"
             android:textSize="@dimen/sp_14" />
 
@@ -99,11 +100,11 @@
             android:background="@color/gray" />
 
         <TextView
+            android:id="@+id/tv_surplus_num"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="剩余：15吨"
             android:textColor="@color/mainColor"
             android:textSize="@dimen/sp_14" />
 

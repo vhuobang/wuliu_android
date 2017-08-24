@@ -84,6 +84,7 @@
                         android:hint="请输入货品名称" />
 
                     <ImageView
+                        android:paddingRight="5dp"
                         android:id="@+id/iv_cargo_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -451,6 +452,7 @@
                         android:hint="请输入开票人" />
 
                     <ImageView
+                        android:paddingRight="5dp"
                         android:id="@+id/iv_truck_drawer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -474,11 +476,14 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:maxLength="11"
+                        android:inputType="phone"
                         android:id="@+id/et_truck_tel"
                         style="@style/EditViewWeight999"
                         android:hint="请输入装车联系电话" />
 
                     <ImageView
+                        android:paddingRight="5dp"
                         android:id="@+id/iv_truck_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -495,7 +500,6 @@
             <TableRow style="@style/TableRow">
 
                 <TextView
-                    android:id="@+id/textView"
                     style="@style/TextView"
                     android:text="卸车联系人" />
 
@@ -505,6 +509,7 @@
                     android:hint="请输入联系人" />
 
                 <ImageView
+                    android:paddingRight="5dp"
                     android:id="@+id/iv_unloading_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -527,11 +532,14 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:maxLength="11"
+                        android:inputType="phone"
                         android:id="@+id/et_unloading_tel"
                         style="@style/EditViewWeight999"
                         android:hint="请输入联系人电话" />
 
                     <ImageView
+                        android:paddingRight="5dp"
                         android:id="@+id/iv_unloading_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"

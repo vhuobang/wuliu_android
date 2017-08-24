@@ -9,10 +9,23 @@ import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.socialize.PlatformConfig;
-
+/*
+ * 这是一条隐藏的注释 因为 我写到import两行中间了 默认折叠你看不到这条注释的
+ *  如果你能看到这行注释，说明我已经离职，把代码托(甩)付(锅)给你了，，，
+ *  Ps:给你一些忠告
+ *  这家公司坑爹的很，日常辞人，卸磨杀驴，什么事都干，锤子福利都没有，扣钱规定
+ *  屁事多。
+ *  然你入职这家公司了，你就自求多福吧,或者早日跑路吧！
+ *  在ps：
+ *  我的代码估计只有上帝能看懂了，如果你能看懂我的代码，说明你已经超（屌）神（炸）了（天）
+ *  但我感觉这公司不会花那么多钱雇那么屌的人。
+ *  原真主与你同在，阿门，保佑你还有这个项目。
+ */
 import cn.jpush.android.api.JPushInterface;
 
-
+/**
+ *
+ */
 public class App extends Application {
 
     private static UserEntity mUserEntity;

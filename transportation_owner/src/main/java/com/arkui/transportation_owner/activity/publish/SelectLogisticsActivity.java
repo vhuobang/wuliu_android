@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.arkui.fz_net.utils.RxBus;
+import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BaseListActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
@@ -20,6 +21,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +43,7 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     private CollectLogisticsAdapter mCollectLogisticsAdapter;
     private LogisticsPresenter mLogisticsPresenter;
     private int mPage = 1;
+    PublishParameterEntity mPublishParameterEntity;
 
     @Override
     public void setRootView() {
@@ -50,6 +56,7 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         mCollectLogisticsAdapter = new CollectLogisticsAdapter();
         mRlList.setLinearLayoutManager();
         mRlList.setAdapter(mCollectLogisticsAdapter);
@@ -108,6 +115,8 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
         Intent intent=new Intent(mActivity,PublishDeclareActivity.class);
         intent.putExtra("ids",ids.toString());
         startActivity(intent);
+        //明天测测这里
+        EventBus.getDefault().postSticky(mPublishParameterEntity);
     }
 
     @Override
@@ -164,5 +173,19 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     @Override
     public void onSucceed(int position) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
+    public void receiveParameter(PublishParameterEntity publishParameterEntity){
+        //
+        mPublishParameterEntity=publishParameterEntity;
+        LogUtil.e("成功收到参数");
+        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -12,16 +12,19 @@ import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.EndTimePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
+import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.PublishPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.MainActivity;
 import com.arkui.transportation_owner.base.App;
-import com.arkui.fz_tools.entity.PublishEntity;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +34,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 
 public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, PublicInterface, OnConfirmClick, EndTimePicker.OnEnsureListener {
@@ -93,7 +95,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     private int mPaymentTerms = -1;
     private int mSettlementTime = -1;
     private PublishPresenter mPublishPresenter;
-    public boolean mIsSave=false;
+    public boolean mIsSave = false;
 
     @Override
     public void setRootView() {
@@ -139,10 +141,11 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     @Override
     public void initData() {
         super.initData();
-        mPublishPresenter = new PublishPresenter(this,this);
+        mPublishPresenter = new PublishPresenter(this, this);
     }
 
-    @OnClick({R.id.tv_amount, R.id.tv_density, R.id.tv_freight_price, R.id.tv_cargo_price, R.id.ll_time, R.id.ll_payment, R.id.ll_end_time, R.id.tv_selected_1, R.id.tv_selected_2, R.id.tv_publish, R.id.tv_save, R.id.tv_send, R.id.tv_receive})
+    @OnClick({R.id.tv_amount, R.id.tv_density, R.id.tv_freight_price, R.id.tv_cargo_price, R.id.ll_time, R.id.ll_payment, R.id.ll_end_time, R.id.tv_selected_1, R.id.tv_selected_2, R.id.tv_publish, R.id.tv_save, R.id.tv_send, R.id.tv_receive
+            , R.id.iv_cargo_name, R.id.iv_truck_drawer, R.id.iv_truck_tel, R.id.iv_unloading_contact, R.id.iv_unloading_tel})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_amount:
@@ -196,6 +199,21 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             case R.id.tv_receive:
                 SelectAddressActivity.openActivity(mActivity, 2);
                 break;
+            case R.id.iv_cargo_name:
+                mEtCargoName.setText("");
+                break;
+            case R.id.iv_truck_drawer:
+                mEtTruckDrawer.setText("");
+                break;
+            case R.id.iv_truck_tel:
+                mEtTruckTel.setText("");
+                break;
+            case R.id.iv_unloading_contact:
+                mEtUnloadingContact.setText("");
+                break;
+            case R.id.iv_unloading_tel:
+                mEtUnloadingTel.setText("");
+                break;
         }
     }
 
@@ -218,8 +236,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             case 1:
             case 3:
             case 4:
-                mTvAmount.setText(item);
                 //mTvDensity.setText(item);
+                mTvAmount.setText(item);
                 mTvFreightPrice.setText(String.format("元/%s", item));
                 mTvCargoPrice.setText(String.format("元/%s", item));
                 mUnit = pos + 1;
@@ -260,7 +278,6 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         String unloading_contact = mEtUnloadingContact.getText().toString().trim();
         String unloading_tel = mEtUnloadingTel.getText().toString();
         String remarks = mEtRemarks.getText().toString().trim();
-
 
 
         if (TextUtils.isEmpty(loading_address)) {
@@ -311,7 +328,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             ShowToast("请输入装车开票人");
             return;
         }
-        if (TextUtils.isEmpty(truck_tel)) {
+
+        if (!StrUtil.isMobileNO(truck_tel)) {
             ShowToast("请输入装车联系电话");
             return;
         }
@@ -319,37 +337,37 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             ShowToast("请输入卸车开票人");
             return;
         }
-        if (TextUtils.isEmpty(unloading_tel)) {
+        if (!StrUtil.isMobileNO(unloading_tel)) {
             ShowToast("请输入卸车联系电话");
             return;
         }
-       
-        Map<String,Object> map=new HashMap<>();
-        map.put("user_id",App.getUserId());
-        map.put("op_status",isSave?0:1);
-        map.put("loading_address",loading_address);
-        map.put("unloading_address",unloading_address);
-        map.put("cargo_name",cargo_name);
-        map.put("cargo_num",cargo_num);
-        map.put("cargo_density",cargo_density);
-        map.put("freight_price",freight_price);
-        map.put("cargo_price",cargo_price);
-        map.put("loading_time",loading_time);
-        map.put("payment_terms",mPaymentTerms);
-        map.put("settlement_time",mSettlementTime);
-        map.put("press_charges",press_charges);
-        map.put("truck_drawer",truck_drawer);
-        map.put("truck_tel",truck_tel);
-        map.put("unloading_contact",unloading_contact);
-        map.put("unloading_tel",unloading_tel);
-        map.put("type",mPublishType);
-        map.put("remarks",remarks);
-        map.put("unit",mUnit);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", App.getUserId());
+        map.put("op_status", isSave ? 0 : 1);
+        map.put("loading_address", loading_address);
+        map.put("unloading_address", unloading_address);
+        map.put("cargo_name", cargo_name);
+        map.put("cargo_num", cargo_num);
+        map.put("cargo_density", cargo_density);
+        map.put("freight_price", freight_price);
+        map.put("cargo_price", cargo_price);
+        map.put("loading_time", loading_time);
+        map.put("payment_terms", mPaymentTerms);
+        map.put("settlement_time", mSettlementTime);
+        map.put("press_charges", press_charges);
+        map.put("truck_drawer", truck_drawer);
+        map.put("truck_tel", truck_tel);
+        map.put("unloading_contact", unloading_contact);
+        map.put("unloading_tel", unloading_tel);
+        map.put("type", mPublishType);
+        map.put("remarks", remarks);
+        map.put("unit", mUnit);
 
         //传给后台
-        if(isSave){
+        if (isSave) {
             mPublishPresenter.postSave(map);
-        }else{
+        } else {
             //去发布
             //showActivity(SelectLogisticsActivity.class);
             /**
@@ -357,10 +375,20 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
              发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
              好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
              */
-            RxBus.getDefault().postSticky(map);
-            Intent intent=new Intent(mActivity,SelectLogisticsActivity.class);
-            //intent.putExtra("data",map);
+            //RxBus.getDefault().postSticky(map);
+            /**
+             * 2017年8月22日
+             * 妈了个鸡的 RxBus 出现了一个奇怪问题 数据有可能会丢失，又换成了EvenBus 感觉这个更屌一点
+             */
+            /***
+             * 总算找到丢数据根源了哎...........不能直达，只能中转。
+             */
+            //2017年8月23日
+            // 哎 到底也没弄懂怎么用Intent 传递map 同事都放到对象里面了，在取出来，夭寿了，那么麻烦......
+            Intent intent = new Intent(mActivity, SelectLogisticsActivity.class);
+            //intent.putExtra("data",new PublishParameterEntity(map));
             showActivity(intent);
+            EventBus.getDefault().postSticky(new PublishParameterEntity(map));
         }
 
     }
@@ -377,8 +405,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
 
     @Override
     public void onConfirmClick() {
-        Intent intent =new Intent(mActivity, MainActivity.class);
-        intent.putExtra("type",3);
+        Intent intent = new Intent(mActivity, MainActivity.class);
+        intent.putExtra("type", 3);
         startActivity(intent);
         //发送刷新命令
         //刷新保存那个界面
@@ -392,5 +420,9 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         mTvLoadingTime.setText(time);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPublishPresenter.onDestroy();
+    }
 }

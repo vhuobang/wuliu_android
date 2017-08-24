@@ -92,11 +92,11 @@ public class EndTimePicker extends BaseDialogFragment implements OnWheelChangedL
             int maxDayOfMonth = c.getActualMaximum(Calendar.DAY_OF_MONTH);
             if (day > maxDayOfMonth) {
                 //跨年了 年份要加1 便于上边那行 判断闰年
-                this.month = (this.month += 1) == 13 ? 1 : this.month;
+                year =  (this.month + 1) == 13 ? year+1 : year;;
+                this.month = (this.month + 1) == 13 ? 1 : this.month+1;
                 //this.day = day % maxDayOfMonth;
                 //年份加1 日期回归到1 取余和归1貌似一样的
                 this.day = 1;
-                year += 1;
             } /*else {
                 this.day = day + 1;
             }*/

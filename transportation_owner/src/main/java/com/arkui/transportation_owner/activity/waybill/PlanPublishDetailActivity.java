@@ -2,17 +2,25 @@ package com.arkui.transportation_owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.ReleaseDetailInterface;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.mvp.ReleaseDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation_owner.R;
+import com.arkui.transportation_owner.activity.publish.SelectLogisticsActivity;
+import com.arkui.transportation_owner.base.App;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDetailInterface {
@@ -51,7 +59,8 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     TextView mTvUnloadingTel;
     @BindView(R.id.tv_remarks)
     TextView mTvRemarks;
-
+    private ReleaseDetailPresenter mReleaseDetailPresenter;
+    ReleaseDetailsEntity mReleaseDetailsEntity;
 
     @Override
     public void setRootView() {
@@ -70,26 +79,28 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     public void initData() {
         super.initData();
         String id = getIntent().getStringExtra("id");
-        ReleaseDetailPresenter releaseDetailPresenter = new ReleaseDetailPresenter(this, this);
-        releaseDetailPresenter.getReleaseDetail(id);
+        mReleaseDetailPresenter = new ReleaseDetailPresenter(this, this);
+        mReleaseDetailPresenter.getReleaseDetail(id);
     }
 
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        showActivity(EditPlanPublishDetailActivity.class);
+        String id = getIntent().getStringExtra("id");
+        //showActivity(EditPlanPublishDetailActivity.class);
+        EditPlanPublishDetailActivity.showActivity(this, id);
     }
 
     @Override
     public void onSuccess(ReleaseDetailsEntity releaseDetailsEntity) {
-
+        mReleaseDetailsEntity=releaseDetailsEntity;
         String[] loadingAddress = releaseDetailsEntity.getLoadingAddress().split(" ");
         String[] unloadingAddress = releaseDetailsEntity.getUnloadingAddress().split(" ");
 
-        mTvLoadingAddress.setText(loadingAddress.length>=0?loadingAddress[0]:"");
-        mTvLoadingDetailAddress.setText(loadingAddress.length>=2?loadingAddress[1]:"");
-        mTvUnloadingAddress.setText(unloadingAddress.length>=0?unloadingAddress[0]:"");
-        mTvUnloadingDetailAddress.setText(unloadingAddress.length>=2?unloadingAddress[1]:"");
+        mTvLoadingAddress.setText(loadingAddress.length >= 0 ? loadingAddress[0] : "");
+        mTvLoadingDetailAddress.setText(loadingAddress.length >= 2 ? loadingAddress[1] : "");
+        mTvUnloadingAddress.setText(unloadingAddress.length >= 0 ? unloadingAddress[0] : "");
+        mTvUnloadingDetailAddress.setText(unloadingAddress.length >= 2 ? unloadingAddress[1] : "");
 
         mTvCargoName.setText(releaseDetailsEntity.getCargoName());
         mTvCargoDensity.setText(releaseDetailsEntity.getCargoDensity());
@@ -119,4 +130,62 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         context.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mReleaseDetailPresenter.onDestroy();
+    }
+
+    @OnClick(R.id.tv_publish)
+    public void onClick() {
+        postSave();
+    }
+
+    private void postSave() {
+
+        //构造传递对象
+        //--------------------------
+        //你是不是想知道 这些参数都什么意思？很遗憾我没有写任何注释
+        //那么多参数 我就不写注释啊 锤子费劲
+        //但是你可以去 https://www.easyapi.com/dashboard/api/?code=wuliuapi&documentId=9646&categoryId=16661&apiId=66226&head=api
+        //这里看
+        //也可以去看看下边的Toast
+        //-------------end---------
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", App.getUserId());
+        map.put("op_status",  1);
+        map.put("loading_address", mReleaseDetailsEntity.getLoadingAddress());
+        map.put("unloading_address", mReleaseDetailsEntity.getUnloadingAddress());
+        map.put("cargo_name", mReleaseDetailsEntity.getCargoName());
+        map.put("cargo_num", mReleaseDetailsEntity.getCargoNum());
+        map.put("cargo_density", mReleaseDetailsEntity.getCargoDensity());
+        map.put("freight_price", mReleaseDetailsEntity.getFreightPrice());
+        map.put("cargo_price", mReleaseDetailsEntity.getCargoPrice());
+        map.put("loading_time", mReleaseDetailsEntity.getLoadingTime());
+        map.put("payment_terms", mReleaseDetailsEntity.getPaymentTerms());
+        map.put("settlement_time", mReleaseDetailsEntity.getSettlementTime());
+        map.put("press_charges", mReleaseDetailsEntity.getPressCharges());
+        map.put("truck_drawer", mReleaseDetailsEntity.getTruckDrawer());
+        map.put("truck_tel", mReleaseDetailsEntity.getTruckTel());
+        map.put("unloading_contact", mReleaseDetailsEntity.getUnloadingContact());
+        map.put("unloading_tel", mReleaseDetailsEntity.getUnloadingTel());
+        map.put("type", mReleaseDetailsEntity.getType());
+        map.put("remarks", mReleaseDetailsEntity.getRemarks());
+        map.put("unit", mReleaseDetailsEntity.getUnit());
+        map.put("cargo_id", mReleaseDetailsEntity.getId());
+
+        //传给后台
+        //去发布
+        //showActivity(SelectLogisticsActivity.class);
+        /**
+         *
+         发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
+         好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
+         */
+        RxBus.getDefault().postSticky(map);
+        Intent intent = new Intent(mActivity, SelectLogisticsActivity.class);
+        //intent.putExtra("data",map);
+        showActivity(intent);
+    }
 }
