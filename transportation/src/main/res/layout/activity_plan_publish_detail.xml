@@ -381,7 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
