@@ -628,4 +628,41 @@ public class StrUtil {
         }
         return formatStr;
     }
+
+    public static  String formatStatus(String status){
+        String formatStr =null;
+        switch (status){
+            case "1":
+                formatStr ="待装货";
+                break;
+            case "2":
+                formatStr="运输中";
+                break;
+            case "3":
+                formatStr="待付款";
+                break;
+            case "4":
+                formatStr="已完成";
+                break;
+        }
+        return formatStr;
+    }
+
+    public static  String formatCStatus(String status){
+        String formatStr =null;
+        switch (status){
+            case "1":
+                formatStr ="发布中";
+                break;
+            case "2":
+                formatStr="已抢完";
+                break;
+            case "3":
+                formatStr="已停止";
+                break;
+        }
+        return formatStr;
+    }
+
+
 }

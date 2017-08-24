@@ -1,26 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:background="@drawable/touch_bg"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/product_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/license_plate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="京Pxjia"/>
+        <TextView
+            android:id="@+id/product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="汽油"/>
+        <TextView
+            android:id="@+id/tv_product_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="预装20吨"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/product_info"
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_loading_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京昌平区"
+            android:textColor="@color/black_normal_color"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/go"
+            android:id="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/tv_unloading_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="唐山迁安"
+            android:textColor="@color/black_normal_color"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
 
     <TextView
-            android:id="@+id/tv_logistics_name"
-        android:text=""
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/mainColor"
+        android:textSize="16sp"
+        android:text="待装货"/>
 
-    <TextView
-        android:id="@+id/logistics_info"
-        android:textSize="@dimen/sp_13"
-        android:layout_marginTop="5dp"
-        android:text=""
-        android:textColor="@color/black_list_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+</RelativeLayout>

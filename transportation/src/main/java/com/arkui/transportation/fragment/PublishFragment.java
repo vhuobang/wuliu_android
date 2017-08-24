@@ -78,7 +78,6 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
                 CarGoListEntity item = (CarGoListEntity) adapter.getItem(position);
                 switch (mType) {
                     case 1:
-
                         Bundle bundle = new Bundle();
                         bundle.putString("carGoId", item.getId());
                         showActivity(PlanPublishDetailActivity.class, bundle);
@@ -86,6 +85,7 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
                     case 2:
                         Bundle bundle2 = new Bundle();
                         bundle2.putString("carGoId", item.getId());
+                        bundle2.putString("c_status",item.getCStatus());
                         showActivity(CarriageDetailActivity.class,bundle2);
                         break;
 
@@ -123,39 +123,11 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
 
     }
 
-
-//
-//    public void convert(BaseViewHolder helper, String item) {
-//        switch (mType) {
-//            case 0:
-//                helper.setVisible(R.id.tv_company, true);
-//                helper.setText(R.id.tv_company, "500元/吨 7日内结算");
-//                break;
-//            case 1:
-//                helper.setVisible(R.id.tv_company, true);
-//                helper.setVisible(R.id.tv_state, true);
-//                helper.setText(R.id.tv_company, "500元/吨 7日内结算");
-//                break;
-//            case 2:
-//            case 3:
-//                helper.setVisible(R.id.ll_location, true);
-//                helper.setVisible(R.id.tv_state, false);
-//                break;
-//            case 4:
-//                helper.setVisible(R.id.ll_location, false);
-//                helper.setVisible(R.id.tv_cost, true);
-//                helper.setText(R.id.tv_company, "北京美华国际物流有限公司");
-//                break;
-//            case 5:
-//                break;
-//          /*  case 6:
-//                helper.setVisible(R.id.ll_location, false);
-//                helper.setVisible(R.id.tv_state, false);
-//                break;*/
-//        }
-//
-    //  helper.addOnClickListener(R.id.ll_location);
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCarGoListData();
+    }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {

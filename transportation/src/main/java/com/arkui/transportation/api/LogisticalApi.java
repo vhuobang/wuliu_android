@@ -2,6 +2,7 @@ package com.arkui.transportation.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.transportation.entity.CargoCarrierListEntity;
+import com.arkui.transportation.entity.LogWayBIllListEntity;
 import com.arkui.transportation.entity.LogisticalDetailEntity;
 import com.arkui.transportation.entity.LogisticalListEntity;
 import com.arkui.transportation.entity.PublishDetialEntity;
@@ -24,21 +25,34 @@ public interface LogisticalApi {
     @FormUrlEncoded
     @POST(UrlContents.CAR_GOTO_LOGISTICAL)
     Observable<BaseHttpResult<List<LogisticalListEntity>>> getLogisticalList(@FieldMap Map<String, Object> parameter);
-   // 2.货源详情
-   @FormUrlEncoded
-   @POST(UrlContents.LOGISTICAL_RECEIVE_DETAILS)
-   Observable<BaseHttpResult<LogisticalDetailEntity>> getLogisticalDetails(@Field ("cargo_id")  String  carGoId);
-   // 3.物流转发货主
-   @FormUrlEncoded
-   @POST(UrlContents.LOGISTICAL_FORWARD_CARGO)
-   Observable<BaseHttpResult> getLogisticalForward(@FieldMap Map<String, Object> parameter);
+
+    // 2.货源详情
+    @FormUrlEncoded
+    @POST(UrlContents.LOGISTICAL_RECEIVE_DETAILS)
+    Observable<BaseHttpResult<LogisticalDetailEntity>> getLogisticalDetails(@Field("cargo_id") String carGoId);
+
+    // 3.物流转发货主
+    @FormUrlEncoded
+    @POST(UrlContents.LOGISTICAL_FORWARD_CARGO)
+    Observable<BaseHttpResult> getLogisticalForward(@FieldMap Map<String, Object> parameter);
+
     //4.承运详情列表 cargo_carrier_list
     @FormUrlEncoded
     @POST(UrlContents.CARGO_CARRIER_LIST)
-    Observable<BaseHttpResult<List<CargoCarrierListEntity>>> getCargoCarrierList(@Field ("cargo_id")  String  carGoId);
+    Observable<BaseHttpResult<List<CargoCarrierListEntity>>> getCargoCarrierList(@Field("cargo_id") String carGoId);
+
     //5.已发布货源详情  PUBLISH_DETAILS
     @FormUrlEncoded
     @POST(UrlContents.PUBLISH_DETAILS)
-    Observable<BaseHttpResult<PublishDetialEntity>> getPublishDetails(@Field ("cargo_id") String carGoId, @Field("user_id") String UserID);
+    Observable<BaseHttpResult<PublishDetialEntity>> getPublishDetails(@Field("cargo_id") String carGoId, @Field("user_id") String UserID);
 
+    // UP_CARGO_STATUS 停止发布
+    @FormUrlEncoded
+    @POST(UrlContents.UP_CARGO_STATUS)
+    Observable<BaseHttpResult> upCargoStatus(@Field("cargo_id") String carGoId);
+
+    // 货主运单列表
+    @FormUrlEncoded
+    @POST(UrlContents.LOG_WAYBILL_LIST)
+    Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogWaybillList(@Field("user_id") String userId, @Field("order_status") String order_status, @Field("type") String type);
 }

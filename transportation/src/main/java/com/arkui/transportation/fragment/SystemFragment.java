@@ -121,8 +121,6 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
             mAdapter.setNewData(noticeEntityList);
             mRlSystem.refreshComplete();
             if(mAdapter.getItemCount()<10){
-                mAdapter.loadMoreEnd(true);
-            }else{
                 mAdapter.loadMoreEnd(false);
             }
         }else {

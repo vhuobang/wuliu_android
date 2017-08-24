@@ -62,11 +62,6 @@ public class CarriageListActivity extends BaseListActivity<CargoCarrierListEntit
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 CargoCarrierListEntity item = (CargoCarrierListEntity) adapter.getItem(position);
                 int logisticalStatus =Integer.valueOf(item.getLogisticalStatus());
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("id",item.getId());
-//                showActivity(WaybillDetailActivity.class,bundle);
-
                 WaybillDetailActivity.openActivity(CarriageListActivity.this,logisticalStatus,false,item.getId());
             }
         });

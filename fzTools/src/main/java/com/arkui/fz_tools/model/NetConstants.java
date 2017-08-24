@@ -50,6 +50,24 @@ public class NetConstants {
     //发布
     public static final String ADD_CARGO=BASE_URL+"index.php/App/logistical/addCargo";
     //已收藏物流列表
+    public static final String MY_COLLECTION = BASE_URL + "index.php/App/logistical/myCollection";
+    // 添加银行卡
+    public static final String ADD_BANK = BASE_URL + "index.php/App/Finance/addBank";
+    //删除银行卡
+    public static final String DEL_BANK = BASE_URL + "index.php/App/Finance/delBank";
+    // 银行卡列表
+    public static final String BANK_LIST = BASE_URL + "index.php/App/Finance/bankList";
+    // 资金明细
+    public static final String BILLING_DETAILS = BASE_URL + "index.php/App/Finance/billingDetails";
+    // 积分提现明细
+    public static final String INTEGRAL_DETAILS = BASE_URL + "index.php/App/Finance/integralDetails";
+    // 信息费明细
+    public static final String INFOMATION_FEEDETAILS = BASE_URL + "index.php/App/Finance/infomationFeeDetails";
+    //  支付
+    public static final String PAY = BASE_URL + "index.php/App/Finance/pay";
+    // 貨主信息
+    public static final String CARGO_OWNER_INFO = BASE_URL + "index.php/App/logistical/cargoOwnerInfo";
+
     public static final String MY_COLLECTION=BASE_URL+"index.php/App/logistical/myCollection";
     //编辑
     public static final String EDIT_CARGO_INFO=BASE_URL+"index.php/App/logistical/editCargoInfo";

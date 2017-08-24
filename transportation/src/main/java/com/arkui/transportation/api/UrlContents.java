@@ -18,4 +18,8 @@ public class UrlContents {
    public static final String CARGO_CARRIER_LIST = BASE_URL + "App/logistical/cargoCarrierList";
     // 5.物流端已发布货源详情
     public static final String PUBLISH_DETAILS = BASE_URL + "App/logistical/publishDetails";
+    // 6.货源状态已停止
+    public static final String UP_CARGO_STATUS = BASE_URL + "App/logistical/upCargoStatus";
+    //7  货主运单列表
+    public static final String LOG_WAYBILL_LIST = BASE_URL + "App/Waybill/logWaybillList";
 }

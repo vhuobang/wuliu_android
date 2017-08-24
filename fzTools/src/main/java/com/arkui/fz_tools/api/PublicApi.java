@@ -2,6 +2,7 @@ package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.CarGoListEntity;
+import com.arkui.fz_tools.entity.CargoOwnerInfoEntity;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.entity.SystemDetialEntity;
@@ -49,7 +50,7 @@ public interface PublicApi {
     // 运单详情
     @FormUrlEncoded
     @POST(NetConstants.WAYBILL_DETAILS)
-    Observable<BaseHttpResult<WayBillDetailEntity>> getWayBillDetails(@Field("waybill_id") String wayBillId);
+    Observable<BaseHttpResult<WayBillDetailEntity>> getWayBillDetails(@Field("waybill_id") String wayBillId,@Field("user_id") String userId);
   // 已发布 预发布
     @FormUrlEncoded
     @POST(NetConstants.CARGO_LIST)
@@ -59,4 +60,8 @@ public interface PublicApi {
    @FormUrlEncoded
    @POST(NetConstants.RELEASE_DETAILS)
    Observable<BaseHttpResult<ReleaseDetailsEntity>> getReleaseDetails(@Field("cargo_id") String cargo_id);
+    // 貨主信息
+    @FormUrlEncoded
+    @POST(NetConstants.CARGO_OWNER_INFO)
+    Observable<BaseHttpResult<CargoOwnerInfoEntity>> getCargoOwnerInfo(@Field("cargo_id") String cargo_id,@Field("owner_id") String ownerId);
 }

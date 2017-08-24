@@ -112,6 +112,7 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
                     return;
                 }
                 String free = etFree.getText().toString().trim();
+
                 hashMap.put("user_id", App.getUserId());
                 hashMap.put("cargo_id",cargoId);
                 hashMap.put("log_settlement_time",payMoneyTime);
