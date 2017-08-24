@@ -20,6 +20,8 @@ import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.DestroyActivityUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 

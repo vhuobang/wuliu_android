@@ -52,4 +52,23 @@ public class PublishPresenter extends BasePresenter {
 
     }
 
+    public void postEdit(Map<String,Object> map){
+        Observable<BaseHttpResult> observable = mPublishApi.postEditCargo(map);
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                if(mPublicInterface!=null){
+                    mPublicInterface.onSuccess();
+                }
+            }
+        });
+
+    }
+
 }

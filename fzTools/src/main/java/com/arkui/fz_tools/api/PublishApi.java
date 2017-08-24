@@ -25,4 +25,9 @@ public interface PublishApi {
     @POST(NetConstants.ADD_CARGO)
     Observable<BaseHttpResult> postSaveCargo(@FieldMap Map<String,Object> map);
 
+    //编辑布信息
+    @FormUrlEncoded
+    @POST(NetConstants.EDIT_CARGO_INFO)
+    Observable<BaseHttpResult> postEditCargo(@FieldMap Map<String,Object> map);
+
 }

@@ -6,6 +6,7 @@ import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.dialog.ShareDialog;
 import com.arkui.fz_tools.dialog.SuccessFullyShareDialog;
+import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnDialogClick;
 import com.arkui.fz_tools.mvp.PublishPresenter;
@@ -16,11 +17,16 @@ import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.MainActivity;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -43,7 +49,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         mSuccessFullyDialog = new SuccessFullyShareDialog();
         mSuccessFullyDialog.setOnConfirmClick(this);
         mShareDialog = new ShareDialog();
@@ -54,14 +60,15 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
     public void initData() {
         super.initData();
         mPublishPresenter = new PublishPresenter(this, this);
-        RxBus.getDefault().toObservableSticky(HashMap.class).subscribe(new Consumer<HashMap>() {
+        /*Disposable subscribe = RxBus.getDefault().toObservableSticky(HashMap.class).subscribe(new Consumer<HashMap>() {
             @Override
             public void accept(HashMap map) throws Exception {
-                mMap=map;
-                LogUtil.e("收到参数");
+
                 RxBus.getDefault().removeStickyEvent(HashMap.class);
             }
         });
+
+        mDisposables.add(subscribe);*/
     }
 
     @OnClick(R.id.tv_next)
@@ -95,6 +102,13 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         RxBus.getDefault().postSticky(new RefreshWaybill(2));
     }
 
+    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
+    public void receiveParameter(PublishParameterEntity publishParameterEntity){
+        mMap = publishParameterEntity.getMap();
+        LogUtil.e("成功收到参数");
+        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
+    }
+
     @Override
     public void onSuccess() {
         mSuccessFullyDialog.show(getSupportFragmentManager(), "full");
@@ -103,5 +117,12 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
     @Override
     public void onFail(String message) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPublishPresenter.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

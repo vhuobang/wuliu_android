@@ -63,18 +63,19 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
     private void initPublishAdapter() {
         mPublishAdapter = new PublishAdapter();
         mRlList.setAdapter(mPublishAdapter);
-        mPublishAdapter.setOnLoadMoreListener(this,mRlList.getRecyclerView());
+        mPublishAdapter.setOnLoadMoreListener(this, mRlList.getRecyclerView());
         mPublishAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String id = mPublishAdapter.getItem(position).getId();
                 switch (mType) {
                     case 1:
-                        String id = mPublishAdapter.getItem(position).getId();
                         //showActivity(PlanPublishDetailActivity.class);
-                        PlanPublishDetailActivity.showActivity(mActivity,id);
+                        PlanPublishDetailActivity.showActivity(mActivity, id);
                         break;
                     case 2:
-                        showActivity(CarriageDetailActivity.class);
+                        //showActivity(CarriageDetailActivity.class);
+                        CarriageDetailActivity.showActivity(mContext, id);
                         break;
                    /* case 3:
                     case 4:
@@ -98,14 +99,15 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
             public void accept(RefreshWaybill refreshWaybill) throws Exception {
                 LogUtil.e("收到刷新指令！");
                 mPage = 1;
-                switch (refreshWaybill.getType()) {
+                /*switch (refreshWaybill.getType()) {
                     case 1:
                         mCargoListPresenter.getCarGoList(App.getUserId(), "0", mPage, 20);
                         break;
                     case 2:
                         mCargoListPresenter.getCarGoList(App.getUserId(), "1", mPage, 20);
                         break;
-                }
+                }*/
+                mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
                 RxBus.getDefault().removeStickyEvent(RefreshWaybill.class);
             }
         });
@@ -133,17 +135,17 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        mPage=1;
+        mPage = 1;
         mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
     }
 
     @Override
     public void onCarGoListSuccess(List<CarGoListEntity> carGoListEntityList) {
-        if(mPage==1){
+        if (mPage == 1) {
             mPublishAdapter.setNewData(carGoListEntityList);
             mRlList.refreshComplete();
             mPublishAdapter.setEnableLoadMore(carGoListEntityList.size() == 20);
-        }else{
+        } else {
             mPublishAdapter.addData(carGoListEntityList);
             mPublishAdapter.loadMoreComplete();
         }
@@ -151,9 +153,9 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
 
     @Override
     public void onCarGoListFail(String errorMessage) {
-        if(mPage==1){
+        if (mPage == 1) {
             mRlList.loadFail();
-        }else{
+        } else {
             mPublishAdapter.loadMoreEnd();
         }
         mRlList.refreshComplete();

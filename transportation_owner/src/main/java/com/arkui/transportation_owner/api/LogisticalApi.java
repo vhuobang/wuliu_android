@@ -3,6 +3,7 @@ package com.arkui.transportation_owner.api;
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.model.NetConstants;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
+import com.arkui.transportation_owner.entity.PublishDetailEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,10 @@ public interface LogisticalApi {
     @FormUrlEncoded
     @POST(NetConstants.MY_COLLECTION)
     Observable<BaseHttpResult<List<LogisticalListEntity>>> postCollectionLogisticalList(@Field("user_id") String user_id,@Field("page") int page,@Field("pagesize") int pagesize);
+
+    //已发布详情
+    @FormUrlEncoded
+    @POST(NetConstants.PUBLISH_DETAILS)
+    Observable<BaseHttpResult<PublishDetailEntity>> postPublishDetail(@Field("user_id") String user_id,@Field("cargo_id") String cargo_id);
 
 }

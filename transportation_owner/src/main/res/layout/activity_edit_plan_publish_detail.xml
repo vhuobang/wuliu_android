@@ -20,15 +20,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColorHint="@color/gray_color"
+                android:id="@+id/tv_send"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:drawableLeft="@drawable/circle_green"
                 android:drawablePadding="10dp"
                 android:drawableRight="@mipmap/right"
                 android:gravity="center_vertical"
+                android:hint="请输入装货地址"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="金域国际中心"
                 android:textSize="@dimen/sp_14" />
 
             <View
@@ -38,15 +40,17 @@
                 android:background="@color/gray" />
 
             <TextView
+                android:textColorHint="@color/gray_color"
+                android:id="@+id/tv_receive"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:drawableLeft="@drawable/circle_orange"
                 android:drawablePadding="10dp"
                 android:drawableRight="@mipmap/right"
                 android:gravity="center_vertical"
+                android:hint="请输入卸货地址"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="廊坊市东海路321路"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
@@ -70,22 +74,19 @@
                     android:textSize="@dimen/sp_14" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
 
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="甲醛/100吨/剩余40吨"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/et_cargo_name"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入货品名称" />
 
                     <ImageView
+                        android:id="@+id/iv_cargo_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -109,20 +110,15 @@
                     android:textSize="@dimen/sp_14" />
 
                 <LinearLayout
-
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="20.2吨/升"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/et_number"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入货物数量" />
 
                     <TextView
                         android:id="@+id/tv_amount"
@@ -158,19 +154,15 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@null"
-                            android:text="20.2吨/升"
-                            android:textColor="@color/gray_color"
-                            android:textSize="@dimen/sp_14" />
+                            android:id="@+id/et_cargo_density"
+                            style="@style/EditViewWeight999"
+                            android:hint="请输入货物密度" />
 
                         <TextView
                             android:id="@+id/tv_density"
@@ -206,14 +198,9 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="100元/吨"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/et_freight_price"
+                        style="@style/EditViewWeight999"
+                        android:hint="用于计算亏损" />
 
                     <TextView
                         android:id="@+id/tv_freight_price"
@@ -248,13 +235,10 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="1000元/吨"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:inputType="numberDecimal"
+                        android:id="@+id/et_cargo_price"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入获取单价" />
 
                     <TextView
                         android:id="@+id/tv_cargo_price"
@@ -285,19 +269,15 @@
 
                 <LinearLayout
                     android:id="@+id/ll_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="2017-6-23"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
-
+                        android:id="@+id/tv_loading_time"
+                        style="@style/TextViewWeight999"
+                        android:hint="请选择" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -331,13 +311,9 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="甲醛/100吨/剩余40吨"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/tv_payment_terms"
+                        style="@style/TextViewWeight999"
+                        android:hint="请选择" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -373,12 +349,8 @@
 
                     <TextView
                         android:id="@+id/tv_end_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="7天内结算"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        style="@style/TextViewWeight999"
+                        android:hint="请选择" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -412,14 +384,9 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="100元"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/et_press_charges"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入压车费" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -454,15 +421,12 @@
 
 
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="赵敏"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:id="@+id/et_truck_drawer"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入开票人" />
 
                     <ImageView
+                        android:id="@+id/iv_truck_drawer"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -485,11 +449,14 @@
                     android:layout_weight="1">
 
                     <EditText
-                        style="@style/TextViewWeight999"
-                        android:background="@null"
-                        android:text="15244478521" />
+                        android:maxLength="11"
+                        android:inputType="phone"
+                        android:id="@+id/et_truck_tel"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入装车联系电话" />
 
                     <ImageView
+                        android:id="@+id/iv_truck_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -510,9 +477,17 @@
                     android:text="卸车联系人" />
 
                 <EditText
-                    style="@style/TextViewWeight999"
-                    android:background="@null"
-                    android:text="张无忌" />
+                    android:id="@+id/et_unloading_contact"
+                    style="@style/EditViewWeight999"
+                    android:hint="请输入联系人" />
+
+                <ImageView
+                    android:id="@+id/iv_unloading_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:src="@mipmap/zh_close" />
             </TableRow>
 
             <View style="@style/dividerLine" />
@@ -529,11 +504,14 @@
                     android:layout_weight="1">
 
                     <EditText
-                        style="@style/TextViewWeight999"
-                        android:background="@null"
-                        android:text="15244478521" />
+                        android:maxLength="11"
+                        android:inputType="phone"
+                        android:id="@+id/et_unloading_tel"
+                        style="@style/EditViewWeight999"
+                        android:hint="请输入联系人电话" />
 
                     <ImageView
+                        android:id="@+id/iv_unloading_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -583,13 +561,14 @@
             </LinearLayout>
 
             <com.arkui.fz_tools.view.ShapeEditText
+                android:hint="请输入备注信息..."
+                android:id="@+id/et_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_gravity="top"
                 android:layout_marginTop="15dp"
                 android:gravity="top"
                 android:padding="10dp"
-                android:text="尽快装货，减少货物亏损；尽快装货，减少货物亏损"
                 android:textColor="@color/gray_color"
                 android:textColorHint="@color/gray_color"
                 android:textSize="@dimen/sp_14"
@@ -604,6 +583,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_save"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="9dp"
