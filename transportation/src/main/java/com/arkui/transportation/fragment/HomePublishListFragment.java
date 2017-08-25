@@ -42,11 +42,12 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     private CommonAdapter<LogisticalListEntity> mCommonAdapter;
     private int mType;
     private LogisticalApi mLogisticalApi;
-    public  int page =1;
-    public  int pageSize =10;
+    public int page = 1;
+    public int pageSize = 10;
 
     /**
-     *创建 HomePublishListFragment 实例
+     * 创建 HomePublishListFragment 实例
+     *
      * @param type
      * @return
      */
@@ -57,6 +58,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         homePublishListFragment.setArguments(bundle);
         return homePublishListFragment;
     }
+
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_home_publish_list, container, false);
@@ -70,37 +72,39 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         mLogisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
         mCommonAdapter = initAdapter(mRlList, R.layout.item_logistics);
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
-        mCommonAdapter.setOnLoadMoreListener(this,mRlList.getRecyclerView());
+        mCommonAdapter.setOnLoadMoreListener(this, mRlList.getRecyclerView());
         mCommonAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogisticalListEntity item = (LogisticalListEntity) adapter.getItem(position);
-                Intent intent=new Intent(mContext,SupplyDetailActivity.class);
+                Intent intent = new Intent(mContext, SupplyDetailActivity.class);
                 intent.putExtra("type", mType);
-             //   intent.putExtra("cargo_id",item.getId());
+                intent.putExtra("cargo_id", item.getId());
                 startActivity(intent);
             }
         });
     }
-  // 懒加载数据
+
+    // 懒加载数据
     @Override
     protected void lazyLoadData() {
-       onRefreshing();
+        onRefreshing();
     }
 
     @Override
     public void convert(BaseViewHolder helper, LogisticalListEntity item) {
-        //helper.addOnClickListener(R.id.iv_had);
-//        if(mType==0){ //待发布
-//            ImageView  header = helper.getView(R.id.iv_head);
-//          //  GlideUtils.getInstance().loadRound(mActivity,"",header);
-//             helper.setText(R.id.tv_start_address,item.getLoadingAddress());
-//            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
-//            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
-//        }else if (mType==1) { // 已经发布
-//            helper.setText(R.id.tv_start_address,item.getLoadingAddress());
-//            helper.setText(R.id.tv_destination,item.getUnloadingAddress());
-//            helper.setText(R.id.tv_info,item.getCargoName()+"/"+ item.getCargoNum());
+//        helper.addOnClickListener(R.id.iv_head);
+//        if (mType == 0) { //待发布
+//            ImageView header = helper.getView(R.id.iv_head);
+//            //  GlideUtils.getInstance().loadRound(mActivity,"",header);
+//            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit()));
+//        } else if (mType == 1) { // 已经发布
+//            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
+//                    + "/" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
 //        }
 
     }
@@ -109,49 +113,48 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
      * 请求数据
      */
     public void onRefreshing() {
-                LogisticalListEntity logisticalListEntity = new LogisticalListEntity();
-                mCommonAdapter.addData(logisticalListEntity);
-                mRlList.refreshComplete();
-                mCommonAdapter.loadMoreComplete();
-                mCommonAdapter.loadMoreEnd();
+        LogisticalListEntity logisticalListEntity = new LogisticalListEntity();
+        mCommonAdapter.addData(logisticalListEntity);
+        mRlList.refreshComplete();
+        mCommonAdapter.loadMoreComplete();
+        mCommonAdapter.loadMoreEnd();
 
-
-    //    loadData();
+        loadData();
     }
 
     private void loadData() {
-        HashMap<String,Object> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("user_id", App.getUserId());
-        hashMap.put("log_status",mType);
-        hashMap.put("page",page);
-        hashMap.put("pageSize",pageSize);
+        hashMap.put("log_status", mType);
+        hashMap.put("page", page);
+        hashMap.put("pageSize", pageSize);
         Observable<List<LogisticalListEntity>> observable = mLogisticalApi.getLogisticalList(hashMap).
                 map(new HttpResultFunc<List<LogisticalListEntity>>());
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<LogisticalListEntity>>(mActivity,false) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<LogisticalListEntity>>(mActivity, false) {
             @Override
             protected void getDisposable(Disposable d) {
-              mDisposables.add(d);
+                mDisposables.add(d);
             }
 
             @Override
             public void onNext(List<LogisticalListEntity> logisticalListEntityList) {
-               if (page==1){
-                   mCommonAdapter.setNewData(logisticalListEntityList);
-                   mRlList.refreshComplete();
-                   if(mCommonAdapter.getItemCount()<pageSize){
-                       mCommonAdapter.loadMoreEnd(false);
-                   }else{
-                       mCommonAdapter.loadMoreEnd(true);
-                   }
-               }else {
-                   mCommonAdapter.addData(logisticalListEntityList);
-                   mCommonAdapter.loadMoreComplete();
-                   if (logisticalListEntityList.size()<pageSize){
-                       mCommonAdapter.loadMoreEnd(false);
-                   }else {
-                       mCommonAdapter.loadMoreEnd(true);
-                   }
-               }
+                if (page == 1) {
+                    mCommonAdapter.setNewData(logisticalListEntityList);
+                    mRlList.refreshComplete();
+                    if (mCommonAdapter.getItemCount() < pageSize) {
+                        mCommonAdapter.loadMoreEnd(false);
+                    } else {
+                        mCommonAdapter.loadMoreEnd(true);
+                    }
+                } else {
+                    mCommonAdapter.addData(logisticalListEntityList);
+                    mCommonAdapter.loadMoreComplete();
+                    if (logisticalListEntityList.size() < pageSize) {
+                        mCommonAdapter.loadMoreEnd(false);
+                    } else {
+                        mCommonAdapter.loadMoreEnd(true);
+                    }
+                }
             }
 
             @Override
@@ -167,13 +170,14 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     //  下拉刷新数据
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        page=1;
-       // onRefreshing();
+        page = 1;
+        onRefreshing();
     }
-   // 上拉加载更多数据
+
+    // 上拉加载更多数据
     @Override
     public void onLoadMoreRequested() {
-         page++;
-      //  onRefreshing();
+        page++;
+        onRefreshing();
     }
 }

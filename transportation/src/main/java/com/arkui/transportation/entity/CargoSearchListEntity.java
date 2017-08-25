@@ -3,28 +3,30 @@ package com.arkui.transportation.entity;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by 84658 on 2017/8/15.
+ * Created by 84658 on 2017/8/25.
  */
 
-public class LogisticalListEntity {
-
+public class CargoSearchListEntity {
 
     /**
-     * loading_address : 北京
-     * surplus_num : 100
+     * loading_address : 北5京
      * unit : 1
+     * surplus_num : 1000
+     * logistical_status : 1
      * unloading_address : 上海
      * cargo_num : 1000
      * cargo_name : 铁
-     * id : 22
+     * id : 29
      */
 
     @SerializedName("loading_address")
     private String loadingAddress;
-    @SerializedName("surplus_num")
-    private String surplusNum;
     @SerializedName("unit")
     private String unit;
+    @SerializedName("surplus_num")
+    private String surplusNum;
+    @SerializedName("logistical_status")
+    private String logisticalStatus;
     @SerializedName("unloading_address")
     private String unloadingAddress;
     @SerializedName("cargo_num")
@@ -42,6 +44,14 @@ public class LogisticalListEntity {
         this.loadingAddress = loadingAddress;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public String getSurplusNum() {
         return surplusNum;
     }
@@ -50,12 +60,12 @@ public class LogisticalListEntity {
         this.surplusNum = surplusNum;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getLogisticalStatus() {
+        return logisticalStatus;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setLogisticalStatus(String logisticalStatus) {
+        this.logisticalStatus = logisticalStatus;
     }
 
     public String getUnloadingAddress() {

@@ -2,10 +2,12 @@ package com.arkui.transportation.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.transportation.entity.CargoCarrierListEntity;
+import com.arkui.transportation.entity.CargoSearchListEntity;
 import com.arkui.transportation.entity.LogWayBIllListEntity;
 import com.arkui.transportation.entity.LogisticalDetailEntity;
 import com.arkui.transportation.entity.LogisticalListEntity;
 import com.arkui.transportation.entity.PublishDetialEntity;
+import com.arkui.transportation.entity.SliderMessageEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -55,4 +57,13 @@ public interface LogisticalApi {
     @FormUrlEncoded
     @POST(UrlContents.LOG_WAYBILL_LIST)
     Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogWaybillList(@Field("user_id") String userId, @Field("order_status") String order_status, @Field("type") String type);
+   // 首页轮播消息
+//   @FormUrlEncoded
+   @POST(UrlContents.SLIDER_MESSAGE)
+   Observable<BaseHttpResult<List<SliderMessageEntity>>> getSliderMessage();
+    //  物流货源搜索 CARGO_TOLOGISTICAL_SEARCH
+     @FormUrlEncoded
+    @POST(UrlContents.CARGO_TOLOGISTICAL_SEARCH)
+    Observable<BaseHttpResult<List<CargoSearchListEntity>>> getCargoSearch(@Field("user_id") String userId, @Field("key_word") String keyWord);
+
 }

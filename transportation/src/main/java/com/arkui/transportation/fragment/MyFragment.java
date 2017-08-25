@@ -58,6 +58,12 @@ public class MyFragment extends BaseFragment implements UserInterface {
 
     @BindView(R.id.tv_auth)
     TextView tvAuth;
+    @BindView(R.id.balance)
+    TextView mBalance;
+    @BindView(R.id.integral)
+    TextView mIntegral;
+    @BindView(R.id.infomation_fee_all)
+    TextView mInfomationFeeAll;
 
     private ShareDialog mShareDialog;
     private UserPresenter userPresenter;
@@ -75,7 +81,6 @@ public class MyFragment extends BaseFragment implements UserInterface {
         ButterKnife.bind(this, parentView);
         userPresenter = new UserPresenter(this, getActivity());
         mShareDialog = new ShareDialog();
-
     }
 
     @OnClick({R.id.ll_balance, R.id.ll_point, R.id.ll_share, R.id.ll_service, R.id.ll_driver_login, R.id.iv_setting, R.id.iv_head, R.id.ll_auth, R.id.ll_info_fee})
@@ -105,15 +110,15 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 showActivity(MyProfileActivity.class);
                 break;
             case R.id.ll_auth:
-                if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")){
+                if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")) {
                     showActivity(AuthActivity.class);
                 }
-                if (isUserCertificate.equals("1") || isCompanyCertificate.equals("1")){
-                    Toast.makeText(getActivity(),"审核中",Toast.LENGTH_SHORT).show();
+                if (isUserCertificate.equals("1") || isCompanyCertificate.equals("1")) {
+                    Toast.makeText(getActivity(), "审核中", Toast.LENGTH_SHORT).show();
 
                 }
-                if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")){
-                    Toast.makeText(getActivity(),"已认证",Toast.LENGTH_SHORT).show();
+                if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) {
+                    Toast.makeText(getActivity(), "已认证", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -134,22 +139,34 @@ public class MyFragment extends BaseFragment implements UserInterface {
     public void onSucceed() {
 
     }
-   // 返回用户信息
+
+    // 返回用户信息
     @Override
     public void loginSucceed(UserEntity userEntity) {
-        GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(),ivHead );
+
+        GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(), ivHead);
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();
         isCompanyCertificate = userEntity.getIsCompanyCertificate();
-        if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")){
+        mBalance.setText("￥"+userEntity.getBalance());
+        mIntegral.setText( userEntity.getIntegral());
+        mInfomationFeeAll.setText("￥"+userEntity.getInformationFeeAll());
+        if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")) {
             tvAuth.setText("未认证 立即认证");
         }
-        if (isUserCertificate.equals("1") || isCompanyCertificate.equals("1")){
+        if (isUserCertificate.equals("1") || isCompanyCertificate.equals("1")) {
             tvAuth.setText("审核中");
-
         }
-        if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")){
+        if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) {
             tvAuth.setText("已认证");
         }
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        userPresenter.onDestroy();
     }
 }

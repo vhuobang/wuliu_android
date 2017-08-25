@@ -7,6 +7,7 @@ package com.arkui.transportation.api;
 public class UrlContents {
     // 服务器根地址
     //   public static final String BASE_URL = "http://shunfengche.181858.com/index.php/";
+
     public static final String BASE_URL = "http://wuliufz.gotoip1.com/index.php/";
     //1.   接收到的货源列表
     public static final String CAR_GOTO_LOGISTICAL = BASE_URL + "App/logistical/cargoToLogistical";
@@ -22,4 +23,8 @@ public class UrlContents {
     public static final String UP_CARGO_STATUS = BASE_URL + "App/logistical/upCargoStatus";
     //7  货主运单列表
     public static final String LOG_WAYBILL_LIST = BASE_URL + "App/Waybill/logWaybillList";
+    // 8 首页轮播消息
+    public static final String SLIDER_MESSAGE = BASE_URL + "App/Public/sliderMessage";
+    // 9  货源搜索
+    public static final String CARGO_TOLOGISTICAL_SEARCH = BASE_URL + "App/logistical/cargoToLogisticalSearch ";
 }

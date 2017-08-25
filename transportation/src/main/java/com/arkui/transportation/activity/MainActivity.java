@@ -76,7 +76,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
     public void changeFragment(int resView, BaseFragment targetFragment) {
         if (targetFragment.equals(currentSupportFragment)) {
             return;
