@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
@@ -15,7 +14,6 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.ui.BaseListLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration2;
-import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.home.SupplyDetailActivity;
@@ -95,19 +93,19 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
 
     @Override
     public void convert(BaseViewHolder helper, LogisticalListEntity item) {
-        helper.addOnClickListener(R.id.iv_head);
-        if (mType == 0) { //待发布
-            ImageView header = helper.getView(R.id.iv_head);
-            //  GlideUtils.getInstance().loadRound(mActivity,"",header);
-            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
-            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
-            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit()));
-        } else if (mType == 1) { // 已经发布
-            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
-            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
-            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
-                    + "/" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
-        }
+//        helper.addOnClickListener(R.id.iv_head);
+//        if (mType == 0) { //待发布
+//            ImageView header = helper.getView(R.id.iv_head);
+//            //  GlideUtils.getInstance().loadRound(mActivity,"",header);
+//            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit()));
+//        } else if (mType == 1) { // 已经发布
+//            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
+//            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+//            helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
+//                    + "/" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
+//        }
 
     }
 

@@ -105,7 +105,8 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        showActivity(EditPlanPublishDetailActivity.class);
+
+        EditPlanPublishDetailActivity.showActivity(mActivity,carGoId);
     }
     //立即发布
     @OnClick(R.id.tv_publish)
@@ -122,8 +123,16 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     @Override
     public void onSuccess(ReleaseDetailsEntity entity) {
         releaseDetailsEntity = entity;
-        tvLoadingAddress.setText(entity.getLoadingAddress());
-        tvUnloadingAddress.setText(entity.getUnloadingAddress());
+
+        String[] loadingAddress = entity.getLoadingAddress().split(" ");
+        String[] unloadingAddress = entity.getUnloadingAddress().split(" ");
+
+        tvLoadingAddress.setText(loadingAddress.length >= 0 ? loadingAddress[0] : "");
+        tvLoadingDetailAddress.setText(loadingAddress.length >= 2 ? loadingAddress[1] : "");
+        tvUnloadingAddress.setText(unloadingAddress.length >= 0 ? unloadingAddress[0] : "");
+        tvUnloadingDetailAddress.setText(unloadingAddress.length >= 2 ? unloadingAddress[1] : "");
+
+
         String unit = StrUtil.formatUnit(entity.getUnit());
         tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + unit);
         cargoDensity.setText(entity.getCargoDensity());

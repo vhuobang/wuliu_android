@@ -2,11 +2,14 @@ package com.arkui.transportation.activity.my;
 
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.UploadingPictureInterface;
+import com.arkui.fz_tools._interface.UserEditInterface;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
+import com.arkui.fz_tools.mvp.UserEditPresenter;
 import com.arkui.fz_tools.ui.BasePhotoActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation.R;
@@ -16,13 +19,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MyAvatarActivity extends BasePhotoActivity implements UploadingPictureInterface {
+public class MyAvatarActivity extends BasePhotoActivity implements UploadingPictureInterface, UserEditInterface {
 
 
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
     private UploadingPicturePresenter uploadingPicturePresenter;
 
+    UserEditPresenter mUserEditPresenter;
     @Override
     public void setRootView() {
         setContentView(R.layout.activity_my_avatar);
@@ -35,6 +39,7 @@ public class MyAvatarActivity extends BasePhotoActivity implements UploadingPict
         super.initView();
         ButterKnife.bind(this);
         uploadingPicturePresenter = new UploadingPicturePresenter(this, this);
+        mUserEditPresenter = new UserEditPresenter(this,this);
         GlideUtils.getInstance().load(this,App.getUserEntity().getAvatar(),ivAvatar);
     }
 
@@ -61,8 +66,19 @@ public class MyAvatarActivity extends BasePhotoActivity implements UploadingPict
     public void onUploadingSuccess(UpLoadEntity upLoadEntity) {
         UserEntity userEntity = App.getUserEntity();
         userEntity.setAvatar(upLoadEntity.getOriImg());
+        mUserEditPresenter.getUserEdit(userEntity.getId(),userEntity.getNickname(),upLoadEntity.getOriImg(),userEntity.getQq());
         GlideUtils.getInstance().load(MyAvatarActivity.this,upLoadEntity.getOriImg(),ivAvatar);
         App.setUserEntity(userEntity);
     }
 
+   // 修改成功
+    @Override
+    public void onSuccess(UserEntity userEntity) {
+        Toast.makeText(mActivity,"修改头像成功",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFail(String message) {
+
+    }
 }

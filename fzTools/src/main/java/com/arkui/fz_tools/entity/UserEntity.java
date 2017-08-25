@@ -26,6 +26,8 @@ public class UserEntity implements Serializable{
      * is_user_certificate 个人认证
      * is_company_certificate // 公司认证
      * register_time : 2017-08-07 15:40:55
+     *
+     * infomation_fee_all
      */
 
     @SerializedName("id")
@@ -60,6 +62,16 @@ public class UserEntity implements Serializable{
     // 公司认证  is_company_certificate
     @SerializedName("is_company_certificate")
     private String isCompanyCertificate;
+    @SerializedName("infomation_fee_all")
+    private String informationFeeAll;
+
+    public String getInformationFeeAll() {
+        return informationFeeAll;
+    }
+
+    public void setInformationFeeAll(String informationFeeAll) {
+        this.informationFeeAll = informationFeeAll;
+    }
 
     public String getIsUserCertificate() {
         return isUserCertificate;

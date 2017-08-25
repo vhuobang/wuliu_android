@@ -16,6 +16,7 @@
 
 
         <com.arkui.fz_tools.view.ShapeEditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
@@ -25,7 +26,9 @@
             android:drawableLeft="@mipmap/ss"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:hint="请输入手机号或物流公司名称"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:hint="请输入装、卸货地址或者货物名称"
             android:paddingLeft="20dp"
             android:textColorHint="@color/gray_color"
             android:textSize="@dimen/sp_12"

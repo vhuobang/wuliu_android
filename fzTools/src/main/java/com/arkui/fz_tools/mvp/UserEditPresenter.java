@@ -1,5 +1,6 @@
 package com.arkui.fz_tools.mvp;
 
+import android.app.Activity;
 import android.text.TextUtils;
 
 import com.arkui.fz_net.http.ApiException;
@@ -24,11 +25,20 @@ public class UserEditPresenter extends BasePresenter {
     public  UserEditInterface  mUserEditInterface;
     private UserApi mUserApi;
 
+    public  UserEditPresenter(){
+
+    }
+    public UserEditPresenter(UserEditInterface mUserEditInterface, Activity activity) {
+        this.mUserEditInterface = mUserEditInterface;
+        mContext=activity;
+        mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
+    }
 
     public void setUserEditInterface(UserEditInterface userEditInterface) {
         mUserEditInterface = userEditInterface;
         mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
+
 
     // 完善用户信息
     public void getUserEdit(String user_id,String nickname,String avatar,String qq){
