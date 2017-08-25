@@ -68,7 +68,7 @@ public class NetConstants {
     // 貨主信息
     public static final String CARGO_OWNER_INFO = BASE_URL + "index.php/App/logistical/cargoOwnerInfo";
 
-    public static final String MY_COLLECTION=BASE_URL+"index.php/App/logistical/myCollection";
+    //public static final String MY_COLLECTION=BASE_URL+"index.php/App/logistical/myCollection";
     //编辑
     public static final String EDIT_CARGO_INFO=BASE_URL+"index.php/App/logistical/editCargoInfo";
     //已发布详情

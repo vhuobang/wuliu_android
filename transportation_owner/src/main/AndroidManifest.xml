@@ -86,8 +86,9 @@
         <activity android:name=".activity.user.PasswordResetActivity" />
         <activity android:name=".activity.user.RegisterActivity" />
         <activity android:name=".activity.user.ClauseActivity" />
-        <activity android:name=".activity.MainActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.my.InviteFriendActivity" />
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
@@ -112,6 +113,16 @@
             android:name="com.amap.api.v2.apikey"
             android:value="48145d3e3a17bb7e27d1503eb38b06a4" />
         <service android:name="com.amap.api.location.APSService" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.arkui.transportation_owner.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

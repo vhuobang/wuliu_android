@@ -1,6 +1,8 @@
 package com.arkui.fz_tools.ui;
 
 import android.Manifest;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import com.arkui.fz_tools.dialog.CommonDialog;
@@ -38,19 +41,20 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
 
     private Uri uri;
     private boolean isCrop;
-    private List<File> temps;
     public List<SelectPicEntity> picEntityList;
 
     private final int REQUEST_CAMERA_BIG = 233;
     private final int REQUEST_PHOTO_BIG = 234;
     private final int REQUEST_CROP_BIG = 235;
-    private Uri uri_big;
+    private Uri mUri;
     private File mExternalFilesDir;
     private SelectPicturePicker mSelectPicturePicker;
     private RxPermissions mRxPermissions;
     private CommonDialog mCommonDialog;
     private int mAspectX=1;
     private int mAspectY=1;
+    private File file;
+    private File mImageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,6 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         if (!mExternalFilesDir.exists()) {
             mExternalFilesDir.mkdirs();
         }
-        temps = new ArrayList<>();
         initDialog();
     }
 
@@ -96,10 +99,16 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
 
     protected void useCamera(boolean isCrop) {
         this.isCrop = isCrop;
-        File file = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
-        uri_big = Uri.fromFile(file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri_big);
+        mImageFile = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            String authority=mActivity.getApplicationInfo().packageName+".provider";
+            mUri = FileProvider.getUriForFile(mActivity,authority, mImageFile);
+        }else{
+            mUri = Uri.fromFile(mImageFile);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
         startActivityForResult(intent, REQUEST_CAMERA_BIG);
     }
 
@@ -112,11 +121,16 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
 
 
     private void cropBig(Uri uri) {
-
-        File file = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
-        uri_big = Uri.fromFile(file);
-
         Intent intent = new Intent("com.android.camera.action.CROP");
+        File file = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //String authority=mActivity.getApplicationInfo().packageName+".provider";
+           // imageUri = FileProvider.getUriForFile(mActivity,authority,mImageFile);
+        }else{
+           // imageUri = Uri.fromFile(file);
+        }
+        mUri = Uri.fromFile(file);
         intent.setDataAndType(uri, "image/*");
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
         intent.putExtra("crop", "true");
@@ -125,7 +139,7 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         intent.putExtra("aspectY", mAspectY);
         intent.putExtra("return-data", false);
         intent.putExtra("noFaceDetection", true);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri_big);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, REQUEST_CROP_BIG);
     }
@@ -140,19 +154,17 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
                     if (isCrop) {
                         cropBig(uri);
                     } else {
-                        // onSelectPic(uri, getUriPath(uri));
                         onCrop(getUriPath(uri));
                     }
-
                     break;
                 case REQUEST_CROP_BIG:
-                    if (uri_big != null) {
-                        onCrop(getUriPath(uri_big));
+                    if (mUri != null) {
+                        onCrop(getUriPath(mUri));
                     }
                     break;
                 case REQUEST_CAMERA_BIG:
                     if (isCrop) {
-                        cropBig(uri_big);
+                        cropBig(mUri);
                     } else {
                         onCrop(getUriPath(uri));
                     }
@@ -239,4 +251,30 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     public void setAspectY(int mAspectY) {
         this.mAspectY = mAspectY;
     }
+
+    public static Uri getImageContentUri(Context context, File imageFile) {
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[] { MediaStore.Images.Media._ID },
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[] { filePath }, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return context.getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
+    }
+
 }
