@@ -89,7 +89,7 @@ public class SupplyDetailActivity extends BaseActivity {
          mType = getIntent().getIntExtra("type", -1);
          cargo_id = getIntent().getStringExtra("cargo_id");
         logisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
-        if (mType == 0) {
+        if (mType == 1) {
             mBtStart.setText("立即发布");
         } else {
             mBtStart.setText("承运详情");
@@ -173,7 +173,7 @@ public class SupplyDetailActivity extends BaseActivity {
 
     @OnClick(R.id.bt_start)
     public void onClick() {
-        if (mType == 0) {
+        if (mType == 1) {
             CompleteInfoActivity.openCompleteInfoActivity(SupplyDetailActivity.this,cargo_id);
         } else {
            CarriageListActivity.openCarriageListActivity(SupplyDetailActivity.this,cargo_id);

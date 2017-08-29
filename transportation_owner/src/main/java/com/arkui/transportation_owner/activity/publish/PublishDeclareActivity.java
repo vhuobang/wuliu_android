@@ -106,7 +106,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
     public void receiveParameter(PublishParameterEntity publishParameterEntity){
         mMap = publishParameterEntity.getMap();
         LogUtil.e("成功收到参数");
-        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
+        //EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
     }
 
     @Override
