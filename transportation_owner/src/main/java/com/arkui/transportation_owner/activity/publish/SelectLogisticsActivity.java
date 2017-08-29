@@ -43,7 +43,7 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     private CollectLogisticsAdapter mCollectLogisticsAdapter;
     private LogisticsPresenter mLogisticsPresenter;
     private int mPage = 1;
-    PublishParameterEntity mPublishParameterEntity;
+    //PublishParameterEntity mPublishParameterEntity;
 
     @Override
     public void setRootView() {
@@ -56,7 +56,7 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
         mCollectLogisticsAdapter = new CollectLogisticsAdapter();
         mRlList.setLinearLayoutManager();
         mRlList.setAdapter(mCollectLogisticsAdapter);
@@ -115,8 +115,6 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
         Intent intent=new Intent(mActivity,PublishDeclareActivity.class);
         intent.putExtra("ids",ids.toString());
         startActivity(intent);
-        //明天测测这里
-        EventBus.getDefault().postSticky(mPublishParameterEntity);
     }
 
     @Override
@@ -174,18 +172,21 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     public void onSucceed(int position) {
 
     }
-
+/*
     @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
     public void receiveParameter(PublishParameterEntity publishParameterEntity){
         //
         mPublishParameterEntity=publishParameterEntity;
         LogUtil.e("成功收到参数");
-        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
-    }
+        //
+        //明天测测这里
+        EventBus.getDefault().postSticky(mPublishParameterEntity);
+    }*/
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+       // EventBus.getDefault().unregister(this);
+        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
     }
 }

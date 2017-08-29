@@ -97,7 +97,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     @Override
     public void convert(BaseViewHolder helper, LogisticalListEntity item) {
         helper.addOnClickListener(R.id.iv_head);
-        if (mType == 0) { //待发布
+        if (mType == 1) { //待发布
             ImageView header = helper.getView(R.id.iv_head);
             //  GlideUtils.getInstance().loadRound(mActivity,"",header);
             String[] loadingAddress = item.getLoadingAddress().split(" ");
@@ -105,7 +105,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
             helper.setText(R.id.tv_start_address, loadingAddress[0]);
             helper.setText(R.id.tv_destination, unloadAddress[0]);
             helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit()));
-        } else if (mType == 1) { // 已经发布
+        } else if (mType == 2) { // 已经发布
             String[] loadingAddress = item.getLoadingAddress().split(" ");
             String[] unloadAddress = item.getUnloadingAddress().split(" ");
             helper.setText(R.id.tv_start_address, loadingAddress[0]);

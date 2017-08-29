@@ -32,6 +32,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 /**
  * 基于基类的Fragment
+ * TODO 货源页面
  */
 public class SupplyFragment extends BaseFragment implements OnBindViewHolderListener<String>, BaseQuickAdapter.OnItemClickListener, OnRefreshListener {
 
