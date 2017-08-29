@@ -100,12 +100,16 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         if (mType == 0) { //待发布
             ImageView header = helper.getView(R.id.iv_head);
             //  GlideUtils.getInstance().loadRound(mActivity,"",header);
-            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
-            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+            String[] loadingAddress = item.getLoadingAddress().split(" ");
+            String[] unloadAddress = item.getUnloadingAddress().split(" ");
+            helper.setText(R.id.tv_start_address, loadingAddress[0]);
+            helper.setText(R.id.tv_destination, unloadAddress[0]);
             helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit()));
         } else if (mType == 1) { // 已经发布
-            helper.setText(R.id.tv_start_address, item.getLoadingAddress());
-            helper.setText(R.id.tv_destination, item.getUnloadingAddress());
+            String[] loadingAddress = item.getLoadingAddress().split(" ");
+            String[] unloadAddress = item.getUnloadingAddress().split(" ");
+            helper.setText(R.id.tv_start_address, loadingAddress[0]);
+            helper.setText(R.id.tv_destination, unloadAddress[0]);
             helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
                     + "/" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
         }
@@ -116,11 +120,6 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
      * 请求数据
      */
     public void onRefreshing() {
-//        LogisticalListEntity logisticalListEntity = new LogisticalListEntity();
-//        mCommonAdapter.addData(logisticalListEntity);
-//        mRlList.refreshComplete();
-//        mCommonAdapter.loadMoreComplete();
-//        mCommonAdapter.loadMoreEnd();
 
         loadData();
     }

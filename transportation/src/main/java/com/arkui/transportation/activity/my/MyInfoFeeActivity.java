@@ -2,6 +2,7 @@ package com.arkui.transportation.activity.my;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.arkui.fz_tools._interface.InformationFeeInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
@@ -31,6 +32,7 @@ public class MyInfoFeeActivity extends BaseListActivity<InformationDetailEntity>
     private InformationFeePresenter informationFeePresenter;
     int page = 1;
     int pageSize = 10;
+    private String informationFee;
 
     @Override
     public void setRootView() {
@@ -42,12 +44,16 @@ public class MyInfoFeeActivity extends BaseListActivity<InformationDetailEntity>
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        informationFee = getIntent().getStringExtra("informationFee");
+
         informationFeePresenter = new InformationFeePresenter(this, this);
         mCommonAdapter = initAdapter(mRlList, R.layout.item_my_info_fee);
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
         mCommonAdapter.setOnLoadMoreListener(this, mRlList.getRecyclerView());
         View headView = getLayoutInflater().inflate(R.layout.layout_my_info_fee_head, mRlList, false);
         mIvHintBg = (ImageView) headView.findViewById(R.id.iv_hint_bg);
+        TextView information = (TextView) headView.findViewById(R.id.information_fee);
+        information.setText(informationFee);
         headView.findViewById(R.id.iv_hint).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

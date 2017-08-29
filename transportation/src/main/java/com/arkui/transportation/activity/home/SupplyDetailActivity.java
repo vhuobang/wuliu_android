@@ -129,8 +129,12 @@ public class SupplyDetailActivity extends BaseActivity {
      * @param logisticalDetailEntity
      */
     private void setUiData(LogisticalDetailEntity logisticalDetailEntity) {
-        tvStartAddress.setText(logisticalDetailEntity.getLoadingAddress());
-        tvDestination.setText(logisticalDetailEntity.getUnloadingAddress());
+        String[] loadAddress = logisticalDetailEntity.getLoadingAddress().split(" ");
+        String[] unloadingAddress = logisticalDetailEntity.getUnloadingAddress().split(" ");
+        tvStartAddress.setText(loadAddress[0]);
+        tvDestination.setText(unloadingAddress[0]);
+        tvStartDetailAddress.setText(loadAddress[1]);
+        tvDetailDestination.setText(unloadingAddress[1]);
         goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+"/"+
         logisticalDetailEntity.getSurplusNum());
         cargoDensity.setText(logisticalDetailEntity.getCargoDensity());
