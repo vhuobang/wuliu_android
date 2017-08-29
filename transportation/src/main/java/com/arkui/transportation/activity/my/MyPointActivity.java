@@ -1,6 +1,7 @@
 package com.arkui.transportation.activity.my;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation.R;
@@ -20,6 +21,9 @@ public class MyPointActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        String points = getIntent().getStringExtra("points");
+        TextView tvIntegral = (TextView) findViewById(R.id.integral);
+        tvIntegral.setText(points);
     }
 
     @OnClick({R.id.bt_withdraw, R.id.iv_back,R.id.iv_right})

@@ -93,7 +93,8 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 showActivity(MyBalanceActivity.class,bundle);
                 break;
             case R.id.ll_point:
-                showActivity(MyPointActivity.class);
+                bundle.putString("points",mUserEntity.getIntegral());
+                showActivity(MyPointActivity.class,bundle);
                 break;
             case R.id.ll_share:
                 //mShareDialog.show(getChildFragmentManager(), "share");

@@ -18,6 +18,7 @@ import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.dialog.SuccessFullyDialog;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
@@ -50,7 +51,7 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
     private SelectTypePicker mSelectTypePicker;
     private SuccessFullyDialog mSuccessFullyDialog;
     private String cargoId; // 货源id
-    private String payMoneyTime = "立即结算";
+    private String payMoneyTime = "1";
     private LogisticalApi mLogisticalApi;
 
 
@@ -89,7 +90,7 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
     @Override
     public void OnVehicleTypeClick(String item,int pos) {
         tvTime.setText(item);
-        payMoneyTime= item;//结算时间
+        payMoneyTime= String.valueOf(pos+1);//结算时间
     }
 
     @OnClick({R.id.tv_time, R.id.bt_confirm})
@@ -134,6 +135,8 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
                     public void run() {
                         mSuccessFullyDialog.dismiss();
                         finish();
+                        AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
+
                     }
                 }, 1000);
                     }
