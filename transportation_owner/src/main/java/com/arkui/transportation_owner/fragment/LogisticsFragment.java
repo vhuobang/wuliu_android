@@ -215,6 +215,7 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
                 mTvCity.setText(mCity);
             } else {
                 Toast.makeText(mContext, "定位失败", Toast.LENGTH_SHORT).show();
+                mRlList.loadFail("定位失败");
             }
         }
     }

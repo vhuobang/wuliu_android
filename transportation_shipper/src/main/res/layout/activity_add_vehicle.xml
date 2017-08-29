@@ -52,6 +52,7 @@
                 android:layout_weight="1">
 
                 <EditText
+                    android:id="@+id/et_license_plate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -62,6 +63,9 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_clean"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -126,9 +130,10 @@
                         android:id="@+id/iv_pic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/sc" />
+                        android:src="@mipmap/upload_photo1" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -169,9 +174,10 @@
                         android:id="@+id/iv_pic2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/sc" />
+                        android:src="@mipmap/upload_photo1" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

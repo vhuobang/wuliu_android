@@ -39,7 +39,7 @@ import io.reactivex.functions.Consumer;
  */
 public abstract class BasePhotoActivity extends BaseActivity implements OnPictureClickListener, OnConfirmClick {
 
-    private Uri uri;
+    //private Uri uri;
     private boolean isCrop;
     public List<SelectPicEntity> picEntityList;
 
@@ -53,7 +53,7 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     private CommonDialog mCommonDialog;
     private int mAspectX=1;
     private int mAspectY=1;
-    private File file;
+   // private File file;
     private File mImageFile;
 
     @Override
@@ -150,11 +150,11 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_PHOTO_BIG:
-                    uri = data.getData();
+                    mUri = data.getData();
                     if (isCrop) {
-                        cropBig(uri);
+                        cropBig(mUri);
                     } else {
-                        onCrop(getUriPath(uri));
+                        onCrop(getUriPath(mUri));
                     }
                     break;
                 case REQUEST_CROP_BIG:
@@ -166,7 +166,7 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
                     if (isCrop) {
                         cropBig(mUri);
                     } else {
-                        onCrop(getUriPath(uri));
+                        onCrop(getUriPath(mUri));
                     }
                     break;
             }

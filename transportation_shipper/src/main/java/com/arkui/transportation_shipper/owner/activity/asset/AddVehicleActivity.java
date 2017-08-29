@@ -1,24 +1,60 @@
 package com.arkui.transportation_shipper.owner.activity.asset;
 
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.RetrofitFactory;
+import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools._interface.UploadingPictureInterface;
 import com.arkui.fz_tools.dialog.SelectPicturePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
+import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
+import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.ui.BasePhotoActivity;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.api.AssetApi;
+import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 
-public class AddVehicleActivity extends BaseActivity implements OnVehicleTypeClickListener {
+public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTypeClickListener, UploadingPictureInterface {
 
-    private SelectPicturePicker mSelectPicturePicker;
+    @BindView(R.id.et_license_plate)
+    EditText mEtLicensePlate;
+    @BindView(R.id.tv_vehicle_model)
+    TextView mTvVehicleModel;
+    @BindView(R.id.iv_pic)
+    ImageView mIvPic;
+    @BindView(R.id.iv_pic2)
+    ImageView mIvPic2;
+    // private SelectPicturePicker mSelectPicturePicker;
     private SelectTypePicker mSelectVehicleTypePicker;
+    private int mType = -1;
+    private UploadingPicturePresenter mUploadingPicturePresenter;
+    private String mPath1 = null;
+    private String mPath2 = null;
+    private AssetApi mAssetApi;
 
     @Override
     public void setRootView() {
@@ -31,10 +67,19 @@ public class AddVehicleActivity extends BaseActivity implements OnVehicleTypeCli
         super.initView();
         ButterKnife.bind(this);
         initDialog();
+        mUploadingPicturePresenter = new UploadingPicturePresenter(this, this);
+        setAspectY(2);
+        setAspectX(3);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        mAssetApi = RetrofitFactory.createRetrofit(AssetApi.class);
     }
 
     private void initDialog() {
-        mSelectPicturePicker = new SelectPicturePicker();
+        // mSelectPicturePicker = new SelectPicturePicker();
         mSelectVehicleTypePicker = new SelectTypePicker();
         List<String> list = new ArrayList<>();
         list.add("车型一");
@@ -46,24 +91,104 @@ public class AddVehicleActivity extends BaseActivity implements OnVehicleTypeCli
         mSelectVehicleTypePicker.setOnTypeClickListener(this);
     }
 
-    @OnClick({R.id.tv_vehicle_model, R.id.tv_complete,R.id.iv_pic,R.id.iv_pic2})
+    @OnClick({R.id.tv_vehicle_model, R.id.tv_complete, R.id.iv_pic, R.id.iv_pic2, R.id.iv_clean})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_vehicle_model:
-                mSelectVehicleTypePicker.show(getSupportFragmentManager(),"model");
+                mSelectVehicleTypePicker.show(getSupportFragmentManager(), "model");
                 break;
             case R.id.tv_complete:
-
+                //添加车辆
+                addVehicle();
                 break;
             case R.id.iv_pic:
+                mType = 1;
+                showPicturePicker(true);
+                break;
             case R.id.iv_pic2:
-                mSelectPicturePicker.show(getSupportFragmentManager(),"vehicle");
+                mType = 2;
+                showPicturePicker(true);
+                // mSelectPicturePicker.show(getSupportFragmentManager(), "vehicle");
+                break;
+            case R.id.iv_clean:
+                mEtLicensePlate.setText("");
                 break;
         }
     }
 
-    @Override
-    public void OnVehicleTypeClick(String item,int pos) {
+    private void addVehicle() {
+        String licensePlate = mEtLicensePlate.getText().toString();
+        if (TextUtils.isEmpty(licensePlate)) {
+            ShowToast("请输入车牌号");
+            return;
+        }
 
+        String type = mTvVehicleModel.getText().toString();
+        if (TextUtils.isEmpty(type)) {
+            ShowToast("请选择车型");
+            return;
+        }
+
+        if(mPath1==null){
+            ShowToast("请上传车辆正面照");
+            return;
+        }
+
+        if(mPath2==null){
+            ShowToast("请上传行驶证照");
+            return;
+        }
+
+        Map<String,Object> parameter=new HashMap<>();
+
+        parameter.put("user_id", App.getUserId());
+        parameter.put("license_plate",licensePlate);
+        parameter.put("type",type);
+        parameter.put("truck_poto",mPath1);
+        parameter.put("driving_license_photo",mPath2);
+
+        Observable<BaseHttpResult> observable = mAssetApi.postTruckAdd(parameter);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                //通知列表刷新数据
+                ShowToast(value.getMessage());
+                EventBus.getDefault().post(new RefreshAssetListEntity(1));
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onCrop(String path) {
+        mUploadingPicturePresenter.upPicture(path, "Avatar");
+    }
+
+    @Override
+    public void OnVehicleTypeClick(String item, int pos) {
+        mTvVehicleModel.setText(item);
+    }
+
+    @Override
+    public void onUploadingSuccess(UpLoadEntity upLoadEntity) {
+        GlideUtils.getInstance().load(mActivity, upLoadEntity.getOriImg(), mType == 1 ? mIvPic : mIvPic2);
+        if (mType == 1) {
+            mPath1 = upLoadEntity.getOriImg();
+        } else {
+            mPath2 = upLoadEntity.getOriImg();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mUploadingPicturePresenter!=null){
+            mUploadingPicturePresenter.onDestroy();
+        }
     }
 }

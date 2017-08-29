@@ -7,7 +7,8 @@ package com.arkui.transportation_shipper.api;
 public class UrlContents {
     // 服务器根地址
     //   public static final String BASE_URL = "http://shunfengche.181858.com/index.php/";
-    public static final String BASE_URL = "http://wuliu.181858.com/index.php/";
+    //public static final String BASE_URL = "http://wuliu.181858.com/index.php/";
+    public static final String BASE_URL = "http://wuliufz.gotoip1.com/index.php/";
     //1. 注册
     public static final String REGISTER = BASE_URL + "App/Users/register";
     //2.登陆
@@ -20,4 +21,8 @@ public class UrlContents {
     public static final String USER_INFO = BASE_URL + "App/Users/userInfo";
     // 6.App/Users/userEdit 完善信息
     public static final String USER_EDIT = BASE_URL + "App/Users/userEdit";
+    //车辆列表
+    public static final String TRUCK_LIST = BASE_URL + "/App/TruckOwner/truck_list";
+    //添加车辆
+    public static final String TRUCK_ADD = BASE_URL + "App/TruckOwner/truck_add";
 }

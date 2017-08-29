@@ -17,6 +17,10 @@ import com.arkui.transportation_shipper.owner.activity.asset.AddDriverActivity;
 import com.arkui.transportation_shipper.owner.activity.asset.AddVehicleActivity;
 import com.arkui.transportation_shipper.owner.adapter.ViewPagerAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +80,6 @@ public class AssetFragment extends BaseFragment implements View.OnClickListener 
     @OnClick(R.id.iv_add)
     public void onClick() {
         mRightPopupWindow.show(mIvAdd, Gravity.BOTTOM, mRightPopupWindow.getMeasuredWidth() - ToastUtil.dp2px(mContext, 25));
-
     }
 
     @Override
@@ -91,4 +94,5 @@ public class AssetFragment extends BaseFragment implements View.OnClickListener 
         }
         mRightPopupWindow.dismiss();
     }
+
 }
