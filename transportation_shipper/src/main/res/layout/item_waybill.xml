@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_cargo_info"
             android:text="京P564S2  汽油  预装20吨"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
                 android:textColor="@color/black_list_color"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_14"
+                android:id="@+id/tv_loading_address" />
 
             <ImageView
                 android:layout_gravity="center_vertical"
@@ -38,6 +39,7 @@
                 android:src="@mipmap/zc_go" />
 
             <TextView
+                android:id="@+id/tv_unloading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
@@ -46,6 +48,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

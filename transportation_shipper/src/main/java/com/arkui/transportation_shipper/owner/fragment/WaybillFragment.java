@@ -3,7 +3,6 @@ package com.arkui.transportation_shipper.owner.fragment;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.owner.adapter.ViewPageLazyrAdapter;
-import com.arkui.transportation_shipper.owner.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +43,9 @@ public class WaybillFragment extends BaseFragment {
 
         WaybillListFragment waybillListFragment2= WaybillListFragment.getInstance(2);
 
-        WaybillListFragment waybillListFragment3= WaybillListFragment.getInstance(3);
+        WaybillListFragment waybillListFragment3= WaybillListFragment.getInstance(4);
 
-        WaybillListFragment waybillListFragment4= WaybillListFragment.getInstance(4);
+        WaybillListFragment waybillListFragment4= WaybillListFragment.getInstance(5);
 
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
         fragmentList.add(waybillListFragment1);

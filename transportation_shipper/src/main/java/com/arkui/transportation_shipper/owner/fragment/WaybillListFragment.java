@@ -1,16 +1,20 @@
 package com.arkui.transportation_shipper.owner.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_tools._interface.WaybillListInterface;
+import com.arkui.fz_tools.entity.LogWayBIllListEntity;
+import com.arkui.fz_tools.mvp.WaybillListPresenter;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
+import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.owner.activity.waybill.DriverLocationActivity;
 import com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
@@ -19,6 +23,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,12 +32,22 @@ import butterknife.ButterKnife;
  * 基于基类的Fragment
  */
 
-public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<String>,OnRefreshListener {
+public class WaybillListFragment extends BaseLazyFragment implements OnBindViewHolderListener<LogWayBIllListEntity>,OnRefreshListener, WaybillListInterface {
 
     @BindView(R.id.rl_waybill)
     PullRefreshRecyclerView mRlWaybill;
-    private CommonAdapter<String> mWaybillListAdapter;
+    private CommonAdapter<LogWayBIllListEntity> mWaybillListAdapter;
     private int mType;
+    WaybillListPresenter  waybillListPresenter;
+     // 提供实例
+    public static WaybillListFragment getInstance(int type) {
+        Bundle bundle=new Bundle();
+        bundle.putInt("type",type);
+        WaybillListFragment waybillListFragment=new WaybillListFragment();
+        waybillListFragment.setArguments(bundle);
+        return waybillListFragment;
+    }
+
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -47,65 +63,72 @@ public class WaybillListFragment extends BaseLazyFragment implements OnBindViewH
         mRlWaybill.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         mRlWaybill.setLinearLayoutManager();
         mRlWaybill.setAdapter(mWaybillListAdapter);
-        //lazy();
-
+        waybillListPresenter = new WaybillListPresenter(this, getActivity());
         mType = getArguments().getInt("type");
-
         mWaybillListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(mContext, WaybillListDetailActivity.class);
-                intent.putExtra("position",position);
-                intent.putExtra("type", mType);
-                startActivity(intent);
+                LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
+                WaybillListDetailActivity.openActivity(getActivity(),item.getOwnerStatus(),item.getId());
+            }
+        });
+
+        mWaybillListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                showActivity(DriverLocationActivity.class);
             }
         });
     }
 
     @Override
-    public void convert(BaseViewHolder helper, String item) {
+    public void convert(BaseViewHolder helper, LogWayBIllListEntity item) {
+        helper.setText(R.id.tv_cargo_info, item.getLicensePlate() + "   " + item.getCargoName());
+        String[] loadingAddress = item.getLoadingAddress().split(" ");
+        String[] unloadingAddress = item.getUnloadingAddress().split(" ");
+        helper.setText(R.id.tv_loading_address, loadingAddress[0]);
+        helper.setText(R.id.tv_unloading_address, unloadingAddress[0]);
+        helper.setText(R.id.tv_company,item.getLogName());
         switch (mType){
             case 1:
-                helper.setText(R.id.tv_name,"京P564S2 李晓明 汽油  预装20吨");
+                helper.setText(R.id.tv_cargo_info, item.getLicensePlate() + "   " + item.getTruckName()+" " + item.getCargoName()
+                        + "  预装" + item.getCarrierNum() + StrUtil.formatUnit(item.getUnit()));
                 break;
             case 4:
+            case 5:
                 helper.setVisible(R.id.ll_location,false);
-                helper.setText(R.id.tv_name,"京P564S2  汽油");
-                break;
-            default:
-                helper.setText(R.id.tv_name,"京P564S2  汽油");
                 break;
         }
+        helper.addOnClickListener(R.id.ll_location);
     }
 
+    /**
+     * 加载数据
+     */
     public void onRefreshing() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                mWaybillListAdapter.addData("京H786486D");
-                mWaybillListAdapter.addData("京H786486D");
-                mWaybillListAdapter.addData("京H786486D");
-                mWaybillListAdapter.addData("京H786486D");
-                mRlWaybill.refreshComplete();
-            }
-        }, 200);
+       waybillListPresenter.getWaybillList(App.getUserId(),String.valueOf(mType));
     }
 
     @Override
     protected void lazyLoadData() {
         onRefreshing();
     }
-
-
-    public static WaybillListFragment getInstance(int type) {
-        Bundle bundle=new Bundle();
-        bundle.putInt("type",type);
-        WaybillListFragment waybillListFragment=new WaybillListFragment();
-        waybillListFragment.setArguments(bundle);
-        return waybillListFragment;
-    }
-
+  //  下拉刷新
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         onRefreshing();
+    }
+
+    //请求数据成功
+    @Override
+    public void onSuccess(List<LogWayBIllListEntity> logWayBIllListEntityList) {
+        mWaybillListAdapter.setNewData(logWayBIllListEntityList);
+        mRlWaybill.refreshComplete();
+    }
+  // 请求数据失败
+    @Override
+    public void onError(String errorMessage) {
+        mRlWaybill.refreshComplete();
+        mRlWaybill.loadFail();
     }
 }

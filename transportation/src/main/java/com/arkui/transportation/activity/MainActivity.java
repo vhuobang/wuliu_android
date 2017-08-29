@@ -51,7 +51,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-
     @OnClick({R.id.rb_home, R.id.rb_message, R.id.rb_waybill, R.id.rb_my,R.id.iv_publish})
     public void onClick(View view) {
         switch (view.getId()) {

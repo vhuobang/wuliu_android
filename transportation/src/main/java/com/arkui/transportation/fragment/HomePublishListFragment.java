@@ -111,7 +111,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
             helper.setText(R.id.tv_start_address, loadingAddress[0]);
             helper.setText(R.id.tv_destination, unloadAddress[0]);
             helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
-                    + "/" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
+                    + "/剩余" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
         }
 
     }
@@ -120,7 +120,6 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
      * 请求数据
      */
     public void onRefreshing() {
-
         loadData();
     }
 

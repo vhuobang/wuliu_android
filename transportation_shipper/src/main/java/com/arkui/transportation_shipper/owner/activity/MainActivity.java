@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         mMyFragment = new MyFragment();
         changeFragment(R.id.fl_content, mMessageFragment);
 
-
     }
 
     public void changeFragment(int resView, BaseFragment targetFragment) {

@@ -32,8 +32,10 @@ public class WaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,Ba
     protected void convert(BaseViewHolder helper, LogWayBIllListEntity item) {
         helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
                 item.getCarrierNum()+ StrUtil.formatUnit(item.getUnit()));
-        helper.setText(R.id.tv_address, item.getLoadingAddress());
-        helper.setText(R.id.tv_unloading_address, item.getUnloadingAddress());
+        String[] loadingAddress = item.getLoadingAddress().split(" ");
+        String[] unloadingAddress = item.getUnloadingAddress().split(" ");
+        helper.setText(R.id.tv_address, loadingAddress[0]);
+        helper.setText(R.id.tv_unloading_address, unloadingAddress[1]);
 
         String cargoStatus = item.getCargoStatus();
         switch (cargoStatus) {

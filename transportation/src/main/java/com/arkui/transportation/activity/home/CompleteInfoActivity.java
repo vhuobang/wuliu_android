@@ -137,12 +137,13 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
                         finish();
                         AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
 
+
                     }
                 }, 1000);
                     }
                     @Override
                     public void onApiError(ApiException e) {
-                        super.onApiError(e);
+                     //   super.onApiError(e);
                     }
                 });
 

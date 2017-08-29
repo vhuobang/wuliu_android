@@ -141,7 +141,6 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
         context.startActivity(intent);
     }
 
-
     @Override
     public void onSuccess(WayBillDetailEntity entity) {
         mWayBillDetailEntity = entity;
