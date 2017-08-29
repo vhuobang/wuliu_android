@@ -35,7 +35,6 @@ import butterknife.OnClick;
 
 public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, OnConfirmClick, EndTimePicker.OnEnsureListener, PublicInterface {
 
-
     @BindView(R.id.tv_selected_1)
     TextView mTvSelected1;
     @BindView(R.id.tv_selected_2)

@@ -12,6 +12,7 @@ import com.arkui.fz_tools.mvp.WayBillDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.driver.activity.waybill.LoadingBillActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,6 +93,10 @@ public class WaybillListDetailActivity extends BaseActivity implements WayBillDe
                 } else { // 司机位置
                     showActivity(DriverLocationActivity.class);
                 }
+
+                break;
+            case R.id.tv_uploading:
+                showActivity(LoadingBillActivity.class);
                 break;
 
         }

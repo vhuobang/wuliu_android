@@ -68,17 +68,13 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         mOrderMessageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
                 NoticeEntity item = (NoticeEntity) adapter.getItem(position);
                 publicPresenter.getReadMessage(item.getId());
-
                 ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
                 readPoint.setVisibility(View.GONE);
                 showActivity(WaybillDetailActivity.class);
-
             }
         });
-
     }
 
     @Override
@@ -89,8 +85,6 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     private void getLoadData() {
         mPresenter.getNoticeList(App.getUserId(),ORDER_TYPE,page,pageSize);
     }
-
-
     public void onRefreshing() {
         page=1;
         getLoadData();
@@ -107,7 +101,6 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         }else {
             helper.getView(R.id.red_point).setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -174,7 +167,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+     //   mPresenter.onDestroy();
         publicPresenter.onDestroy();
     }
 }

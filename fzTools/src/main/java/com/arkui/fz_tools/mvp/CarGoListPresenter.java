@@ -45,7 +45,7 @@ public class CarGoListPresenter extends BasePresenter {
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
+               // super.onApiError(e);
                 mCarGoListInterface.onCarGoListFail(e.getMessage());
             }
         });
