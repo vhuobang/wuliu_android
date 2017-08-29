@@ -71,4 +71,6 @@ public class NetConstants {
     public static final String EDIT_CARGO_INFO=BASE_URL+"index.php/App/logistical/editCargoInfo";
     //已发布详情
     public static final String PUBLISH_DETAILS=BASE_URL+"index.php/App/logistical/publishDetails";
+    // 车主端和货主端公用 运单列表
+    public static final String WAYBILL_LIST=BASE_URL+"index.php/App/Waybill/waybill_list";
 }

@@ -53,7 +53,7 @@ public interface LogisticalApi {
     @POST(UrlContents.UP_CARGO_STATUS)
     Observable<BaseHttpResult> upCargoStatus(@Field("cargo_id") String carGoId);
 
-    // 货主运单列表
+    // 物流端运单列表
     @FormUrlEncoded
     @POST(UrlContents.LOG_WAYBILL_LIST)
     Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogWaybillList(@Field("user_id") String userId, @Field("order_status") String order_status, @Field("type") String type);

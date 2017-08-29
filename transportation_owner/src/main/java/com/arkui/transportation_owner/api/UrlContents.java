@@ -20,4 +20,7 @@ public class UrlContents {
     public static final String USER_INFO = BASE_URL + "App/Users/userInfo";
     // 6.App/Users/userEdit 完善信息
     public static final String USER_EDIT = BASE_URL + "App/Users/userEdit";
+
+    // 7.货源状态已停止
+    public static final String UP_CARGO_STATUS = BASE_URL + "App/logistical/upCargoStatus";
 }

@@ -43,10 +43,10 @@ public class WaybillFragment extends BaseFragment {
         PublishListFragment publishListFragment1 = PublishListFragment.getInstance(1);
         PublishListFragment publishListFragment2 = PublishListFragment.getInstance(2);
 
-        WaybillListFragment waybillListFragment3 = WaybillListFragment.getInstance(3);
-        WaybillListFragment waybillListFragment4 = WaybillListFragment.getInstance(4);
-        WaybillListFragment waybillListFragment5 = WaybillListFragment.getInstance(5);
-        WaybillListFragment waybillListFragment6 = WaybillListFragment.getInstance(6);
+        WaybillListFragment waybillListFragment3 = WaybillListFragment.getInstance(1);
+        WaybillListFragment waybillListFragment4 = WaybillListFragment.getInstance(2);
+        WaybillListFragment waybillListFragment5 = WaybillListFragment.getInstance(3);
+        WaybillListFragment waybillListFragment6 = WaybillListFragment.getInstance(5);
 
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
         fragmentList.add(publishListFragment1);

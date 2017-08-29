@@ -69,7 +69,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
     private UserPresenter userPresenter;
     private String isUserCertificate;
     private String isCompanyCertificate;
-
+   private  UserEntity mUserEntity;
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_my, container, false);
@@ -85,9 +85,12 @@ public class MyFragment extends BaseFragment implements UserInterface {
 
     @OnClick({R.id.ll_balance, R.id.ll_point, R.id.ll_share, R.id.ll_service, R.id.ll_driver_login, R.id.iv_setting, R.id.iv_head, R.id.ll_auth, R.id.ll_info_fee})
     public void onClick(View view) {
+
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                showActivity(MyBalanceActivity.class);
+                bundle.putString("balance",mUserEntity.getBalance());
+                showActivity(MyBalanceActivity.class,bundle);
                 break;
             case R.id.ll_point:
                 showActivity(MyPointActivity.class);
@@ -143,7 +146,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
     // 返回用户信息
     @Override
     public void loginSucceed(UserEntity userEntity) {
-
+        mUserEntity =userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(), ivHead);
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();

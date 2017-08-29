@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     android:orientation="vertical"
-    tools:context="com.arkui.transportation_owner.activity.my.AddBankActivity">
-
+    >
 
     <TextView
         android:layout_width="match_parent"

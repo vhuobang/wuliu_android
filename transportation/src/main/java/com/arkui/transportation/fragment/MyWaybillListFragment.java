@@ -104,7 +104,7 @@ public class MyWaybillListFragment extends BaseLazyFragment implements OnRefresh
     @Override
     public void onSuccess(List<LogWayBIllListEntity> logWayBIllListEntities) {
           mListAdapter.setNewData(logWayBIllListEntities);
-        mRlList.refreshComplete();
+         mRlList.refreshComplete();
     }
 
     @Override

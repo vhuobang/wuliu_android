@@ -4,14 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.arkui.transportation_shipper.owner.activity.waybill.CargoInfoActivity">
-
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,6 +23,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_loading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -37,6 +34,7 @@
 
 
                 <TextView
+                    android:id="@+id/tv_loading_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -54,7 +52,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@mipmap/go" />
+                android:src="@mipmap/sy_go" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -63,6 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_unloading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -73,6 +72,7 @@
 
 
                 <TextView
+                    android:id="@+id/tv_unloading_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -102,6 +102,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_good_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -126,6 +127,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/cargo_density"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,6 +152,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/freight_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -174,6 +177,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/cargo_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -199,6 +203,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/loading_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -223,10 +228,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/payment_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="甲醛/100吨/剩余40吨"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -247,6 +252,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/settlement_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -271,6 +277,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/press_charges"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -298,6 +305,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/truck_drawer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -312,7 +320,6 @@
 
 
             <TableRow
-                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="8dp"
@@ -325,7 +332,7 @@
                     android:text="联系电话" />
 
                 <TextView
-                    android:gravity="center_vertical"
+                    android:id="@+id/truck_tel"
                     android:drawableRight="@mipmap/hz_phone"
                     style="@style/TextViewWeight999"
                     android:background="@null"
@@ -341,6 +348,7 @@
                 android:padding="10dp">
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="卸车联系人"
@@ -348,6 +356,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/unloading_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -362,7 +371,6 @@
 
 
             <TableRow
-                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="8dp"
@@ -375,7 +383,7 @@
                     android:text="联系电话" />
 
                 <TextView
-                    android:gravity="center_vertical"
+                    android:id="@+id/unloading_tel"
                     android:drawableRight="@mipmap/hz_phone"
                     style="@style/TextViewWeight999"
                     android:background="@null"
@@ -400,10 +408,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/remarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 

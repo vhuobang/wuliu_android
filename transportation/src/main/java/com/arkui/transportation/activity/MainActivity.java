@@ -25,8 +25,6 @@ import butterknife.OnClick;
  * @time 2017/6/19 10:08
  */
 public class MainActivity extends BaseActivity {
-
-
     @BindView(R.id.rg_root)
     RadioGroup mRgRoot;
     private long mPressedTime = 0;

@@ -49,7 +49,7 @@ public class MyBalanceActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_right:
-                showActivity(WithdrawRecordActivity.class);
+                showActivity(DetailBillActivity.class);
                 break;
             case R.id.bt_recharge:
                 showActivity(AccountRechargeActivity.class);

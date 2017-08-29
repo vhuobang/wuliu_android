@@ -169,7 +169,7 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-
+        mRlSearch.refreshComplete();
     }
     // 搜索成功
     @Override
