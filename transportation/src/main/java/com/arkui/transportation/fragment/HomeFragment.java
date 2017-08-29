@@ -83,7 +83,6 @@ public class HomeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         loadMessageData();
-
     }
 
     private void loadMessageData() {
@@ -110,7 +109,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
+//                super.onApiError(e);
             }
         });
     }

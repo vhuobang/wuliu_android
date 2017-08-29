@@ -4,6 +4,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -85,8 +86,8 @@ public class SupplyDetailActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        mType = getIntent().getIntExtra("type", -1);
-     //   cargo_id = getIntent().getStringExtra("cargo_id");
+         mType = getIntent().getIntExtra("type", -1);
+         cargo_id = getIntent().getStringExtra("cargo_id");
         logisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
         if (mType == 0) {
             mBtStart.setText("立即发布");
@@ -102,6 +103,7 @@ public class SupplyDetailActivity extends BaseActivity {
     }
 
     private void loadData() {
+
         Observable<LogisticalDetailEntity> observable = logisticalApi.getLogisticalDetails(cargo_id).map(new HttpResultFunc<LogisticalDetailEntity>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<LogisticalDetailEntity>(mActivity) {
             @Override
@@ -112,6 +114,11 @@ public class SupplyDetailActivity extends BaseActivity {
             @Override
             public void onNext(LogisticalDetailEntity logisticalDetailEntity) {
                 setUiData(logisticalDetailEntity);
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+            //   super.onApiError(e);
             }
         });
     }

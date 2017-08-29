@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/tv_product_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="京P564S2  汽油" />
 
         <LinearLayout

@@ -32,10 +32,12 @@ public class MyWaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,
 
     @Override
     protected void convert(BaseViewHolder helper, LogWayBIllListEntity item) {
-        helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
+        helper.setText(R.id.tv_product_info, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
                 item.getCarrierNum()+ StrUtil.formatUnit(item.getUnit()));
-        helper.setText(R.id.tv_address, item.getLoadingAddress());
-        helper.setText(R.id.tv_unloading_address, item.getUnloadingAddress());
+        String[] split = item.getLoadingAddress().split(" ");
+        helper.setText(R.id.tv_address,split[0]);
+        String[] split1 = item.getUnloadingAddress().split(" ");
+        helper.setText(R.id.tv_unloading_address,split1[0]);
         String mType = item.getCargoStatus();
 
         switch (mType) {

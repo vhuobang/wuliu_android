@@ -92,9 +92,14 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
 
     @Override
     public void onSuccess(ReleaseDetailsEntity entity) {
+        String[] loadAddress = entity.getLoadingAddress().split(" ");
+        String[] unloadAddress = entity.getUnloadingAddress().split(" ");
 
-        tvLoadingAddress.setText(entity.getLoadingAddress());
-        tvUnloadingAddress.setText(entity.getUnloadingAddress());
+        tvLoadingAddress.setText(loadAddress[0]);
+        tvLoadingDetailAddress.setText(loadAddress[1]);
+        tvUnloadingAddress.setText(unloadAddress[0]);
+        tvUnloadingDetailAddress.setText(unloadAddress[1]);
+
         String unit = StrUtil.formatUnit(entity.getUnit());
         tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + unit);
         cargoDensity.setText(entity.getCargoDensity());
