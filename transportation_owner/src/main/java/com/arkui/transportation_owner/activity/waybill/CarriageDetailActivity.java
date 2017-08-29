@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_net.http.ApiException;
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.RetrofitFactory;
+import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
@@ -13,6 +18,7 @@ import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.adapter.PublishDetailsAdapter;
+import com.arkui.transportation_owner.api.LogisticalApi;
 import com.arkui.transportation_owner.entity.PublishDetailEntity;
 import com.arkui.transportation_owner.mvp.PublishDetailPresenter;
 import com.arkui.transportation_owner.view.PublishDetailView;
@@ -22,18 +28,27 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+
+import static com.arkui.transportation_owner.R.id.tv_state;
 
 
 public class CarriageDetailActivity extends BaseActivity implements OnRefreshListener, PublishDetailView, OnConfirmClick {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
+
+    @BindView(R.id.tv_state)
+    TextView tvState;
     //private CommonAdapter<String> mCarriageDetailAdapter;
     private CommonDialog mCommonDialog;
     private PublishDetailsAdapter mPublishDetailsAdapter;
     private PublishDetailPresenter mPublishDetailPresenter;
     private ViewHolder mHeadHolder;
     private String mId;
+    private String cStatus;
+    LogisticalApi logisticalApi;
 
     @Override
     public void setRootView() {
@@ -46,7 +61,10 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-
+        mId = getIntent().getStringExtra("id");
+        cStatus = getIntent().getStringExtra("cStatus");
+        tvState.setText(StrUtil.formatCStatus(cStatus));
+        statusClickable();
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
 
@@ -61,8 +79,9 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         initHeadView(mCarriageHeaderView);
         mPublishDetailsAdapter.setHeaderView(mCarriageHeaderView);
         mCommonDialog = new CommonDialog();
-        mCommonDialog.setTitle("停止抢单").setContent("该运单还剩20吨没有被抢，确定要停止发布吗？");
+        mCommonDialog.setTitle("停止抢单").setContent("确定要停止发布吗？");
         mCommonDialog.setConfirmClick(this);
+        logisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
     }
 
     private void initHeadView(View mCarriageHeaderView) {
@@ -78,12 +97,26 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
     @Override
     public void initData() {
         super.initData();
-        mId = getIntent().getStringExtra("id");
+
         mPublishDetailPresenter = new PublishDetailPresenter(this, this);
         mPublishDetailPresenter.postPublishDetail(mId);
     }
 
-    @OnClick(R.id.tv_state)
+    private void statusClickable() {
+        switch (cStatus){
+            case "1": //发布中
+                tvState.setClickable(true);
+                break;
+            case "2":// 已抢完
+                tvState.setClickable(false);
+                break;
+            case "3"://已停止
+                tvState.setClickable(false);
+                break;
+        }
+    }
+
+    @OnClick(tv_state)
     public void onClick() {
         mCommonDialog.show(getSupportFragmentManager(), "state");
     }
@@ -93,9 +126,10 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mPublishDetailPresenter.postPublishDetail(mId);
     }
 
-    public static void showActivity(Context context, String cargo_id) {
+    public static void showActivity(Context context, String cargo_id,String cStatus) {
         Intent intent = new Intent(context, CarriageDetailActivity.class);
         intent.putExtra("id", cargo_id);
+        intent.putExtra("cStatus",cStatus);
         context.startActivity(intent);
     }
 
@@ -127,9 +161,26 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mPublishDetailPresenter.onDestroy();
     }
 
+    // 点击发布停止
     @Override
     public void onConfirmClick() {
+        Observable<BaseHttpResult> observable = logisticalApi.upCargoStatus(mId);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+            @Override
+            public void onNext(BaseHttpResult value) {
+                tvState.setText("已停止");
+                tvState.setClickable(false);
+            }
 
+            @Override
+            public void onApiError(ApiException e) {
+               // super.onApiError(e);
+            }
+        });
     }
 
     static class ViewHolder {

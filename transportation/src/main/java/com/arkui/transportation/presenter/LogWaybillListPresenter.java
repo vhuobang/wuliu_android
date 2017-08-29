@@ -31,7 +31,7 @@ public class LogWaybillListPresenter extends BasePresenter {
         mContext= activity;
         mLogisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
     }
-    // 请求运单列表
+    // 物流运单列表
     public  void  getWaybillList(String userId,String orderStatus,String type){
 
         Observable<List<LogWayBIllListEntity>> observable = mLogisticalApi.getLogWaybillList(userId, orderStatus, type).map(new HttpResultFunc<List<LogWayBIllListEntity>>());

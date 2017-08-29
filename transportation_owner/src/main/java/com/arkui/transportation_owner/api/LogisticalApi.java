@@ -50,4 +50,8 @@ public interface LogisticalApi {
     @POST(NetConstants.PUBLISH_DETAILS)
     Observable<BaseHttpResult<PublishDetailEntity>> postPublishDetail(@Field("user_id") String user_id,@Field("cargo_id") String cargo_id);
 
+    // UP_CARGO_STATUS 停止发布
+    @FormUrlEncoded
+    @POST(UrlContents.UP_CARGO_STATUS)
+    Observable<BaseHttpResult> upCargoStatus(@Field("cargo_id") String carGoId);
 }

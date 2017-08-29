@@ -54,7 +54,10 @@ public class MyFragment extends BaseFragment implements UserInterface {
     LinearLayout llService;
     @BindView(R.id.ll_driver_login)
     LinearLayout llDriverLogin;
-
+    @BindView(R.id.balance)
+    TextView mBalance;
+    @BindView(R.id.integral)
+    TextView mIntegral;
     @BindView(R.id.tv_auth)
     TextView tvAuth;
 
@@ -62,7 +65,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
     private UserPresenter userPresenter;
     private String isUserCertificate;
     private String isCompanyCertificate;
-
+    private  UserEntity mUserEntity;
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_my, container, false);
@@ -74,17 +77,20 @@ public class MyFragment extends BaseFragment implements UserInterface {
         ButterKnife.bind(this, parentView);
         userPresenter = new UserPresenter(this, getActivity());
         mShareDialog = new ShareDialog();
-
     }
 
     @OnClick({R.id.ll_balance, R.id.ll_point, R.id.ll_share, R.id.ll_service, R.id.ll_driver_login, R.id.iv_setting, R.id.iv_head, R.id.ll_auth})
     public void onClick(View view) {
+
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                showActivity(MyBalanceActivity.class);
+                bundle.putString("balance",mUserEntity.getBalance());
+                showActivity(MyBalanceActivity.class,bundle);
                 break;
             case R.id.ll_point:
-                showActivity(MyPointActivity.class);
+                bundle.putString("jifen",mUserEntity.getIntegral());
+                showActivity(MyPointActivity.class,bundle);
                 break;
             case R.id.ll_share:
                 //mShareDialog.show(getChildFragmentManager(), "share");
@@ -131,13 +137,18 @@ public class MyFragment extends BaseFragment implements UserInterface {
     public void onSucceed() {
 
     }
+
+
     // 返回用户信息
     @Override
     public void loginSucceed(UserEntity userEntity) {
+        mUserEntity = userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(),ivHead );
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();
         isCompanyCertificate = userEntity.getIsCompanyCertificate();
+        mBalance.setText("￥"+userEntity.getBalance());
+        mIntegral.setText( userEntity.getIntegral());
         if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")){
             tvAuth.setText("未认证 立即认证");
         }

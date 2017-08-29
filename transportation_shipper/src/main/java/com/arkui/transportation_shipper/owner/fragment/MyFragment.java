@@ -62,9 +62,11 @@ public class MyFragment extends BaseFragment implements UserInterface {
 
     @OnClick({R.id.ll_balance, R.id.ll_point, R.id.ll_share, R.id.ll_service, R.id.ll_driver_login, R.id.iv_setting, R.id.iv_head, R.id.ll_auth})
     public void onClick(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                showActivity(MyBalanceActivity.class);
+                bundle.putString("balance",mUserEntity.getBalance());
+                showActivity(MyBalanceActivity.class,bundle);
                 break;
             case R.id.ll_point:
                 showActivity(MyPointActivity.class);
@@ -112,9 +114,10 @@ public class MyFragment extends BaseFragment implements UserInterface {
     public void onSucceed() {
 
     }
-
+   private  UserEntity mUserEntity;
     @Override
     public void loginSucceed(UserEntity userEntity) {
+        mUserEntity = userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(), ivHead);
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();

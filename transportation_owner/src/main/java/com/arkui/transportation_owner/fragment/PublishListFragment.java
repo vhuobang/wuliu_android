@@ -16,7 +16,6 @@ import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.waybill.CarriageDetailActivity;
 import com.arkui.transportation_owner.activity.waybill.PlanPublishDetailActivity;
-import com.arkui.transportation_owner.activity.waybill.WaybillDetailActivity;
 import com.arkui.transportation_owner.adapter.PublishAdapter;
 import com.arkui.transportation_owner.base.App;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
@@ -68,23 +67,17 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String id = mPublishAdapter.getItem(position).getId();
+                String cStatus = mPublishAdapter.getItem(position).getCStatus();
                 switch (mType) {
                     case 1:
-                        //showActivity(PlanPublishDetailActivity.class);
+
                         PlanPublishDetailActivity.showActivity(mActivity, id);
                         break;
                     case 2:
-                        //showActivity(CarriageDetailActivity.class);
-                        CarriageDetailActivity.showActivity(mContext, id);
+
+                        CarriageDetailActivity.showActivity(mContext, id,cStatus);
                         break;
-                   /* case 3:
-                    case 4:
-                        showActivity(WaybillDetailActivity.class);
-                        break;
-                    case 5:
-                    case 6:
-                        WaybillDetailActivity.openActivity(mContext, mType);
-                        break;*/
+
                 }
             }
         });

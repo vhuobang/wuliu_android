@@ -121,7 +121,6 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
             case R.id.tr_wait_pay: // 需要付款
                 break;
             case R.id.tv_owner_info:
-
                 Intent intent = new Intent(mActivity, OwnerInfoActivity.class);
                 boolean isMy = getIntent().getBooleanExtra("isMy", false);
                 intent.putExtra("isMy", isMy);
@@ -145,14 +144,6 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 bundle.putString("wayBillId", waybillId);
                 showActivity(PublishEvaluateActivity.class, bundle);
                 break;
-           /*
-            case R.id.tv_logistics_info:
-                showActivity(LogisticsInfoActivity.class);
-                break;
-            case R.id.tv_driver_location:
-                showActivity(DriverLocationActivity.class);
-                break;
-           */
         }
     }
 
@@ -201,9 +192,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
             mPaymentMoney.setText(entity.getAllPrice());
 
         }
-
     }
-
     /**
      * 请求数据失败
      *

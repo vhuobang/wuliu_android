@@ -3,6 +3,7 @@ package com.arkui.fz_tools.api;
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.CarGoListEntity;
 import com.arkui.fz_tools.entity.CargoOwnerInfoEntity;
+import com.arkui.fz_tools.entity.LogWayBIllListEntity;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.entity.SystemDetialEntity;
@@ -64,4 +65,8 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.CARGO_OWNER_INFO)
     Observable<BaseHttpResult<CargoOwnerInfoEntity>> getCargoOwnerInfo(@Field("cargo_id") String cargo_id,@Field("owner_id") String ownerId);
+    // 货主 车主 运单列表
+    @FormUrlEncoded
+    @POST(NetConstants.WAYBILL_LIST)
+    Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogWaybillList(@Field("user_id") String userId, @Field("order_status") String order_status);
 }

@@ -1,7 +1,6 @@
 package com.arkui.transportation_owner.mvp;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
@@ -51,7 +50,7 @@ public class PublishDetailPresenter extends BasePresenter {
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
+              //  super.onApiError(e);
                 mPublishDetailView.onError();
             }
         });

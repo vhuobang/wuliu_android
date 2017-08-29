@@ -1,6 +1,7 @@
 package com.arkui.transportation_owner.activity.my;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation_owner.R;
@@ -10,6 +11,8 @@ import butterknife.OnClick;
 
 
 public class MyPointActivity extends BaseActivity {
+
+    private String jifen;
 
     @Override
     public void setRootView() {
@@ -22,6 +25,9 @@ public class MyPointActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        TextView textJiFen = (TextView) findViewById(R.id.tv_jifen_number);
+        jifen = getIntent().getStringExtra("jifen");
+        textJiFen.setText(jifen);
     }
 
     @OnClick({R.id.bt_withdraw, R.id.iv_back,R.id.iv_right})
