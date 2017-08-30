@@ -9,7 +9,7 @@
     tools:context="com.arkui.transportation_shipper.owner.activity.asset.ViewVehicleLargeMapActivity">
 
     <ImageView
-        android:src="@mipmap/zc_photo"
+        android:id="@+id/iv_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

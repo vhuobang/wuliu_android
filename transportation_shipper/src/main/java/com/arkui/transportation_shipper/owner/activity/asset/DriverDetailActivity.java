@@ -92,7 +92,7 @@ public class DriverDetailActivity extends BaseActivity implements OnBindViewHold
                 break;
             case R.id.iv_front:
                 //showActivity(ViewVehicleLargeMapActivity.class);
-                mViewVehicleLargeMapDialog.show(getFragmentManager(), "dialog");
+                mViewVehicleLargeMapDialog.show(getSupportFragmentManager(), "dialog");
                 break;
         }
     }

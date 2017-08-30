@@ -1,15 +1,22 @@
 package com.arkui.transportation_shipper.owner.activity.asset;
 
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
+import com.arkui.fz_net.http.RetrofitFactory;
+import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.AssetDecoration;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.api.AssetApi;
+import com.arkui.transportation_shipper.common.entity.VehicleDetailEntity;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.dialog.ViewVehicleLargeMapDialog;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
@@ -18,8 +25,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
-
+/*
+车辆详情
+ */
 public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHolderListener<String>, View.OnClickListener, OnConfirmClick {
 
     @BindView(R.id.rl_vehicle_derails)
@@ -27,6 +38,9 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     private CommonAdapter<String> mRlVehicleDerailsAdapter;
     private ViewVehicleLargeMapDialog mViewVehicleLargeMapDialog;
     private CommonDialog mCommonDialog;
+    private AssetApi mAssetApi;
+    private ViewHolder mViewHolder;
+    private VehicleDetailEntity.TruckDetailBean mTruckDetail;
 
     @Override
     public void setRootView() {
@@ -41,28 +55,69 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
 
         mRlVehicleDerails.setLinearLayoutManager();
         //CommonAdapter<String> mRlVehicleDerailsAdapter=new CommonAdapter<>(R.layout.item_vehicle_details,this);
-
         mRlVehicleDerailsAdapter = CommonAdapter.getInstance(R.layout.item_vehicle_details, this);
         mRlVehicleDerails.setAdapter(mRlVehicleDerailsAdapter);
-        mRlVehicleDerails.addItemDecoration(new AssetDecoration(mActivity,AssetDecoration.VERTICAL_LIST));
+        mRlVehicleDerails.addItemDecoration(new AssetDecoration(mActivity, AssetDecoration.VERTICAL_LIST));
 
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
             public void run() {
                 mRlVehicleDerailsAdapter.addData("车辆已装货");
                 mRlVehicleDerailsAdapter.addData("车辆已装货");
                 mRlVehicleDerails.refreshComplete();
             }
-        }, 2000);
+        }, 2000);*/
         mRlVehicleDerails.setEnablePullToRefresh(false);
 
         View vehicle_details_head = getLayoutInflater().inflate(R.layout.layout_vehicle_details_head, mRlVehicleDerails, false);
         mRlVehicleDerailsAdapter.addHeaderView(vehicle_details_head);
-
-        vehicle_details_head.findViewById(R.id.iv_front);
-        ImageView IvFront = ButterKnife.findById(vehicle_details_head, R.id.iv_front);
-        IvFront.setOnClickListener(this);
-
+        initHeadView(vehicle_details_head);
         initDialog();
+    }
+
+    private void initHeadView(View vehicle_details_head) {
+        /*vehicle_details_head.findViewById(R.id.iv_front);
+        ImageView IvFront = ButterKnife.findById(vehicle_details_head, R.id.iv_front);
+        IvFront.setOnClickListener(this);*/
+        mViewHolder = new ViewHolder(vehicle_details_head);
+        mViewHolder.mIvFront.setOnClickListener(this);
+        mViewHolder.mIvDrivingLicense.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        String id = getIntent().getStringExtra("id");
+        mAssetApi = RetrofitFactory.createRetrofit(AssetApi.class);
+        //获取车辆详情
+        getNetData(id);
+    }
+
+    private void getNetData(String id) {
+        Observable<VehicleDetailEntity> observable = mAssetApi.postVehicleDetail(id).map(new HttpResultFunc<VehicleDetailEntity>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<VehicleDetailEntity>(mActivity) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(VehicleDetailEntity value) {
+                setUiData(value);
+            }
+        });
+    }
+
+    private void setUiData(VehicleDetailEntity value) {
+        mTruckDetail = value.getTruck_detail();
+        mViewHolder.mTvLicensePlate.setText(mTruckDetail.getLicense_plate());
+        mViewHolder.mTvSingularNum.setText(mTruckDetail.getSingular_num());
+        mViewHolder.mTvType.setText(mTruckDetail.getType());
+        GlideUtils.getInstance().load(mActivity, mTruckDetail.getTruck_poto(), mViewHolder.mIvFront);
+        GlideUtils.getInstance().load(mActivity, mTruckDetail.getDriving_license_photo(), mViewHolder.mIvDrivingLicense);
+
+        //TODO 2017年8月30日 暂时性留个问题 因为这里数据未知 没数据
+        mRlVehicleDerailsAdapter.setNewData(null);
     }
 
     private void initDialog() {
@@ -87,8 +142,16 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
                 mCommonDialog.show(getSupportFragmentManager(), "del");
                 break;
             case R.id.iv_front:
+                if (mTruckDetail == null)
+                    return;
                 //showActivity(ViewVehicleLargeMapActivity.class);
-                mViewVehicleLargeMapDialog.show(getFragmentManager(), "dialog");
+                mViewVehicleLargeMapDialog.setImgUrl(mTruckDetail.getTruck_poto()).showDialog(this, "dialog");
+                break;
+            case R.id.iv_driving_license:
+                if (mTruckDetail == null)
+                    return;
+                //showActivity(ViewVehicleLargeMapActivity.class);
+                mViewVehicleLargeMapDialog.setImgUrl(mTruckDetail.getDriving_license_photo()).showDialog(this, "dialog");
                 break;
         }
     }
@@ -97,5 +160,22 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     @Override
     public void onConfirmClick() {
 
+    }
+
+    static class ViewHolder {
+        @BindView(R.id.tv_license_plate)
+        TextView mTvLicensePlate;
+        @BindView(R.id.tv_type)
+        TextView mTvType;
+        @BindView(R.id.tv_singular_num)
+        TextView mTvSingularNum;
+        @BindView(R.id.iv_front)
+        ImageView mIvFront;
+        @BindView(R.id.iv_driving_license)
+        ImageView mIvDrivingLicense;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

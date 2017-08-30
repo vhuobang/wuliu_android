@@ -1,12 +1,15 @@
 package com.arkui.transportation_shipper.owner.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
+import com.arkui.fz_net.http.RetrofitFactory;
+import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.AddressPicker;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.City;
@@ -14,8 +17,11 @@ import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.api.SupplyApi;
+import com.arkui.transportation_shipper.common.entity.SupplyListEntity;
 import com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
+import com.arkui.transportation_shipper.owner.adapter.SupplyAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.arkui.transportation_shipper.owner.utils.LoadCityData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,11 +29,14 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 /**
@@ -38,12 +47,15 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
 
     @BindView(R.id.rl_supply)
     PullRefreshRecyclerView mRlSupply;
-    private CommonAdapter<String> mSupplyAdapter;
+    private SupplyAdapter mSupplyAdapter;
     private CommonDialog mCommonDialog;
     private AddressPicker mAddressPicker;
     private List<City> mCities;
     private Disposable mDisposable;
-
+    private int mPage=1;
+    private SupplyApi mSupplyApi;
+    private String mLoadingAddress="";
+    private String mUnloadingAddress="";
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_supply, container, false);
@@ -53,11 +65,10 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
-        mSupplyAdapter = CommonAdapter.getInstance(R.layout.item_supply, this);
+        mSupplyAdapter = new SupplyAdapter();
         mRlSupply.setLinearLayoutManager();
         mRlSupply.setAdapter(mSupplyAdapter);
         mRlSupply.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        onRefreshing();
         mRlSupply.setOnRefreshListener(this);
         mSupplyAdapter.setOnItemClickListener(this);
         initDialog();
@@ -66,7 +77,7 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     private void initDialog() {
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("支付提醒").setContent("您的账户还有未支付信息费用的订单，请先完成支付！").setConfirmText("立即支付").setNoCancel().setIsCanceledOnTouch(false);
-        mCommonDialog.show(getChildFragmentManager(), "suppply");
+        mCommonDialog.show(getChildFragmentManager(), "supply");
         mAddressPicker = new AddressPicker();
     }
 
@@ -78,23 +89,6 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     @Override
     protected void initData() {
         super.initData();
-        /*mSubscribe = Observable.just("cities.txt").map(new Func1<String, List<City>>() {
-            @Override
-            public List<City> call(String name) {
-                //读取asset 里面的数据
-                String string = FileUtil.readAssets(mContext, "cities.txt");
-                mCities = JSON.parseArray(string, City.class);
-                return mCities;
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ProgressSubscriber<List<City>>(getActivity(), false) {
-                    @Override
-                    public void onNext(List<City> cityList) {
-                        mAddressPicker.setCities(cityList);
-                    }
-                });*/
-
         //初始化其数据
         mDisposable = LoadCityData.initData(mContext, new Consumer<List<City>>() {
             @Override
@@ -102,6 +96,31 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
                 mAddressPicker.setCities(cityList);
             }
 
+        });
+
+        mSupplyApi = RetrofitFactory.createRetrofit(SupplyApi.class);
+        //获取货源数据
+        getNetData();
+    }
+
+    private void getNetData() {
+        Map<String,Object> parameter=new HashMap<>();
+        parameter.put("loading_address",mLoadingAddress);
+        parameter.put("unloading_address",mUnloadingAddress);
+        parameter.put("page",mPage);
+        parameter.put("pagesize",20);
+        Observable<List<SupplyListEntity>> observable = mSupplyApi.postSupplyList(parameter).map(new HttpResultFunc<List<SupplyListEntity>>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<SupplyListEntity>>(mContext,false) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(List<SupplyListEntity> value) {
+                mSupplyAdapter.setNewData(value);
+            }
         });
     }
 
@@ -118,20 +137,10 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         Log.e("fz", "onHiddenChanged" + hidden);
         if (!hidden) {
             if (mCommonDialog != null) {
-                mCommonDialog.show(getChildFragmentManager(), "suppply");
+                mCommonDialog.show(getChildFragmentManager(), "supply");
                 //mAddressPicker.show(getChildFragmentManager(),"city");
             }
         }
-    }
-
-    public void onRefreshing() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                mSupplyAdapter.addData("车辆已装货");
-                mSupplyAdapter.addData("车辆已装货");
-                mRlSupply.refreshComplete();
-            }
-        }, 1000);
     }
 
     @OnClick({R.id.tv_start, R.id.tv_end})
@@ -153,6 +162,6 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        onRefreshing();
+
     }
 }
