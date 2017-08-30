@@ -16,6 +16,8 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by 84658 on 2017/8/24.
+ *
+ * 货主信息的 presenter
  */
 
 public class CargoOwnerInfoPresenter extends BasePresenter {

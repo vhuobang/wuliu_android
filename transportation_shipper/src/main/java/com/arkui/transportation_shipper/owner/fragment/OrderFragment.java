@@ -19,7 +19,7 @@ import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
-import com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity;
+import com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -74,7 +74,10 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
 
                 ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
                 readPoint.setVisibility(View.GONE);
-                showActivity(WaybillDetailActivity.class);
+                String truck_status = item.getTruck_status();
+                String target_id = item.getTarget_id();
+
+                WaybillListDetailActivity.openActivity(getActivity(),truck_status,target_id);
 
             }
         });

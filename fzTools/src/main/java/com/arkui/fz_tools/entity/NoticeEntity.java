@@ -15,6 +15,7 @@ public class NoticeEntity {
      * content : 好了没有
      * recipient_id : 0
      * status : 2
+     * truck_status // 货物状态
      */
 
     private String created_at;
@@ -25,6 +26,15 @@ public class NoticeEntity {
     private String content;
     private String recipient_id;
     private String status;
+    private String truck_status;
+
+    public String getTruck_status() {
+        return truck_status;
+    }
+
+    public void setTruck_status(String truck_status) {
+        this.truck_status = truck_status;
+    }
 
     public String getCreated_at() {
         return created_at;

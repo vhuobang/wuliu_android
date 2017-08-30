@@ -73,9 +73,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
 
                 ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
                 readPoint.setVisibility(View.GONE);
-                Bundle bundle = new Bundle();
-                bundle.putString("type",item.getStatus());
-                showActivity(WaybillDetailActivity.class,bundle);
+               WaybillDetailActivity.openActivity(getActivity(), Integer.parseInt(item.getTruck_status()),item.getTarget_id());
 
             }
         });

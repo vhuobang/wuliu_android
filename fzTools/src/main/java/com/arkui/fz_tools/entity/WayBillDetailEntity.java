@@ -28,6 +28,7 @@ public class WayBillDetailEntity {
      * loading_photo :
      * owner_cargo_id : 11
      * unit
+     * logistical_id 物流id
      */
 
     @SerializedName("carrier_num")
@@ -64,9 +65,18 @@ public class WayBillDetailEntity {
     private String loadingPhoto;
     @SerializedName("owner_cargo_id")
     private String ownerCargoId;
-
     @SerializedName("unit")
     private String unit;
+    @SerializedName("logistical_id") //物流id
+    private String logisticalId;
+
+    public String getLogisticalId() {
+        return logisticalId;
+    }
+
+    public void setLogisticalId(String logisticalId) {
+        this.logisticalId = logisticalId;
+    }
 
     public String getUnit() {
         return unit;

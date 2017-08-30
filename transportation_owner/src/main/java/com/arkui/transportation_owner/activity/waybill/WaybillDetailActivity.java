@@ -118,7 +118,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 CargoInfoActivity.openActivity(mActivity,mWayBillDetailEntity.getCargoId());
                 break;
             case R.id.tv_logistics_info: // 物流公司
-                showActivity(LogisticsInfoActivity.class);
+                LogisticsInfoActivity.openActivity(mActivity,mWayBillDetailEntity.getLogisticalId());
                 break;
             case R.id.tv_driver_location:
                 showActivity(DriverLocationActivity.class);

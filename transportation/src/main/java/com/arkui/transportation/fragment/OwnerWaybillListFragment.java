@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  * <p>
+ *
+ *  物流端 货主运单列表
  * 1."待装货",2. "运输中",3. "待付款",4. "待收款",5. "已完成"
  */
 public class OwnerWaybillListFragment extends BaseListLazyFragment<LogWayBIllListEntity> implements LogWaybillListView {

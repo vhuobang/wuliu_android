@@ -1,6 +1,5 @@
 package com.arkui.fz_tools.dialog;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -70,6 +69,13 @@ public class CommonDialog extends BaseDialogFragment implements View.OnClickList
     public CommonDialog setContent(String content) {
         this.mContent = content;
         return this;
+    }
+    public String getContent(){
+        if (mContent!=null){
+            return mContent;
+        }else {
+            return "";
+        }
     }
 
     public CommonDialog setConfirmText(String confirmText) {

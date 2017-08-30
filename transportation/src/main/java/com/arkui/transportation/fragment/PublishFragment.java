@@ -125,7 +125,7 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
     @Override
     public void onResume() {
         super.onResume();
-       // loadCarGoListData();
+       loadCarGoListData();
     }
 
     @Override

@@ -18,6 +18,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ *
+ * 车主端运单详情界面
+ */
 
 public class WaybillListDetailActivity extends BaseActivity implements WayBillDetialsInterface {
 
@@ -79,13 +83,13 @@ public class WaybillListDetailActivity extends BaseActivity implements WayBillDe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_owner_info: //  货主信息
-                showActivity(OwnerInfoActivity.class);
+                OwnerInfoActivity.openActivity(mActivity,"","");
                 break;
             case R.id.tv_cargo_info:  // 货物信息
-                showActivity(CargoInfoActivity.class);
+                CargoInfoActivity.openActivity(mActivity,"");
                 break;
             case R.id.tv_logistics_info: //  物流信息
-                showActivity(LogisticsInfoActivity.class);
+                LogisticsInfoActivity.openActivity(mActivity,"");
                 break;
             case R.id.tv_driver_location:
                 if ("5".equals(mType)) {  // 评论

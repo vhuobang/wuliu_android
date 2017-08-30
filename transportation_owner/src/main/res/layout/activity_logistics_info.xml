@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,13 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.arkui.transportation_shipper.owner.activity.waybill.LogisticsInfoActivity">
+        >
 
         <TableLayout
             android:layout_width="match_parent"
@@ -29,6 +26,7 @@
                     android:text="公司名称" />
 
                 <TextView
+                    android:id="@+id/tv_company_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="北京美化国际物流有限公司" />
@@ -43,6 +41,7 @@
                     android:text="公司地址" />
 
                 <TextView
+                    android:id="@+id/tv_company_address"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="北京市昌平区立汤路186号" />
@@ -64,6 +63,7 @@
                     android:text="联系电话" />
 
                 <TextView
+                    android:id="@+id/tv_company_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -72,6 +72,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_company_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
@@ -87,6 +88,7 @@
                     android:text="经办人姓名" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="张无忌" />
@@ -102,6 +104,7 @@
                     android:text="注册时长" />
 
                 <TextView
+                    android:id="@+id/tv_register_year"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="2年" />
@@ -116,6 +119,7 @@
                     android:text="成交量" />
 
                 <TextView
+                    android:id="@+id/deal_number"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="125" />
@@ -135,6 +139,7 @@
                     android:layout_height="wrap_content">
 
                     <RatingBar
+                        android:id="@+id/rating_bar"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,6 +162,7 @@
                     android:text="联系人姓名" />
 
                 <TextView
+                    android:id="@+id/connect_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="汪红旗" />
@@ -178,6 +184,7 @@
                     android:text="联系电话" />
 
                 <TextView
+                    android:id="@+id/tv_connect_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -186,13 +193,13 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_connect_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
             </TableRow>
 
         </TableLayout>
-
 
     </LinearLayout>
 </ScrollView>

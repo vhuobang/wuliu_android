@@ -38,19 +38,18 @@ public class WaybillFragment extends BaseFragment {
         ButterKnife.bind(this, parentView);
 
         ArrayList<Fragment> baseFragmentList = new ArrayList<>();
-
         OwnerWaybillFragment ownerWaybillFragment=new OwnerWaybillFragment();
         MyWaybillFragment myWaybillFragment=new MyWaybillFragment();
 
         baseFragmentList.add(ownerWaybillFragment);
         baseFragmentList.add(myWaybillFragment);
-
         mTab.setTabData(mTitles,getChildFragmentManager(),R.id.fl_content,baseFragmentList);
 
         mTab.setCurrentTab(position);
+
     }
     int position;
-   // 显示  0xi我的运单
+   // 显示  0表示货主运单  1表示 我的运单
     public void setFragmentPosition(int position){
         this.position=position;
     }

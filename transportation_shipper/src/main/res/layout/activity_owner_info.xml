@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.arkui.transportation_shipper.owner.activity.waybill.OwnerInfoActivity">
+        >
 
         <TableLayout
             android:layout_width="match_parent"
@@ -25,6 +25,7 @@
                     android:text="货主姓名" />
 
                 <TextView
+                    android:id="@+id/owner_name"
                     style="@style/TextViewWeight"
                     android:background="@null"
                     android:hint="张三丰" />
@@ -48,6 +49,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/owner_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,6 +58,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_owner_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
@@ -72,6 +75,7 @@
                     android:text="注册时长" />
 
                 <TextView
+                    android:id="@+id/register_years"
                     style="@style/TextViewWeight"
                     android:background="@null"
                     android:hint="2年" />
@@ -86,6 +90,7 @@
                     android:text="发货数量" />
 
                 <TextView
+                    android:id="@+id/tv_number"
                     style="@style/TextViewWeight"
                     android:background="@null"
                     android:hint="125" />
@@ -105,6 +110,7 @@
                     android:layout_height="wrap_content">
 
                     <RatingBar
+                        android:id="@+id/rating_bar"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -127,6 +133,7 @@
                     android:text="装车开票人" />
 
                 <TextView
+                    android:id="@+id/truck_drawer"
                     style="@style/TextViewWeight"
                     android:background="@null"
                     android:hint="吴建国" />
@@ -150,6 +157,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/truck_tel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -158,6 +166,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_connect_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
@@ -174,6 +183,7 @@
                     android:text="卸车联系人" />
 
                 <TextView
+                    android:id="@+id/unloading_name"
                     style="@style/TextViewWeight"
                     android:background="@null"
                     android:hint="汪红旗" />
@@ -197,6 +207,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/unloading_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -205,6 +216,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_unloading_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
