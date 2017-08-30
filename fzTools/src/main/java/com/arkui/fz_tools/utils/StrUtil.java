@@ -517,8 +517,8 @@ public class StrUtil {
         return "男".equals(gender) ? "male" : "female";
     }
 
-    public static String arrayToString(List<String> list){
-        if (list==null||list.size()<1) {
+    public static String arrayToString(List<String> list) {
+        if (list == null || list.size() < 1) {
             return "";
         }
         StringBuffer sb = new StringBuffer();
@@ -528,141 +528,154 @@ public class StrUtil {
         return sb.toString();
     }
 
-    public static boolean isZero(String msg){
+    public static boolean isZero(String msg) {
         return "0".equals(msg);
     }
 
-    public static String Meal(String meal){
+    public static String Meal(String meal) {
         if (TextUtils.isEmpty(meal)) {
             return "";
         }
         return "餐前".equals(meal) ? "meal_before" : "meal_after";
     }
-    public static String RevMeal(String meal){
+
+    public static String RevMeal(String meal) {
         if (TextUtils.isEmpty(meal)) {
             return "";
         }
         return "meal_before".equals(meal) ? "餐前" : "餐后";
     }
-    public static String formatNum(int num){
+
+    public static String formatNum(int num) {
         if (num < 10) {
             return "0" + num;
         }
-        return ""+num;
+        return "" + num;
     }
 
     // 根据所传数字获取单位
     //：1、吨；2、方；3、件；4、趟
-    public static String formatUnit(String str){
-        String formatStr =null;
-        switch (str){
+    public static String formatUnit(String str) {
+        String formatStr = null;
+        switch (str) {
             case "1":
-                formatStr ="吨";
+                formatStr = "吨";
                 break;
             case "2":
-                formatStr="方";
+                formatStr = "方";
                 break;
             case "3":
-                formatStr="件";
+                formatStr = "件";
                 break;
             case "4":
-                formatStr="趟";
+                formatStr = "趟";
                 break;
         }
         return formatStr;
     }
 
     //：1、吨；2、方；3、件；4、趟
-    public static String formatMoneyUnit(String str){
-        String formatStr =null;
-        switch (str){
+    public static String formatMoneyUnit(String str) {
+        String formatStr = null;
+        switch (str) {
             case "1":
-                formatStr ="元/吨";
+                formatStr = "元/吨";
                 break;
             case "2":
-                formatStr="元/方";
+                formatStr = "元/方";
                 break;
             case "3":
-                formatStr="元/件";
+                formatStr = "元/件";
                 break;
             case "4":
-                formatStr="元/趟";
+                formatStr = "元/趟";
                 break;
         }
         return formatStr;
     }
 
     // 结算日期转化  货主结算时间：1、立即；2、7天；3、15天；4、30天
-    public static  String formatSettlementTime(String settlementTime){
-        String formatStr =null;
-        switch (settlementTime){
+    public static String formatSettlementTime(String settlementTime) {
+        String formatStr = null;
+        if(settlementTime==null){
+            return "null";
+        }
+        switch (settlementTime) {
             case "1":
-                formatStr ="立即结算";
+                formatStr = "立即结算";
                 break;
             case "2":
-                formatStr="七天内结算";
+                formatStr = "七天内结算";
                 break;
             case "3":
-                formatStr="15天内结算";
+                formatStr = "15天内结算";
                 break;
             case "4":
-                formatStr="30天内结算";
+                formatStr = "30天内结算";
+                break;
+            default:
+                formatStr="null";
                 break;
         }
         return formatStr;
     }
 
     //1、货主网上支付；2、物流网上支付；3货到付款
-    public static  String formatPayMent(String payment){
-        String formatStr =null;
-        switch (payment){
+    public static String formatPayMent(String payment) {
+        String formatStr = null;
+        switch (payment) {
             case "1":
-                formatStr ="货主网上支付";
+                formatStr = "货主网上支付";
                 break;
             case "2":
-                formatStr="物流网上支付";
+                formatStr = "物流网上支付";
                 break;
             case "3":
-                formatStr="货到付款";
+                formatStr = "货到付款";
                 break;
         }
         return formatStr;
     }
 
-    public static  String formatStatus(String status){
-        String formatStr =null;
-        switch (status){
+    public static String formatStatus(String status) {
+        String formatStr = null;
+        switch (status) {
             case "1":
-                formatStr ="待装货";
+                formatStr = "待装货";
                 break;
             case "2":
-                formatStr="运输中";
+                formatStr = "运输中";
                 break;
             case "3":
-                formatStr="待付款";
+                formatStr = "待付款";
                 break;
             case "4":
-                formatStr="已完成";
+                formatStr = "已完成";
                 break;
         }
         return formatStr;
     }
 
-    public static  String formatCStatus(String status){
-        String formatStr =null;
-        switch (status){
+    public static String formatCStatus(String status) {
+        String formatStr = null;
+        switch (status) {
             case "1":
-                formatStr ="发布中";
+                formatStr = "发布中";
                 break;
             case "2":
-                formatStr="已抢完";
+                formatStr = "已抢完";
                 break;
             case "3":
-                formatStr="已停止";
+                formatStr = "已停止";
                 break;
         }
         return formatStr;
     }
 
+    //截取地址 把省市截取出来 忽略详细地址
+    public static String splitAddress(String address) {
+        String[] loading = address.split(" ");
+        return loading.length >= 0 ? loading[0] : "";
+    }
 
 }

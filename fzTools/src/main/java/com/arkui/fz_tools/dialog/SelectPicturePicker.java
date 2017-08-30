@@ -59,44 +59,6 @@ public class SelectPicturePicker extends BaseDialogFragment implements View.OnCl
         this.mOnPictureClickListener = mOnPictureClickListener;
     }
 
-    /**
-     * 弹出Dialog
-     * @param activity
-     * @param redDialog
-     */
-    public void showDialog(FragmentActivity activity, String redDialog) {
-        if (activity==null){
-            LogUtil.e("依赖的activity为null");
-            return;
-        }
-        if (activity.isFinishing()){
-            LogUtil.e("依赖的activity被干掉");
-            return;
-        }
-        if(this.isAdded()) {
-            LogUtil.e("之前被添加过");
-            return;
-        }
 
-        if (this==null){
-            LogUtil.e("找不到dialog");
-            return;
-        }
-        if (this.isVisible()){
-            LogUtil.e("dialog 正在显示");
-            return;
-        }
-        LogUtil.e("开始正式的提交");
-        try{
-            FragmentManager fragmentManager = activity.getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(this, redDialog);
-            transaction.commitAllowingStateLoss();
-        }catch (Exception e){
-            LogUtil.e(Log.getStackTraceString(e));
-        }
-
-
-    }
 
 }

@@ -1,12 +1,11 @@
 package com.arkui.transportation_shipper.owner.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
@@ -17,7 +16,7 @@ import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
-import com.arkui.transportation_shipper.api.AssetApi;
+import com.arkui.transportation_shipper.common.api.AssetApi;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
 import com.arkui.transportation_shipper.common.entity.TruckListEntity;
@@ -101,12 +100,14 @@ public class VehicleManageFragment extends BaseFragment implements  BaseQuickAda
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        showActivity(VehicleDetailsActivity.class);
+        //showActivity(VehicleDetailsActivity.class);
+        Intent intent=new Intent(mContext,VehicleDetailsActivity.class);
+        intent.putExtra("id",mVehicleManageAdapter.getItem(position).getId());
+        startActivity(intent);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        //onRefreshing();
         getNetData();
     }
 
@@ -114,6 +115,7 @@ public class VehicleManageFragment extends BaseFragment implements  BaseQuickAda
     public void onRefresh(RefreshAssetListEntity refreshAssetListEntity){
         if(refreshAssetListEntity.getType()==1){
             LogUtil.e("收到刷新指令");
+            getNetData();
         }
     }
 

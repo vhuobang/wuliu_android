@@ -8,21 +8,22 @@ import android.widget.TextView;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.UploadingPictureInterface;
-import com.arkui.fz_tools.dialog.SelectPicturePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
-import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BasePhotoActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
-import com.arkui.transportation_shipper.api.AssetApi;
+import com.arkui.transportation_shipper.common.api.AssetApi;
 import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.common.dialog.SelectVehicleModelDialog;
 import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
+import com.arkui.transportation_shipper.common.entity.VehicleModelEntity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -38,7 +39,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
-public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTypeClickListener, UploadingPictureInterface {
+public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTypeClickListener, UploadingPictureInterface, SelectVehicleModelDialog.OnSelectVehicleModelListener {
 
     @BindView(R.id.et_license_plate)
     EditText mEtLicensePlate;
@@ -49,11 +50,12 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     @BindView(R.id.iv_pic2)
     ImageView mIvPic2;
     // private SelectPicturePicker mSelectPicturePicker;
-    private SelectTypePicker mSelectVehicleTypePicker;
+    private SelectVehicleModelDialog mSelectVehicleModelDialog;
     private int mType = -1;
     private UploadingPicturePresenter mUploadingPicturePresenter;
     private String mPath1 = null;
     private String mPath2 = null;
+    private String mItemId=null;
     private AssetApi mAssetApi;
 
     @Override
@@ -76,26 +78,45 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     public void initData() {
         super.initData();
         mAssetApi = RetrofitFactory.createRetrofit(AssetApi.class);
+
+        //获取车型
+        Observable<List<VehicleModelEntity>> observable = mAssetApi.postCarType().map(new HttpResultFunc<List<VehicleModelEntity>>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<VehicleModelEntity>>(mActivity,false) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(List<VehicleModelEntity> value) {
+                mSelectVehicleModelDialog.setVehicleModelList(value);
+            }
+        });
     }
 
     private void initDialog() {
         // mSelectPicturePicker = new SelectPicturePicker();
-        mSelectVehicleTypePicker = new SelectTypePicker();
-        List<String> list = new ArrayList<>();
+        mSelectVehicleModelDialog = new SelectVehicleModelDialog();
+      /*  List<String> list = new ArrayList<>();
         list.add("车型一");
         list.add("车型二");
         list.add("车型三");
         list.add("车型四");
-        list.add("车型五");
-        mSelectVehicleTypePicker.setData(list).setTitle("车辆选择");
-        mSelectVehicleTypePicker.setOnTypeClickListener(this);
+        list.add("车型五");*/
+        // mSelectVehicleModelDialog.setData(list).setTitle("车辆选择");
+        //mSelectVehicleModelDialog.setOnTypeClickListener(this);
+
+        mSelectVehicleModelDialog.setOnSelectVehicleModelListener(this);
     }
 
     @OnClick({R.id.tv_vehicle_model, R.id.tv_complete, R.id.iv_pic, R.id.iv_pic2, R.id.iv_clean})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_vehicle_model:
-                mSelectVehicleTypePicker.show(getSupportFragmentManager(), "model");
+                if(mSelectVehicleModelDialog.getVehicleModelList().isEmpty())
+                    return;
+                mSelectVehicleModelDialog.showDialog(this, "model");
                 break;
             case R.id.tv_complete:
                 //添加车辆
@@ -124,28 +145,28 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         }
 
         String type = mTvVehicleModel.getText().toString();
-        if (TextUtils.isEmpty(type)) {
+        if (mItemId==null) {
             ShowToast("请选择车型");
             return;
         }
 
-        if(mPath1==null){
+        if (mPath1 == null) {
             ShowToast("请上传车辆正面照");
             return;
         }
 
-        if(mPath2==null){
+        if (mPath2 == null) {
             ShowToast("请上传行驶证照");
             return;
         }
 
-        Map<String,Object> parameter=new HashMap<>();
+        Map<String, Object> parameter = new HashMap<>();
 
         parameter.put("user_id", App.getUserId());
-        parameter.put("license_plate",licensePlate);
-        parameter.put("type",type);
-        parameter.put("truck_poto",mPath1);
-        parameter.put("driving_license_photo",mPath2);
+        parameter.put("license_plate", licensePlate);
+        parameter.put("type", type);
+        parameter.put("truck_poto", mPath1);
+        parameter.put("driving_license_photo", mPath2);
 
         Observable<BaseHttpResult> observable = mAssetApi.postTruckAdd(parameter);
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
@@ -169,6 +190,7 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         mUploadingPicturePresenter.upPicture(path, "Avatar");
     }
 
+    @Deprecated
     @Override
     public void OnVehicleTypeClick(String item, int pos) {
         mTvVehicleModel.setText(item);
@@ -187,8 +209,14 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mUploadingPicturePresenter!=null){
+        if (mUploadingPicturePresenter != null) {
             mUploadingPicturePresenter.onDestroy();
         }
+    }
+
+    @Override
+    public void selectVehicleModel(String itemText, String itemId) {
+        mTvVehicleModel.setText(itemText);
+        mItemId=itemId;
     }
 }

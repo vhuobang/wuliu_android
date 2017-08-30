@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
+import com.arkui.fz_tools.dialog.BaseDialogFragment;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
 
 /**
@@ -23,7 +26,7 @@ import com.arkui.transportation_shipper.R;
  * 显示大图的 对话框
  */
 
-public class ViewVehicleLargeMapDialog extends DialogFragment {
+public class ViewVehicleLargeMapDialog extends BaseDialogFragment {
 
    /* public ViewVehicleLargeMapDialog(@NonNull Context context) {
         super(context);
@@ -36,7 +39,7 @@ public class ViewVehicleLargeMapDialog extends DialogFragment {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);// android:backgroundDimEnabled默认是true的
     }*/
 
-
+    String mImgUrl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,11 +47,27 @@ public class ViewVehicleLargeMapDialog extends DialogFragment {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.TransparentAppTheme);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.activity_view_vehicle_large_map, container, false);
+    }
 
+    /* @Nullable
+     @Override
+     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+         return inflater.inflate(R.layout.activity_view_vehicle_large_map, container, false);
+
+     }
+ */
+    @Override
+    protected void initView(View mRootView) {
+        ImageView mIvImg = (ImageView) mRootView.findViewById(R.id.iv_img);
+        GlideUtils.getInstance().load(getActivity(), mImgUrl, mIvImg);
+    }
+
+    public ViewVehicleLargeMapDialog setImgUrl(String url) {
+        mImgUrl = url;
+        return this;
     }
 
     @Override
@@ -65,7 +84,8 @@ public class ViewVehicleLargeMapDialog extends DialogFragment {
         window.getAttributes().gravity = getGravity();
     }
 
-    private int getGravity() {
+    @Override
+    public int getGravity() {
         return Gravity.CENTER;
     }
 }
