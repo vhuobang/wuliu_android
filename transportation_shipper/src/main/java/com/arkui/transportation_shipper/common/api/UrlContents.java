@@ -22,17 +22,21 @@ public class UrlContents {
     // 6.App/Users/userEdit 完善信息
     public static final String USER_EDIT = BASE_URL + "App/Users/userEdit";
     //车辆列表
-    public static final String TRUCK_LIST = BASE_URL + "/App/TruckOwner/truck_list";
+    public static final String TRUCK_LIST = BASE_URL + "App/TruckOwner/truck_list";
     //添加车辆
     public static final String TRUCK_ADD = BASE_URL + "App/TruckOwner/truck_add";
     //货源列表
-    public static final String OWNER_CARGO_LIST = BASE_URL + "/App/logistical/ownerCargoList";
+    public static final String OWNER_CARGO_LIST = BASE_URL + "App/logistical/ownerCargoList";
     //车型
-    public static final String CAR_TYPE = BASE_URL + "/App/TruckOwner/car_type";
+    public static final String CAR_TYPE = BASE_URL + "App/TruckOwner/car_type";
     //司机列表
-    public static final String DRIVER_LIST=BASE_URL+"/App/TruckOwner/driver_list";
+    public static final String DRIVER_LIST=BASE_URL+"App/TruckOwner/driver_list";
     //添加司机
-    public static final String DRIVER_ADD=BASE_URL+"/App/TruckOwner/driver_add";
+    public static final String DRIVER_ADD=BASE_URL+"App/TruckOwner/driver_add";
     //车辆详情
-    public static final String TRUCK_DETAIL=BASE_URL+"/App/TruckOwner/truck_detail";
+    public static final String TRUCK_DETAIL=BASE_URL+"App/TruckOwner/truck_detail";
+    //删除车辆
+    public static final String TRUCK_DEL =BASE_URL+"App/TruckOwner/truck_del";
+    //编辑车辆
+    public static final String TRUCK_EDIT =BASE_URL+"App/TruckOwner/truck_edit";
 }

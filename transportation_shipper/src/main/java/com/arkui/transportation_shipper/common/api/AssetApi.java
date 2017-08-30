@@ -50,4 +50,14 @@ public interface AssetApi {
     @POST(UrlContents.TRUCK_DETAIL)
     Observable<BaseHttpResult<VehicleDetailEntity>> postVehicleDetail(@Field("truck_id") String truck_id);
 
+    //删除车辆
+    @FormUrlEncoded
+    @POST(UrlContents.TRUCK_DEL)
+    Observable<BaseHttpResult> postDeleteVehicle(@Field("truck_id") String truck_id);
+
+    //编辑车辆
+    @FormUrlEncoded
+    @POST(UrlContents.TRUCK_EDIT)
+    Observable<BaseHttpResult> postEditVehicle(@FieldMap Map<String, Object> parameter);
+
 }
