@@ -2,6 +2,7 @@ package com.arkui.transportation_shipper.owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -19,8 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.R.attr.phoneNumber;
+
 /**
- *
  * // TODO  添加联系人姓名 和联系电话
  */
 
@@ -78,7 +80,6 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         commonDialog.setTitle("拨打电话");
         commonDialog.setConfirmClick(this);
 
-
     }
 
     @Override
@@ -113,8 +114,8 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_company_phone:
-             commonDialog.setContent(entity.getTel());
-            //    commonDialog.show
+                commonDialog.setContent(entity.getTel());
+                commonDialog.showDialog(LogisticsInfoActivity.this, "phone");
                 break;
             case R.id.iv_connect_phone:
 
@@ -125,6 +126,9 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     // 确定拨打
     @Override
     public void onConfirmClick() {
-
+        String phoneNumber = commonDialog.getContent();
+        Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent2);
     }
 }

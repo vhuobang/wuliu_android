@@ -1,5 +1,8 @@
 package com.arkui.transportation.activity.home;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -9,6 +12,8 @@ import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools.dialog.CommonDialog;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
@@ -22,7 +27,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
-public class SupplyDetailActivity extends BaseActivity {
+public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick {
 
     @BindView(R.id.bt_start)
     ShapeButton mBtStart;
@@ -75,6 +80,8 @@ public class SupplyDetailActivity extends BaseActivity {
     private int mType;
     private String cargo_id;
     private LogisticalApi logisticalApi;
+    private CommonDialog commonDialog;
+    private LogisticalDetailEntity entity;
 
     @Override
     public void setRootView() {
@@ -94,6 +101,10 @@ public class SupplyDetailActivity extends BaseActivity {
         } else {
             mBtStart.setText("承运详情");
         }
+        commonDialog = new CommonDialog();
+        commonDialog.setTitle("拨打电话");
+        commonDialog.setConfirmText("打电话");
+        commonDialog.setConfirmClick(this);
     }
 
     // 请求数据
@@ -129,6 +140,7 @@ public class SupplyDetailActivity extends BaseActivity {
      * @param logisticalDetailEntity
      */
     private void setUiData(LogisticalDetailEntity logisticalDetailEntity) {
+        entity = logisticalDetailEntity;
         String[] loadAddress = logisticalDetailEntity.getLoadingAddress().split(" ");
         String[] unloadingAddress = logisticalDetailEntity.getUnloadingAddress().split(" ");
         tvStartAddress.setText(loadAddress[0]);
@@ -166,18 +178,35 @@ public class SupplyDetailActivity extends BaseActivity {
         unloadingTel.setText(logisticalDetailEntity.getUnloadingTel());
         remarks.setText(logisticalDetailEntity.getRemarks());
         tvName.setText(logisticalDetailEntity.getName());
+
         tvUserInfo.setText("注册"+logisticalDetailEntity.getRegisterYear()+"年"+ "  " + "发货"+logisticalDetailEntity.getSendNum()+"次");
         tlRatingBar.setRating(Float.parseFloat(logisticalDetailEntity.getStarRating()));
 
     }
 
-    @OnClick(R.id.bt_start)
-    public void onClick() {
-        if (mType == 1) {
-            CompleteInfoActivity.openCompleteInfoActivity(SupplyDetailActivity.this,cargo_id);
-        } else {
-           CarriageListActivity.openCarriageListActivity(SupplyDetailActivity.this,cargo_id);
-        }
+    @OnClick({R.id.bt_start,R.id.iv_phone})
+    public void onClick(View view) {
+      switch (view.getId()){
+          case R.id.bt_start:
+              if (mType == 1) {
+                  CompleteInfoActivity.openCompleteInfoActivity(SupplyDetailActivity.this,cargo_id);
+              } else {
+                  CarriageListActivity.openCarriageListActivity(SupplyDetailActivity.this,cargo_id);
+              }
+              break;
+          case R.id.iv_phone:
+              commonDialog.setContent(entity.getTruckTel());
+              commonDialog.showDialog(SupplyDetailActivity.this,"phone");
+              break;
+      }
+
     }
 
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent2);
+    }
 }
