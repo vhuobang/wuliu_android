@@ -70,14 +70,11 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
                 String cStatus = mPublishAdapter.getItem(position).getCStatus();
                 switch (mType) {
                     case 1:
-
                         PlanPublishDetailActivity.showActivity(mActivity, id);
                         break;
                     case 2:
-
                         CarriageDetailActivity.showActivity(mContext, id,cStatus);
                         break;
-
                 }
             }
         });

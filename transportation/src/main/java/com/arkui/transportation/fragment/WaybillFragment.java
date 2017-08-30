@@ -50,10 +50,9 @@ public class WaybillFragment extends BaseFragment {
         mTab.setCurrentTab(position);
     }
     int position;
-   // 显示货主运单  我的运单
+   // 显示  0xi我的运单
     public void setFragmentPosition(int position){
         this.position=position;
     }
-
 
 }

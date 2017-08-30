@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by 84658 on 2017/8/21.
+ *
+ * 预发布和已发布 fragment
  */
 
 public class PublishFragment extends BaseLazyFragment implements OnRefreshListener, CarGoListInterface {
@@ -88,8 +90,6 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
                         bundle2.putString("c_status",item.getCStatus());
                         showActivity(CarriageDetailActivity.class,bundle2);
                         break;
-
-
                 }
             }
         });
@@ -120,7 +120,6 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
                 carGoListPresenter.getCarGoList(App.getUserId(), "1", page, pageSize);
                 break;
         }
-
     }
 
     @Override
@@ -140,12 +139,13 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
      *
      * @param carGoListEntityList
      */
+
     @Override
     public void onCarGoListSuccess(List<CarGoListEntity> carGoListEntityList) {
         if (page == 1) {
             mCarGoListAdapter.setNewData(carGoListEntityList);
             mRlList.refreshComplete();
-            if (mCarGoListAdapter.getItemCount() < 10) {
+            if (mCarGoListAdapter.getItemCount() < pageSize) {
                 mCarGoListAdapter.loadMoreEnd(false);
             } else {
                 mCarGoListAdapter.loadMoreEnd(true);
