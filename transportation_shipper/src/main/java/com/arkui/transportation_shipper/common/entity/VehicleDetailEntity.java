@@ -1,5 +1,8 @@
 package com.arkui.transportation_shipper.common.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -32,7 +35,7 @@ public class VehicleDetailEntity {
         this.truck_status = truck_status;
     }
 
-    public static class TruckDetailBean {
+    public static class TruckDetailBean implements Parcelable {
         /**
          * id : 3
          * user_id : 14
@@ -51,7 +54,7 @@ public class VehicleDetailEntity {
         private String singular_num;
         private String truck_poto;
         private String driving_license_photo;
-        private Object created_at;
+        private String created_at;
 
         public String getId() {
             return id;
@@ -109,12 +112,56 @@ public class VehicleDetailEntity {
             this.driving_license_photo = driving_license_photo;
         }
 
-        public Object getCreated_at() {
+        public String getCreated_at() {
             return created_at;
         }
 
-        public void setCreated_at(Object created_at) {
+        public void setCreated_at(String created_at) {
             this.created_at = created_at;
         }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.user_id);
+            dest.writeString(this.license_plate);
+            dest.writeString(this.type);
+            dest.writeString(this.singular_num);
+            dest.writeString(this.truck_poto);
+            dest.writeString(this.driving_license_photo);
+            dest.writeString(this.created_at);
+        }
+
+        public TruckDetailBean() {
+        }
+
+        protected TruckDetailBean(Parcel in) {
+            this.id = in.readString();
+            this.user_id = in.readString();
+            this.license_plate = in.readString();
+            this.type = in.readString();
+            this.singular_num = in.readString();
+            this.truck_poto = in.readString();
+            this.driving_license_photo = in.readString();
+            this.created_at = in.readString();
+        }
+
+        public static final Parcelable.Creator<TruckDetailBean> CREATOR = new Parcelable.Creator<TruckDetailBean>() {
+            @Override
+            public TruckDetailBean createFromParcel(Parcel source) {
+                return new TruckDetailBean(source);
+            }
+
+            @Override
+            public TruckDetailBean[] newArray(int size) {
+                return new TruckDetailBean[size];
+            }
+        };
     }
 }

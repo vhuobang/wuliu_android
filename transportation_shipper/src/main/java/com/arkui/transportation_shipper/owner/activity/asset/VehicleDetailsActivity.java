@@ -1,9 +1,11 @@
 package com.arkui.transportation_shipper.owner.activity.asset;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -16,11 +18,14 @@ import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.AssetApi;
+import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
 import com.arkui.transportation_shipper.common.entity.VehicleDetailEntity;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.dialog.ViewVehicleLargeMapDialog;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +46,7 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     private AssetApi mAssetApi;
     private ViewHolder mViewHolder;
     private VehicleDetailEntity.TruckDetailBean mTruckDetail;
+    private String mId;
 
     @Override
     public void setRootView() {
@@ -75,9 +81,6 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     }
 
     private void initHeadView(View vehicle_details_head) {
-        /*vehicle_details_head.findViewById(R.id.iv_front);
-        ImageView IvFront = ButterKnife.findById(vehicle_details_head, R.id.iv_front);
-        IvFront.setOnClickListener(this);*/
         mViewHolder = new ViewHolder(vehicle_details_head);
         mViewHolder.mIvFront.setOnClickListener(this);
         mViewHolder.mIvDrivingLicense.setOnClickListener(this);
@@ -86,10 +89,10 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     @Override
     public void initData() {
         super.initData();
-        String id = getIntent().getStringExtra("id");
+        mId = getIntent().getStringExtra("id");
         mAssetApi = RetrofitFactory.createRetrofit(AssetApi.class);
         //获取车辆详情
-        getNetData(id);
+        getNetData(mId);
     }
 
     private void getNetData(String id) {
@@ -136,7 +139,12 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_edit:
-                showActivity(VehicleEditedActivity.class);
+                if (mTruckDetail == null)
+                    return;
+                //showActivity(VehicleEditedActivity.class);
+                Intent intent=new Intent(mActivity,VehicleEditedActivity.class);
+                intent.putExtra("data",mTruckDetail);
+                startActivity(intent);
                 break;
             case R.id.tv_del:
                 mCommonDialog.show(getSupportFragmentManager(), "del");
@@ -159,7 +167,27 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     //删除回调
     @Override
     public void onConfirmClick() {
+        //删掉车辆信息
+        deleteVehicle();
+    }
 
+    private void deleteVehicle() {
+        Observable<BaseHttpResult> observable = mAssetApi.postDeleteVehicle(mId);
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                //通知刷新车辆列表
+                EventBus.getDefault().post(new RefreshAssetListEntity(1));
+                ShowToast(value.getMessage());
+                finish();
+            }
+        });
     }
 
     static class ViewHolder {

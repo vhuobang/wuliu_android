@@ -96,17 +96,7 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     }
 
     private void initDialog() {
-        // mSelectPicturePicker = new SelectPicturePicker();
         mSelectVehicleModelDialog = new SelectVehicleModelDialog();
-      /*  List<String> list = new ArrayList<>();
-        list.add("车型一");
-        list.add("车型二");
-        list.add("车型三");
-        list.add("车型四");
-        list.add("车型五");*/
-        // mSelectVehicleModelDialog.setData(list).setTitle("车辆选择");
-        //mSelectVehicleModelDialog.setOnTypeClickListener(this);
-
         mSelectVehicleModelDialog.setOnSelectVehicleModelListener(this);
     }
 

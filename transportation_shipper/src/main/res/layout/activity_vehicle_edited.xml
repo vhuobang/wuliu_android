@@ -52,15 +52,16 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/et_license_plate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="京P2454Q"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/iv_license_plate"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/zc_close"
                     android:layout_width="wrap_content"
@@ -90,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableRight="@mipmap/zc_down"
-                android:text="罐车"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/sp_14" />
         </TableRow>
@@ -119,7 +119,7 @@
                     android:id="@+id/iv_front"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/zc_photo" />
+                    android:src="@mipmap/tupian" />
 
             </LinearLayout>
 
@@ -148,7 +148,7 @@
                     android:id="@+id/iv_driving_license"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/zc_photo" />
+                    android:src="@mipmap/tupian" />
 
             </LinearLayout>
         </TableRow>
