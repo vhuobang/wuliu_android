@@ -39,4 +39,7 @@ public class UrlContents {
     public static final String TRUCK_DEL =BASE_URL+"App/TruckOwner/truck_del";
     //编辑车辆
     public static final String TRUCK_EDIT =BASE_URL+"App/TruckOwner/truck_edit";
+    //货源列表进入详情
+    public static final String CARGO_LIST_DETAIL =BASE_URL+"App/TruckOwner/cargo_list_detail";
+
 }

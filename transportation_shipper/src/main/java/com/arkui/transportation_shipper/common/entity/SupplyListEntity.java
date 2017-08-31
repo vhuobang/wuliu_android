@@ -16,6 +16,7 @@ public class SupplyListEntity {
      * cargo_num : 200
      * cargo_price : 50.00
      * unit : 1
+     * id
      */
 
     private String logistical_id;
@@ -27,7 +28,17 @@ public class SupplyListEntity {
     private String cargo_num;
     private String cargo_price;
     private String unit;
+    private  String id;
    // private String unit;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getLogistical_id() {
         return logistical_id;

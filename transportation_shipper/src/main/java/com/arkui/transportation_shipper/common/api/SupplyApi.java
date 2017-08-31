@@ -1,12 +1,14 @@
 package com.arkui.transportation_shipper.common.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.transportation_shipper.common.entity.CargoListDetailEntity;
 import com.arkui.transportation_shipper.common.entity.SupplyListEntity;
 
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -22,5 +24,9 @@ public interface SupplyApi {
     @FormUrlEncoded
     @POST(UrlContents.OWNER_CARGO_LIST)
     Observable<BaseHttpResult<List<SupplyListEntity>>> postSupplyList(@FieldMap Map<String, Object> parameter);
+    //  CARGO_LIST_DETAIL
+    @FormUrlEncoded
+    @POST(UrlContents.CARGO_LIST_DETAIL)
+    Observable<BaseHttpResult<CargoListDetailEntity>> getCargoListDetail(@Field("id") String id);
 
 }

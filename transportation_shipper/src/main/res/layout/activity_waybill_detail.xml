@@ -6,20 +6,17 @@
     android:orientation="vertical">
 
     <ScrollView
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray"
             android:orientation="vertical"
-            tools:context="com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity">
+           >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,6 +32,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/loading_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -45,6 +43,7 @@
 
 
                     <TextView
+                        android:id="@+id/loading_address_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -71,6 +70,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/unloading_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -81,6 +81,7 @@
 
 
                     <TextView
+                        android:id="@+id/unloading_address_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -113,6 +114,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/cargo_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -137,6 +139,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/cargo_density"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -161,6 +164,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/freight_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -185,6 +189,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/cargo_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -210,6 +215,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/loading_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -234,6 +240,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/payment_terms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -258,6 +265,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/settlement_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -282,6 +290,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/press_charges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -306,6 +315,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/infomation_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -330,6 +340,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/remarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -355,6 +366,7 @@
         android:paddingRight="10dp">
 
         <ImageView
+            android:id="@+id/avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/tx" />
@@ -368,6 +380,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="张无忌"
@@ -375,6 +388,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/register_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -383,6 +397,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <RatingBar
+                android:id="@+id/rating_bar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -397,6 +412,7 @@
 
 
         <ImageView
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"

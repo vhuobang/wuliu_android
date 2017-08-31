@@ -20,7 +20,6 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.SupplyApi;
 import com.arkui.transportation_shipper.common.entity.SupplyListEntity;
 import com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity;
-import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.adapter.SupplyAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.arkui.transportation_shipper.owner.utils.LoadCityData;
@@ -104,6 +103,7 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     }
 
     private void getNetData() {
+
         Map<String,Object> parameter=new HashMap<>();
         parameter.put("loading_address",mLoadingAddress);
         parameter.put("unloading_address",mUnloadingAddress);
@@ -157,7 +157,8 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        showActivity(WaybillDetailActivity.class);
+        SupplyListEntity item = (SupplyListEntity) adapter.getItem(position);
+        WaybillDetailActivity.openActivity(getActivity(),item.getId());
     }
 
     @Override
