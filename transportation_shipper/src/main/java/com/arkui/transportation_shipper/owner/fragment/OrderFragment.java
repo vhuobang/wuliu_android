@@ -76,12 +76,10 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
                 readPoint.setVisibility(View.GONE);
                 String truck_status = item.getTruck_status();
                 String target_id = item.getTarget_id();
-
                 WaybillListDetailActivity.openActivity(getActivity(),truck_status,target_id);
 
             }
         });
-
     }
 
     @Override

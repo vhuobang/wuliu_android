@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -28,6 +27,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/loading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -38,6 +38,7 @@
 
 
                 <TextView
+                    android:id="@+id/loading_address_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -64,6 +65,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/unloading_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -74,6 +76,7 @@
 
 
                 <TextView
+                    android:id="@+id/unloading_address_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -97,6 +100,7 @@
                     android:text="承运车辆" />
 
                 <TextView
+                    android:id="@+id/tv_license_plate"
                     style="@style/TextViewWeight"
                     android:text="京P2345S" />
 
@@ -111,6 +115,7 @@
                     android:text="预装吨数" />
 
                 <TextView
+                    android:id="@+id/pro_number"
                     style="@style/TextViewWeight"
                     android:text="20吨" />
 
@@ -132,6 +137,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/cargo_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -157,6 +163,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/cargo_density"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -176,6 +183,7 @@
                     android:text="装车截止时间" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     style="@style/TextViewWeight"
                     android:text="2017-6-28 18:40:28" />
 
@@ -196,6 +204,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_cargo_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -222,11 +231,13 @@
                     android:text="联系电话" />
 
                 <TextView
+                    android:id="@+id/cargo_phone"
                     android:layout_gravity="center_vertical"
                     style="@style/TextViewWeight"
                     android:text="18900025478" />
 
                 <ImageView
+                    android:id="@+id/iv_cargo_phone"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -250,6 +261,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_unloading_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -275,11 +287,13 @@
                     android:text="联系电话" />
 
                 <TextView
+                    android:id="@+id/tv_unloading_phone"
                     android:layout_gravity="center_vertical"
                     style="@style/TextViewWeight"
                     android:text="18900025478" />
 
                 <ImageView
+                    android:id="@+id/iv_unloading_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />
@@ -305,6 +319,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/remarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

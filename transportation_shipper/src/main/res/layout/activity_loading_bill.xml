@@ -23,6 +23,7 @@
             android:paddingRight="10dp">
 
             <TextView
+                android:id="@+id/loading_time"
                 style="@style/TextView"
                 android:layout_marginRight="40dp"
                 android:text="装货时间" />
@@ -49,6 +50,7 @@
                 android:text="装货净重" />
 
             <EditText
+                android:id="@+id/et_loading_weight"
                 style="@style/TextViewWeight"
                 android:background="@null"
                 android:hint="请输入" />
@@ -77,23 +79,25 @@
 
 
             <ImageView
+                android:id="@+id/loading_pound_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/sc" />
+                android:src="@mipmap/photo_upload" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="未上传"
-                android:textColor="@color/gray_color"
-                android:textSize="@dimen/sp_12" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="未上传"-->
+                <!--android:textColor="@color/gray_color"-->
+                <!--android:textSize="@dimen/sp_12" />-->
 
         </FrameLayout>
     </LinearLayout>
 
     <com.arkui.fz_tools.view.ShapeButton
+        android:id="@+id/submit"
         android:layout_marginTop="150dp"
         style="@style/Button"
         android:text="提交" />

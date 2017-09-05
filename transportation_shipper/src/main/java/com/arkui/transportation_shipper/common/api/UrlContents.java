@@ -41,5 +41,17 @@ public class UrlContents {
     public static final String TRUCK_EDIT =BASE_URL+"App/TruckOwner/truck_edit";
     //货源列表进入详情
     public static final String CARGO_LIST_DETAIL =BASE_URL+"App/TruckOwner/cargo_list_detail";
+     //车主端运单详情  App/TruckOwner/waybill_details
+     public static final String TRUCK_OWNER_WAYBILL_DETAILS =BASE_URL+"App/TruckOwner/waybill_details";
+    // 司机端运单列表
+    public static final String DRIVER_ORDER_LIST =BASE_URL+"App/Driver/driver_order_list";
+    //司机端运单列表详情
+    public static final String DRIVER_ORDER_DETAIL =BASE_URL+"App/Driver/driver_order_detail";
+    // 提交装货榜单 App/Driver/loading_submit
+    public static final String LOADING_SUBMIT =BASE_URL+"App/Driver/loading_submit";
+    // 提交卸货磅单 App/Driver/unload
+    public static final String UNLOAD_SUBMIT =BASE_URL+"App/Driver/unload";
+  // 查看磅单详情  App/Driver/loading_list_detail
+  public static final String LOADING_LIST_DETAIL =BASE_URL+"App/Driver/loading_list_detail";
 
 }

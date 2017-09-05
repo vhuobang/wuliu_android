@@ -29,4 +29,5 @@ public interface SupplyApi {
     @POST(UrlContents.CARGO_LIST_DETAIL)
     Observable<BaseHttpResult<CargoListDetailEntity>> getCargoListDetail(@Field("id") String id);
 
+
 }

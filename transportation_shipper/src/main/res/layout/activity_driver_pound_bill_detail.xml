@@ -42,6 +42,7 @@
                 android:text="装货时间" />
 
             <TextView
+                android:id="@+id/loading_time"
                 style="@style/TextViewWeight"
 
                 android:text="装货时间" />
@@ -57,6 +58,7 @@
                 android:text="装货净重" />
 
             <TextView
+                android:id="@+id/loading_number"
                 style="@style/TextViewWeight"
                 android:text="19.9吨" />
 
@@ -80,18 +82,11 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_loading_pound"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/sc" />
+                    android:src="@mipmap/photo_upload" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="未上传"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/sp_12" />
 
             </FrameLayout>
 
@@ -127,6 +122,7 @@
                 android:text="卸货时间" />
 
             <TextView
+                android:id="@+id/unloading_time"
                 style="@style/TextViewWeight"
 
                 android:text="卸货时间" />
@@ -142,6 +138,7 @@
                 android:text="卸货净重" />
 
             <TextView
+                android:id="@+id/tv_unloading_weight"
                 style="@style/TextViewWeight"
                 android:text="19.9吨" />
 
@@ -165,18 +162,12 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_unloading_pound"
                     android:layout_width="85dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/sc" />
+                    android:src="@mipmap/photo_upload" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="未上传"
-                    android:textColor="@color/gray_color"
-                    android:textSize="@dimen/sp_12" />
+
 
             </FrameLayout>
 

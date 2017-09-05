@@ -195,7 +195,7 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
               }
               break;
           case R.id.iv_phone:
-              commonDialog.setContent(entity.getTruckTel());
+              commonDialog.setContent(entity.getTel());
               commonDialog.showDialog(SupplyDetailActivity.this,"phone");
               break;
       }

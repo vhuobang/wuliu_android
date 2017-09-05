@@ -32,7 +32,6 @@ import io.reactivex.disposables.Disposable;
 
 public class WaybillDetailActivity extends BaseActivity implements OnConfirmClick {
 
-
     @BindView(R.id.loading_address)
     TextView mLoadingAddress;
     @BindView(R.id.loading_address_detail)
@@ -151,6 +150,7 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
         mRatingBar.setRating(Float.parseFloat(entity.getStarRating()));
 
     }
+
 
     @OnClick({R.id.bt_start,R.id.phone} )
     public void onClick (View view) {
