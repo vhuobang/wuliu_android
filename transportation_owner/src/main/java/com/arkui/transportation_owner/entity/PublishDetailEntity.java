@@ -10,15 +10,16 @@ import java.util.List;
 
 public class PublishDetailEntity {
 
+
     /**
-     * id : 5
-     * loading_address : 北京-朝阳区 西单大悦城西单北大街131号
+     * id : 1
+     * loading_address : 北京-西城区 天安门东长安街
      * unloading_address : 北京-海淀区 上地(地铁站)13号线
      * cargo_name : 测试货品
-     * cargo_num : 500
+     * cargo_num : 12
      * unit : 1
-     * surplus_num : 500
-     * carrier_info : [{"name":null,"assign_vehicles":"0","quantity_shipment":"0","unit":"1"}]
+     * surplus_num : 10
+     * carrier_info : [{"name":"测试公司","logistical_id":"2","cargo_id":"1","quantity_shipment":"2","unit":"1","car_number":"1","carrier_num":"2"},{"name":"方舟公司","logistical_id":"1","cargo_id":"1","quantity_shipment":"2","unit":"1","car_number":"0","carrier_num":0},{"name":"个人测试号","logistical_id":"11","cargo_id":"1","quantity_shipment":"2","unit":"1","car_number":"0","carrier_num":0}]
      */
 
     @SerializedName("id")
@@ -104,20 +105,29 @@ public class PublishDetailEntity {
 
     public static class CarrierInfoBean {
         /**
-         * name : null
-         * assign_vehicles : 0
-         * quantity_shipment : 0
+         * name : 测试公司
+         * logistical_id : 2
+         * cargo_id : 1
+         * quantity_shipment : 2
          * unit : 1
+         * car_number : 1
+         * carrier_num : 2
          */
 
         @SerializedName("name")
         private String name;
-        @SerializedName("assign_vehicles")
-        private String assignVehicles;
+        @SerializedName("logistical_id")
+        private String logisticalId;
+        @SerializedName("cargo_id")
+        private String cargoId;
         @SerializedName("quantity_shipment")
         private String quantityShipment;
         @SerializedName("unit")
         private String unit;
+        @SerializedName("car_number")
+        private String carNumber;
+        @SerializedName("carrier_num")
+        private String carrierNum;
 
         public String getName() {
             return name;
@@ -127,12 +137,20 @@ public class PublishDetailEntity {
             this.name = name;
         }
 
-        public String getAssignVehicles() {
-            return assignVehicles;
+        public String getLogisticalId() {
+            return logisticalId;
         }
 
-        public void setAssignVehicles(String assignVehicles) {
-            this.assignVehicles = assignVehicles;
+        public void setLogisticalId(String logisticalId) {
+            this.logisticalId = logisticalId;
+        }
+
+        public String getCargoId() {
+            return cargoId;
+        }
+
+        public void setCargoId(String cargoId) {
+            this.cargoId = cargoId;
         }
 
         public String getQuantityShipment() {
@@ -149,6 +167,22 @@ public class PublishDetailEntity {
 
         public void setUnit(String unit) {
             this.unit = unit;
+        }
+
+        public String getCarNumber() {
+            return carNumber;
+        }
+
+        public void setCarNumber(String carNumber) {
+            this.carNumber = carNumber;
+        }
+
+        public String getCarrierNum() {
+            return carrierNum;
+        }
+
+        public void setCarrierNum(String carrierNum) {
+            this.carrierNum = carrierNum;
         }
     }
 }

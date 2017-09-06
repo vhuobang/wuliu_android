@@ -143,7 +143,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mHeadHolder.mTvUnloadingDetailAddress.setText(unloadingAddress.length >= 2 ? unloadingAddress[1] : "");
 
         mHeadHolder.mTvCargoName.setText(publishDetailEntity.getCargoName()+" "+ publishDetailEntity.getCargoNum()+"吨");
-        mHeadHolder.mTvSurplusNum.setText(String.format("剩余%s",publishDetailEntity.getCargoNum()+"吨"));
+        mHeadHolder.mTvSurplusNum.setText(String.format("剩余%s",publishDetailEntity.getSurplusNum()+"吨"));
 
         mPublishDetailsAdapter.setNewData(publishDetailEntity.getCarrierInfo());
 

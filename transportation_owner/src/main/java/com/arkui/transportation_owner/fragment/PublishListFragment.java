@@ -67,6 +67,7 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String id = mPublishAdapter.getItem(position).getId();
+
                 String cStatus = mPublishAdapter.getItem(position).getCStatus();
                 switch (mType) {
                     case 1:
