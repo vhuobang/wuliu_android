@@ -42,9 +42,7 @@ public class OwnerWaybillFragment extends BaseLazyFragment {
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
 
         for (int i =1; i <= mTitles.length; i++) {
-
             fragmentList.add(OwnerWaybillListFragment.getInstance(i));
-
         }
 
         ViewPageLazyAdapter mViewPagerAdapter = new ViewPageLazyAdapter(getChildFragmentManager(), fragmentList, mTitles);

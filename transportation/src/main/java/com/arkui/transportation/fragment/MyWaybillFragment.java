@@ -37,9 +37,7 @@ public class MyWaybillFragment extends BaseLazyFragment {
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
-
         List<BaseLazyFragment> fragmentList = new ArrayList<>();
-
         PublishFragment publishFragment0 = PublishFragment.getInstance(1);
         PublishFragment publishFragment1 = PublishFragment.getInstance(2);
         MyWaybillListFragment myWaybillListFragment2 = MyWaybillListFragment.getInstance(1);

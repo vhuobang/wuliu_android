@@ -131,11 +131,12 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="￥100.00"
+                android:text="￥0.00"
                 android:textColor="@color/mainColor"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
@@ -169,11 +170,12 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/integral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="￥300.00"
+                android:text="0.00"
                 android:textColor="@color/mainColor"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>

@@ -7,10 +7,8 @@
     android:orientation="vertical"
     tools:context="com.arkui.transportation_shipper.owner.activity.my.AboutActivity">
 
-    <TextView
-        android:textColor="@color/mainColor"
-        android:textSize="30sp"
-        android:text="PM说这里要放一个网页"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <WebView
+       android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

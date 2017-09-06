@@ -22,6 +22,7 @@
             android:text="货主评分" />
 
         <RatingBar
+            android:id="@+id/cargo_starts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="24dp"
@@ -44,9 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="18dp"
-            android:text="物流评分" />
+            android:text="车主评分" />
 
         <RatingBar
+            android:id="@+id/car_owner_starts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="24dp"

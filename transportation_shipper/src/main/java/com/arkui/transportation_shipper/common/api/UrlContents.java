@@ -53,5 +53,7 @@ public class UrlContents {
     public static final String UNLOAD_SUBMIT =BASE_URL+"App/Driver/unload";
   // 查看磅单详情  App/Driver/loading_list_detail
   public static final String LOADING_LIST_DETAIL =BASE_URL+"App/Driver/loading_list_detail";
+   // 司机端提交经纬度
+   public static final String DRIVER_POSITION =BASE_URL+"App/TruckOwner/driver_position";
 
 }

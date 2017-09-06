@@ -109,7 +109,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnBindViewHo
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        showActivity(EditPlanPublishDetailActivity.class);
+        EditPlanPublishDetailActivity.showActivity(mActivity,carGoId);
     }
 
     /**

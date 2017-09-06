@@ -3,14 +3,21 @@ package com.arkui.transportation.activity.my;
 import android.view.View;
 import android.widget.TextView;
 
+import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation.R;
+import com.arkui.transportation.base.App;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MyPointActivity extends BaseActivity {
+public class MyPointActivity extends BaseActivity implements UserInterface {
+
+    UserPresenter userPresenter;
+    private TextView tvIntegral;
 
     @Override
     public void setRootView() {
@@ -21,9 +28,10 @@ public class MyPointActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        String points = getIntent().getStringExtra("points");
-        TextView tvIntegral = (TextView) findViewById(R.id.integral);
-        tvIntegral.setText(points);
+      //  String points = getIntent().getStringExtra("points");
+        userPresenter = new UserPresenter(this, this);
+        tvIntegral = (TextView) findViewById(R.id.integral);
+      //  tvIntegral.setText(points);
     }
 
     @OnClick({R.id.bt_withdraw, R.id.iv_back,R.id.iv_right})
@@ -40,6 +48,22 @@ public class MyPointActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userPresenter.getUserInfo(App.getUserId());
+    }
+
+    @Override
+    public void onSucceed() {
+
+    }
+
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+        tvIntegral.setText(userEntity.getIntegral());
     }
 
    /* @Override

@@ -23,6 +23,7 @@
             android:text="货主评分" />
 
         <RatingBar
+            android:id="@+id/cargo_starts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="24dp"
@@ -48,6 +49,7 @@
             android:text="物流评分" />
 
         <RatingBar
+            android:id="@+id/lg_starts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="24dp"
@@ -59,7 +61,7 @@
     </LinearLayout>
 
     <com.arkui.fz_tools.view.ShapeButton
-
+            android:id="@+id/publish"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="30dp"

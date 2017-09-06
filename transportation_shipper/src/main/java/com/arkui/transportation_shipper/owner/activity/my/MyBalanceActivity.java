@@ -1,15 +1,23 @@
 package com.arkui.transportation_shipper.owner.activity.my;
 
 import android.view.View;
+import android.widget.TextView;
 
+import com.arkui.fz_tools._interface.UserInterface;
+import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.base.App;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MyBalanceActivity extends BaseActivity {
+public class MyBalanceActivity extends BaseActivity implements UserInterface {
+
+    private TextView tvBalance;
+    private UserPresenter userPresenter;
 
     @Override
     public void setRootView() {
@@ -22,6 +30,11 @@ public class MyBalanceActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        userPresenter = new UserPresenter(this,this);
+        tvBalance = (TextView) findViewById(R.id.balance);
+      //  String balance = getIntent().getStringExtra("balance");
+      //  tvBalance.setText(balance);
+
     }
 
    /* @OnClick({R.id.bt_recharge, R.id.bt_withdraw})
@@ -59,5 +72,28 @@ public class MyBalanceActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        userPresenter.getUserInfo(App.getUserId());
+    }
+
+    @Override
+    public void onSucceed() {
+
+    }
+   //
+    @Override
+    public void loginSucceed(UserEntity userEntity) {
+        tvBalance.setText(userEntity.getBalance());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (userPresenter!=null){
+            userPresenter.onDestroy();
+        }
     }
 }

@@ -86,15 +86,15 @@ public class MyFragment extends BaseFragment implements UserInterface {
     @OnClick({R.id.ll_balance, R.id.ll_point, R.id.ll_share, R.id.ll_service, R.id.ll_driver_login, R.id.iv_setting, R.id.iv_head, R.id.ll_auth, R.id.ll_info_fee})
     public void onClick(View view) {
 
-        Bundle bundle = new Bundle();
+      Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                bundle.putString("balance",mUserEntity.getBalance());
-                showActivity(MyBalanceActivity.class,bundle);
+               // bundle.putString("balance",mUserEntity.getBalance());
+                showActivity(MyBalanceActivity.class);
                 break;
             case R.id.ll_point:
-                bundle.putString("points",mUserEntity.getIntegral());
-                showActivity(MyPointActivity.class,bundle);
+         //       bundle.putString("points",mUserEntity.getIntegral());
+                showActivity(MyPointActivity.class);
                 break;
             case R.id.ll_share:
                 //mShareDialog.show(getChildFragmentManager(), "share");
@@ -170,6 +170,9 @@ public class MyFragment extends BaseFragment implements UserInterface {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        userPresenter.onDestroy();
+        if (userPresenter !=null){
+            userPresenter.onDestroy();
+        }
+
     }
 }

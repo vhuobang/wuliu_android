@@ -82,7 +82,8 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<LogWayBIllLis
         mCommonAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(DriverLocationActivity.class);
+                LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
+                DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
             }
         });
     }

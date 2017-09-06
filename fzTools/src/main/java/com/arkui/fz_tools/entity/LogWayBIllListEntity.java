@@ -25,6 +25,9 @@ public class LogWayBIllListEntity {
      * cargo_name : 铁2
      * id : 3
      * truck_name : 司机2
+     *
+     *log 经度
+     * lat 纬度
      */
 
     @SerializedName("carrier_num")
@@ -59,6 +62,26 @@ public class LogWayBIllListEntity {
     private String id;
     @SerializedName("truck_name")
     private String truckName;
+    @SerializedName("log")
+    private String  log;
+    @SerializedName("lat")
+    private String lat;
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
 
     public String getCarrierNum() {
         return carrierNum;

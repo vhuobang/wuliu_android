@@ -38,6 +38,10 @@ public class MyFragment extends BaseFragment implements UserInterface {
     ImageView ivHead;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.tv_balance)
+    TextView mBalance;
+    @BindView(R.id.integral)
+    TextView mIntegral;
 
     private ShareDialog mShareDialog;
     private UserPresenter userPresenter;
@@ -65,10 +69,11 @@ public class MyFragment extends BaseFragment implements UserInterface {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                bundle.putString("balance",mUserEntity.getBalance());
-                showActivity(MyBalanceActivity.class,bundle);
+             //   bundle.putString("balance",mUserEntity.getBalance());
+                showActivity(MyBalanceActivity.class);
                 break;
             case R.id.ll_point:
+               // bundle.putString("integral",mUserEntity.getIntegral());
                 showActivity(MyPointActivity.class);
                 break;
             case R.id.ll_share:
@@ -122,6 +127,8 @@ public class MyFragment extends BaseFragment implements UserInterface {
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();
         isCompanyCertificate = userEntity.getIsCompanyCertificate();
+        mIntegral.setText(userEntity.getIntegral());
+        mBalance.setText("￥"+userEntity.getBalance());
         if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")) {
             tvAuth.setText("未认证 立即认证");
         }

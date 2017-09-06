@@ -40,7 +40,10 @@ public interface DriverApi {
     @FormUrlEncoded
     @POST(UrlContents.LOADING_LIST_DETAIL)
     Observable<BaseHttpResult<PoundListDetail>> loadingListDetail(@Field("order_id") String orderId);
-
+   // 上传位置
+   @FormUrlEncoded
+   @POST(UrlContents.DRIVER_POSITION)
+   Observable<BaseHttpResult> upDriverPosition(@Field("log") String log,@Field("lat") String lat);
 }
 
 

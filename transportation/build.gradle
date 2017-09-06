@@ -62,4 +62,5 @@ dependencies {
     compile 'com.amap.api:location:3.5.0'
     compile 'com.amap.api:3dmap:5.2.1'
     compile 'com.amap.api:search:latest.integration'
+    compile files('libs/alipaySdk-20170725.jar')
 }

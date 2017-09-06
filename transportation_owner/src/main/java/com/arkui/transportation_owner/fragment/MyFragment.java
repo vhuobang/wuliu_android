@@ -85,11 +85,11 @@ public class MyFragment extends BaseFragment implements UserInterface {
         Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.ll_balance:
-                bundle.putString("balance",mUserEntity.getBalance());
+           //     bundle.putString("balance",mUserEntity.getBalance());
                 showActivity(MyBalanceActivity.class,bundle);
                 break;
             case R.id.ll_point:
-                bundle.putString("jifen",mUserEntity.getIntegral());
+             //   bundle.putString("jifen",mUserEntity.getIntegral());
                 showActivity(MyPointActivity.class,bundle);
                 break;
             case R.id.ll_share:

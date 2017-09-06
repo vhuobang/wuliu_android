@@ -69,4 +69,9 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.WAYBILL_LIST)
     Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogWaybillList(@Field("user_id") String userId, @Field("order_status") String order_status);
+    // 评价
+    @FormUrlEncoded
+    @POST(NetConstants.EVALUATE)
+    Observable<BaseHttpResult> getEvaluate(@FieldMap Map<String,Object> map);
+
 }

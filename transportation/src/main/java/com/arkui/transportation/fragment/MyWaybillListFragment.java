@@ -78,7 +78,9 @@ public class MyWaybillListFragment extends BaseLazyFragment implements OnRefresh
         mListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(DriverLocationActivity.class);
+                LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
+                DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
+
             }
         });
     }

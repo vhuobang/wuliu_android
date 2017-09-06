@@ -1,5 +1,7 @@
 package com.arkui.transportation_shipper.owner.activity.waybill;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.amap.api.maps.AMap;
@@ -21,6 +23,12 @@ public class DriverLocationActivity extends BaseActivity {
     @BindView(R.id.map)
     MapView mMap;
 
+    public static void openActivity(Context mContext , String log, String lat){
+        Intent intent = new Intent(mContext,DriverLocationActivity.class);
+        intent.putExtra("log",log);
+        intent.putExtra("lat",lat);
+        mContext.startActivity(intent);
+    }
     @Override
     public void setRootView() {
         setContentView(R.layout.activity_driver_location);
@@ -37,7 +45,9 @@ public class DriverLocationActivity extends BaseActivity {
         super.initView(savedInstanceState);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMap.onCreate(savedInstanceState);
-        LatLng latLng = new LatLng(40.067255,116.313896);
+        double log = Double.parseDouble(getIntent().getStringExtra("log"));
+        double lat = Double.parseDouble(getIntent().getStringExtra("lat"));
+        LatLng latLng = new LatLng(log,lat);
         AMap map = mMap.getMap();
         UiSettings uiSettings = map.getUiSettings();
         uiSettings.setZoomControlsEnabled(false);
