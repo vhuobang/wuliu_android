@@ -42,8 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="#666666"
                     android:layout_marginRight="14dp"
-                    android:text="单号:125554445" />
+                    android:text="单号:" />
 
 
             </LinearLayout>
@@ -173,6 +174,7 @@
                     android:id="@+id/loading_time"
                     style="@style/TextViewWeight"
                     android:background="@null"
+                    android:focusable="false"
                     android:hint="未填写" />
             </TableRow>
 
@@ -189,6 +191,7 @@
                     android:id="@+id/loading_weight"
                     style="@style/TextViewWeight"
                     android:background="@null"
+                    android:focusable="flase"
                     android:hint="未填写" />
             </TableRow>
 
@@ -213,7 +216,7 @@
                         android:id="@+id/loading_pic"
                         android:layout_width="85dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/sc" />
+                        android:src="@mipmap/photo_upload" />
 
                     <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
@@ -259,6 +262,7 @@
                 <EditText
                     android:id="@+id/unloading_time"
                     style="@style/TextViewWeight"
+                    android:focusable="false"
                     android:background="@null"
                     android:hint="未填写" />
             </TableRow>
@@ -275,6 +279,7 @@
                 <EditText
                     android:id="@+id/unloading_weight"
                     style="@style/TextViewWeight"
+                    android:focusable="false"
                     android:background="@null"
                     android:hint="未填写" />
             </TableRow>
@@ -298,18 +303,18 @@
 
                     <ImageView
                         android:id="@+id/unloading_pic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/sc" />
+                        android:layout_width="85dp"
+                        android:layout_height="60dp"
+                        android:src="@mipmap/photo_upload" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:text="未上传"
-                        android:textColor="@color/gray_color"
-                        android:textSize="@dimen/sp_12" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:text="未上传"-->
+                        <!--android:textColor="@color/gray_color"-->
+                        <!--android:textSize="@dimen/sp_12" />-->
 
                 </FrameLayout>
 

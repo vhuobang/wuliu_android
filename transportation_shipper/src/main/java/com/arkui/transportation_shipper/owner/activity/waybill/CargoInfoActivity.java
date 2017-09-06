@@ -76,6 +76,11 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
         releaseDetailPresenter = new ReleaseDetailPresenter(this, this);
     }
 
+    @Override
+    public void initData() {
+        releaseDetailPresenter.getReleaseDetail(cargoId);
+    }
+
     // 货物详情
     @Override
     public void onSuccess(ReleaseDetailsEntity entity) {

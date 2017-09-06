@@ -57,7 +57,7 @@ public class TruckOwnerWaybillDetialEntity {
     private String cargoId; //货源id
     @SerializedName("user_id") //货主id
     private String userId;
-    @SerializedName("order_num") //运单号
+    @SerializedName("order_number") //运单号
     private String orderNum;
 
 
