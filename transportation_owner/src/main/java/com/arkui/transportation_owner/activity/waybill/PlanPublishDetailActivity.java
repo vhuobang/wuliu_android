@@ -88,7 +88,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         super.onRightClick();
         String id = getIntent().getStringExtra("id");
         //showActivity(EditPlanPublishDetailActivity.class);
-        EditPlanPublishDetailActivity.showActivity(this, id);
+        EditPlanPublishDetailActivity.showActivity(this, id,false);
     }
 
     @Override

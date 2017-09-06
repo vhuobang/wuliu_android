@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -13,20 +16,27 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.AddressPicker;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.City;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.SupplyApi;
+import com.arkui.transportation_shipper.common.base.App;
+import com.arkui.transportation_shipper.common.entity.OrderEntity;
+import com.arkui.transportation_shipper.common.entity.RefreshSupplyListEntity;
 import com.arkui.transportation_shipper.common.entity.SupplyListEntity;
+import com.arkui.transportation_shipper.owner.activity.supply.PayMessageFeeActivity;
 import com.arkui.transportation_shipper.owner.activity.supply.WaybillDetailActivity;
 import com.arkui.transportation_shipper.owner.adapter.SupplyAdapter;
-import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.arkui.transportation_shipper.owner.utils.LoadCityData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,23 +48,31 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+
 /**
  * 基于基类的Fragment
  * TODO 货源页面
  */
-public class SupplyFragment extends BaseFragment implements OnBindViewHolderListener<String>, BaseQuickAdapter.OnItemClickListener, OnRefreshListener {
+public class SupplyFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener, OnRefreshListener, AddressPicker.OnEnsureClickListener, OnConfirmClick {
 
     @BindView(R.id.rl_supply)
     PullRefreshRecyclerView mRlSupply;
+    @BindView(R.id.tv_start)
+    TextView mTvStart;
+    @BindView(R.id.tv_end)
+    TextView mTvEnd;
     private SupplyAdapter mSupplyAdapter;
     private CommonDialog mCommonDialog;
     private AddressPicker mAddressPicker;
     private List<City> mCities;
     private Disposable mDisposable;
-    private int mPage=1;
+    private int mPage = 1;
     private SupplyApi mSupplyApi;
-    private String mLoadingAddress="";
-    private String mUnloadingAddress="";
+    private String mLoadingAddress = "";
+    private String mUnloadingAddress = "";
+    private int mType;
+    private OrderEntity mOrderEntity;
+
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_supply, container, false);
@@ -71,18 +89,15 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         mRlSupply.setOnRefreshListener(this);
         mSupplyAdapter.setOnItemClickListener(this);
         initDialog();
+        EventBus.getDefault().register(this);
     }
 
     private void initDialog() {
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("支付提醒").setContent("您的账户还有未支付信息费用的订单，请先完成支付！").setConfirmText("立即支付").setNoCancel().setIsCanceledOnTouch(false);
-        mCommonDialog.show(getChildFragmentManager(), "supply");
+        mCommonDialog.setConfirmClick(this);
         mAddressPicker = new AddressPicker();
-    }
-
-    @Override
-    public void convert(BaseViewHolder helper, String item) {
-
+        mAddressPicker.setOnEnsureClickListener(this);
     }
 
     @Override
@@ -100,18 +115,19 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         mSupplyApi = RetrofitFactory.createRetrofit(SupplyApi.class);
         //获取货源数据
         getNetData();
+        //获取有没有未支付信息费
+        isPayFee();
     }
 
     private void getNetData() {
-
-        Map<String,Object> parameter=new HashMap<>();
-        parameter.put("loading_address",mLoadingAddress);
-        parameter.put("unloading_address",mUnloadingAddress);
-        parameter.put("page",mPage);
-        parameter.put("pagesize",20);
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("loading_address", mLoadingAddress);
+        parameter.put("unloading_address", mUnloadingAddress);
+        parameter.put("page", mPage);
+        parameter.put("pagesize", 20);
         Observable<List<SupplyListEntity>> observable = mSupplyApi.postSupplyList(parameter).map(new HttpResultFunc<List<SupplyListEntity>>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<SupplyListEntity>>(mContext,false) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<SupplyListEntity>>(mContext, false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -119,7 +135,50 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
 
             @Override
             public void onNext(List<SupplyListEntity> value) {
-                mSupplyAdapter.setNewData(value);
+                if (mPage == 1) {
+                    mSupplyAdapter.setNewData(value);
+                    mRlSupply.refreshComplete();
+                    mSupplyAdapter.setEnableLoadMore(value.size() == 20);
+                } else {
+                    mSupplyAdapter.addData(value);
+                    mSupplyAdapter.loadMoreComplete();
+                }
+                mPage += 1;
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                if (mPage == 1) {
+                    mRlSupply.refreshComplete();
+                    mRlSupply.loadFail();
+                } else {
+                    mSupplyAdapter.loadMoreEnd();
+                }
+            }
+        });
+    }
+
+    private void isPayFee() {
+        Observable<List<OrderEntity>> observable = mSupplyApi.postIsSettle(App.getUserId()).map(new HttpResultFunc<List<OrderEntity>>());
+
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<OrderEntity>>(mContext,false) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(List<OrderEntity> value) {
+                if (!value.isEmpty()) {
+                    mOrderEntity = value.get(0);
+                    mCommonDialog.showDialog(getActivity(), "supply");
+                }
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                //super.onApiError(e);
             }
         });
     }
@@ -129,6 +188,7 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         super.onDestroy();
         if (mDisposable != null)
             mDisposable.dispose();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -137,7 +197,10 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
         Log.e("fz", "onHiddenChanged" + hidden);
         if (!hidden) {
             if (mCommonDialog != null) {
-                mCommonDialog.show(getChildFragmentManager(), "supply");
+                /*if(mOrderEntity!=null){
+                    mCommonDialog.showDialog(getActivity(), "supply");
+                }*/
+                isPayFee();
                 //mAddressPicker.show(getChildFragmentManager(),"city");
             }
         }
@@ -147,9 +210,11 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_start:
+                mType = 1;
                 mAddressPicker.show(getChildFragmentManager(), "start");
                 break;
             case R.id.tv_end:
+                mType = 2;
                 mAddressPicker.show(getChildFragmentManager(), "end");
                 break;
         }
@@ -158,11 +223,53 @@ public class SupplyFragment extends BaseFragment implements OnBindViewHolderList
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         SupplyListEntity item = (SupplyListEntity) adapter.getItem(position);
-        WaybillDetailActivity.openActivity(getActivity(),item.getId());
+        WaybillDetailActivity.openActivity(getActivity(), item.getId());
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
+        mPage = 1;
+        getNetData();
+    }
 
+    @Override
+    public void onCityClick(String city) {
+        String[] split = city.split("-");
+        if (split.length < 2) {
+            //ShowToast("请选择");
+            Toast.makeText(mContext, "请选择正确地址", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String cityStr = null;
+
+        if ("北京".equals(split[0]) || "上海".equals(split[0]) || "天津".equals(split[0]) || "重庆".equals(split[0])) {
+            cityStr = split[0];
+        } else {
+            cityStr = split[1];
+        }
+
+        if (mType == 1) {
+            mLoadingAddress = cityStr;
+            mTvStart.setText(city);
+        } else {
+            mUnloadingAddress = cityStr;
+            mTvEnd.setText(city);
+        }
+        mPage = 1;
+        getNetData();
+    }
+
+    @Override
+    public void onConfirmClick() {
+        if (mOrderEntity == null)
+            return;
+        PayMessageFeeActivity.openActivity(getActivity(), mOrderEntity);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshSupplyList(RefreshSupplyListEntity refreshSupplyListEntity){
+        mPage=1;
+        getNetData();
     }
 }

@@ -11,9 +11,11 @@ import android.widget.Toast;
 import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.dialog.ShareDialog;
 import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.mvp.UserPresenter;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.GlideUtils;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.activity.DriverLoginActivity;
 import com.arkui.transportation_shipper.common.base.App;
@@ -84,6 +86,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 showActivity(ContactServiceActivity.class);
                 break;
             case R.id.ll_driver_login:
+                SPUtil.getInstance(mContext).remove(Constants.IS_LOGIN);
                 showActivity(DriverLoginActivity.class);
                 getActivity().finish();
                 break;

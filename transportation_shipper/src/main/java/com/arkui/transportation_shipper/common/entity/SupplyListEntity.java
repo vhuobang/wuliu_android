@@ -28,6 +28,24 @@ public class SupplyListEntity {
     private String cargo_num;
     private String cargo_price;
     private String unit;
+    private String logo;
+    private String surplus_num;
+
+    public String getSurplus_num() {
+        return surplus_num;
+    }
+
+    public void setSurplus_num(String surplus_num) {
+        this.surplus_num = surplus_num;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
     private  String id;
    // private String unit;
 

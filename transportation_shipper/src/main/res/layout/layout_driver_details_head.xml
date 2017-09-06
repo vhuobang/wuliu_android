@@ -44,10 +44,10 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="京P2454Q"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/sp_14" />
         </TableRow>
@@ -66,10 +66,10 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="罐车"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/sp_14" />
         </TableRow>
@@ -88,10 +88,10 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="563"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/sp_14" />
         </TableRow>
@@ -110,10 +110,10 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_out_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="563"
                 android:textColor="@color/gray_color"
                 android:textSize="@dimen/sp_14" />
         </TableRow>
@@ -185,13 +185,14 @@
                         android:id="@+id/iv_front"
                         android:layout_width="85dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/zc_photo" />
+                        android:src="@mipmap/tupian" />
 
                     <ImageView
+                        android:id="@+id/iv_reverse"
                         android:layout_width="85dp"
                         android:layout_height="60dp"
                         android:layout_marginLeft="8dp"
-                        android:src="@mipmap/zc_photo" />
+                        android:src="@mipmap/tupian" />
                 </LinearLayout>
 
             </TableRow>
@@ -215,9 +216,10 @@
                     android:layout_weight="1">
 
                     <ImageView
+                        android:id="@+id/iv_hold"
                         android:layout_width="85dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/zc_photo" />
+                        android:src="@mipmap/tupian" />
 
                 </LinearLayout>
             </TableRow>
@@ -241,9 +243,10 @@
                     android:layout_weight="1">
 
                     <ImageView
+                        android:id="@+id/iv_drive"
                         android:layout_width="85dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/zc_photo" />
+                        android:src="@mipmap/tupian" />
 
                 </LinearLayout>
             </TableRow>

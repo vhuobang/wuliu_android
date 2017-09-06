@@ -20,7 +20,7 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.AssetApi;
 import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
 import com.arkui.transportation_shipper.common.entity.VehicleDetailEntity;
-import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
+import com.arkui.transportation_shipper.owner.adapter.VehicleDetailsAdapter;
 import com.arkui.transportation_shipper.owner.dialog.ViewVehicleLargeMapDialog;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -39,8 +39,8 @@ import io.reactivex.disposables.Disposable;
 public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHolderListener<String>, View.OnClickListener, OnConfirmClick {
 
     @BindView(R.id.rl_vehicle_derails)
-    PullRefreshRecyclerView mRlVehicleDerails;
-    private CommonAdapter<String> mRlVehicleDerailsAdapter;
+    PullRefreshRecyclerView mVehicleDetails;
+    private VehicleDetailsAdapter mVehicleDetailsAdapter;
     private ViewVehicleLargeMapDialog mViewVehicleLargeMapDialog;
     private CommonDialog mCommonDialog;
     private AssetApi mAssetApi;
@@ -59,23 +59,16 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
         super.initView();
         ButterKnife.bind(this);
 
-        mRlVehicleDerails.setLinearLayoutManager();
+        mVehicleDetails.setLinearLayoutManager();
         //CommonAdapter<String> mRlVehicleDerailsAdapter=new CommonAdapter<>(R.layout.item_vehicle_details,this);
-        mRlVehicleDerailsAdapter = CommonAdapter.getInstance(R.layout.item_vehicle_details, this);
-        mRlVehicleDerails.setAdapter(mRlVehicleDerailsAdapter);
-        mRlVehicleDerails.addItemDecoration(new AssetDecoration(mActivity, AssetDecoration.VERTICAL_LIST));
+        //mRlVehicleDerailsAdapter = CommonAdapter.getInstance(R.layout.item_vehicle_details, this);
+        mVehicleDetailsAdapter=new VehicleDetailsAdapter();
+        mVehicleDetails.setAdapter(mVehicleDetailsAdapter);
+        mVehicleDetails.addItemDecoration(new AssetDecoration(mActivity, AssetDecoration.VERTICAL_LIST));
+        mVehicleDetails.setEnablePullToRefresh(false);
 
-       /* new Handler().postDelayed(new Runnable() {
-            public void run() {
-                mRlVehicleDerailsAdapter.addData("车辆已装货");
-                mRlVehicleDerailsAdapter.addData("车辆已装货");
-                mRlVehicleDerails.refreshComplete();
-            }
-        }, 2000);*/
-        mRlVehicleDerails.setEnablePullToRefresh(false);
-
-        View vehicle_details_head = getLayoutInflater().inflate(R.layout.layout_vehicle_details_head, mRlVehicleDerails, false);
-        mRlVehicleDerailsAdapter.addHeaderView(vehicle_details_head);
+        View vehicle_details_head = getLayoutInflater().inflate(R.layout.layout_vehicle_details_head, mVehicleDetails, false);
+        mVehicleDetailsAdapter.addHeaderView(vehicle_details_head);
         initHeadView(vehicle_details_head);
         initDialog();
     }
@@ -120,7 +113,8 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
         GlideUtils.getInstance().load(mActivity, mTruckDetail.getDriving_license_photo(), mViewHolder.mIvDrivingLicense);
 
         //TODO 2017年8月30日 暂时性留个问题 因为这里数据未知 没数据
-        mRlVehicleDerailsAdapter.setNewData(null);
+        //TODO 2017年9月5日 问题解决 但是数据会夹带Null 很奇怪 待解决
+        mVehicleDetailsAdapter.setNewData(value.getTruck_status());
     }
 
     private void initDialog() {

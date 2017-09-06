@@ -1,6 +1,7 @@
 package com.arkui.transportation_shipper.common.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.transportation_shipper.common.entity.DriverListDetailEntity;
 import com.arkui.transportation_shipper.common.entity.DriverListEntity;
 import com.arkui.transportation_shipper.common.entity.TruckListEntity;
 import com.arkui.transportation_shipper.common.entity.VehicleDetailEntity;
@@ -59,5 +60,20 @@ public interface AssetApi {
     @FormUrlEncoded
     @POST(UrlContents.TRUCK_EDIT)
     Observable<BaseHttpResult> postEditVehicle(@FieldMap Map<String, Object> parameter);
+
+    //司机详情
+    @FormUrlEncoded
+    @POST(UrlContents.DRIVER_DETAIL)
+    Observable<BaseHttpResult<DriverListDetailEntity>> postDriverDetail(@Field("driver_id") String driver_id);
+
+    //编辑司机
+    @FormUrlEncoded
+    @POST(UrlContents.DRIVER_EDIT)
+    Observable<BaseHttpResult> postEditDriver(@FieldMap Map<String, Object> parameter);
+
+    //删除司机
+    @FormUrlEncoded
+    @POST(UrlContents.DRIVER_DEL)
+    Observable<BaseHttpResult> postDeleteDriver(@Field("driver_id") String driver_id);
 
 }

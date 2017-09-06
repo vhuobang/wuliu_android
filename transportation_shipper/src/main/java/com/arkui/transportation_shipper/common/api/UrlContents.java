@@ -41,6 +41,22 @@ public class UrlContents {
     public static final String TRUCK_EDIT =BASE_URL+"App/TruckOwner/truck_edit";
     //货源列表进入详情
     public static final String CARGO_LIST_DETAIL =BASE_URL+"App/TruckOwner/cargo_list_detail";
+    //司机详情
+    public static final String DRIVER_DETAIL =BASE_URL+"App/TruckOwner/driver_detail";
+    //编辑司机
+    public static final String DRIVER_EDIT =BASE_URL+"App/TruckOwner/driver_edit";
+    //删除司机
+    public static final String DRIVER_DEL =BASE_URL+"App/TruckOwner/driver_del";
+    //选择司机列表
+    public static final String DRIVER_LIST_BY_TRUCK =BASE_URL+"App/TruckOwner/driver_list_by_truck";
+    //选择车辆
+    public static final String DRIVER_TRUCK_LIST =BASE_URL+"App/TruckOwner/driver_truck_list";
+    //货源详情抢单
+    public static final String GET_WAYBILL =BASE_URL+"App/TruckOwner/get_waybill";
+    //获取未支付订单
+    public static final String IS_SETTLE =BASE_URL+"App/Logistical/is_settle";
+    //支付信息费
+    public static final String PAY =BASE_URL+"App/Finance/pay";
      //车主端运单详情  App/TruckOwner/waybill_details
      public static final String TRUCK_OWNER_WAYBILL_DETAILS =BASE_URL+"App/TruckOwner/waybill_details";
     // 司机端运单列表

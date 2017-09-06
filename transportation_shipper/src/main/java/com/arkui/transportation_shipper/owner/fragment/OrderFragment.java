@@ -33,16 +33,16 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface, PublicInterface {
+public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>, OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, NoticeInterface, PublicInterface {
 
     @BindView(R.id.rl_order)
     PullRefreshRecyclerView mRlOrder;
     // @BindView(R.id.refresh)
     // EasyRefreshLayout mRefresh;
     private CommonAdapter<NoticeEntity> mOrderMessageAdapter;
-    private  int page=1;
-    private int pageSize =10;
-    private  String ORDER_TYPE="1";
+    private int page = 1;
+    private int pageSize = 10;
+    private String ORDER_TYPE = "1";
 
     private PublicPresenter publicPresenter;
 
@@ -57,10 +57,10 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         ButterKnife.bind(this, parentView);
         publicPresenter = new PublicPresenter(this, getActivity());
         mRlOrder.setLayoutManager(new LinearLayoutManager(mContext));
-        mOrderMessageAdapter = new CommonAdapter(R.layout.item_system_message,this);
+        mOrderMessageAdapter = new CommonAdapter(R.layout.item_system_message, this);
         mRlOrder.setAdapter(mOrderMessageAdapter);
         mRlOrder.setOnRefreshListener(this);
-        mOrderMessageAdapter.setOnLoadMoreListener(this,mRlOrder.getRecyclerView());
+        mOrderMessageAdapter.setOnLoadMoreListener(this, mRlOrder.getRecyclerView());
 
         //mRlOrder.autoRefresh();
         mRlOrder.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
@@ -88,24 +88,24 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     }
 
     private void getLoadData() {
-        mPresenter.getNoticeList(App.getUserId(),ORDER_TYPE,page,pageSize);
+        mPresenter.getNoticeList(App.getUserId(), ORDER_TYPE, page, pageSize);
     }
 
 
     public void onRefreshing() {
-        page=1;
+        page = 1;
         getLoadData();
     }
 
     @Override
     public void convert(BaseViewHolder helper, NoticeEntity item) {
-        helper.setText(R.id.tv_name,item.getTitle());
-        helper.setText(R.id.tv_time,item.getCreated_at());
-        helper.setText(R.id.tv_content,item.getContent());
+        helper.setText(R.id.tv_name, item.getTitle());
+        helper.setText(R.id.tv_time, item.getCreated_at());
+        helper.setText(R.id.tv_content, item.getContent());
         String status = item.getStatus();
-        if ("1".equals(status)){
+        if ("1".equals(status)) {
             helper.getView(R.id.red_point).setVisibility(View.VISIBLE);
-        }else {
+        } else {
             helper.getView(R.id.red_point).setVisibility(View.GONE);
         }
 
@@ -127,19 +127,20 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
 
     /**
      * 数据请求
+     *
      * @param noticeEntityList
      */
     @Override
     public void onSuccess(List<NoticeEntity> noticeEntityList) {
-        if (page==1){
+        if (page == 1) {
             mOrderMessageAdapter.setNewData(noticeEntityList);
             mRlOrder.refreshComplete();
-            if(mOrderMessageAdapter.getItemCount()<10){
+            if (mOrderMessageAdapter.getItemCount() < 10) {
                 mOrderMessageAdapter.loadMoreEnd(true);
-            }else{
+            } else {
                 mOrderMessageAdapter.loadMoreEnd(false);
             }
-        }else {
+        } else {
             mOrderMessageAdapter.addData(noticeEntityList);
             mOrderMessageAdapter.loadMoreComplete();
             mRlOrder.refreshComplete();
@@ -170,7 +171,11 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
-        publicPresenter.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+        if (publicPresenter != null) {
+            publicPresenter.onDestroy();
+        }
     }
 }

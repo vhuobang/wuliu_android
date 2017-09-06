@@ -14,6 +14,7 @@ import com.arkui.fz_tools._interface.ReleaseDetailInterface;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.EndTimePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
+import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
@@ -28,6 +29,8 @@ import com.arkui.transportation_owner.activity.publish.SelectAddressActivity;
 import com.arkui.transportation_owner.activity.publish.SelectLogisticsActivity;
 import com.arkui.transportation_owner.base.App;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -363,8 +366,10 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         map.put("type", mPublishType);
         map.put("remarks", remarks);
         map.put("unit", mUnit);
-        map.put("cargo_id", mId);
-
+        boolean isPublish = getIntent().getBooleanExtra("isPublish", false);
+        if(!isPublish){
+            map.put("cargo_id", mId);
+        }
         //传给后台
         if (isSave) {
             mPublishPresenter.postEdit(map);
@@ -376,17 +381,19 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
              发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
              好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
              */
-            RxBus.getDefault().postSticky(map);
+            //RxBus.getDefault().postSticky(map);
             Intent intent = new Intent(mActivity, SelectLogisticsActivity.class);
             //intent.putExtra("data",map);
             showActivity(intent);
+            EventBus.getDefault().postSticky(new PublishParameterEntity(map));
         }
 
     }
 
-    public static void showActivity(Context context, String cargo_id) {
+    public static void showActivity(Context context, String cargo_id,boolean isPublish) {
         Intent intent = new Intent(context, EditPlanPublishDetailActivity.class);
         intent.putExtra("id", cargo_id);
+        intent.putExtra("isPublish", isPublish);
         context.startActivity(intent);
     }
 

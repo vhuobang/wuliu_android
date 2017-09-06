@@ -195,7 +195,7 @@ public class DriverAuthActivity extends BasePhotoActivity implements AddressPick
 
     @Override
     public void onSuccess() {
-        mCommonDialog.show(getSupportFragmentManager(), "onSuccess");
+        mCommonDialog.showDialog(this, "onSuccess");
     }
 
     @Override

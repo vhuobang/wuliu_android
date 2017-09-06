@@ -33,7 +33,9 @@ import io.reactivex.disposables.Disposable;
 
 import static com.arkui.transportation_owner.R.id.tv_state;
 
-
+/**
+ * 承运详情
+ */
 public class CarriageDetailActivity extends BaseActivity implements OnRefreshListener, PublishDetailView, OnConfirmClick {
 
     @BindView(R.id.rl_list)
@@ -68,7 +70,6 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
 
-        // mCarriageDetailAdapter = new CommonAdapter<>(R.layout.item_carriage_detail, this);
         mPublishDetailsAdapter = new PublishDetailsAdapter();
 
         mRlList.setOnRefreshListener(this);
@@ -91,19 +92,20 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        showActivity(EditPlanPublishDetailActivity.class);
+        //showActivity(EditPlanPublishDetailActivity.class);
+
+        EditPlanPublishDetailActivity.showActivity(mActivity,mId,true);
     }
 
     @Override
     public void initData() {
         super.initData();
-
         mPublishDetailPresenter = new PublishDetailPresenter(this, this);
         mPublishDetailPresenter.postPublishDetail(mId);
     }
 
     private void statusClickable() {
-        switch (cStatus){
+        switch (cStatus) {
             case "1": //发布中
                 tvState.setClickable(true);
                 break;
@@ -126,10 +128,10 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mPublishDetailPresenter.postPublishDetail(mId);
     }
 
-    public static void showActivity(Context context, String cargo_id,String cStatus) {
+    public static void showActivity(Context context, String cargo_id, String cStatus) {
         Intent intent = new Intent(context, CarriageDetailActivity.class);
         intent.putExtra("id", cargo_id);
-        intent.putExtra("cStatus",cStatus);
+        intent.putExtra("cStatus", cStatus);
         context.startActivity(intent);
     }
 
@@ -170,6 +172,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
             }
+
             @Override
             public void onNext(BaseHttpResult value) {
                 tvState.setText("已停止");
@@ -178,7 +181,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
 
             @Override
             public void onApiError(ApiException e) {
-               // super.onApiError(e);
+                // super.onApiError(e);
             }
         });
     }

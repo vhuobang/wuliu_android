@@ -25,6 +25,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"
@@ -40,6 +41,7 @@
                 android:src="@mipmap/go" />
 
             <TextView
+                android:id="@+id/tv_unloading_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北京昌平区"

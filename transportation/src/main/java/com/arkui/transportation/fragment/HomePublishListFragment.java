@@ -15,6 +15,7 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.ui.BaseListLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration2;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
@@ -99,7 +100,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         helper.addOnClickListener(R.id.iv_head);
         if (mType == 1) { //待发布
             ImageView header = helper.getView(R.id.iv_head);
-            //  GlideUtils.getInstance().loadRound(mActivity,"",header);
+            //
             String[] loadingAddress = item.getLoadingAddress().split(" ");
             String[] unloadAddress = item.getUnloadingAddress().split(" ");
             helper.setText(R.id.tv_start_address, loadingAddress[0]);
@@ -114,6 +115,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
                     + "/剩余" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
         }
 
+        GlideUtils.getInstance().loadRound(mActivity,item.getLogo(), (ImageView) helper.getView(R.id.iv_head));
     }
 
     /**

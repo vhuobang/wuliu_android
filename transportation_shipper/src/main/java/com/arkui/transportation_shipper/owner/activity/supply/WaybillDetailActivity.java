@@ -29,7 +29,9 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
-
+/**
+ * 从货源列表跳进来的货源详情
+ */
 public class WaybillDetailActivity extends BaseActivity implements OnConfirmClick {
 
     @BindView(R.id.loading_address)
@@ -115,52 +117,55 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
 
             @Override
             public void onNext(CargoListDetailEntity entity) {
-                  setUiFunction(entity);
+                setUiFunction(entity);
             }
 
             @Override
             public void onApiError(ApiException e) {
-            //    super.onApiError(e);
+                //    super.onApiError(e);
             }
         });
     }
 
-   //设置ui
+    //设置ui
     private void setUiFunction(CargoListDetailEntity entity) {
         mCargoListDetailEntity = entity;
-        String [] loadingAddress = entity.getLoadingAddress().split(" ");
-        String [] unloadingAddress = entity.getUnloadingAddress().split(" ");
+        String[] loadingAddress = entity.getLoadingAddress().split(" ");
+        String[] unloadingAddress = entity.getUnloadingAddress().split(" ");
         mLoadingAddress.setText(loadingAddress[0]);
         mUnloadingAddress.setText(unloadingAddress[0]);
         mLoadingAddressDetail.setText(loadingAddress[1]);
         mUnloadingAddressDetail.setText(unloadingAddress[1]);
         mCargoName.setText(entity.getCargoName());
-        mCargoDensity.setText(entity.getCargoDensity()+ StrUtil.formatMoneyUnit(entity.getUnit()));
-        mFreightPrice.setText(entity.getFreightPrice()+" 元");
+        mCargoDensity.setText(entity.getCargoDensity() + StrUtil.formatMoneyUnit(entity.getUnit()));
+        mFreightPrice.setText(entity.getFreightPrice() + " 元");
         mCargoPrice.setText(entity.getCargoPrice() + "元");
         mLoadingTime.setText(entity.getLoadingTime());
         mPaymentTerms.setText(StrUtil.formatPayMent(entity.getPaymentTerms()));
         mSettlementTime.setText(StrUtil.formatSettlementTime(entity.getSettlementTime()));
-        mPressCharges.setText(entity.getPressCharges()+"元");
-        mInfomationFee.setText(entity.getInfomationFee()+" 元");
+        mPressCharges.setText(entity.getPressCharges() + "元");
+        mInfomationFee.setText(entity.getInfomationFee() + " 元");
         mRemarks.setText(entity.getRemarks());
-        GlideUtils.getInstance().loadRound(mActivity,entity.getAvatar(),mAvatar);
+        GlideUtils.getInstance().loadRound(mActivity, entity.getAvatar(), mAvatar);
         mOwnerName.setText(entity.getName());
-        mRegisterYear.setText("注册"+entity.getRegisterYear()+ "年" + entity.getCargoNum()+ "次");
+        mRegisterYear.setText("注册" + entity.getRegisterYear() + "年" + entity.getCargoNum() + "次");
         mRatingBar.setRating(Float.parseFloat(entity.getStarRating()));
 
     }
 
 
-    @OnClick({R.id.bt_start,R.id.phone} )
-    public void onClick (View view) {
-        switch (view.getId()){
+    @OnClick({R.id.bt_start, R.id.phone})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.bt_start:
-                showActivity(ConfirmOrderActivity.class);
-            break;
+                //showActivity(ConfirmOrderActivity.class);
+                Intent intent = new Intent(mActivity, ConfirmOrderActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
             case R.id.phone: // 拨打电话
-                  commonDialog.setContent(mCargoListDetailEntity.getMobile());
-                  commonDialog.showDialog(WaybillDetailActivity.this,"phone");
+                commonDialog.setContent(mCargoListDetailEntity.getMobile());
+                commonDialog.showDialog(WaybillDetailActivity.this, "phone");
                 break;
         }
 

@@ -33,6 +33,15 @@ public class LogisticalListEntity {
     private String cargoName;
     @SerializedName("id")
     private String id;
+    private String logo;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public String getLoadingAddress() {
         return loadingAddress;

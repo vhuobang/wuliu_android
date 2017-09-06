@@ -91,6 +91,16 @@
             android:name="com.amap.api.v2.apikey"
             android:value="66f2eb1e05cb952a21475d46d9767761" />
 
+        <activity android:name=".activity.my.InviteFriendListActivity"/>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.arkui.transportation.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity android:name=".activity.my.InviteFriendListActivity"></activity>
         <!--微信支付-->
         <activity

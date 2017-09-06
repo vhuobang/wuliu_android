@@ -11,22 +11,23 @@
         android:id="@+id/iv_head"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@mipmap/tx"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/tupian" />
 
 
     <LinearLayout
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp">
+
 
             <TextView
                 android:id="@+id/tv_loading_address"
@@ -37,11 +38,11 @@
                 android:textSize="@dimen/sp_14" />
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@mipmap/zc_go" />
 
             <TextView
@@ -55,27 +56,27 @@
 
         <TextView
             android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/mainColor"
             android:text="柴油/500吨/剩余300吨"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/mainColor"
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/tv_time"
-            android:textColor="@color/gray_color"
-            android:text="500元/吨   7日内结算"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="500元/吨   7日内结算"
+            android:textColor="@color/gray_color" />
 
     </LinearLayout>
 
     <ImageView
-        android:layout_gravity="center_vertical"
-        android:src="@mipmap/right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/right" />
 
 </LinearLayout>

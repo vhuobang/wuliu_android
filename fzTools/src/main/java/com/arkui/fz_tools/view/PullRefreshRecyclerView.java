@@ -118,6 +118,17 @@ public class PullRefreshRecyclerView extends FrameLayout {
 
     public void refreshComplete() {
         mPtrLayout.finishRefresh();
+        if(mRecycler.getAdapter().getItemCount()==0){
+            mProgress.setVisibility(View.GONE);
+            mRecycler.setVisibility(View.GONE);
+            mAnimationDrawable.stop();
+            mEmpty.setVisibility(View.VISIBLE);
+        }else{
+            mProgress.setVisibility(View.GONE);
+            mRecycler.setVisibility(View.VISIBLE);
+            mAnimationDrawable.stop();
+            mEmpty.setVisibility(View.GONE);
+        }
     }
 
     public void autoRefresh() {

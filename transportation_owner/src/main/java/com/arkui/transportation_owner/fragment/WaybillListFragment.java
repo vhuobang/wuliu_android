@@ -69,6 +69,7 @@ public class WaybillListFragment extends BaseLazyFragment implements OnRefreshLi
                DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
             }
         });
+        mRlList.setAdapter(mListAdapter);
     }
 
     @Override

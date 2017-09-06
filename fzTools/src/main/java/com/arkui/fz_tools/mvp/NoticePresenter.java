@@ -54,7 +54,7 @@ public class NoticePresenter  extends BasePresenter{
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
+                //super.onApiError(e);
                 mNoticeInterface.onFail(e.getMessage());
             }
         });

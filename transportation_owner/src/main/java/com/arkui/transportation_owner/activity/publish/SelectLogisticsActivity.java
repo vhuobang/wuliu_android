@@ -102,16 +102,15 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
             if (logisticalListEntity.isCheck()) {
                 ids.append(logisticalListEntity.getId()).append(",");
             }
-            if (ids.length() > 0) {
-                ids.deleteCharAt(ids.length() - 1);
-            }
+
         }
 
-        if(ids.length()==0){
+        if (ids.length() > 0) {
+            ids.deleteCharAt(ids.length() - 1);
+        }else{
             ShowToast("请选择物流公司");
             return;
         }
-
         Intent intent=new Intent(mActivity,PublishDeclareActivity.class);
         intent.putExtra("ids",ids.toString());
         startActivity(intent);
@@ -172,21 +171,10 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     public void onSucceed(int position) {
 
     }
-/*
-    @Subscribe(threadMode = ThreadMode.POSTING,sticky = true)
-    public void receiveParameter(PublishParameterEntity publishParameterEntity){
-        //
-        mPublishParameterEntity=publishParameterEntity;
-        LogUtil.e("成功收到参数");
-        //
-        //明天测测这里
-        EventBus.getDefault().postSticky(mPublishParameterEntity);
-    }*/
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // EventBus.getDefault().unregister(this);
         EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
     }
 }

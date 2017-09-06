@@ -191,7 +191,7 @@
                     android:id="@+id/loading_weight"
                     style="@style/TextViewWeight"
                     android:background="@null"
-                    android:focusable="flase"
+                    android:focusable="false"
                     android:hint="未填写" />
             </TableRow>
 

@@ -17,7 +17,7 @@ public class VehicleDetailEntity {
      */
 
     private TruckDetailBean truck_detail;
-    private List<?> truck_status;
+    private List<TruckStatusEntity> truck_status;
 
     public TruckDetailBean getTruck_detail() {
         return truck_detail;
@@ -27,11 +27,11 @@ public class VehicleDetailEntity {
         this.truck_detail = truck_detail;
     }
 
-    public List<?> getTruck_status() {
+    public List<TruckStatusEntity> getTruck_status() {
         return truck_status;
     }
 
-    public void setTruck_status(List<?> truck_status) {
+    public void setTruck_status(List<TruckStatusEntity> truck_status) {
         this.truck_status = truck_status;
     }
 

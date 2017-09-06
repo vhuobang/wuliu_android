@@ -54,7 +54,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
     @BindView(R.id.et_license_plate)
     EditText mEtLicensePlate;
     //private SelectPicturePicker mSelectPicturePicker;
-    private SelectTypePicker mSelectVehicleTypePicker;
+    //private SelectTypePicker mSelectVehicleTypePicker;
     private VehicleDetailEntity.TruckDetailBean mTruckDetail;
     private String mPath1 = null;
     private String mPath2 = null;
@@ -86,7 +86,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         //获取车型
         Observable<List<VehicleModelEntity>> observable = mAssetApi.postCarType().map(new HttpResultFunc<List<VehicleModelEntity>>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<VehicleModelEntity>>(mActivity,false) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<VehicleModelEntity>>(mActivity, false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -103,6 +103,8 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         mTruckDetail = getIntent().getParcelableExtra("data");
         mEtLicensePlate.setText(mTruckDetail.getLicense_plate());
         mTvVehicleModel.setText(mTruckDetail.getType());
+        mPath1 = mTruckDetail.getTruck_poto();
+        mPath2 = mTruckDetail.getDriving_license_photo();
         GlideUtils.getInstance().load(mActivity, mTruckDetail.getTruck_poto(), mIvFront);
         GlideUtils.getInstance().load(mActivity, mTruckDetail.getDriving_license_photo(), mIvDrivingLicense);
     }
@@ -126,7 +128,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_vehicle_model:
-                mSelectVehicleTypePicker.showDialog(this, "model");
+                mSelectVehicleModelDialog.showDialog(this, "model");
                 break;
             case R.id.iv_front:
                 mType = 1;
@@ -230,6 +232,6 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
     @Override
     public void selectVehicleModel(String itemText, String itemId) {
         mTvVehicleModel.setText(itemText);
-        mItemId=itemId;
+        mItemId = itemId;
     }
 }

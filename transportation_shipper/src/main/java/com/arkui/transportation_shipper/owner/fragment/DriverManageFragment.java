@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arkui.fz_net.http.ApiException;
 import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
@@ -42,7 +43,7 @@ import io.reactivex.disposables.Disposable;
  * 基于基类的Fragment
  * 司机管理
  */
-public class DriverManageFragment extends BaseFragment implements  BaseQuickAdapter.OnItemClickListener,OnRefreshListener {
+public class DriverManageFragment extends BaseFragment implements BaseQuickAdapter.OnItemClickListener, OnRefreshListener {
 
     @BindView(R.id.rl_driver)
     PullRefreshRecyclerView mRlVehicle;
@@ -90,22 +91,30 @@ public class DriverManageFragment extends BaseFragment implements  BaseQuickAdap
             @Override
             public void onNext(List<DriverListEntity> value) {
                 mDriverManageAdapter.setNewData(value);
+                mRlVehicle.refreshComplete();
+            }
+
+            @Override
+            public void onApiError(ApiException e) {
+                super.onApiError(e);
+                mRlVehicle.loadFail();
             }
         });
     }
 
     /**
      * 单击事件
+     *
      * @param adapter
      * @param view
      * @param position
      */
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        showActivity(DriverDetailActivity.class);
+        //showActivity(DriverDetailActivity.class);
+        DriverListEntity item = mDriverManageAdapter.getItem(position);
+        DriverDetailActivity.openActivity(mContext, item.getDriver_id());
     }
-
-
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
@@ -113,8 +122,8 @@ public class DriverManageFragment extends BaseFragment implements  BaseQuickAdap
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefresh(RefreshAssetListEntity refreshAssetListEntity){
-        if(refreshAssetListEntity.getType()==2){
+    public void onRefresh(RefreshAssetListEntity refreshAssetListEntity) {
+        if (refreshAssetListEntity.getType() == 2) {
             LogUtil.e("收到刷新指令");
             getNetData();
         }

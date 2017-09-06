@@ -3,6 +3,7 @@ package com.arkui.transportation_owner.adapter;
 import android.support.annotation.LayoutRes;
 
 import com.arkui.fz_tools.entity.CarGoListEntity;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation_owner.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;

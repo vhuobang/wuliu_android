@@ -16,6 +16,7 @@ import com.arkui.fz_tools._interface.UserInterface;
 import com.arkui.fz_tools.api.UserApi;
 import com.arkui.fz_tools.api.VerifyDao;
 import com.arkui.fz_tools.entity.UserEntity;
+import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.net.ResultCallBack;
 import com.arkui.fz_tools.utils.Md5Util;
@@ -39,7 +40,8 @@ public class UserPresenter extends BasePresenter {
     private int mVerificationCode = -1;
     private String mMobile = null;
     private UserApi mUserApi;
-    public  UserPresenter(){
+
+    public UserPresenter() {
 
     }
 
@@ -54,6 +56,7 @@ public class UserPresenter extends BasePresenter {
         mUserInterface = userInterface;
         mUserApi = RetrofitFactory.createRetrofit(UserApi.class);
     }
+
     // 注册
     public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code) {
 
@@ -142,6 +145,7 @@ public class UserPresenter extends BasePresenter {
         });
     }
 
+
     //登录
     public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type) {
         if (!StrUtil.isMobileNO(mobile)) {
@@ -156,7 +160,12 @@ public class UserPresenter extends BasePresenter {
 
         Map<String, Object> parameter = new HashMap<>();
         parameter.put("mobile", mobile);
-        parameter.put("password", Md5Util.getStringMD5(password));
+        if (type == Constants.DRIVER) {
+            //TODO 2017年8月31日 司机端登陆还是有问题
+            parameter.put("password", password);
+        } else {
+            parameter.put("password", Md5Util.getStringMD5(password));
+        }
         parameter.put("type", type);
         Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext) {
@@ -173,8 +182,9 @@ public class UserPresenter extends BasePresenter {
             }
         });
     }
+
     // 验证验证码
-    public void getVerifyCode(String phone,String code){
+    public void getVerifyCode(String phone, String code) {
         if (mMobile == null) {
             Toast.makeText(mContext, "请获取验证码", Toast.LENGTH_SHORT).show();
             return;
@@ -195,12 +205,13 @@ public class UserPresenter extends BasePresenter {
         if (verificationCode != mVerificationCode) {
             Toast.makeText(mContext, "验证码输入不正确", Toast.LENGTH_SHORT).show();
             return;
-        }else{
+        } else {
             mUserInterface.onSucceed();
         }
     }
+
     // 修改密码
-    public void getForgetPassword(String mobile,String password,String confirmPassword,@UserType int type){
+    public void getForgetPassword(String mobile, String password, String confirmPassword, @UserType int type) {
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
@@ -214,15 +225,15 @@ public class UserPresenter extends BasePresenter {
             Toast.makeText(mContext, "两次密码输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
-        HashMap<String,Object> hashMap = new HashMap<>();
-        hashMap.put("mobile",mobile);
-        hashMap.put("password",Md5Util.getStringMD5(password));
-        hashMap.put("type",type);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("mobile", mobile);
+        hashMap.put("password", Md5Util.getStringMD5(password));
+        hashMap.put("type", type);
         Observable<BaseHttpResult> observable = mUserApi.getForgetPassword(hashMap);
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override
             public void onNext(BaseHttpResult value) {
-               Toast.makeText(mContext,value.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, value.getMessage(), Toast.LENGTH_SHORT).show();
                 mUserInterface.onSucceed();
             }
 
@@ -237,10 +248,11 @@ public class UserPresenter extends BasePresenter {
             }
         });
     }
-   // 用户详情
-    public void getUserInfo(String userId){
+
+    // 用户详情
+    public void getUserInfo(String userId) {
         Observable<UserEntity> observable = mUserApi.getUserInfo(userId).map(new HttpResultFunc<UserEntity>());
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext,false) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext, false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -248,7 +260,7 @@ public class UserPresenter extends BasePresenter {
 
             @Override
             public void onNext(UserEntity userEntity) {
-               mUserInterface.loginSucceed(userEntity);
+                mUserInterface.loginSucceed(userEntity);
             }
         });
     }
