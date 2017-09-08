@@ -1,5 +1,6 @@
 package com.arkui.transportation.activity.waybill;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -109,7 +110,11 @@ public class CarriageDetailActivity extends BaseActivity implements OnBindViewHo
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        EditPlanPublishDetailActivity.showActivity(mActivity,carGoId);
+        Bundle bundle = new Bundle();
+         bundle.putString("id",carGoId);
+        bundle.putBoolean("isTwice",true);
+        showActivity(EditPlanPublishDetailActivity.class,bundle);
+
     }
 
     /**

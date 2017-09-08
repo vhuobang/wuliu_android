@@ -104,6 +104,7 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
     private PublishPresenter mPublishPresenter;
     private String mId;
     private com.arkui.fz_tools.mvp.ReleaseDetailPresenter mReleaseDetailPresenter;
+    private Boolean isTwice;
 
     @Override
     public void setRootView() {
@@ -150,6 +151,7 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
     public void initData() {
         super.initData();
         mId = getIntent().getStringExtra("id");
+        isTwice = getIntent().getBooleanExtra("isTwice", false);
         mReleaseDetailPresenter = new ReleaseDetailPresenter(this, this);
         mReleaseDetailPresenter.getReleaseDetail(mId);
         mPublishPresenter = new PublishPresenter(this, this);
@@ -361,7 +363,9 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         map.put("type", mPublishType);
         map.put("remarks", remarks);
         map.put("unit", mUnit);
-        map.put("cargo_id", mId);
+        if (!isTwice) {
+            map.put("cargo_id", mId);
+        }
 
         //传给后台
         if (isSave) {
@@ -394,7 +398,10 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
             entity.setUnloadingContact(unloading_contact);
             entity.setUnloadingTel(unloading_tel);
             entity.setType(mPublishType + "");
-            entity.setId(mId);
+            if (!isTwice){
+                entity.setId(mId);
+            }
+
             Intent intent = new Intent(mActivity, PublishCompleteInfoActivity.class);
             intent.putExtra("releaseDetails", entity);
             showActivity(intent);
@@ -419,9 +426,9 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         mTvReceive.setText(releaseDetailsEntity.getUnloadingAddress());
 
         mEtCargoName.setText(releaseDetailsEntity.getCargoName());
-        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity() );
+        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity());
         mEtFreightPrice.setText(releaseDetailsEntity.getFreightPrice());
-        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity() );
+        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity());
         mTvLoadingTime.setText(releaseDetailsEntity.getLoadingTime());
         mEtPressCharges.setText(releaseDetailsEntity.getPressCharges());
 
