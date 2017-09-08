@@ -154,7 +154,7 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         }
         goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+ StrUtil.formatUnit( logisticalDetailEntity.getUnit())+"/剩余"+
         logisticalDetailEntity.getSurplusNum() + StrUtil.formatUnit(logisticalDetailEntity.getUnit()));
-        cargoDensity.setText(logisticalDetailEntity.getCargoDensity());
+        cargoDensity.setText(logisticalDetailEntity.getCargoDensity() + "吨/方");
         freightPrice.setText(logisticalDetailEntity.getFreightPrice());
         cargoPrice.setText(logisticalDetailEntity.getCargoPrice());
         loadingTime.setText(logisticalDetailEntity.getLoadingTime());

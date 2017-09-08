@@ -152,8 +152,8 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
         mLoadingAddressDetail.setText(unloadingAddress[1]);
         mTvLicensePlate.setText(value.getLicensePlate());
         mProNumber.setText(value.getCarrierNum()+unit);
-        mCargoInfo.setText(value.getCargoName() +" "+ value.getCargoNum()+ unit);
-        mCargoDensity.setText(value.getCargoDensity());
+        mCargoInfo.setText(value.getCargoName() +" "+ value.getCargoNum()+StrUtil.formatUnit(unit) );
+        mCargoDensity.setText(value.getCargoDensity() + "吨/方");
         mTvTime.setText(value.getLoadingTime());
         mTvCargoPerson.setText(value.getTruckDrawer());
         mCargoPhone.setText(value.getTruckTel());

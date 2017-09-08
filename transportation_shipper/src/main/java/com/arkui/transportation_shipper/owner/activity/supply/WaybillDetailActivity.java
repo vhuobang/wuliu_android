@@ -137,7 +137,7 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
         mLoadingAddressDetail.setText(loadingAddress[1]);
         mUnloadingAddressDetail.setText(unloadingAddress[1]);
         mCargoName.setText(entity.getCargoName());
-        mCargoDensity.setText(entity.getCargoDensity() + StrUtil.formatMoneyUnit(entity.getUnit()));
+        mCargoDensity.setText(entity.getCargoDensity() + "吨/方");
         mFreightPrice.setText(entity.getFreightPrice() + " 元");
         mCargoPrice.setText(entity.getCargoPrice() + "元");
         mLoadingTime.setText(entity.getLoadingTime());

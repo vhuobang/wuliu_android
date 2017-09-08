@@ -419,9 +419,9 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         mTvReceive.setText(releaseDetailsEntity.getUnloadingAddress());
 
         mEtCargoName.setText(releaseDetailsEntity.getCargoName());
-        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity());
+        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity() + "吨/方");
         mEtFreightPrice.setText(releaseDetailsEntity.getFreightPrice());
-        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity());
+        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity() +"吨/方");
         mTvLoadingTime.setText(releaseDetailsEntity.getLoadingTime());
         mEtPressCharges.setText(releaseDetailsEntity.getPressCharges());
 

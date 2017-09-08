@@ -558,6 +558,7 @@ public class StrUtil {
     public static String formatUnit(String str) {
         String formatStr = null;
         switch (str) {
+
             case "1":
                 formatStr = "吨";
                 break;

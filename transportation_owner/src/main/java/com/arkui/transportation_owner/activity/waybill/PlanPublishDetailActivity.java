@@ -2,7 +2,6 @@ package com.arkui.transportation_owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.arkui.fz_net.utils.RxBus;
@@ -103,9 +102,9 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         mTvUnloadingDetailAddress.setText(unloadingAddress.length >= 2 ? unloadingAddress[1] : "");
 
         mTvCargoName.setText(releaseDetailsEntity.getCargoName());
-        mTvCargoDensity.setText(releaseDetailsEntity.getCargoDensity());
+        mTvCargoDensity.setText(releaseDetailsEntity.getCargoDensity() +"吨/方");
         mTvFreightPrice.setText(releaseDetailsEntity.getFreightPrice());
-        mTvCargoPrice.setText(releaseDetailsEntity.getCargoDensity());
+        mTvCargoPrice.setText(releaseDetailsEntity.getCargoDensity() + "吨/方");
         mTvLoadingTime.setText(releaseDetailsEntity.getLoadingTime());
         mTvPressCharges.setText(releaseDetailsEntity.getPressCharges());
 

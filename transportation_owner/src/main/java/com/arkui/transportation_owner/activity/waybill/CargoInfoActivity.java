@@ -87,8 +87,8 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
         tvLoadingAddress.setText(entity.getLoadingAddress());
         tvUnloadingAddress.setText(entity.getUnloadingAddress());
         String unit = StrUtil.formatUnit(entity.getUnit());
-        tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + unit);
-        cargoDensity.setText(entity.getCargoDensity());
+        tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + StrUtil.formatUnit(unit));
+        cargoDensity.setText(entity.getCargoDensity() + "吨/方");
         freightPrice.setText(entity.getFreightPrice());
         cargoPrice.setText(entity.getCargoPrice());
         loadingTime.setText(entity.getLoadingTime());
