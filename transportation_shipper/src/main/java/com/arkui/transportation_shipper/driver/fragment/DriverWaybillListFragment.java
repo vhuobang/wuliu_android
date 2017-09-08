@@ -101,7 +101,9 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
     }
 
     public void onRefreshing() {
-        Observable<List<DriverOrderListEntity>> observable = driverApi.getCargoList(App.getUserId(), String.valueOf(type)).map(new HttpResultFunc<List<DriverOrderListEntity>>());
+
+        Observable<List<DriverOrderListEntity>> observable = driverApi.getCargoList(App.getUserId(),
+                String.valueOf(type)).map(new HttpResultFunc<List<DriverOrderListEntity>>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<DriverOrderListEntity>>(getActivity(),false) {
             @Override
             protected void getDisposable(Disposable d) {
