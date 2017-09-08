@@ -36,6 +36,8 @@ public class LogisticalDetailEntity {
      * remarks : 注意安全
      * surplus_num
      * unit
+     *  "logo": "Uploads/Avatar/2017-08-25/15036463562526.png",
+
      */
 
     @SerializedName("cargo_density")
@@ -92,6 +94,17 @@ public class LogisticalDetailEntity {
     private String surplusNum;
     @SerializedName("unit")
     private String unit;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    @SerializedName("logo")
+    private String logo;
 
     public String getUnit() {
         return unit;

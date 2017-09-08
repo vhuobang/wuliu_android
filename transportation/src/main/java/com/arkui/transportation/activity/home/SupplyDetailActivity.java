@@ -15,6 +15,7 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
@@ -152,6 +153,7 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         if (unloadingAddress.length>1){
             tvDetailDestination.setText(unloadingAddress[1]);
         }
+        GlideUtils.getInstance().loadRound(this,entity.getLogo(),ivHeader);
         goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+ StrUtil.formatUnit( logisticalDetailEntity.getUnit())+"/剩余"+
         logisticalDetailEntity.getSurplusNum() + StrUtil.formatUnit(logisticalDetailEntity.getUnit()));
         cargoDensity.setText(logisticalDetailEntity.getCargoDensity() + "吨/方");
@@ -168,13 +170,13 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         }
         String settlementTime = logisticalDetailEntity.getSettlementTime();
         if (settlementTime.equals("1")){
-            this.settlementTime.setText("立即");
+            this.settlementTime.setText("立即支付");
         }else if (settlementTime.equals("2")){
-            this.settlementTime.setText("7天");
+            this.settlementTime.setText("7天内支付");
         }else if (settlementTime.equals("3")){
-            this.settlementTime.setText("15天");
+            this.settlementTime.setText("15天内支付");
         }else {
-            this.settlementTime.setText("30天");
+            this.settlementTime.setText("30天内支付");
         }
         pressCharges.setText(logisticalDetailEntity.getPressCharges()+"元");
         truckDrawer.setText(logisticalDetailEntity.getTruckDrawer());

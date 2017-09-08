@@ -18,10 +18,14 @@ import com.arkui.fz_tools._interface.UploadingPictureInterface;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
 import com.arkui.fz_tools.ui.BasePhotoActivity;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.DriverApi;
+import com.arkui.transportation_shipper.driver.event.LoadEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -123,6 +127,9 @@ public class UnloadBillActivity extends BasePhotoActivity implements UploadingPi
             public void onNext(BaseHttpResult value) {
                 Toast.makeText(UnloadBillActivity.this,value.getMessage(),Toast.LENGTH_SHORT).show();
                 finish();
+                AppManager.getAppManager().finishActivity(DriverWaybillDetailActivity.class);
+                //发送数据
+                EventBus.getDefault().post(new LoadEvent());
             }
 
             @Override

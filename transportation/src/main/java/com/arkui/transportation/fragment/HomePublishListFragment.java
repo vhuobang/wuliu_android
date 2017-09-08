@@ -22,10 +22,15 @@ import com.arkui.transportation.R;
 import com.arkui.transportation.activity.home.SupplyDetailActivity;
 import com.arkui.transportation.api.LogisticalApi;
 import com.arkui.transportation.base.App;
+import com.arkui.transportation.entity.EventThings;
 import com.arkui.transportation.entity.LogisticalListEntity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +76,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
+        EventBus.getDefault().register(this);
         mType = getArguments().getInt("type");
         mLogisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
         mCommonAdapter = initAdapter(mRlList, R.layout.item_logistics);
@@ -89,6 +95,15 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         });
     }
 
+
+   @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(EventThings eventThings){
+       int type = eventThings.getType();
+       if (type==1){
+           page =1;
+           onRefreshing();
+       }
+   }
     // 懒加载数据
     @Override
     protected void lazyLoadData() {
@@ -182,5 +197,11 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
     public void onLoadMoreRequested() {
         page++;
         onRefreshing();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

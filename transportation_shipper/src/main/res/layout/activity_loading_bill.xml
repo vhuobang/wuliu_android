@@ -30,7 +30,7 @@
 
             <TextView
                 style="@style/TextViewWeight"
-                android:text="2017-6-29 09:29:43" />
+                />
 
         </LinearLayout>
 

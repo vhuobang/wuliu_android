@@ -12,6 +12,7 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.ui.BaseListActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
+import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
@@ -86,6 +87,7 @@ public class CarriageListActivity extends BaseListActivity<CargoCarrierListEntit
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 mRlList.loadFail();
+                mRlList.refreshComplete();
             }
         });
     }
@@ -93,9 +95,9 @@ public class CarriageListActivity extends BaseListActivity<CargoCarrierListEntit
     @Override
     public void convert(BaseViewHolder helper, CargoCarrierListEntity item) {
         helper.setText(R.id.tv_info, item.getLicensePlate() + item.getCargoName() +" "+
-                item.getCarrierNum()+item.getUnit());
-        helper.setText(R.id.tv_loading_address, item.getLoadingAddress());
-        helper.setText(R.id.tv_unloading_address, item.getUnloadingAddress());
+                item.getCarrierNum()+ StrUtil.formatUnit(item.getUnit()));
+        helper.setText(R.id.tv_loading_address,StrUtil.splitAddress(item.getLoadingAddress()) );
+        helper.setText(R.id.tv_unloading_address, StrUtil.splitAddress(item.getUnloadingAddress()));
 
         String logisticalStatus = item.getLogisticalStatus();
         // 1、待装货；2、运输中；3、待付款；4、待收款；5、已完成

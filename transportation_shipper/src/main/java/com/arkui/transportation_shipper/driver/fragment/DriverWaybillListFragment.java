@@ -18,12 +18,17 @@ import com.arkui.transportation_shipper.common.api.DriverApi;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.common.entity.DriverOrderListEntity;
 import com.arkui.transportation_shipper.driver.activity.waybill.DriverWaybillDetailActivity;
+import com.arkui.transportation_shipper.driver.event.LoadEvent;
 import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -55,6 +60,7 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
+        EventBus.getDefault().register(this);
         mWaybillListAdapter = CommonAdapter.getInstance(R.layout.item_driver_waybill, this);
         mRlWaybill.setOnRefreshListener(this);
         mRlWaybill.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
@@ -72,6 +78,11 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
             }
         });
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(LoadEvent loadEvent){
+        onRefreshing();
     }
 
     @Override

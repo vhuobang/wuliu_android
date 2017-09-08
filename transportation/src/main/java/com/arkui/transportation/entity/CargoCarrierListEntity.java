@@ -20,7 +20,7 @@ public class CargoCarrierListEntity {
     private String carrierNum;
     @SerializedName("license_plate")
     private String licensePlate;
-    @SerializedName("logistical_status")
+    @SerializedName("log_status")
     private String logisticalStatus;
     @SerializedName("id")
     private String id;

@@ -24,6 +24,9 @@ import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
 import com.arkui.transportation.api.LogisticalApi;
 import com.arkui.transportation.base.App;
+import com.arkui.transportation.entity.EventThings;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,62 +103,59 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
                 mSelectTypePicker.show(getSupportFragmentManager(), "time");
                 break;
             case R.id.bt_confirm:
-                //请求网络 确认发布
-                HashMap<String,Object>  hashMap = new HashMap<>();
-                String name = etName.getText().toString().trim();
-                if (TextUtils.isEmpty(name)){
-                    Toast.makeText(CompleteInfoActivity.this,"请输入物流联系人",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String phone = etPhone.getText().toString().trim();
-                if (!StrUtil.isMobileNO(phone)) {
-                    Toast.makeText(CompleteInfoActivity.this, "手机号输入不正确", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String free = etFree.getText().toString().trim();
+                publish();
 
-                hashMap.put("user_id", App.getUserId());
-                hashMap.put("cargo_id",cargoId);
-                hashMap.put("log_settlement_time",payMoneyTime);
-                hashMap.put("infomation_fee",free);
-                hashMap.put("log_contact_name",name);
-                hashMap.put("log_contact_tel",phone);
-                Observable<BaseHttpResult> observable= mLogisticalApi.getLogisticalForward(hashMap);
-                HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(CompleteInfoActivity.this) {
-                    @Override
-                    protected void getDisposable(Disposable d) {
-                        mDisposables.add(d);
-                    }
-
-                    @Override
-                    public void onNext(BaseHttpResult value) {
-                        mSuccessFullyDialog.show(getSupportFragmentManager(), "full");
-                        new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSuccessFullyDialog.dismiss();
-                        finish();
-                        AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
-
-
-                    }
-                }, 1000);
-                    }
-                    @Override
-                    public void onApiError(ApiException e) {
-                     //   super.onApiError(e);
-                    }
-                });
-
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mSuccessFullyDialog.dismiss();
-//                        finish();
-//                    }
-//                }, 1000);
                 break;
         }
+    }
+
+    //请求网络 确认发布
+    private void publish() {
+        HashMap<String,Object> hashMap = new HashMap<>();
+        String name = etName.getText().toString().trim();
+        if (TextUtils.isEmpty(name)){
+            Toast.makeText(CompleteInfoActivity.this,"请输入物流联系人",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String phone = etPhone.getText().toString().trim();
+        if (!StrUtil.isMobileNO(phone)) {
+            Toast.makeText(CompleteInfoActivity.this, "手机号输入不正确", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String free = etFree.getText().toString().trim();
+
+        hashMap.put("user_id", App.getUserId());
+        hashMap.put("cargo_id",cargoId);
+        hashMap.put("log_settlement_time",payMoneyTime);
+        hashMap.put("infomation_fee",free);
+        hashMap.put("log_contact_name",name);
+        hashMap.put("log_contact_tel",phone);
+        Observable<BaseHttpResult> observable= mLogisticalApi.getLogisticalForward(hashMap);
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(CompleteInfoActivity.this) {
+            @Override
+            protected void getDisposable(Disposable d) {
+                mDisposables.add(d);
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                mSuccessFullyDialog.show(getSupportFragmentManager(), "full");
+                new Handler().postDelayed(new Runnable() {
+              @Override
+              public void run() {
+                mSuccessFullyDialog.dismiss();
+                finish();
+                AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
+                  EventThings eventThings = new EventThings(1);
+                  EventBus.getDefault().post(eventThings);
+            }
+        }, 1000);
+            }
+            @Override
+            public void onApiError(ApiException e) {
+             //   super.onApiError(e);
+            }
+        });
     }
 
 }

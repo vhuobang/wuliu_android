@@ -35,7 +35,7 @@ public class WaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,Ba
         String[] loadingAddress = item.getLoadingAddress().split(" ");
         String[] unloadingAddress = item.getUnloadingAddress().split(" ");
         helper.setText(R.id.tv_address, loadingAddress[0]);
-        helper.setText(R.id.tv_unloading_address, unloadingAddress[1]);
+        helper.setText(R.id.tv_unloading_address, unloadingAddress[0]);
 
         String cargoStatus = item.getCargoStatus();
         switch (cargoStatus) {

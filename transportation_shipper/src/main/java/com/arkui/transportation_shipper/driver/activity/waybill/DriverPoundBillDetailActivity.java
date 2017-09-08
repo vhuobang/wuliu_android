@@ -2,6 +2,7 @@ package com.arkui.transportation_shipper.driver.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,11 +72,20 @@ public class DriverPoundBillDetailActivity extends BaseActivity {
 
             @Override
             public void onNext(PoundListDetail value) {
-             mLoadingTime.setText(value.getLoadingTime());
+                mLoadingTime.setText(value.getLoadingTime());
                 mLoadingNumber.setText(value.getLoadingWeight() + "吨");
                 GlideUtils.getInstance().loadRound(mActivity,value.getLoadingPhoto(),mIvLoadingPound);
-                mUnloadingTime.setText(value.getUnloadingTime());
-                mTvUnloadingWeight.setText(value.getUnloadingWeight()+ "吨");
+                if (TextUtils.isEmpty(value.getUnloadingTime())){
+                    mUnloadingTime.setText("暂无数据");
+                }else {
+                    mUnloadingTime.setText(value.getUnloadingTime());
+                }
+
+                if (value.getUnloadingWeight()==null){
+                    mTvUnloadingWeight.setText("暂无数据");
+                }else {
+                    mTvUnloadingWeight.setText(value.getUnloadingWeight()+ "吨");
+                }
                 GlideUtils.getInstance().loadRound(mActivity,value.getUnloadingPhoto(),mIvUnloadingPound);
             }
 

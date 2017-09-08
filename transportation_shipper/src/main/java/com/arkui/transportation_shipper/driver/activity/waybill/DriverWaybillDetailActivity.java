@@ -91,13 +91,13 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+
         mType = getIntent().getIntExtra("type", 0);
         orderId = getIntent().getStringExtra("orderId");
         commonDialog = new CommonDialog();
         commonDialog.setTitle("拨打电话");
         commonDialog.setConfirmClick(this);
         commonDialog.setConfirmText("打电话");
-
 
         switch (mType) {
             case 1:
@@ -140,19 +140,20 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
             }
         });
     }
+
     //展示数据
     private void setUiFunction(DriverOrderDetailEntity value) {
         mDriverOrderDetailEntity = value;
         String unit = StrUtil.formatUnit(value.getUnit());
-        String [] loadingAddress = value.getLoadingAddress().split(" ");
-        String [] unloadingAddress = value.getUnloadingAddress().split(" ");
+        String[] loadingAddress = value.getLoadingAddress().split(" ");
+        String[] unloadingAddress = value.getUnloadingAddress().split(" ");
         mLoadingAddress.setText(loadingAddress[0]);
         mLoadingAddressDetail.setText(loadingAddress[1]);
         mUnloadingAddress.setText(unloadingAddress[0]);
         mLoadingAddressDetail.setText(unloadingAddress[1]);
         mTvLicensePlate.setText(value.getLicensePlate());
-        mProNumber.setText(value.getCarrierNum()+unit);
-        mCargoInfo.setText(value.getCargoName() +" "+ value.getCargoNum()+StrUtil.formatUnit(unit) );
+        mProNumber.setText(value.getCarrierNum() + unit);
+        mCargoInfo.setText(value.getCargoName() + " " + value.getCargoNum() + StrUtil.formatUnit(unit));
         mCargoDensity.setText(value.getCargoDensity() + "吨/方");
         mTvTime.setText(value.getLoadingTime());
         mTvCargoPerson.setText(value.getTruckDrawer());
@@ -166,18 +167,19 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
     @OnClick(R.id.tv_submit)
     public void onClick() {
         if (mType == 1) {
-            LoadingBillActivity.openActivity(DriverWaybillDetailActivity.this,orderId);
+            LoadingBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId);
             //showActivity(LoadingBillActivity.class);
         } else {
-            UnloadBillActivity.openActivity(DriverWaybillDetailActivity.this,orderId);
+            UnloadBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId);
         }
 
     }
 
+
     @Override
     protected void onRightClick() {
         super.onRightClick();
-        DriverPoundBillDetailActivity.openActivity(DriverWaybillDetailActivity.this,orderId);
+        DriverPoundBillDetailActivity.openActivity(DriverWaybillDetailActivity.this, orderId);
     }
 
 
@@ -186,14 +188,15 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
         switch (view.getId()) {
             case R.id.iv_cargo_phone:
                 commonDialog.setContent(mDriverOrderDetailEntity.getTruckTel());
-                commonDialog.showDialog(DriverWaybillDetailActivity.this,"phone");
+                commonDialog.showDialog(DriverWaybillDetailActivity.this, "phone");
                 break;
             case R.id.iv_unloading_phone:
                 commonDialog.setContent(mDriverOrderDetailEntity.getUnloadingTel());
-                commonDialog.showDialog(DriverWaybillDetailActivity.this,"phone");
+                commonDialog.showDialog(DriverWaybillDetailActivity.this, "phone");
                 break;
         }
     }
+
     @Override
     public void onConfirmClick() {
         String phoneNumber = commonDialog.getContent();

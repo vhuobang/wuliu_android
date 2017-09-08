@@ -29,6 +29,34 @@ public class WayBillDetailEntity {
      * owner_cargo_id : 11
      * unit
      * logistical_id 物流id
+     *
+     *
+     *
+     *
+     *  {
+     "order_number": "20170908616141504847396",
+     "owner_name": "Test",
+     "tel": "",
+     "license_plate": "京A777777",
+     "carrier_num": "1",
+     "unit": "1",
+     "star_rating": "0.00",
+     "loading_time": null,
+     "loading_weight": null,
+     "loading_photo": null,
+     "unloading_time": null,
+     "unloading_weight": null,
+     "unloading_photo": null,
+     "owner_cargo_id": "3",
+     "cargo_id": "8",
+     "cargo_num": "12",
+     "freight_price": "20.00",
+     "logistical_id": "1",
+     "log": "",
+     "lat": "",
+     "all_price": ""
+     },
+
      */
 
     @SerializedName("carrier_num")
@@ -69,6 +97,11 @@ public class WayBillDetailEntity {
     private String unit;
     @SerializedName("logistical_id") //物流id
     private String logisticalId;
+    @SerializedName("log") //经度
+    private String log;
+    @SerializedName("lat") //纬度
+    private String lat;
+
 
     public String getLogisticalId() {
         return logisticalId;
