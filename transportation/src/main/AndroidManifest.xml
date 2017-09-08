@@ -101,7 +101,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".activity.my.InviteFriendListActivity"></activity>
         <!--微信支付-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"

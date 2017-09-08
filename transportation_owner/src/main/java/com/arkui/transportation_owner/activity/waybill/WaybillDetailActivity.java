@@ -124,7 +124,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 showActivity(DriverLocationActivity.class);
                 break;
             case R.id.tv_pay_freight:
-                showActivity(PaymentFreightActivity.class);
+                PaymentFreightActivity.openActivity(mActivity,waybillId,mWayBillDetailEntity.getOrderNumber());
                 break;
             case R.id.tv_evaluate:
                 Bundle bundle = new Bundle();

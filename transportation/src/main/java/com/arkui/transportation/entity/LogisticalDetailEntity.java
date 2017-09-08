@@ -35,6 +35,7 @@ public class LogisticalDetailEntity {
      * truck_tel : 18735111111
      * remarks : 注意安全
      * surplus_num
+     * unit
      */
 
     @SerializedName("cargo_density")
@@ -89,6 +90,17 @@ public class LogisticalDetailEntity {
     private String remarks;
     @SerializedName("surplus_num")
     private String surplusNum;
+    @SerializedName("unit")
+    private String unit;
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public String getSurplusNum() {
         return surplusNum;
     }

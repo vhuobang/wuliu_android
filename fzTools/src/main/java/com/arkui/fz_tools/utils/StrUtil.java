@@ -660,7 +660,7 @@ public class StrUtil {
         String formatStr = null;
         switch (status) {
             case "1":
-                formatStr = "发布中";
+                formatStr = "停止发布";
                 break;
             case "2":
                 formatStr = "已抢完";

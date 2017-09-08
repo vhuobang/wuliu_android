@@ -100,8 +100,11 @@ public class OwnerWaybillListFragment extends BaseListLazyFragment<LogWayBIllLis
     @Override
     public void convert(BaseViewHolder helper, LogWayBIllListEntity item) {
         helper.setText(R.id.tv_product_info, item.getLicensePlate() + "   " + item.getCargoName());
-        helper.setText(R.id.tv_address, item.getLoadingAddress());
-        helper.setText(R.id.tv_unloading_address, item.getUnloadingAddress());
+        String[] loadingAddress = item.getLoadingAddress().split(" ");
+        String[] unloadingAddress = item.getUnloadingAddress().split(" ");
+
+        helper.setText(R.id.tv_address, loadingAddress[0]);
+        helper.setText(R.id.tv_unloading_address, unloadingAddress[0]);
         switch (mType) {
             case 1:
                 helper.setVisible(R.id.ll_location, true);

@@ -15,6 +15,7 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
 import com.arkui.transportation.api.LogisticalApi;
@@ -145,10 +146,14 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         String[] unloadingAddress = logisticalDetailEntity.getUnloadingAddress().split(" ");
         tvStartAddress.setText(loadAddress[0]);
         tvDestination.setText(unloadingAddress[0]);
-        tvStartDetailAddress.setText(loadAddress[1]);
-        tvDetailDestination.setText(unloadingAddress[1]);
-        goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+"/"+
-        logisticalDetailEntity.getSurplusNum());
+        if (loadAddress.length>1){
+            tvStartDetailAddress.setText(loadAddress[1]);
+        }
+        if (unloadingAddress.length>1){
+            tvDetailDestination.setText(unloadingAddress[1]);
+        }
+        goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+ StrUtil.formatUnit( logisticalDetailEntity.getUnit())+"/剩余"+
+        logisticalDetailEntity.getSurplusNum() + StrUtil.formatUnit(logisticalDetailEntity.getUnit()));
         cargoDensity.setText(logisticalDetailEntity.getCargoDensity());
         freightPrice.setText(logisticalDetailEntity.getFreightPrice());
         cargoPrice.setText(logisticalDetailEntity.getCargoPrice());

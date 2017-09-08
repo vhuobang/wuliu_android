@@ -261,7 +261,7 @@
                         android:inputType="numberDecimal"
                         android:id="@+id/et_cargo_price"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入获取单价" />
+                        android:hint="请输入货物单价" />
 
                     <TextView
                         android:gravity="center"
@@ -301,7 +301,7 @@
                     <TextView
                         android:id="@+id/tv_loading_time"
                         style="@style/TextViewWeight999"
-                        android:hint="请选择" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"

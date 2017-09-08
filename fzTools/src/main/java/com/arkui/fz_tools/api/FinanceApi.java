@@ -5,6 +5,7 @@ import com.arkui.fz_tools.entity.BankCarEntity;
 import com.arkui.fz_tools.entity.BillingDetailsEntity;
 import com.arkui.fz_tools.entity.InformationDetailEntity;
 import com.arkui.fz_tools.entity.IntegralDetailsEntity;
+import com.arkui.fz_tools.entity.PrePayEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
 import java.util.List;
@@ -50,5 +51,9 @@ public interface FinanceApi {
   @FormUrlEncoded
   @POST(NetConstants.PAY)
   Observable<BaseHttpResult> pay(@FieldMap Map<String, Object> parameter);
+    // 支付预览 PRE_PAY
+    @FormUrlEncoded
+    @POST(NetConstants.PRE_PAY)
+    Observable<BaseHttpResult<PrePayEntity>> prePay(@Field("order_id") String orderId);
 
 }

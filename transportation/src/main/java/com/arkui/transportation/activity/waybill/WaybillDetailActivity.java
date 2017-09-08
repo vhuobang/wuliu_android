@@ -127,7 +127,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 intent.putExtra("cargoId",mWayBillDetailEntity.getCargoId());
                 intent.putExtra("ownerId",mWayBillDetailEntity.getOwnerCargoId());
                 startActivity(intent);
-                //showActivity(OwnerInfoActivity.class);
+
                 break;
             case R.id.tv_cargo_info: // 货物信息
                 CargoInfoActivity.openActivity(mActivity,mWayBillDetailEntity.getCargoId());
@@ -137,7 +137,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 showActivity(DriverLocationActivity.class);
                 break;
             case R.id.tv_pay_freight: //支付运费
-                showActivity(PaymentFreightActivity.class);
+                PaymentFreightActivity.openActivity(mActivity,waybillId,mWayBillDetailEntity.getOrderNumber());
                 break;
             case R.id.tv_evaluate: // 评价界面
                 Bundle bundle = new Bundle();

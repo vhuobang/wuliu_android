@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        multiDexEnabled true
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a','x86', 'x86_64'
@@ -63,4 +64,5 @@ dependencies {
     compile 'com.amap.api:3dmap:5.2.1'
     compile 'com.amap.api:search:latest.integration'
     compile files('libs/alipaySdk-20170725.jar')
+    compile 'com.android.support:multidex:1.0.0'
 }

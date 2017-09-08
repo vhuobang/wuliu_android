@@ -19,6 +19,7 @@
                 android:text="货物数量" />
 
             <TextView
+                android:id="@+id/cargo_wight"
                 style="@style/TextViewWeight999"
                 android:text="50吨" />
 
@@ -34,6 +35,7 @@
                 android:text="货物单价" />
 
             <TextView
+                android:id="@+id/cargo_price"
                 style="@style/TextViewWeight999"
                 android:text="100元/吨" />
 
@@ -45,9 +47,10 @@
 
             <TextView
                 style="@style/TextView"
-                android:text="货物价格" />
+                android:text="运费单价" />
 
             <TextView
+                android:id="@+id/freight_price"
                 style="@style/TextViewWeight999"
                 android:text="100元/吨" />
 
@@ -62,6 +65,7 @@
                 android:text="耗损" />
 
             <TextView
+                android:id="@+id/loss"
                 style="@style/TextViewWeight999"
                 android:text="100元/吨" />
 
@@ -121,6 +125,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/freight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -145,6 +150,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/loss_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -169,6 +175,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/total_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -187,6 +194,7 @@
 
 
             <CheckBox
+                android:id="@+id/is_checked"
                 android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -200,14 +208,14 @@
                 android:textColor="@color/black_list_color" />
 
         </LinearLayout>
-        
+
         <com.arkui.fz_tools.view.ShapeButton
             android:id="@+id/bt_pay"
             android:text="确认支付20600元"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             style="@style/Button"/>
-        
+
     </LinearLayout>
 
 </LinearLayout>

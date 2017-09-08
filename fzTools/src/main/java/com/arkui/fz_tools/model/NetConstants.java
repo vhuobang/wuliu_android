@@ -77,7 +77,8 @@ public class NetConstants {
     public static final String EVALUATE=BASE_URL+"index.php/App/Waybill/evaluate";
     //关于我们  App/Public/about_us
     public static final String ABOUT_US=BASE_URL+"index.php/App/Public/about_us";
-
+  // 支付预览  /App/Finance/pre_pay
+  public static final String PRE_PAY=BASE_URL+"index.php/App/Finance/pre_pay";
 
 
 }
