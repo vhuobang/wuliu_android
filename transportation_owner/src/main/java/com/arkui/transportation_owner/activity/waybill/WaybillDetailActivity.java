@@ -121,7 +121,8 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 LogisticsInfoActivity.openActivity(mActivity,mWayBillDetailEntity.getLogisticalId());
                 break;
             case R.id.tv_driver_location:
-                showActivity(DriverLocationActivity.class);
+               // showActivity(DriverLocationActivity.class);
+                DriverLocationActivity.openActivity(mActivity,mWayBillDetailEntity.getLog(),mWayBillDetailEntity.getLat());
                 break;
             case R.id.tv_pay_freight:
                 PaymentFreightActivity.openActivity(mActivity,waybillId,mWayBillDetailEntity.getOrderNumber());

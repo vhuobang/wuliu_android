@@ -3,6 +3,7 @@ package com.arkui.transportation.activity.waybill;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -45,8 +46,15 @@ public class DriverLocationActivity extends BaseActivity {
         super.initView(savedInstanceState);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMap.onCreate(savedInstanceState);
-        double log = Double.parseDouble(getIntent().getStringExtra("log"));
-        double lat = Double.parseDouble(getIntent().getStringExtra("lat"));
+        String logStr = getIntent().getStringExtra("log");
+        String latStr = getIntent().getStringExtra("lat");
+        double log = 116.397428;
+        double lat= 39.90923;
+        if (!TextUtils.isEmpty(logStr) && !TextUtils.isEmpty(latStr)){
+             log = Double.parseDouble(logStr);
+             lat = Double.parseDouble(latStr);
+        }
+
         LatLng latLng = new LatLng(log,lat);
         AMap map = mMap.getMap();
         UiSettings uiSettings = map.getUiSettings();

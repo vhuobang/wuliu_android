@@ -13,7 +13,6 @@ import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.CarriageDetailActivity;
-import com.arkui.transportation.activity.waybill.DriverLocationActivity;
 import com.arkui.transportation.activity.waybill.PlanPublishDetailActivity;
 import com.arkui.transportation.adapter.CarGoListAdapter;
 import com.arkui.transportation.base.App;
@@ -94,12 +93,7 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
             }
         });
 
-        mCarGoListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(DriverLocationActivity.class);
-            }
-        });
+
     }
 
     @Override

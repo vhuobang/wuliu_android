@@ -102,6 +102,21 @@ public class WayBillDetailEntity {
     @SerializedName("lat") //纬度
     private String lat;
 
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
 
     public String getLogisticalId() {
         return logisticalId;
