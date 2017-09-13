@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.arkui.fz_tools.R;
 import com.arkui.fz_tools.adapter.CityAdapter;
 import com.arkui.fz_tools.entity.City;
 import com.arkui.fz_tools.listener.OnWheelChangedListener;
-import com.arkui.fz_tools.utils.FileUtil;
 import com.arkui.fz_tools.view.WheelView;
 
 import java.util.List;
@@ -70,11 +68,15 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.tv_submit){
+        int i = v.getId();
+        if (i == R.id.tv_submit) {
             if (onEnsureClickListener != null) {
                 onEnsureClickListener.onCityClick(getSelect());
                 dismiss();
             }
+
+        } else if (i == R.id.tv_cancel) {
+            dismiss();
         }
     }
 

@@ -10,9 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arkui.fz_net.utils.RxBus;
+import com.arkui.fz_tools._interface.HistoricalSearchInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
+import com.arkui.fz_tools.entity.HistocialSearchEntity;
 import com.arkui.fz_tools.entity.LogisticsBusEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.mvp.HistoricalSearchPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
@@ -21,13 +24,11 @@ import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.publish.LogisticsListActivity;
-import com.arkui.transportation_owner.activity.publish.PublishDeclareActivity;
 import com.arkui.transportation_owner.adapter.LogisticsAdapter;
+import com.arkui.transportation_owner.base.App;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
 import com.arkui.transportation_owner.entity.RefreshLogistics;
-import com.arkui.transportation_owner.entity.RefreshWaybill;
 import com.arkui.transportation_owner.mvp.LogisticsPresenter;
-import com.arkui.transportation_owner.utils.ListData;
 import com.arkui.transportation_owner.view.LogisticsView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -43,7 +44,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 
-public class SearchLogisticsActivity extends BaseActivity<String> implements OnBindViewHolderListener<String>, OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener, LogisticsView, TextView.OnEditorActionListener, BaseQuickAdapter.OnItemClickListener {
+public class SearchLogisticsActivity extends BaseActivity<HistocialSearchEntity> implements OnBindViewHolderListener<HistocialSearchEntity>, OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener, LogisticsView, TextView.OnEditorActionListener, BaseQuickAdapter.OnItemClickListener, View.OnClickListener, HistoricalSearchInterface {
 
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
@@ -58,7 +59,8 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
     private LogisticsPresenter mLogisticsPresenter;
     private int mPage = 1;
     private boolean mIsChange=false;
-
+    private CommonAdapter<HistocialSearchEntity> mHistorySearchAdapter;
+    HistoricalSearchPresenter mHistoricalSearchPresenter;
     @Override
     public void setRootView() {
         setContentViewNoTitle(R.layout.activity_search_logistics);
@@ -70,22 +72,29 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
         ButterKnife.bind(this);
         mIsSelect = getIntent().getBooleanExtra("isSelect", false);
         mRlList.setLinearLayoutManager();
-        CommonAdapter<String> mHistorySearchAdapter = new CommonAdapter<String>(R.layout.item_history_search, this);
+
+        mHistorySearchAdapter = new CommonAdapter<HistocialSearchEntity>(R.layout.item_history_search, this);
         mRlList.setAdapter(mHistorySearchAdapter);
-        mHistorySearchAdapter.addData(ListData.getTestData(""));
+
         mRlList.setEnablePullToRefresh(false);
         mRlList.addItemDecoration(new HistorySearchDividerItem(mActivity, HistorySearchDividerItem.VERTICAL_LIST));
         mRlList.setRecyclerBackgroundColor(ContextCompat.getColor(mActivity, R.color.white));
 
         View mViewSearchFooter = getLayoutInflater().inflate(R.layout.layout_search_footer, mRlList, false);
+        TextView clear = (TextView) mViewSearchFooter.findViewById(R.id.tv_clear);
+        clear.setOnClickListener(this);
         mHistorySearchAdapter.setFooterView(mViewSearchFooter);
 
         mHistorySearchAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                HistocialSearchEntity item = (HistocialSearchEntity) adapter.getItem(position);
+                mLogisticsPresenter.postLogisticsList("",item.getContent(),mPage);
                 hideSearch();
             }
         });
+
         initAdapter();
         mEtSearch.setOnEditorActionListener(this);
         //回调收藏状态 改变监听
@@ -114,6 +123,8 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
     public void initData() {
         super.initData();
         mLogisticsPresenter = new LogisticsPresenter(this, mActivity);
+        mHistoricalSearchPresenter = new HistoricalSearchPresenter(this,this);
+        mHistoricalSearchPresenter.getSearchList(App.getUserId(),"cargo");
     }
 
     private void initAdapter() {
@@ -143,13 +154,16 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
                 }
                 finish();
                 break;
+            case R.id.tv_clear:
+                mHistoricalSearchPresenter.delSearchList(App.getUserId(),"cargo");
+                break;
         }
     }
 
 
     @Override
-    public void convert(BaseViewHolder helper, String item) {
-
+    public void convert(BaseViewHolder helper, HistocialSearchEntity item) {
+        helper.setText(R.id.tv_name,item.getContent());
     }
 
     @Override
@@ -245,5 +259,19 @@ public class SearchLogisticsActivity extends BaseActivity<String> implements OnB
             mLogisticsPresenter.onDestroy();
         }
     }
-
+    //历史记录删除成功的回掉
+    @Override
+    public void onSuccess(String successMessage) {
+            mHistoricalSearchPresenter.getSearchList(App.getUserId(),"cargo");
+    }
+  // 删除失败的回掉
+    @Override
+    public void onSearchFail(String errorMessage) {
+        mHistorySearchAdapter.setNewData(null);
+    }
+  // 历史记录成功的回掉
+    @Override
+    public void onSearchListSuccess(List<HistocialSearchEntity> histocialSearchEntity) {
+        mHistorySearchAdapter.setNewData(histocialSearchEntity);
+    }
 }

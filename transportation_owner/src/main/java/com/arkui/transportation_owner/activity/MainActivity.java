@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.arkui.fz_tools.ui.BaseFragment;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.publish.MyDeliverActivity;
 import com.arkui.transportation_owner.fragment.LogisticsFragment;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(R.id.fl_content, mLogisticsFragment);
 
         ButterKnife.bind(this);
+        AppManager.getAppManager().addActivity(this);
     }
 
 

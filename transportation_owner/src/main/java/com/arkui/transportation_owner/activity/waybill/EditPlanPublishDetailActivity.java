@@ -28,6 +28,7 @@ import com.arkui.transportation_owner.activity.MainActivity;
 import com.arkui.transportation_owner.activity.publish.SelectAddressActivity;
 import com.arkui.transportation_owner.activity.publish.SelectLogisticsActivity;
 import com.arkui.transportation_owner.base.App;
+import com.arkui.transportation_owner.entity.EditEvent;
 import com.arkui.transportation_owner.entity.RefreshWaybill;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +48,6 @@ import butterknife.OnClick;
  * 编辑货源
  */
 public class EditPlanPublishDetailActivity extends BaseActivity implements OnVehicleTypeClickListener, ReleaseDetailInterface, OnConfirmClick, EndTimePicker.OnEnsureListener, PublicInterface {
-
 
     @BindView(R.id.tv_send)
     TextView mTvSend;
@@ -408,9 +408,9 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         mTvReceive.setText(releaseDetailsEntity.getUnloadingAddress());
 
         mEtCargoName.setText(releaseDetailsEntity.getCargoName());
-        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity() + "吨/方");
+        mEtCargoDensity.setText(releaseDetailsEntity.getCargoDensity() );
         mEtFreightPrice.setText(releaseDetailsEntity.getFreightPrice());
-        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity() + "吨/方");
+        mEtCargoPrice.setText(releaseDetailsEntity.getCargoDensity() );
         mTvLoadingTime.setText(releaseDetailsEntity.getLoadingTime());
         mEtPressCharges.setText(releaseDetailsEntity.getPressCharges());
 
@@ -449,7 +449,9 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
 
     @Override
     public void onSuccess() {
-        mCommonDialog.show(getSupportFragmentManager(), "publish");
+       // mCommonDialog.show(getSupportFragmentManager(), "publish");
+        EventBus.getDefault().post(new EditEvent());
+        finish();
     }
 
     @Override

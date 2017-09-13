@@ -79,6 +79,12 @@ public class NetConstants {
     public static final String ABOUT_US=BASE_URL+"index.php/App/Public/about_us";
   // 支付预览  /App/Finance/pre_pay
   public static final String PRE_PAY=BASE_URL+"index.php/App/Finance/pre_pay";
-
-
+    // 微信充值   App/Recharge/create_recharge_order
+    public static final String WEIXIN_PAY=BASE_URL+"index.php/App/Recharge/create_recharge_order";
+    // 支付宝支付  App/Recharge/alipay
+    public static final String ALI_PAY=BASE_URL+"index.php/App/Recharge/alipay";
+    //搜索历史  App/Logistical/searchList
+    public static final String SEARCH_LIST=BASE_URL+"index.php/App/Logistical/searchList";
+    // 清空搜索历史 App/Logistical/delSearch
+    public static final String DEL_SEARCH=BASE_URL+"index.php/App/Logistical/delSearch";
 }

@@ -41,6 +41,8 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter> implements 
     TextView mTvCode;
     @BindView(R.id.cb_deal)
     CheckBox mCbDeal;
+    @BindView(R.id.tv_back)
+    TextView mTvBack;
 
     @Override
     public void setRootView() {
@@ -76,15 +78,17 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter> implements 
     }
 
     private void getRegister() {
-        if(!mCbDeal.isChecked()){
-            ShowToast("请勾选免责声明");
-            return;
-        }
         String phoneText = mEtPhone.getText().toString().trim();
         String newPasswordText = mEtNewPassword.getText().toString().trim();
         String confirmPasswordText = mEtConfirmPassword.getText().toString().trim();
         String invite = mEtInvite.getText().toString().trim();
         String code = mEtCode.getText().toString();
+
+
+        if(!mCbDeal.isChecked()){
+            ShowToast("请勾选免责声明");
+            return;
+        }
         mPresenter.getRegister(phoneText, code, newPasswordText, confirmPasswordText, Constants.OWNER, invite);
     }
 

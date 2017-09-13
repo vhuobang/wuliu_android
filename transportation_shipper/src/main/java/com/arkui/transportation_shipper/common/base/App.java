@@ -1,6 +1,6 @@
 package com.arkui.transportation_shipper.common.base;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.fastjson.JSON;
 import com.arkui.fz_tools.entity.UserEntity;
@@ -13,7 +13,7 @@ import com.umeng.socialize.PlatformConfig;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     private static UserEntity mUserEntity;
 

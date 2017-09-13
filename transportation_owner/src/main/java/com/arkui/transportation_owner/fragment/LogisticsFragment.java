@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,29 +18,25 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools.entity.LogisticsBusEntity;
-import com.arkui.transportation_owner.activity.logistics.CityPickerActivity;
+import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_owner.R;
+import com.arkui.transportation_owner.activity.logistics.CityPickerActivity;
 import com.arkui.transportation_owner.activity.logistics.CompanyDetailActivity;
 import com.arkui.transportation_owner.activity.logistics.PersonageDetailActivity;
 import com.arkui.transportation_owner.activity.logistics.SearchLogisticsActivity;
-import com.arkui.fz_tools.adapter.CommonAdapter;
-import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.transportation_owner.adapter.LogisticsAdapter;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
 import com.arkui.transportation_owner.mvp.LogisticsPresenter;
-import com.arkui.transportation_owner.utils.ListData;
 import com.arkui.transportation_owner.view.LogisticsView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.tbruyelle.rxpermissions2.RxPermissionsFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -196,7 +190,9 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
 
     @Override
     public void onError() {
+
         if (mPage == 1) {
+            mLogisticsAdapter.setNewData(null);
             mRlList.loadFail();
         } else {
             mLogisticsAdapter.loadMoreEnd();

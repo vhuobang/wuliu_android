@@ -169,6 +169,7 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
+
             }
 
             @Override

@@ -74,7 +74,10 @@ public class UserPresenter extends BasePresenter {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
-
+         if (TextUtils.isEmpty(code)){
+             Toast.makeText(mContext,"请输入验证码",Toast.LENGTH_SHORT).show();
+             return;
+         }
         int verificationCode = Integer.parseInt(code);
 
         if (verificationCode != mVerificationCode) {
@@ -199,7 +202,10 @@ public class UserPresenter extends BasePresenter {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (TextUtils.isEmpty(code)){
+            Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_SHORT).show();
+            return;
+        }
         int verificationCode = Integer.parseInt(code);
 
         if (verificationCode != mVerificationCode) {

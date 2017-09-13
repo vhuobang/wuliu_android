@@ -1,5 +1,6 @@
 package com.arkui.transportation.activity.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
@@ -90,7 +91,12 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         setContentView(R.layout.activity_supply_detail);
         setTitle("货源详情");
     }
-
+  public static  void openActivity(Context context,int type,String  cargo_id){
+      Intent intent = new Intent(context, SupplyDetailActivity.class);
+      intent.putExtra("type",type);
+      intent.putExtra("cargo_id",cargo_id);
+      context.startActivity(intent);
+  }
     @Override
     public void initView() {
         super.initView();

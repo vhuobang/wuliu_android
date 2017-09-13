@@ -68,7 +68,7 @@ public class RegisterActivity extends BaseMvpActivity<UserPresenter>implements U
         mTimeCountUtil= new TimeCountUtil(tvCode);
     }
 
-    @OnClick({R.id.bt_register, R.id.tv_clause,R.id.tv_code})
+    @OnClick({R.id.bt_register, R.id.tv_clause,R.id.tv_code,R.id.tv_back_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_register:

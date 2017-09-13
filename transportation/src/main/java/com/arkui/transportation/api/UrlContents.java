@@ -26,5 +26,5 @@ public class UrlContents {
     // 8 首页轮播消息
     public static final String SLIDER_MESSAGE = BASE_URL + "App/Public/sliderMessage";
     // 9  货源搜索
-    public static final String CARGO_TOLOGISTICAL_SEARCH = BASE_URL + "App/logistical/cargoToLogisticalSearch ";
+    public static final String CARGO_TOLOGISTICAL_SEARCH = BASE_URL + "App/logistical/cargoToLogisticalSearch";
 }

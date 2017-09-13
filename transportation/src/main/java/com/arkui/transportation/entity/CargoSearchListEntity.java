@@ -17,6 +17,7 @@ public class CargoSearchListEntity {
      * cargo_num : 1000
      * cargo_name : 铁
      * id : 29
+     * avatar
      */
 
     @SerializedName("loading_address")
@@ -35,6 +36,16 @@ public class CargoSearchListEntity {
     private String cargoName;
     @SerializedName("id")
     private String id;
+    @SerializedName("avatar")
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getLoadingAddress() {
         return loadingAddress;

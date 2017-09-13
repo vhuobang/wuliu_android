@@ -13,6 +13,11 @@ import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.publish.SelectLogisticsActivity;
 import com.arkui.transportation_owner.base.App;
+import com.arkui.transportation_owner.entity.EditEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +65,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     TextView mTvRemarks;
     private ReleaseDetailPresenter mReleaseDetailPresenter;
     ReleaseDetailsEntity mReleaseDetailsEntity;
+    private String id;
 
     @Override
     public void setRootView() {
@@ -72,12 +78,13 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initData() {
         super.initData();
-        String id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         mReleaseDetailPresenter = new ReleaseDetailPresenter(this, this);
         mReleaseDetailPresenter.getReleaseDetail(id);
     }
@@ -88,6 +95,11 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         String id = getIntent().getStringExtra("id");
         //showActivity(EditPlanPublishDetailActivity.class);
         EditPlanPublishDetailActivity.showActivity(this, id,false);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public  void refresh(EditEvent event){
+            mReleaseDetailPresenter.getReleaseDetail(id);
+
     }
 
     @Override
@@ -133,6 +145,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     protected void onDestroy() {
         super.onDestroy();
         mReleaseDetailPresenter.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R.id.tv_publish)
@@ -187,4 +200,5 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         //intent.putExtra("data",map);
         showActivity(intent);
     }
+
 }

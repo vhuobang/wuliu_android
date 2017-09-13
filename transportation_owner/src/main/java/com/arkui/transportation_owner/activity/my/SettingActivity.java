@@ -53,7 +53,7 @@ public class SettingActivity extends BaseActivity implements OnConfirmClick {
     @Override
     public void onConfirmClick() {
         App.getInstance().deleteUserInfo();
-        AppManager.getAppManager().finishAllActivity();
+        AppManager.getAppManager().finishAllActivity();//18647624075
         showActivity(LoginActivity.class);
     }
 }

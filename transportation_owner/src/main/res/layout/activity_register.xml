@@ -166,9 +166,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/bt_register"
         android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="30dp">
 
         <TextView
@@ -176,7 +177,8 @@
             android:layout_centerVertical="true"
             android:textColor="@color/gray_color"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
             android:padding="5dp"
             android:text="返回登录"
             android:textSize="@dimen/sp_13" />
@@ -188,7 +190,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/tv_clause"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:layout_centerVertical="true"

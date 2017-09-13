@@ -5,6 +5,7 @@ import com.arkui.fz_tools.model.NetConstants;
 import com.arkui.transportation_shipper.common.api.UrlContents;
 import com.arkui.transportation_shipper.owner.entity.LogisticalListEntity;
 import com.arkui.transportation_shipper.owner.entity.TruckOwnerWaybillDetialEntity;
+import com.arkui.transportation_shipper.pay.WxPayEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -25,5 +26,12 @@ public interface LogisticalApi {
     @FormUrlEncoded
     @POST(UrlContents.TRUCK_OWNER_WAYBILL_DETAILS)
     Observable<BaseHttpResult<TruckOwnerWaybillDetialEntity>> getTruckOwnerWaybillDetails(@Field("id") String id);
-
+   // 微信支付 WEIXIN_PAY
+   @FormUrlEncoded
+   @POST(NetConstants.WEIXIN_PAY)
+   Observable<BaseHttpResult<WxPayEntity>> getWxPay(@Field("user_id") String userId, @Field("pay_amount") String payAmount,@Field("pay_type") String wxpay);
+  // 支付宝支付
+  @FormUrlEncoded
+  @POST(NetConstants.ALI_PAY)
+  Observable<BaseHttpResult> getAli_Pay(@Field("user_id") String userId, @Field("pay_amount") String payAmount);
 }

@@ -8,12 +8,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arkui.fz_tools._interface.HistoricalSearchInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
+import com.arkui.fz_tools.entity.HistocialSearchEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.mvp.HistoricalSearchPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
 import com.arkui.fz_tools.utils.HistorySearchDividerItem;
-import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation.R;
@@ -27,7 +29,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshListener, View.OnClickListener, CargoSearchView {
+public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshListener, View.OnClickListener, CargoSearchView, HistoricalSearchInterface {
     @BindView(R.id.rl_list)
     PullRefreshRecyclerView mRlList;
     @BindView(R.id.rl_search)
@@ -49,7 +50,8 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
     private boolean mIsSelect;
     private List<String> searchHistoryList;
     private CargoSearchPresenter cargoSearchPresenter;
-    private CommonAdapter<String> mHistorySearchAdapter;
+    private CommonAdapter<HistocialSearchEntity> mHistorySearchAdapter;
+    private HistoricalSearchPresenter mHistoricalSearchPresenter;
 
     @Override
     public void setRootView() {
@@ -62,12 +64,13 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
         ButterKnife.bind(this);
         mIsSelect = getIntent().getBooleanExtra("isSelect", false);
         cargoSearchPresenter = new CargoSearchPresenter(this, this);
+        mHistoricalSearchPresenter = new HistoricalSearchPresenter(this,this);
         mRlList.setLinearLayoutManager();
-        mHistorySearchAdapter = new CommonAdapter<String>(R.layout.item_history_search,
-                new OnBindViewHolderListener<String>() {
+        mHistorySearchAdapter = new CommonAdapter<HistocialSearchEntity>(R.layout.item_history_search,
+                new OnBindViewHolderListener<HistocialSearchEntity>() {
             @Override
-            public void convert(BaseViewHolder helper, String item) {
-                    helper.setText(R.id.tv_name,item);
+            public void convert(BaseViewHolder helper, HistocialSearchEntity item) {
+                    helper.setText(R.id.tv_name,item.getContent());
             }
         });
         mRlList.setAdapter(mHistorySearchAdapter);
@@ -99,7 +102,8 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
         mLogisticsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showActivity(SupplyDetailActivity.class);
+                CargoSearchListEntity  item = (CargoSearchListEntity) adapter.getItem(position);
+                SupplyDetailActivity.openActivity(mActivity, Integer.parseInt(item.getLogisticalStatus()),item.getId());
             }
         });
         initSearch();
@@ -108,16 +112,18 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
     private void getSearchHistoryData() {
         /************************************************************/
         // 从sp中拿历史搜索数据
-        String searchHistory = SPUtil.getInstance(this).read("searchHistory", "");
-        String[] split = searchHistory.split(",");
-        if (split!=null){
-            searchHistoryList = new ArrayList<>();
-            for (int i=0;i<split.length;i++){
-                searchHistoryList.add(split[i]);
-            }
-        }
+//        String searchHistory = SPUtil.getInstance(this).read("searchHistory", "");
+//        String[] split = searchHistory.split(",");
+//        if (split!=null){
+//            searchHistoryList = new ArrayList<>();
+//            for (int i=0;i<split.length;i++){
+//                searchHistoryList.add(split[i]);
+//            }
+//        }
         /***********************************************************/
-        mHistorySearchAdapter.setNewData(searchHistoryList);
+        mHistoricalSearchPresenter.getSearchList(App.getUserId(),"logistical");
+
+
     }
 
     /**
@@ -134,11 +140,7 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
                         Toast.makeText(mActivity,"请输入关键字体",Toast.LENGTH_SHORT).show();
                         return false;
                     }
-                    String searchHistory= SPUtil.getInstance(mActivity).read("searchHistory","");
-                    if (!searchHistory.contains(keyWords)){
-                        searchHistory = searchHistory+ keyWords+",";
-                    }
-                    SPUtil.getInstance(mActivity).save("searchHistory",searchHistory);
+
                     mRlList.setVisibility(View.GONE);
                     mRlSearch.setVisibility(View.VISIBLE);
                     cargoSearchPresenter.getCargoSearchList(App.getUserId(),keyWords);
@@ -161,8 +163,10 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
                 //showActivity(PublishDeclareActivity.class);
                 break;
             case R.id.tv_clear: // 清空所有记录
-                SPUtil.getInstance(mActivity).remove("searchHistory");
-                getSearchHistoryData();
+              //  SPUtil.getInstance(mActivity).remove("searchHistory");
+             //   getSearchHistoryData();
+                // 清除数据
+                mHistoricalSearchPresenter.delSearchList(App.getUserId(),"logistical");
                 break;
         }
     }
@@ -185,5 +189,20 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
         mLogisticsAdapter.setNewData(null);
         mRlSearch.loadFail();
 
+    }
+   // 删除成功的回掉
+    @Override
+    public void onSuccess(String successMessage) {
+         getSearchHistoryData();
+    }
+  // 搜索失败 或者删除失败
+    @Override
+    public void onSearchFail(String errorMessage) {
+        mHistorySearchAdapter.setNewData(null);
+    }
+  // 历史搜索记录
+    @Override
+    public void onSearchListSuccess(List<HistocialSearchEntity> histocialSearchEntity) {
+        mHistorySearchAdapter.setNewData(histocialSearchEntity);
     }
 }
