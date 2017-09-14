@@ -38,6 +38,9 @@ public class ShareDialog extends BaseDialogFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if(onConfirmClick==null){
+            return;
+        }
         onConfirmClick.onCancelClick();
         dismiss();
     }

@@ -97,6 +97,8 @@ public class DriverLoginActivity extends BaseMvpActivity<UserPresenter> implemen
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(DriverMainActivity.class);
+        //标识位司机登录
+        SPUtil.getInstance(mActivity).save("type",Constants.DRIVER);
         finish();
     }
 

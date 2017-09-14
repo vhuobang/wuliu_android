@@ -168,7 +168,7 @@ public class ConfirmOrderActivity extends BaseActivity implements SelectDriverDi
                 mSelectVehicleDialog.showDialog(this, "driver");
                 break;
             case R.id.ll_driver:
-                if (mSelectDriverDialog.getDriverList() == null) {
+                if (mSelectDriverDialog.getDriverList().isEmpty()) {
                     ShowToast("没有可指派的司机");
                     return;
                 }

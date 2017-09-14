@@ -60,8 +60,17 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
         SystemBarHelper.setStatusBarDarkMode(this);
         boolean isLogin = SPUtil.getInstance(this).read(Constants.IS_LOGIN, false);
         if (isLogin){
-            showActivity(MainActivity.class);
-            finish();
+            int type = SPUtil.getInstance(this).read("type", -1);
+            if(type==Constants.DRIVER){
+                showActivity(DriverLoginActivity.class);
+                finish();
+            }else if(type==Constants.CAR_OWNER){
+                showActivity(MainActivity.class);
+                finish();
+            }else{
+                //没有登录过
+            }
+
         }
 
     }
@@ -110,6 +119,8 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+        //标识位车主登录
+        SPUtil.getInstance(mActivity).save("type",Constants.CAR_OWNER);
         finish();
     }
 

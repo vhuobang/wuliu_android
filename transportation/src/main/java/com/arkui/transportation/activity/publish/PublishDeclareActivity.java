@@ -63,7 +63,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         map.put("loading_address",releaseInfo.getLoadingAddress());
         map.put("unloading_address",releaseInfo.getUnloadingAddress());
         map.put("cargo_name",releaseInfo.getCargoName());
-        map.put("cargo_num",releaseInfo.getCargoName());
+        map.put("cargo_num",releaseInfo.getCargoNum());
         map.put("cargo_density",releaseInfo.getCargoDensity());
         map.put("freight_price",releaseInfo.getFreightPrice());
         map.put("cargo_price",releaseInfo.getCargoPrice());

@@ -21,6 +21,7 @@ import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.PublishPresenter;
 import com.arkui.fz_tools.mvp.ReleaseDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation_owner.R;
@@ -366,13 +367,24 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
         map.put("type", mPublishType);
         map.put("remarks", remarks);
         map.put("unit", mUnit);
+        //2017年9月13日 isPublish 是用来区别是编辑还是重新发布的，因为共享的页面
+        // isPublish true 的情况下 去发布
         boolean isPublish = getIntent().getBooleanExtra("isPublish", false);
         if(!isPublish){
+            //所以说 false 情况下 会传递一个值  就是预发布在发布要传个id
             map.put("cargo_id", mId);
         }
+        //懂了吗？
         //传给后台
         if (isSave) {
-            mPublishPresenter.postEdit(map);
+            if(!isPublish){
+                //那么说 false 情况下 我去编辑
+                mPublishPresenter.postEdit(map);
+            }else{
+                //true 我叒生成一个新单子
+                mPublishPresenter.postSave(map);
+            }
+            //一个共享页面逻辑
         } else {
             //去发布
             //showActivity(SelectLogisticsActivity.class);
@@ -451,6 +463,8 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
     public void onSuccess() {
        // mCommonDialog.show(getSupportFragmentManager(), "publish");
         EventBus.getDefault().post(new EditEvent());
+        //关掉无关的页面
+        AppManager.getAppManager().finishActivity(CarriageDetailActivity.class);
         finish();
     }
 

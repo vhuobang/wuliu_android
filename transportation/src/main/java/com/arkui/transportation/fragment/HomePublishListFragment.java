@@ -160,9 +160,9 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
                     mCommonAdapter.setNewData(logisticalListEntityList);
                     mRlList.refreshComplete();
                     if (mCommonAdapter.getItemCount() < pageSize) {
-                        mCommonAdapter.loadMoreEnd(false);
+                        mCommonAdapter.setEnableLoadMore(false);
                     } else {
-                        mCommonAdapter.loadMoreEnd(true);
+                        mCommonAdapter.setEnableLoadMore(true);
                     }
                 } else {
                     mCommonAdapter.addData(logisticalListEntityList);

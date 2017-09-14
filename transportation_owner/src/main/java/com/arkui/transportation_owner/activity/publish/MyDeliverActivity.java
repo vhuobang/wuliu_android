@@ -370,21 +370,22 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         } else {
             //去发布
             //showActivity(SelectLogisticsActivity.class);
-            /**
+            /*
              *
              发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
              好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
              */
             //RxBus.getDefault().postSticky(map);
-            /**
+            /*
              * 2017年8月22日
              * 妈了个鸡的 RxBus 出现了一个奇怪问题 数据有可能会丢失，又换成了EvenBus 感觉这个更屌一点
              */
-            /***
+            /*
              * 总算找到丢数据根源了哎...........不能直达，只能中转。
              */
             //2017年8月23日
             // 哎 到底也没弄懂怎么用Intent 传递map 同事都放到对象里面了，在取出来，夭寿了，那么麻烦......
+            //2017年9月11日 这是一个冗长的问题分析
             Intent intent = new Intent(mActivity, SelectLogisticsActivity.class);
             //intent.putExtra("data",new PublishParameterEntity(map));
             showActivity(intent);

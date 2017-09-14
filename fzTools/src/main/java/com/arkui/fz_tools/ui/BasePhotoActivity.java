@@ -51,9 +51,9 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     private SelectPicturePicker mSelectPicturePicker;
     private RxPermissions mRxPermissions;
     private CommonDialog mCommonDialog;
-    private int mAspectX=1;
-    private int mAspectY=1;
-   // private File file;
+    private int mAspectX = 0;
+    private int mAspectY = 0;
+    // private File file;
     private File mImageFile;
 
     @Override
@@ -101,11 +101,11 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         this.isCrop = isCrop;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mImageFile = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            String authority=mActivity.getApplicationInfo().packageName+".provider";
-            mUri = FileProvider.getUriForFile(mActivity,authority, mImageFile);
-        }else{
+            String authority = mActivity.getApplicationInfo().packageName + ".provider";
+            mUri = FileProvider.getUriForFile(mActivity, authority, mImageFile);
+        } else {
             mUri = Uri.fromFile(mImageFile);
         }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
@@ -123,12 +123,12 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
     private void cropBig(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         File file = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
             //String authority=mActivity.getApplicationInfo().packageName+".provider";
-           // imageUri = FileProvider.getUriForFile(mActivity,authority,mImageFile);
-        }else{
-           // imageUri = Uri.fromFile(file);
+            // imageUri = FileProvider.getUriForFile(mActivity,authority,mImageFile);
+        } else {
+            // imageUri = Uri.fromFile(file);
         }
         mUri = Uri.fromFile(file);
         intent.setDataAndType(uri, "image/*");
@@ -137,6 +137,10 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         // aspectX aspectY 是宽高的比例
         intent.putExtra("aspectX", mAspectX);
         intent.putExtra("aspectY", mAspectY);
+
+        //intent.putExtra("outputX", 500);
+        //intent.putExtra("outputY", 500);
+
         intent.putExtra("return-data", false);
         intent.putExtra("noFaceDetection", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
@@ -256,9 +260,9 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         String filePath = imageFile.getAbsolutePath();
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                new String[] { MediaStore.Images.Media._ID },
+                new String[]{MediaStore.Images.Media._ID},
                 MediaStore.Images.Media.DATA + "=? ",
-                new String[] { filePath }, null);
+                new String[]{filePath}, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor

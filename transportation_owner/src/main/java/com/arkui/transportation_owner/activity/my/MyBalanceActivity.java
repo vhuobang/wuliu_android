@@ -30,7 +30,7 @@ public class MyBalanceActivity extends BaseActivity implements UserInterface {
         super.initView();
         ButterKnife.bind(this);
         userPresenter = new UserPresenter(this, this);
-        mBalance = (TextView) findViewById(R.id.balance);
+        mBalance = (TextView) findViewById(R.id.tv_balance);
       //  mBalance.setText(getIntent().getStringExtra("balance"));
     }
     @OnClick({R.id.bt_withdraw, R.id.iv_back,R.id.iv_right,R.id.bt_recharge,})

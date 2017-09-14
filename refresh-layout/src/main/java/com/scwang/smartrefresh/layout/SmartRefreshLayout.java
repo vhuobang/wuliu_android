@@ -26,6 +26,7 @@ import android.support.v4.view.ScrollingView;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -386,6 +387,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        Log.e("lzb","onAttachedToWindow");
         if (isInEditMode()) return;
 
         if (mKernel == null) {
@@ -474,14 +476,14 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout {
             bringChildToFront(mRefreshFooter.getView());
         }
 
-        if (mRefreshListener == null) {
+        /*if (mRefreshListener == null) {
             mRefreshListener = new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshlayout) {
                     refreshlayout.finishRefresh(3000);
                 }
             };
-        }
+        }*/
         if (mLoadmoreListener == null) {
             mLoadmoreListener = new OnLoadmoreListener() {
                 @Override
@@ -715,6 +717,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        Log.e("lzb","onDetachedFromWindow");
         mSpinner = 0;
         notifyStateChanged(RefreshState.None);
         handler.removeCallbacksAndMessages(null);
@@ -725,7 +728,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout {
         mRefreshContent = null;
         mFixedHeaderView = null;
         mFixedFooterView = null;
-        mRefreshListener = null;
+        //mRefreshListener = null;
         mLoadmoreListener = null;
         mOnMultiPurposeListener = null;
         mRefreshScrollBoundary = null;
