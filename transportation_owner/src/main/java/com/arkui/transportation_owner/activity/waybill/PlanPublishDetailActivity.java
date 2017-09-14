@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.ReleaseDetailInterface;
+import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.mvp.ReleaseDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
@@ -195,10 +196,12 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
          发现一个问题 让我思考了 40分钟人生与理想，Intent 传递map 不行哎，去百度查 还要搞一个对象装进去
          好鸡麻烦啊，于是乎我用了RxBus 粘性发射数据到下下层了，这种用法还是第一次用，会出什么问题我也不知道，
          */
-        RxBus.getDefault().postSticky(map);
+        //RxBus.getDefault().postSticky(map);
         Intent intent = new Intent(mActivity, SelectLogisticsActivity.class);
         //intent.putExtra("data",map);
         showActivity(intent);
+        //发送数据给下一页
+        EventBus.getDefault().postSticky(new PublishParameterEntity(map));
     }
 
 }

@@ -83,7 +83,6 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
                     mRlList.starLoad();
                     mPage = 1;
                     mLogisticsPresenter.postCollectionLogisticsList(mPage);
-
                 }
             }
         });
@@ -159,6 +158,7 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
         } else {
             mCollectLogisticsAdapter.loadMoreEnd();
         }
+        mCollectLogisticsAdapter.setNewData(null);
         mRlList.refreshComplete();
     }
 
@@ -175,6 +175,6 @@ public class SelectLogisticsActivity extends BaseActivity implements LogisticsVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
+        //EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
     }
 }

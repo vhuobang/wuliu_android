@@ -87,6 +87,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 break;
             case R.id.ll_driver_login:
                 SPUtil.getInstance(mContext).remove(Constants.IS_LOGIN);
+                App.getInstance().deleteUserInfo();
                 showActivity(DriverLoginActivity.class);
                 getActivity().finish();
                 break;

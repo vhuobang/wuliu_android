@@ -39,6 +39,17 @@ public class PublishDetailEntity {
     @SerializedName("carrier_info")
     private List<CarrierInfoBean> carrierInfo;
 
+    @SerializedName("c_status")
+    private String cStatus;
+
+    public String getcStatus() {
+        return cStatus;
+    }
+
+    public void setcStatus(String cStatus) {
+        this.cStatus = cStatus;
+    }
+
     public String getId() {
         return id;
     }

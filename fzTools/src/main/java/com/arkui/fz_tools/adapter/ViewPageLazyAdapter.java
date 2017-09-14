@@ -2,6 +2,7 @@ package com.arkui.fz_tools.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.arkui.fz_tools.ui.BaseLazyFragment;
@@ -14,12 +15,13 @@ import java.util.List;
 
 public class ViewPageLazyAdapter extends FragmentStatePagerAdapter {
 
-    List<BaseLazyFragment> mList;
-    String[] mTitles;
+    private List<BaseLazyFragment> mList;
+    private String[] mTitles;
+
     public ViewPageLazyAdapter(FragmentManager fm, List<BaseLazyFragment> list, String[] titles) {
         super(fm);
         this.mList = list;
-        this.mTitles=titles;
+        this.mTitles = titles;
     }
 
     @Override

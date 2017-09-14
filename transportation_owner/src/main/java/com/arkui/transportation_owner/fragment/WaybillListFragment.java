@@ -1,6 +1,7 @@
 package com.arkui.transportation_owner.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class WaybillListFragment extends BaseLazyFragment implements OnRefreshLi
 
     @Override
     protected void lazyLoadData() {
+        Log.e("lzb","lazyLoadData");
         loadWayBillListData();
     }
 

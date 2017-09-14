@@ -61,9 +61,18 @@ public class TruckOwnerWaybillDetialEntity {
     private String userId;
     @SerializedName("order_number") //运单号
     private String orderNum;
+    @SerializedName("driver_id")
+    private String driverId;
     @SerializedName("total_money") //运单号
     private String mTotalMoney;
 
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
     public String getTotalMoney() {
         return mTotalMoney;
     }
@@ -145,7 +154,7 @@ public class TruckOwnerWaybillDetialEntity {
     }
 
     public String getLoadingTime() {
-        return loadingTime;
+        return loadingTime==null?"":loadingTime;
     }
 
     public void setLoadingTime(String loadingTime) {
@@ -153,7 +162,7 @@ public class TruckOwnerWaybillDetialEntity {
     }
 
     public String getUnloadingTime() {
-        return unloadingTime;
+        return unloadingTime==null?"":unloadingTime;
     }
 
     public void setUnloadingTime(String unloadingTime) {

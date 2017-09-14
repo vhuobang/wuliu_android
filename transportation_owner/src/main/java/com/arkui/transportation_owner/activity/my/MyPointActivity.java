@@ -55,6 +55,7 @@ public class MyPointActivity extends BaseActivity implements UserInterface {
 
     @Override
     protected void onResume() {
+        super.onResume();
         userPresenter.getUserInfo(App.getUserId());
     }
 

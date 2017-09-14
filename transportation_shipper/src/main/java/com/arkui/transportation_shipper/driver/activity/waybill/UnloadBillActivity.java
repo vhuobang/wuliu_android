@@ -24,6 +24,7 @@ import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.DriverApi;
 import com.arkui.transportation_shipper.driver.event.LoadEvent;
+import com.arkui.transportation_shipper.owner.activity.waybill.WaybillListDetailActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -127,6 +128,7 @@ public class UnloadBillActivity extends BasePhotoActivity implements UploadingPi
             public void onNext(BaseHttpResult value) {
                 Toast.makeText(UnloadBillActivity.this,value.getMessage(),Toast.LENGTH_SHORT).show();
                 finish();
+                AppManager.getAppManager().finishActivity(WaybillListDetailActivity.class);
                 AppManager.getAppManager().finishActivity(DriverWaybillDetailActivity.class);
                 //发送数据
                 EventBus.getDefault().post(new LoadEvent());

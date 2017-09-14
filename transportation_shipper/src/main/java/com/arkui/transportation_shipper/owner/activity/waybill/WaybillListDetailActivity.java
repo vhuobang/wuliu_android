@@ -15,9 +15,12 @@ import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
+import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.driver.activity.waybill.LoadingBillActivity;
+import com.arkui.transportation_shipper.driver.activity.waybill.UnloadBillActivity;
 import com.arkui.transportation_shipper.owner.api.LogisticalApi;
 import com.arkui.transportation_shipper.owner.entity.TruckOwnerWaybillDetialEntity;
 
@@ -143,19 +146,36 @@ public class WaybillListDetailActivity extends BaseActivity {
         mLicensePlate.setText(entity.getLicensePlate());
         mCarryNumber.setText(entity.getCarrierNum()+ StrUtil.formatUnit(entity.getUnit()));
         mLoadingTime.setText(entity.getLoadingTime());
-        mLoadingWeight.setText(entity.getLoadingWeight() +StrUtil.formatUnit(entity.getUnit()));
+        if(entity.getLoadingWeight()==null){
+            mLoadingWeight.setText("未填写");
+        }else{
+            mLoadingWeight.setText(entity.getLoadingWeight() +StrUtil.formatUnit(entity.getUnit()));
+        }
         if (entity.getLoadingPhoto() !=null){
             GlideUtils.getInstance().loadRound(this,entity.getLoadingPhoto(),mLoadingPic);
         }
         mUnloadingTime.setText(entity.getUnloadingTime());
-        mUnloadingWeight.setText(entity.getUnloadingWeight()+ StrUtil.formatUnit(entity.getUnit()));
+        if(entity.getUnloadingWeight()==null){
+            mUnloadingWeight.setText("未填写");
+        }else{
+            mUnloadingWeight.setText(entity.getUnloadingWeight()+ StrUtil.formatUnit(entity.getUnit()));
+        }
+
         if (entity.getUnloadingPhoto() !=null){
             GlideUtils.getInstance().loadRound(this,entity.getUnloadingPhoto(),mUnloadingPic);
         }
         if (mType.equals("4")){
             totalMoney.setText("￥"+mTruckOwnerWaybillDetialEntity.getTotalMoney());
         }
+        String driverId = entity.getDriverId();
 
+        //指派自己
+        if(driverId.equals(App.getUserId())){
+            //TODO 2017年9月11日 字太多撑爆了 现在就四个字
+            //mTvUploading.setText("上传装货磅单");
+            mTvUploading.setVisibility(View.VISIBLE);
+            mTvDriverLocation.setVisibility(View.GONE);
+        }
     }
 
 
@@ -181,7 +201,12 @@ public class WaybillListDetailActivity extends BaseActivity {
 
                 break;
             case R.id.tv_uploading:
-                showActivity(LoadingBillActivity.class);
+                //showActivity(LoadingBillActivity.class);
+                if("1".equals(mType)){
+                    LoadingBillActivity.openActivity(mActivity,waybill_id);
+                }else{
+                    UnloadBillActivity.openActivity(mActivity,waybill_id);
+                }
                 break;
 
         }

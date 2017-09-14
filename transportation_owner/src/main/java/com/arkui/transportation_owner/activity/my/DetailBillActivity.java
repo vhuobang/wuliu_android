@@ -105,9 +105,9 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
     // 数据请求失败
     @Override
     public void onFail(String errorMessage) {
+        mDetailBillAdapter.setNewData(null);
         mRlBill.refreshComplete();
         mRlBill.loadFail();
-        mDetailBillAdapter.setNewData(null);
     }
 
     /**

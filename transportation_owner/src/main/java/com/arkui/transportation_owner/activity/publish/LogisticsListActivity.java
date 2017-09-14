@@ -152,10 +152,10 @@ public class LogisticsListActivity extends BaseActivity implements OnRefreshList
     @OnClick(R.id.tv_next)
     public void onClick() {
        // showActivity(PublishDeclareActivity.class);
-        if(mIsChange){
+       /* if(mIsChange){
             //发送给下一页 让他执行刷新
             RxBus.getDefault().post(new RefreshLogistics(101));
-        }
+        }*/
         finish();
     }
 

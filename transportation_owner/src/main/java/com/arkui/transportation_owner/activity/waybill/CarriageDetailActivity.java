@@ -66,7 +66,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mId = getIntent().getStringExtra("id");
         cStatus = getIntent().getStringExtra("cStatus");
         tvState.setText(StrUtil.formatCStatus(cStatus));
-        statusClickable();
+
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
 
@@ -93,7 +93,6 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
     protected void onRightClick() {
         super.onRightClick();
         //showActivity(EditPlanPublishDetailActivity.class);
-
         EditPlanPublishDetailActivity.showActivity(mActivity,mId,true);
     }
 
@@ -146,6 +145,9 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
 
         mHeadHolder.mTvCargoName.setText(publishDetailEntity.getCargoName()+" "+ publishDetailEntity.getCargoNum()+StrUtil.formatUnit(publishDetailEntity.getUnit()));
         mHeadHolder.mTvSurplusNum.setText(String.format("剩余%s",publishDetailEntity.getSurplusNum()+StrUtil.formatUnit(publishDetailEntity.getUnit())));
+
+        cStatus=publishDetailEntity.getcStatus();
+        statusClickable();
 
         mPublishDetailsAdapter.setNewData(publishDetailEntity.getCarrierInfo());
 

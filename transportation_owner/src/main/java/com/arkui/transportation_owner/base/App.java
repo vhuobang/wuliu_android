@@ -9,9 +9,6 @@ import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.socialize.PlatformConfig;
-
-import cn.jpush.android.api.JPushInterface;
-
 /*
  * 这是一条隐藏的注释 因为 我写到import两行中间了 默认折叠你看不到这条注释的
  *  如果你能看到这行注释，说明我已经离职，把代码托(甩)付(锅)给你了，，，
@@ -24,6 +21,9 @@ import cn.jpush.android.api.JPushInterface;
  *  但我感觉这公司不会花那么多钱雇那么屌的人。
  *  原真主与你同在，阿门，保佑你还有这个项目。
  */
+import cn.jpush.android.api.JPushInterface;
+
+
 public class App extends MultiDexApplication {
 
     private static UserEntity mUserEntity;

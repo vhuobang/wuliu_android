@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
  * Created by nmliz on 2017/7/5.
  *
  */
-
+@Deprecated
 public abstract class BaseListLazyFragment<T> extends BaseLazyFragment implements OnRefreshListener, OnBindViewHolderListener<T> {
 
     //初始化Adapter

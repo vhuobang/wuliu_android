@@ -92,19 +92,22 @@
             android:name="com.amap.api.v2.apikey"
             android:value="b727e798a88da5e186fa8a88e789ba32" />
 
-        <activity android:name=".owner.activity.my.InviteFriendActivity"/>
+        <activity android:name=".owner.activity.my.InviteFriendActivity" />
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1106145523" />
             </intent-filter>
         </activity>
-        <activity android:name="com.arkui.share.wxapi.WXEntryActivity"/>
+        <activity android:name="com.arkui.share.wxapi.WXEntryActivity" />
+
         <activity-alias
             android:name="com.arkui.transportation_shipper.wxapi.WXEntryActivity"
             android:exported="true"

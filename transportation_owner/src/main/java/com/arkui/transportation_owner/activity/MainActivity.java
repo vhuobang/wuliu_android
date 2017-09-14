@@ -11,7 +11,9 @@ import android.widget.Toast;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_owner.R;
+import com.arkui.transportation_owner.activity.my.AuthActivity;
 import com.arkui.transportation_owner.activity.publish.MyDeliverActivity;
+import com.arkui.transportation_owner.base.App;
 import com.arkui.transportation_owner.fragment.LogisticsFragment;
 import com.arkui.transportation_owner.fragment.MessageFragment;
 import com.arkui.transportation_owner.fragment.MyFragment;
@@ -92,8 +94,20 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(R.id.fl_content, mMessageFragment);
                 break;
             case R.id.iv_publish:
-                Intent intent = new Intent(this, MyDeliverActivity.class);
-                startActivity(intent);
+                if(!App.isLogin()){
+                    return;
+                }
+               String isUserCertificate = App.getUserEntity().getIsUserCertificate();
+                String isCompanyCertificate = App.getUserEntity().getIsCompanyCertificate();
+                if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")){
+                    Intent intent = new Intent(this, MyDeliverActivity.class);
+                    startActivity(intent);
+                }else{
+                    //Intent intent = new Intent(this, AuthActivity.class);
+                    //startActivity(intent);
+                    Toast.makeText(this, "认证之后才能才能发货，快去认证吧！", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.rb_order:
                 changeFragment(R.id.fl_content, mWaybillFragment);

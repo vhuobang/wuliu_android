@@ -64,9 +64,9 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
         setTitle("完善信息");
     }
 
-    public  static void openCompleteInfoActivity(Context context,String cargo_id){
-        Intent intent = new Intent(context,CompleteInfoActivity.class);
-        intent.putExtra("cargoId",cargo_id);
+    public static void openCompleteInfoActivity(Context context, String cargo_id) {
+        Intent intent = new Intent(context, CompleteInfoActivity.class);
+        intent.putExtra("cargoId", cargo_id);
         context.startActivity(intent);
     }
 
@@ -91,9 +91,9 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
     }
 
     @Override
-    public void OnVehicleTypeClick(String item,int pos) {
+    public void OnVehicleTypeClick(String item, int pos) {
         tvTime.setText(item);
-        payMoneyTime= String.valueOf(pos+1);//结算时间
+        payMoneyTime = String.valueOf(pos + 1);//结算时间
     }
 
     @OnClick({R.id.tv_time, R.id.bt_confirm})
@@ -111,10 +111,10 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
 
     //请求网络 确认发布
     private void publish() {
-        HashMap<String,Object> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         String name = etName.getText().toString().trim();
-        if (TextUtils.isEmpty(name)){
-            Toast.makeText(CompleteInfoActivity.this,"请输入物流联系人",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(CompleteInfoActivity.this, "请输入物流联系人", Toast.LENGTH_SHORT).show();
             return;
         }
         String phone = etPhone.getText().toString().trim();
@@ -125,12 +125,12 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
         String free = etFree.getText().toString().trim();
 
         hashMap.put("user_id", App.getUserId());
-        hashMap.put("cargo_id",cargoId);
-        hashMap.put("log_settlement_time",payMoneyTime);
-        hashMap.put("infomation_fee",free);
-        hashMap.put("log_contact_name",name);
-        hashMap.put("log_contact_tel",phone);
-        Observable<BaseHttpResult> observable= mLogisticalApi.getLogisticalForward(hashMap);
+        hashMap.put("cargo_id", cargoId);
+        hashMap.put("log_settlement_time", payMoneyTime);
+        hashMap.put("infomation_fee", free);
+        hashMap.put("log_contact_name", name);
+        hashMap.put("log_contact_tel", phone);
+        Observable<BaseHttpResult> observable = mLogisticalApi.getLogisticalForward(hashMap);
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(CompleteInfoActivity.this) {
             @Override
             protected void getDisposable(Disposable d) {
@@ -141,19 +141,20 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
             public void onNext(BaseHttpResult value) {
                 mSuccessFullyDialog.show(getSupportFragmentManager(), "full");
                 new Handler().postDelayed(new Runnable() {
-              @Override
-              public void run() {
-                mSuccessFullyDialog.dismiss();
-                finish();
-                AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
-                  EventThings eventThings = new EventThings(1);
-                  EventBus.getDefault().post(eventThings);
+                    @Override
+                    public void run() {
+                        mSuccessFullyDialog.dismiss();
+                        AppManager.getAppManager().finishActivity(SupplyDetailActivity.class);
+                        EventThings eventThings = new EventThings(1);
+                        EventBus.getDefault().post(eventThings);
+                        finish();
+                    }
+                }, 1000);
             }
-        }, 1000);
-            }
+
             @Override
             public void onApiError(ApiException e) {
-             //   super.onApiError(e);
+                //   super.onApiError(e);
             }
         });
     }
