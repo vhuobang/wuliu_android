@@ -9,11 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arkui.fz_net.utils.RxBus;
-import com.arkui.fz_tools._interface.PublicInterface;
+import com.arkui.fz_tools._interface.PublishInterface;
 import com.arkui.fz_tools._interface.ReleaseDetailInterface;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.EndTimePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
+import com.arkui.fz_tools.entity.PublishBean;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
@@ -43,7 +44,7 @@ import butterknife.OnClick;
  * @time 2017/6/30 13:43
  * 编辑货源
  */
-public class EditPlanPublishDetailActivity extends BaseActivity implements OnVehicleTypeClickListener, ReleaseDetailInterface, OnConfirmClick, EndTimePicker.OnEnsureListener, PublicInterface {
+public class EditPlanPublishDetailActivity extends BaseActivity implements OnVehicleTypeClickListener, ReleaseDetailInterface, OnConfirmClick, EndTimePicker.OnEnsureListener, PublishInterface {
     @BindView(R.id.tv_send)
     TextView mTvSend;
     @BindView(R.id.tv_receive)
@@ -466,7 +467,7 @@ public class EditPlanPublishDetailActivity extends BaseActivity implements OnVeh
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(PublishBean publishBean) {
         mCommonDialog.show(getSupportFragmentManager(), "publish");
     }
 

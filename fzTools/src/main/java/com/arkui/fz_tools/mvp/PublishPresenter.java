@@ -1,16 +1,15 @@
 package com.arkui.fz_tools.mvp;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
-import com.arkui.fz_tools._interface.PublicInterface;
-import com.arkui.fz_tools.api.PublicApi;
+import com.arkui.fz_tools._interface.PublishInterface;
 import com.arkui.fz_tools.api.PublishApi;
-import com.arkui.fz_tools.entity.PublishEntity;
+import com.arkui.fz_tools.entity.PublishBean;
 
 import java.util.Map;
 
@@ -24,28 +23,28 @@ import io.reactivex.disposables.Disposable;
 public class PublishPresenter extends BasePresenter {
 
 
-    PublicInterface mPublicInterface;
+    PublishInterface mPublishInterface;
     private final PublishApi mPublishApi;
 
-    public PublishPresenter(PublicInterface mPublicInterface, Activity context) {
-        this.mPublicInterface = mPublicInterface;
+    public PublishPresenter(PublishInterface mPublishInterface, Activity context) {
+        this.mPublishInterface = mPublishInterface;
         this.mContext=context;
         mPublishApi = RetrofitFactory.createRetrofit(PublishApi.class);
     }
 
     public void postSave(Map<String,Object> map){
-        Observable<BaseHttpResult> observable = mPublishApi.postSaveCargo(map);
+        Observable<PublishBean> observable = mPublishApi.postSaveCargo(map).map(new HttpResultFunc<PublishBean>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<PublishBean>(mContext) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
             }
 
             @Override
-            public void onNext(BaseHttpResult value) {
-                if(mPublicInterface!=null){
-                    mPublicInterface.onSuccess();
+            public void onNext(PublishBean value) {
+                if(mPublishInterface!=null){
+                    mPublishInterface.onSuccess(value);
                 }
             }
         });
@@ -63,8 +62,8 @@ public class PublishPresenter extends BasePresenter {
 
             @Override
             public void onNext(BaseHttpResult value) {
-                if(mPublicInterface!=null){
-                    mPublicInterface.onSuccess();
+                if(mPublishInterface!=null){
+                    mPublishInterface.onSuccess(null);
                 }
             }
         });

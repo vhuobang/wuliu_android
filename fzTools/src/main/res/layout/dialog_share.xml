@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/wx"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:drawableTop="@mipmap/weixin"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/qq"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:drawableTop="@mipmap/qq"
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/pyq"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:drawableTop="@mipmap/pyq"

@@ -14,13 +14,15 @@ import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools.api.PayApi;
+import com.arkui.fz_tools.entity.WxPayEntity;
+import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
-import com.arkui.transportation_shipper.owner.api.LogisticalApi;
 import com.arkui.transportation_shipper.pay.Wechat;
-import com.arkui.transportation_shipper.pay.WxPayEntity;
+import com.arkui.transportation_shipper.pay.alipay.Alipay;
 import com.arkui.transportation_shipper.pay.alipay.PayResult;
 
 import butterknife.BindView;
@@ -46,7 +48,7 @@ public class AccountRechargeActivity extends BaseActivity {
     ShapeButton mBtStart;
     String payType = "zfb";
     private static final int SDK_PAY_FLAG = 1;
-    private LogisticalApi mLogisticalApi;
+    private PayApi payApi;
 
     @Override
     public void setRootView() {
@@ -58,14 +60,13 @@ public class AccountRechargeActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-        mLogisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
+        payApi = RetrofitFactory.createRetrofit(PayApi.class);
         mRgRoot.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_zfb: // 支付宝支付
                         payType = "zfb";
-
                         break;
                     case R.id.rb_wx:  // 微信支付
                         payType = "wx";
@@ -91,7 +92,7 @@ public class AccountRechargeActivity extends BaseActivity {
                 aLiPay(money);
                 break;
             case "wx":
-                Observable<WxPayEntity> observable = mLogisticalApi.getWxPay(App.getUserId(), money,"wxpay").map(new HttpResultFunc<WxPayEntity>());
+                Observable<WxPayEntity> observable = payApi.getWxPay(App.getUserId(), money, "wxpay", "android", Constants.CAR_OWNER_PAY).map(new HttpResultFunc<WxPayEntity>());
                 HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<WxPayEntity>(mActivity) {
                     @Override
                     protected void getDisposable(Disposable d) {
@@ -116,7 +117,7 @@ public class AccountRechargeActivity extends BaseActivity {
 
     private void aLiPay(String money) {
 
-        Observable<BaseHttpResult> ali_pay = mLogisticalApi.getAli_Pay(App.getUserId(), money);
+        Observable<BaseHttpResult> ali_pay = payApi.getAli_Pay(App.getUserId(), money, Constants.CAR_OWNER_PAY);
         HttpMethod.getInstance().getNetData(ali_pay, new ProgressSubscriber<BaseHttpResult>(this) {
             @Override
             protected void getDisposable(Disposable d) {
@@ -125,12 +126,13 @@ public class AccountRechargeActivity extends BaseActivity {
 
             @Override
             public void onNext(BaseHttpResult value) {
-
+                String payInfo = value.getMessage();
+                Alipay alipay = new Alipay(mActivity);
+                alipay.pay(payInfo);
+                alipay.setHander(mHandler);
             }
         });
-      //  Alipay alipay = new Alipay(mActivity);
-        //   alipay.pay(payInfo);
-       // alipay.setHander(mHandler);
+
     }
 
     @SuppressLint("HandlerLeak")

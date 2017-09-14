@@ -52,7 +52,7 @@ public class WaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,Ba
                 helper.setText(R.id.tv_company, item.getLogName());
                 break;
             case "3":
-                helper.setText(R.id.tv_state, item.getFreightPrice()+"元");
+                helper.setText(R.id.tv_state, item.getAllPrice()+"元");
                 break;
             case "5":
                 helper.setVisible(R.id.ll_location, false);

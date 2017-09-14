@@ -65,5 +65,6 @@ public interface LogisticalApi {
      @FormUrlEncoded
     @POST(UrlContents.CARGO_TOLOGISTICAL_SEARCH)
     Observable<BaseHttpResult<List<CargoSearchListEntity>>> getCargoSearch(@Field("user_id") String userId, @Field("key_word") String keyWord);
+    // 微信支付
 
 }

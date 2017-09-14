@@ -331,6 +331,7 @@
                     android:text="待结算金额" />
 
                 <TextView
+                    android:id="@+id/total_money"
                     android:gravity="right"
                     android:text="￥1100.00"
                     android:textColor="@color/red"

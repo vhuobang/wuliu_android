@@ -38,4 +38,9 @@ public class Constants {
     public static final int LOGISTICS=2;
     public static final int CAR_OWNER=3;
     public static final int DRIVER=4;
+    // 支付 type
+    public static final String CAR_OWNER_PAY="1"; // 车主端
+    public static final String OWNER_PAY="2";  //  货主
+    public static final String  LOGISTICS_PAY="3"; // 物流
+
 }

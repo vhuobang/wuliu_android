@@ -43,6 +43,8 @@ public class WaybillListDetailActivity extends BaseActivity {
     TextView mTvDriverLocation;
     @BindView(R.id.tr_wait_pay)
     TableRow mTrWaitPay;
+    @BindView(R.id.total_money)
+    TextView totalMoney;
     @BindView(R.id.tv_uploading)
     TextView mTvUploading;
     @BindView(R.id.order_number)
@@ -101,6 +103,7 @@ public class WaybillListDetailActivity extends BaseActivity {
             case "4":
                 mTvDriverLocation.setVisibility(View.GONE);
                 mTrWaitPay.setVisibility(View.VISIBLE);
+
                 break;
             case "5":
                 mTvDriverLocation.setText("评价");
@@ -148,6 +151,9 @@ public class WaybillListDetailActivity extends BaseActivity {
         mUnloadingWeight.setText(entity.getUnloadingWeight()+ StrUtil.formatUnit(entity.getUnit()));
         if (entity.getUnloadingPhoto() !=null){
             GlideUtils.getInstance().loadRound(this,entity.getUnloadingPhoto(),mUnloadingPic);
+        }
+        if (mType.equals("4")){
+            totalMoney.setText("￥"+mTruckOwnerWaybillDetialEntity.getTotalMoney());
         }
 
     }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arkui.fz_tools.R;
-import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnDialogClick;
 
 /**

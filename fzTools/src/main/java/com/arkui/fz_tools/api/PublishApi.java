@@ -1,6 +1,7 @@
 package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_tools.entity.PublishBean;
 import com.arkui.fz_tools.model.NetConstants;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public interface PublishApi {
     //保存发布信息
     @FormUrlEncoded
     @POST(NetConstants.ADD_CARGO)
-    Observable<BaseHttpResult> postSaveCargo(@FieldMap Map<String,Object> map);
+    Observable<BaseHttpResult<PublishBean>> postSaveCargo(@FieldMap Map<String,Object> map);
 
     //编辑布信息
     @FormUrlEncoded

@@ -29,6 +29,9 @@ public class ShareDialog extends BaseDialogFragment implements View.OnClickListe
     @Override
     protected void initView(View mRootView) {
         mRootView.findViewById(R.id.tv_cancel).setOnClickListener(this);
+        mRootView.findViewById(R.id.wx).setOnClickListener(this);
+        mRootView.findViewById(R.id.qq).setOnClickListener(this);
+        mRootView.findViewById(R.id.pyq).setOnClickListener(this);
     }
 
     @Override
@@ -38,7 +41,17 @@ public class ShareDialog extends BaseDialogFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        onConfirmClick.onCancelClick();
-        dismiss();
+        int i = v.getId();
+        if (i == R.id.tv_cancel) {
+            onConfirmClick.onCancelClick();
+            dismiss();
+        } else if (i == R.id.wx) {
+            onConfirmClick.onConfirmClick("wx");
+        } else if (i == R.id.qq) {
+            onConfirmClick.onConfirmClick("qq");
+        } else if (i == R.id.pyq) {
+            onConfirmClick.onConfirmClick("pyq");
+        }
+
     }
 }

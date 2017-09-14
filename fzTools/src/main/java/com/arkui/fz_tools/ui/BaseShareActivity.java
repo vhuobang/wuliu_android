@@ -38,11 +38,7 @@ public abstract class BaseShareActivity extends BaseActivity{
         super.initView();
         mRxPermissions=new RxPermissions(mActivity);
         mDialog = new ProgressDialog(this);
-        String url ="https://www.baidu.com/";
-        mWeb = new UMWeb(url);
-        mWeb.setTitle("危货帮");
-        mWeb.setThumb(new UMImage(this, R.mipmap.about_logo));
-        mWeb.setDescription("一个好用的app");
+
         // TODO 没权限 不能分享QQ 也不知道为什么哦
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mRxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Consumer<Boolean>() {
@@ -56,7 +52,12 @@ public abstract class BaseShareActivity extends BaseActivity{
         }
     }
 
-    public void showShare(int type){
+    public void showShare(int type,String url){
+
+        mWeb = new UMWeb(url);
+        mWeb.setTitle("危货帮");
+        mWeb.setThumb(new UMImage(this, R.mipmap.about_logo));
+        mWeb.setDescription("一个好用的app");
         switch (type){
             case QQ:
                 new ShareAction(mActivity)

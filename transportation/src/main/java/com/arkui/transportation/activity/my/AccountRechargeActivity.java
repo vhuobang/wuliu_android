@@ -4,18 +4,32 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.arkui.fz_net.entity.BaseHttpResult;
+import com.arkui.fz_net.http.HttpMethod;
+import com.arkui.fz_net.http.HttpResultFunc;
+import com.arkui.fz_net.http.RetrofitFactory;
+import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools.api.PayApi;
+import com.arkui.fz_tools.entity.WxPayEntity;
+import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
+import com.arkui.transportation.base.App;
+import com.arkui.transportation.pay.Wechat;
+import com.arkui.transportation.pay.alipay.Alipay;
 import com.arkui.transportation.pay.alipay.PayResult;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 
 public class AccountRechargeActivity extends BaseActivity {
@@ -30,8 +44,11 @@ public class AccountRechargeActivity extends BaseActivity {
     RadioGroup mRgRoot;
     @BindView(R.id.bt_start)
     ShapeButton mBtStart;
-    String payType ;
+    @BindView(R.id.et_money)
+    EditText mEtMoney;
+    String payType = "zfb" ;
     private static final int SDK_PAY_FLAG = 1;
+    private PayApi payApi;
     @Override
     public void setRootView() {
         setContentView(R.layout.activity_account_recharge);
@@ -42,7 +59,7 @@ public class AccountRechargeActivity extends BaseActivity {
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
-
+        payApi = RetrofitFactory.createRetrofit(PayApi.class);
         mRgRoot.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -65,10 +82,55 @@ public class AccountRechargeActivity extends BaseActivity {
   // 支付
     @OnClick(R.id.bt_start)
     public void onClick() {
-//        Alipay alipay = new Alipay(ChargeMoneyActivity.this);
-//        alipay.pay(payInfo);
-//        alipay.setHander(mHandler);
-        showActivity(RechargeSucceedActivity.class);
+
+        String money = mEtMoney.getText().toString().trim();
+        if (TextUtils.isEmpty(money)) {
+            Toast.makeText(AccountRechargeActivity.this, "请输入充值金额", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        switch (payType) {
+            case "zfb":
+                aLiPay(money);
+                break;
+            case "wx":
+                Observable<WxPayEntity> observable = payApi.getWxPay(App.getUserId(), money,"wxpay","android", Constants.LOGISTICS_PAY).map(new HttpResultFunc<WxPayEntity>());
+                HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<WxPayEntity>(mActivity) {
+                    @Override
+                    protected void getDisposable(Disposable d) {
+                        mDisposables.add(d);
+                    }
+                    @Override
+                    public void onNext(WxPayEntity value) {
+                        Wechat wechat = new Wechat(mActivity);
+                        wechat.pay(value);
+                    }
+                });
+
+                break;
+            case "yl":
+
+                break;
+        }
+    }
+
+    private void aLiPay(String money) {
+
+        Observable<BaseHttpResult> ali_pay = payApi.getAli_Pay(App.getUserId(), money,Constants.LOGISTICS_PAY);
+        HttpMethod.getInstance().getNetData(ali_pay, new ProgressSubscriber<BaseHttpResult>(this) {
+            @Override
+            protected void getDisposable(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(BaseHttpResult value) {
+                String payInfo = value.getMessage();
+                Alipay alipay = new Alipay(mActivity);
+                alipay.pay(payInfo);
+                alipay.setHander(mHandler);
+            }
+        });
+
     }
 
 

@@ -8,10 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arkui.fz_net.utils.RxBus;
-import com.arkui.fz_tools._interface.PublicInterface;
+import com.arkui.fz_tools._interface.PublishInterface;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.EndTimePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
+import com.arkui.fz_tools.entity.PublishBean;
 import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, PublicInterface, OnConfirmClick, EndTimePicker.OnEnsureListener {
+public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, OnConfirmClick, EndTimePicker.OnEnsureListener, PublishInterface {
 
     @BindView(R.id.tv_selected_1)
     TextView mTvSelected1;
@@ -393,8 +394,9 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
 
     }
 
+
     @Override
-    public void onSuccess() {
+    public void onSuccess(PublishBean publishBean) {
         mCommonDialog.show(getSupportFragmentManager(), "publish");
     }
 

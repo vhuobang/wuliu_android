@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BaseFragment;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.publish.MyDeliverActivity;
 import com.arkui.transportation.fragment.HomeFragment;
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity {
         mWaybillFragment = new WaybillFragment();
         mMyFragment = new MyFragment();
         changeFragment(R.id.fl_content,mHomeFragment);
+
+        AppManager.getAppManager().addActivity(this);
     }
 
     @Override
@@ -120,4 +123,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

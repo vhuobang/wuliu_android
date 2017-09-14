@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.ShareCodeInterface;
 import com.arkui.fz_tools.entity.ShareCodeEntity;
+import com.arkui.fz_tools.model.NetConstants;
 import com.arkui.fz_tools.mvp.ShareCodePresenter;
 import com.arkui.fz_tools.ui.BaseShareActivity;
 import com.arkui.transportation.R;
@@ -50,18 +51,18 @@ public class InviteFriendActivity extends BaseShareActivity implements ShareCode
         ButterKnife.bind(this);
         shareCodePresenter = new ShareCodePresenter(this, this);
     }
-
+    String url = NetConstants.FRIEND_SHARE+"?user_id=" + App.getUserId();
     @OnClick({R.id.iv_wx, R.id.iv_qq, R.id.iv_wx_circle, R.id.tv_copy, R.id.tv_friend_list})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_wx:
-                showShare(WX);
+                showShare(WX,url);
                 break;
             case R.id.iv_qq:
-                showShare(QQ);
+                showShare(QQ,url);
                 break;
             case R.id.iv_wx_circle:
-                showShare(WX_CIRCLE);
+                showShare(WX_CIRCLE,url);
                 break;
             case R.id.tv_copy:
                 String shareCode = tvShareCode.getText().toString();

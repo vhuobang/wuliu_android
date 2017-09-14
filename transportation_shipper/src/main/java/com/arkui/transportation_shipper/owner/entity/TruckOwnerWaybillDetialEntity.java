@@ -25,6 +25,8 @@ public class TruckOwnerWaybillDetialEntity {
      * unloading_weight : 200.00
      * loading_photo :
      * order_num
+     * total_money
+     *
      */
 
     @SerializedName("carrier_num")
@@ -59,7 +61,16 @@ public class TruckOwnerWaybillDetialEntity {
     private String userId;
     @SerializedName("order_number") //运单号
     private String orderNum;
+    @SerializedName("total_money") //运单号
+    private String mTotalMoney;
 
+    public String getTotalMoney() {
+        return mTotalMoney;
+    }
+
+    public void setTotalMoney(String mTotalMoney) {
+        this.mTotalMoney = mTotalMoney;
+    }
 
     public String getOrderNum() {
         return orderNum;
