@@ -333,10 +333,16 @@
 
                 <TextView
                     android:id="@+id/truck_tel"
-                    android:drawableRight="@mipmap/hz_phone"
+
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="1581114578" />
+
+                <ImageView
+                    android:id="@+id/truck_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_phone"/>
             </TableRow>
 
             <View
@@ -384,10 +390,15 @@
 
                 <TextView
                     android:id="@+id/unloading_tel"
-                    android:drawableRight="@mipmap/hz_phone"
+
                     style="@style/TextViewWeight999"
                     android:background="@null"
                     android:hint="1581114578" />
+                <ImageView
+                    android:id="@+id/unloading_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_phone"/>
             </TableRow>
 
             <View

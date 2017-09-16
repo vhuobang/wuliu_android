@@ -2,11 +2,17 @@ package com.arkui.transportation_owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.ReleaseDetailInterface;
+import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.ReleaseDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.StrUtil;
@@ -14,9 +20,10 @@ import com.arkui.transportation_owner.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInterface {
+public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInterface, OnConfirmClick {
 
 
     @BindView(R.id.tv_loading_address)
@@ -53,8 +60,17 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
     TextView unloadingTel;
     @BindView(R.id.remarks)
     TextView remarks;
+    @BindView(R.id.textView2)
+    TextView mTextView2;
+    @BindView(R.id.truck_phone)
+    ImageView mTruckPhone;
+    @BindView(R.id.unloading_phone)
+    ImageView mUnloadingPhone;
+
     private String cargoId;
     private ReleaseDetailPresenter releaseDetailPresenter;
+    CommonDialog commonDialog;
+    private ReleaseDetailsEntity releaseDetailsEntity;
 
     @Override
     public void setRootView() {
@@ -62,9 +78,9 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
         setTitle("货物信息");
     }
 
-    public static  void  openActivity(Context context, String cargoId){
-        Intent intent = new Intent(context,CargoInfoActivity.class);
-        intent.putExtra("cargoId",cargoId);
+    public static void openActivity(Context context, String cargoId) {
+        Intent intent = new Intent(context, CargoInfoActivity.class);
+        intent.putExtra("cargoId", cargoId);
         context.startActivity(intent);
     }
 
@@ -74,6 +90,10 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
         ButterKnife.bind(this);
         cargoId = getIntent().getStringExtra("cargoId");
         releaseDetailPresenter = new ReleaseDetailPresenter(this, this);
+        commonDialog = new CommonDialog();
+        commonDialog.setConfirmClick(this);
+        commonDialog.setTitle("拨打电话");
+        commonDialog.setConfirmText("打电话");
     }
 
     @Override
@@ -83,7 +103,7 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
 
     @Override
     public void onSuccess(ReleaseDetailsEntity entity) {
-
+        releaseDetailsEntity = entity;
         tvLoadingAddress.setText(entity.getLoadingAddress());
         tvUnloadingAddress.setText(entity.getUnloadingAddress());
         String unit = StrUtil.formatUnit(entity.getUnit());
@@ -104,7 +124,31 @@ public class CargoInfoActivity extends BaseActivity implements ReleaseDetailInte
 
     @Override
     public void onFail(String errorMessage) {
-        Toast.makeText(mActivity,errorMessage,Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
+
+    @OnClick({R.id.truck_phone, R.id.unloading_phone})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.truck_phone:
+                commonDialog.setContent(releaseDetailsEntity.getTruckTel());
+                commonDialog.showDialog(CargoInfoActivity.this,"phone");
+                break;
+            case R.id.unloading_phone:
+                commonDialog.setContent(releaseDetailsEntity.getUnloadingTel());
+                commonDialog.showDialog(CargoInfoActivity.this,"phone");
+                break;
+        }
+    }
+
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        if (!TextUtils.isEmpty(phoneNumber)){
+            Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
+        }
+    }
 }

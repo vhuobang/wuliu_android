@@ -163,8 +163,14 @@ public class PublishFragment extends BaseLazyFragment implements OnRefreshListen
      */
     @Override
     public void onCarGoListFail(String errorMessage) {
-        mCarGoListAdapter.loadMoreEnd();
+        if (page==1){
+            mCarGoListAdapter.setNewData(null);
+            mRlList.loadFail();
+        }else {
+            mCarGoListAdapter.loadMoreEnd();
+        }
+
         mRlList.refreshComplete();
-        mRlList.loadFail();
+
     }
 }

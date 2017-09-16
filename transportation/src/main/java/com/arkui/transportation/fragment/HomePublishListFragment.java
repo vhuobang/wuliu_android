@@ -177,10 +177,14 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
 
             @Override
             public void onApiError(ApiException e) {
+                if (page==1){
+                    mCommonAdapter.setNewData(null);
+                    mRlList.loadFail();
+                }
                // super.onApiError(e);
                 mCommonAdapter.loadMoreEnd();
                 mRlList.refreshComplete();
-                mRlList.loadFail();
+
             }
         });
     }

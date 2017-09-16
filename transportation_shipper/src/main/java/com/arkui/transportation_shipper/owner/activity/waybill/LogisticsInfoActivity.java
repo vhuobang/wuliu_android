@@ -20,8 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.R.attr.phoneNumber;
-
 /**
  * // TODO  添加联系人姓名 和联系电话
  */
@@ -54,12 +52,13 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     private LogisticsPresenter logisticsPresenter;
     private CommonDialog commonDialog;
     private LogisticalListEntity entity;
+    private String waybill_id;
 
-    public static void openActivity(Context context, String log_id) {
+    public static void openActivity(Context context, String log_id,String waybill_id) {
         Intent intent = new Intent(context, LogisticsInfoActivity.class);
         intent.putExtra("logid", log_id);
+        intent.putExtra("waybill_id",waybill_id);
         context.startActivity(intent);
-
     }
 
     @Override
@@ -74,6 +73,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         super.initView();
         ButterKnife.bind(this);
         logid = getIntent().getStringExtra("logid"); // 物流id
+        waybill_id = getIntent().getStringExtra("waybill_id");
         logisticsPresenter = new LogisticsPresenter(this, this);
         commonDialog = new CommonDialog();
         commonDialog.setConfirmText("打电话");
@@ -96,6 +96,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         mTvName.setText(logisticalDetails.getHandlerName());
         mTvRegisterYear.setText(logisticalDetails.getRegisterYear());
         mDealNumber.setText(logisticalDetails.getVolume());
+
         mRatingBar.setRating(Float.parseFloat(logisticalDetails.getStarRating()));
     }
 
@@ -109,7 +110,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         super.onDestroy();
         logisticsPresenter.onDestroy();
     }
-
+   // TODO 拨打电话
     @OnClick({R.id.iv_company_phone, R.id.iv_connect_phone})
     public void onViewClicked(View view) {
         switch (view.getId()) {

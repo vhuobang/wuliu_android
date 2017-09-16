@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.PrePayInterface;
 import com.arkui.fz_tools._interface.PublicInterface;
@@ -89,7 +90,13 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
 
     @OnClick(R.id.bt_pay)
     public void onClick() {
-        mCommonDialog.show(getSupportFragmentManager(), "pay");
+        double balance = Double.parseDouble(App.getUserEntity().getBalance());
+        if (balance< Double.parseDouble(money)){
+            Toast.makeText(mActivity,"余额不足",Toast.LENGTH_SHORT).show();
+        }else {
+            mCommonDialog.show(getSupportFragmentManager(), "pay");
+        }
+
 
     }
 

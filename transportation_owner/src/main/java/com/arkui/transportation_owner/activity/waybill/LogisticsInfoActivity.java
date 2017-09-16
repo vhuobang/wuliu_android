@@ -2,11 +2,15 @@ package com.arkui.transportation_owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.arkui.fz_tools.dialog.CommonDialog;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
@@ -18,9 +22,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+// 物流详情
 
-
-public class LogisticsInfoActivity extends BaseActivity implements LogisticsView {
+public class LogisticsInfoActivity extends BaseActivity implements LogisticsView, OnConfirmClick {
 
     LogisticsPresenter mLogisticsPresenter;
     @BindView(R.id.tv_company_name)
@@ -46,6 +50,8 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     @BindView(R.id.iv_connect_phone)
     ImageView mIvConnectPhone;
     private String logisticId;
+    CommonDialog commonDialog;
+    private LogisticalListEntity logisticalListEntity;
 
     public static void openActivity(Context mContext, String logisticId) {
         Intent intent = new Intent(mContext, LogisticsInfoActivity.class);
@@ -64,6 +70,11 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         super.initView();
         ButterKnife.bind(this);
         logisticId = getIntent().getStringExtra("logisticId");
+
+        commonDialog = new CommonDialog();
+        commonDialog.setConfirmClick(this);
+        commonDialog.setTitle("拨打电话");
+        commonDialog.setConfirmText("打电话");
     }
 
     @Override
@@ -86,6 +97,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     // 返回物流详情
     @Override
     public void onSucceed(LogisticalListEntity logisticalDetails) {
+        logisticalListEntity = logisticalDetails;
         mTvCompanyName.setText(logisticalDetails.getName());
         mTvCompanyAddress.setText(logisticalDetails.getAddress());
         mTvCompanyPhone.setText(logisticalDetails.getTel());
@@ -109,13 +121,28 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         }
 
     }
+
     @OnClick({R.id.iv_company_phone, R.id.iv_connect_phone})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_company_phone:
+                commonDialog.setContent(logisticalListEntity.getTel());
+                commonDialog.showDialog(LogisticsInfoActivity.this,"phone");
                 break;
             case R.id.iv_connect_phone:
+                commonDialog.setContent(logisticalListEntity.getTel());
+                commonDialog.showDialog(LogisticsInfoActivity.this,"phone");
                 break;
+        }
+    }
+
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        if (!TextUtils.isEmpty(phoneNumber)){
+            Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
         }
     }
 }

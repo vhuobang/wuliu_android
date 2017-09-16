@@ -2,6 +2,8 @@ package com.arkui.transportation_shipper.owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,9 +15,10 @@ import com.arkui.fz_net.http.HttpMethod;
 import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
+import com.arkui.fz_tools.dialog.CommonDialog;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
-import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
@@ -34,7 +37,7 @@ import io.reactivex.disposables.Disposable;
  * 车主端运单详情界面
  */
 
-public class WaybillListDetailActivity extends BaseActivity {
+public class WaybillListDetailActivity extends BaseActivity implements OnConfirmClick {
 
     @BindView(R.id.tv_owner_info)
     TextView mTvOwnerInfo;
@@ -80,6 +83,8 @@ public class WaybillListDetailActivity extends BaseActivity {
     private String waybill_id;
     private LogisticalApi logisticalApi;
     private TruckOwnerWaybillDetialEntity mTruckOwnerWaybillDetialEntity;
+    private TruckOwnerWaybillDetialEntity truckOwnerWaybillDetialEntity;
+    private CommonDialog commonDialog;
 
 
     public static void openActivity(Context mContext, String type, String waybillId) {
@@ -112,6 +117,10 @@ public class WaybillListDetailActivity extends BaseActivity {
                 mTvDriverLocation.setText("评价");
                 break;
         }
+        commonDialog = new CommonDialog();
+        commonDialog.setConfirmClick(this);
+        commonDialog.setConfirmText("打电话");
+        commonDialog.setTitle("拨打电话");
     }
 
     @Override
@@ -140,6 +149,8 @@ public class WaybillListDetailActivity extends BaseActivity {
 
 
     private void setUiFunction(TruckOwnerWaybillDetialEntity entity) {
+        truckOwnerWaybillDetialEntity = entity;
+
         mOrderNumber.setText("单号：" + entity.getOrderNum());
         mDriverName.setText(entity.getName());
         mDriverPhone.setText(entity.getMobile());
@@ -179,7 +190,7 @@ public class WaybillListDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_owner_info, R.id.tv_cargo_info, R.id.tv_logistics_info, R.id.tv_driver_location, R.id.tv_uploading})
+    @OnClick({R.id.tv_owner_info, R.id.tv_cargo_info, R.id.tv_logistics_info, R.id.tv_driver_location, R.id.tv_uploading,R.id.iv_phone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_owner_info: //  货主信息  需要货主id 货源id
@@ -190,7 +201,7 @@ public class WaybillListDetailActivity extends BaseActivity {
                 CargoInfoActivity.openActivity(mActivity, mTruckOwnerWaybillDetialEntity.getCargoId());
                 break;
             case R.id.tv_logistics_info: //  物流信息 需要物流id
-                LogisticsInfoActivity.openActivity(mActivity, mTruckOwnerWaybillDetialEntity.getLogisticalId());
+                LogisticsInfoActivity.openActivity(mActivity, mTruckOwnerWaybillDetialEntity.getLogisticalId(),waybill_id);
                 break;
             case R.id.tv_driver_location:
                 if ("5".equals(mType)) {  // 评论
@@ -208,10 +219,21 @@ public class WaybillListDetailActivity extends BaseActivity {
                     UnloadBillActivity.openActivity(mActivity,waybill_id);
                 }
                 break;
+            case R.id.iv_phone:
+                commonDialog.setContent(truckOwnerWaybillDetialEntity.getMobile());
+                commonDialog.showDialog(WaybillListDetailActivity.this,"phone");
+                break;
 
         }
     }
 
-
-
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        if (!TextUtils.isEmpty(phoneNumber)){
+            Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
+        }
+    }
 }

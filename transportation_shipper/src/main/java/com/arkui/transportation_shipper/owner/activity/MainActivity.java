@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements AMapLocationListe
 
             @Override
             public void onApiError(ApiException e) {
-                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 

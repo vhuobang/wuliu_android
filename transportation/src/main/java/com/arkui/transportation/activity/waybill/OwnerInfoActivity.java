@@ -1,5 +1,8 @@
 package com.arkui.transportation.activity.waybill;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -7,7 +10,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.arkui.fz_tools._interface.CargoOwnerInfoInterface;
+import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.CargoOwnerInfoEntity;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.CargoOwnerInfoPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.transportation.R;
@@ -15,9 +20,11 @@ import com.arkui.transportation.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+ /*
+   货主信息
+  */
 
-
-public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInterface {
+public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInterface, OnConfirmClick {
 
     @BindView(R.id.tl_owner_phone)
     TableRow mTlOwnerPhone;
@@ -55,6 +62,8 @@ public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInt
     private String ownerId;
     private boolean isMy;
     private CargoOwnerInfoPresenter cargoOwnerInfoPresenter;
+    CommonDialog commonDialog;
+    private CargoOwnerInfoEntity cargoOwnerInfoEntity;
 
     @Override
     public void setRootView() {
@@ -75,6 +84,10 @@ public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInt
             mTlOwnerNumber.setVisibility(View.GONE);
             mTlRatingBar.setVisibility(View.GONE);
         }
+        commonDialog = new CommonDialog();
+        commonDialog.setConfirmText("打电话");
+        commonDialog.setTitle("拨打电话");
+        commonDialog.setConfirmClick(this);
     }
 
     @Override
@@ -84,6 +97,8 @@ public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInt
 
     @Override
     public void onSuccess(CargoOwnerInfoEntity entity) {
+        cargoOwnerInfoEntity = entity;
+
         mTvCargoHost.setText(entity.getName());
         mCargoPhone.setText(entity.getTel());
         mRegisterYear.setText(entity.getRegisterYear());
@@ -106,14 +121,27 @@ public class OwnerInfoActivity extends BaseActivity implements CargoOwnerInfoInt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cargo_owner_phone_btn:
-
+                commonDialog.setContent(cargoOwnerInfoEntity.getTel());
+                commonDialog.showDialog(OwnerInfoActivity.this, "phone");
                 break;
             case R.id.loading_phone_btn:
-
+                commonDialog.setContent(cargoOwnerInfoEntity.getTruckTel());
+                commonDialog.showDialog(OwnerInfoActivity.this, "phone");
                 break;
             case R.id.unloading_phone_btn:
-
+                commonDialog.setContent(cargoOwnerInfoEntity.getUnloadingTel());
+                commonDialog.showDialog(OwnerInfoActivity.this, "phone");
                 break;
+        }
+    }
+
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        if (!TextUtils.isEmpty(phoneNumber)){
+            Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
         }
     }
 }

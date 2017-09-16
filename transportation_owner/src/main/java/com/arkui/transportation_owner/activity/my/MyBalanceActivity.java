@@ -65,6 +65,7 @@ public class MyBalanceActivity extends BaseActivity implements UserInterface {
 
     @Override
     public void loginSucceed(UserEntity userEntity) {
+        App.setUserEntity(userEntity);
         mBalance.setText(userEntity.getBalance());
     }
 

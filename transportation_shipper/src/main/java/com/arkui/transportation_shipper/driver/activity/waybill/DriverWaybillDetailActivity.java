@@ -200,7 +200,6 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
     @Override
     public void onConfirmClick() {
         String phoneNumber = commonDialog.getContent();
-
         Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent2);

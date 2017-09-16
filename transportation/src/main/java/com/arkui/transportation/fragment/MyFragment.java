@@ -117,12 +117,13 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 if (isUserCertificate.equals("0") && isCompanyCertificate.equals("0")) {
                     showActivity(AuthActivity.class);
                 }
-                if (isUserCertificate.equals("1") || isCompanyCertificate.equals("1")) {
-                    Toast.makeText(getActivity(), "审核中", Toast.LENGTH_SHORT).show();
-                }
                 if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) {
                     Toast.makeText(getActivity(), "已认证", Toast.LENGTH_SHORT).show();
                 }
+                if ((isUserCertificate.equals("1") || isCompanyCertificate.equals("1")) &&!(isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) ) {
+                    Toast.makeText(getActivity(), "审核中", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.ll_info_fee:
                 bundle.putString("informationFee",mUserEntity.getInformationFeeAll());

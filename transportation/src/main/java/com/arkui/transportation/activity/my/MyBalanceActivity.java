@@ -66,6 +66,8 @@ public class MyBalanceActivity extends BaseActivity implements UserInterface {
 
     @Override
     public void loginSucceed(UserEntity userEntity) {
+        App.setUserEntity(userEntity);
         tv_balance.setText(userEntity.getBalance());
+
     }
 }

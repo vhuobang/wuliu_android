@@ -15,13 +15,11 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.dialog.SuccessFullyDialog;
 import com.arkui.fz_tools.ui.BaseActivity;
-import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.SupplyApi;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.common.dialog.SelectDriverDialog;
 import com.arkui.transportation_shipper.common.dialog.SelectVehicleDialog;
-import com.arkui.transportation_shipper.common.dialog.SelectVehicleModelDialog;
 import com.arkui.transportation_shipper.common.entity.DriverListEntity;
 import com.arkui.transportation_shipper.common.entity.OrderEntity;
 import com.arkui.transportation_shipper.common.entity.TruckListEntity;
@@ -190,8 +188,10 @@ public class ConfirmOrderActivity extends BaseActivity implements SelectDriverDi
         }
 
         String number = mEtNumber.getText().toString().trim();
-        if (TextUtils.isEmpty(number)) {
+
+        if (TextUtils.isEmpty(number) && Integer.parseInt(number)<=0 ) {
             ShowToast("请输入预装吨数");
+            return;
         }
 
         //开始抢单

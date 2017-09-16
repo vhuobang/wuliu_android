@@ -216,8 +216,6 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         //EventBus.getDefault().removeStickyEvent(PublishParameterEntity.class);
     }
 
-
-
     @Override
     public void onSuccess(PublishBean publishBean) {
 

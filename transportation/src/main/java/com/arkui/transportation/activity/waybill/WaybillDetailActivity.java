@@ -2,6 +2,7 @@ package com.arkui.transportation.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.WayBillDetialsInterface;
+import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.WayBillDetailEntity;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.WayBillDetailPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
@@ -29,7 +32,7 @@ import static com.arkui.transportation.R.id.tv_payment_name;
 import static com.arkui.transportation.R.id.tv_product_number;
 
 
-public class WaybillDetailActivity extends BaseActivity implements WayBillDetialsInterface {
+public class WaybillDetailActivity extends BaseActivity implements WayBillDetialsInterface, OnConfirmClick {
 
     @BindView(R.id.tv_driver_location)
     TextView mTvDriverLocation;
@@ -73,11 +76,14 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
     TextView mTvCargoInfo;
     @BindView(R.id.tv_owner_info)
     TextView mTvOwnerInfo;
+    @BindView(R.id.phone)
+    ImageView phone;
     private String waybillId;
     private WayBillDetailPresenter wayBillDetailPresenter;
     private int type;
 
     private  WayBillDetailEntity mWayBillDetailEntity;
+    private CommonDialog commonDialog;
 
     @Override
     public void setRootView() {
@@ -108,6 +114,10 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
             mTvDriverLocation.setVisibility(View.GONE);
             mTvEvaluate.setVisibility(View.VISIBLE);
         }
+        commonDialog = new CommonDialog();
+        commonDialog.setConfirmText("打电话");
+        commonDialog.setTitle("拨打电话");
+        commonDialog.setConfirmClick(this);
     }
 
     @Override
@@ -115,7 +125,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
         wayBillDetailPresenter.getWayBillDetail(waybillId, App.getUserId());
     }
 
-    @OnClick({R.id.tr_wait_pay, R.id.tv_owner_info, R.id.tv_cargo_info, R.id.tv_driver_location, R.id.tv_pay_freight, R.id.tv_evaluate})
+    @OnClick({R.id.tr_wait_pay, R.id.tv_owner_info, R.id.tv_cargo_info, R.id.tv_driver_location, R.id.tv_pay_freight, R.id.tv_evaluate,R.id.phone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tr_wait_pay: // 需要付款
@@ -144,6 +154,10 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
                 Bundle bundle = new Bundle();
                 bundle.putString("wayBillId", waybillId);
                 showActivity(PublishEvaluateActivity.class, bundle);
+                break;
+            case R.id.phone:
+                commonDialog.setContent(mWayBillDetailEntity.getTel());
+                commonDialog.showDialog(WaybillDetailActivity.this, "phone");
                 break;
         }
     }
@@ -176,7 +190,7 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
             GlideUtils.getInstance().load(mActivity,entity.getLoadingPhoto(),mIvList);
         }
         mUnloadingTime.setText(entity.getUnloadingTime());
-        mEtLoadingWeight.setText(entity.getUnloadingWeight()+ StrUtil.formatUnit(entity.getUnit()));
+        mUnloadingWeight.setText(entity.getUnloadingWeight()+ StrUtil.formatUnit(entity.getUnit()));
         if (!TextUtils.isEmpty(entity.getUnloadingPhoto())){
             GlideUtils.getInstance().load(mActivity,entity.getUnloadingPhoto(),mUnloadingList);
         }
@@ -204,4 +218,14 @@ public class WaybillDetailActivity extends BaseActivity implements WayBillDetial
         Toast.makeText(mActivity,message,Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onConfirmClick() {
+        String phoneNumber = commonDialog.getContent();
+        if (!TextUtils.isEmpty(phoneNumber)){
+            Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
+        }
+
+    }
 }

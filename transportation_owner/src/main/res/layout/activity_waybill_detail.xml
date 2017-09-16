@@ -99,6 +99,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/phone_1" />

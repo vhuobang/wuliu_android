@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_owner.R;
-import com.arkui.transportation_owner.activity.my.AuthActivity;
 import com.arkui.transportation_owner.activity.publish.MyDeliverActivity;
 import com.arkui.transportation_owner.base.App;
 import com.arkui.transportation_owner.fragment.LogisticsFragment;
@@ -129,5 +128,11 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(R.id.fl_content, mWaybillFragment);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().removeActivity(this);
     }
 }

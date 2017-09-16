@@ -145,6 +145,7 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
     @Override
     public void onCarGoListFail(String errorMessage) {
         if (mPage == 1) {
+            mPublishAdapter.setNewData(null);
             mRlList.loadFail();
         } else {
             mPublishAdapter.loadMoreEnd();
