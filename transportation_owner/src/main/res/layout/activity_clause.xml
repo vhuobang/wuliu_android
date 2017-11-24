@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context="com.arkui.transportation_owner.activity.user.ClauseActivity">
 
-    <TextView
-        android:text="假装这里有一个网页！"
-        android:textSize="20sp"
-        android:textColor="@color/mainColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+   <WebView
+       android:id="@+id/webView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+   </WebView>
 </LinearLayout>

@@ -12,12 +12,9 @@ import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.UploadingPictureInterface;
-import com.arkui.fz_tools.dialog.SelectPicturePicker;
-import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
-import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BasePhotoActivity;
 import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.GlideUtils;
@@ -31,7 +28,6 @@ import com.arkui.transportation_shipper.common.entity.VehicleModelEntity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +49,10 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
     ImageView mIvDrivingLicense;
     @BindView(R.id.et_license_plate)
     EditText mEtLicensePlate;
+    @BindView(R.id.et_glicense_plate)
+    EditText mEtGlicensePlate;
+    @BindView(R.id.tv_complete)
+    TextView mTvComplete;
     //private SelectPicturePicker mSelectPicturePicker;
     //private SelectTypePicker mSelectVehicleTypePicker;
     private VehicleDetailEntity.TruckDetailBean mTruckDetail;
@@ -105,6 +105,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         mTvVehicleModel.setText(mTruckDetail.getType());
         mPath1 = mTruckDetail.getTruck_poto();
         mPath2 = mTruckDetail.getDriving_license_photo();
+        mEtGlicensePlate.setText(TextUtils.isEmpty(mTruckDetail.getHand_car())?"无":mTruckDetail.getHand_car());
         GlideUtils.getInstance().load(mActivity, mTruckDetail.getTruck_poto(), mIvFront);
         GlideUtils.getInstance().load(mActivity, mTruckDetail.getDriving_license_photo(), mIvDrivingLicense);
     }
@@ -124,7 +125,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         mSelectVehicleModelDialog.setOnSelectVehicleModelListener(this);
     }
 
-    @OnClick({R.id.tv_vehicle_model, R.id.iv_front, R.id.iv_driving_license, R.id.tv_complete})
+    @OnClick({R.id.tv_vehicle_model, R.id.iv_front, R.id.iv_driving_license, R.id.tv_complete,R.id.iv_glicense_plate})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_vehicle_model:
@@ -143,6 +144,9 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
             case R.id.tv_complete:
                 editVehicle();
                 break;
+            case R.id.iv_glicense_plate:
+                mEtGlicensePlate.setText("");
+                break;
         }
     }
 
@@ -153,11 +157,12 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
             return;
         }
 
+        String hand_car = mEtGlicensePlate.getText().toString().trim();
         String type = mTvVehicleModel.getText().toString();
-        if (mItemId == null) {
-            ShowToast("请选择车型");
-            return;
-        }
+//        if (mItemId == null) {
+//            ShowToast("请选择车型");
+//            return;
+//        }
 
         if (mPath1 == null) {
             ShowToast("请上传车辆正面照");
@@ -174,6 +179,7 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         parameter.put("user_id", App.getUserId());
         parameter.put("license_plate", licensePlate);
         parameter.put("type", type);
+        parameter.put("hand_car",hand_car);
         parameter.put("truck_poto", mPath1);
         parameter.put("driving_license_photo", mPath2);
         parameter.put("truck_id", mTruckDetail.getId());
@@ -234,4 +240,6 @@ public class VehicleEditedActivity extends BasePhotoActivity implements OnVehicl
         mTvVehicleModel.setText(itemText);
         mItemId = itemId;
     }
+
+
 }

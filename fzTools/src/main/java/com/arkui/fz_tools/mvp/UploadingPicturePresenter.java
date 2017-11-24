@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.arkui.fz_net.http.HttpResultFunc;
@@ -13,11 +12,9 @@ import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.UploadingPictureInterface;
 import com.arkui.fz_tools.api.PublicApi;
 import com.arkui.fz_tools.entity.UpLoadEntity;
-import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.utils.LogUtil;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

@@ -44,18 +44,29 @@ public class WaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,Ba
                 helper.setVisible(R.id.tv_state, false);
                 helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName()
                         + "  预装" + item.getCarrierNum() + StrUtil.formatUnit(item.getUnit()));
+                helper.setVisible(R.id.pay_name,false);
                 break;
             case "2":
                 helper.setVisible(R.id.ll_location, true);
                 helper.setVisible(R.id.tv_state, false);
+                helper.setVisible(R.id.pay_name,false);
                 helper.setText(R.id.tv_company, item.getLogName());
+                helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName()
+                        + " 已装" + item.getLoadingWeight() + StrUtil.formatUnit(item.getUnit()));
                 break;
             case "3":
                 helper.setText(R.id.tv_state, item.getAllPrice()+"元");
+                helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName()
+                        + "  已卸" + item.getUnloadingWeight() + StrUtil.formatUnit(item.getUnit()));
+                helper.setVisible(R.id.pay_name,true);
+                helper.setText(R.id.pay_name,"收款方："+item.getPaymentName());
                 break;
             case "5":
+                helper.setVisible(R.id.pay_name,false);
                 helper.setVisible(R.id.ll_location, false);
                 helper.setVisible(R.id.tv_state, false);
+                helper.setText(R.id.tv_name, item.getLicensePlate() + "   " + item.getCargoName()
+                        + "  已卸" + item.getUnloadingWeight() + StrUtil.formatUnit(item.getUnit()));
                 break;
         }
         helper.addOnClickListener(R.id.ll_location);

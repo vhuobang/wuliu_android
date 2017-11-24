@@ -55,7 +55,6 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
 
     /**
      * 创建 HomePublishListFragment 实例
-     *
      * @param type
      * @return
      */
@@ -95,7 +94,6 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
         });
     }
 
-
    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(EventThings eventThings){
        int type = eventThings.getType();
@@ -129,7 +127,7 @@ public class HomePublishListFragment extends BaseListLazyFragment<LogisticalList
             helper.setText(R.id.tv_info, item.getCargoName() + "/" + item.getCargoNum() + StrUtil.formatUnit(item.getUnit())
                     + "/剩余" + item.getSurplusNum() + StrUtil.formatUnit(item.getUnit()));
         }
-
+         helper.setText(R.id.tv_owner_name,"货主："+item.getName());
         GlideUtils.getInstance().loadRound(mActivity,item.getLogo(), (ImageView) helper.getView(R.id.iv_head));
     }
 

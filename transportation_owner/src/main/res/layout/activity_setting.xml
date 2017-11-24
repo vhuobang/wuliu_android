@@ -27,6 +27,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/tr_soft_ware_description"
             style="@style/TableRow"
             android:layout_marginTop="0.5dp">
 
@@ -59,6 +60,7 @@
                 android:text="版本信息" />
 
             <TextView
+                android:id="@+id/tv_version"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/gray_color"
                 android:text="2.1"/>

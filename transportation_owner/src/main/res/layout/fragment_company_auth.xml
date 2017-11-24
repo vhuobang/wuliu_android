@@ -16,13 +16,13 @@
 
             <TextView
                 style="@style/TextView"
-                android:text="姓名" />
+                android:text="公司名称" />
 
             <EditText
                 android:id="@+id/et_name"
                 style="@style/TextViewWeight999"
                 android:background="@null"
-                android:hint="请输入姓名" />
+                android:hint="请输入公司名称" />
 
             <ImageView
                 android:id="@+id/iv_name_clear"

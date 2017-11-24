@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:inputType="numberDecimal"
             android:background="@null"
             android:hint="请输入提现的积分数"
             android:textColor="@color/gray_color"

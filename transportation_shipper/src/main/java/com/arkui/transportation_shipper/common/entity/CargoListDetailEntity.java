@@ -32,7 +32,31 @@ public class CargoListDetailEntity {
      * surplus_num : 10
      * unit
      * name
+     * volume 发送次数
+     *
+     *  "log_contact_name": "徐一号",
+     "log_contact_tel": "13681721927",
      */
+    @SerializedName("log_contact_name")
+    private String logContactName;
+    @SerializedName("log_contact_tel")
+    private String logContactTel;
+
+    public String getLogContactName() {
+        return logContactName;
+    }
+
+    public void setLogContactName(String logContactName) {
+        this.logContactName = logContactName;
+    }
+
+    public String getLogContactTel() {
+        return logContactTel;
+    }
+
+    public void setLogContactTel(String logContactTel) {
+        this.logContactTel = logContactTel;
+    }
 
     @SerializedName("infomation_fee")
     private String infomationFee;
@@ -80,6 +104,18 @@ public class CargoListDetailEntity {
     private String unit;
     @SerializedName("name")
     private String name;
+
+    @SerializedName("volume")
+    private String volume;
+
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String volume) {
+        this.volume = volume;
+    }
 
     public String getName() {
         return name;

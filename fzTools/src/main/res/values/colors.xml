@@ -28,4 +28,8 @@
     <color name="chezhu_color">#13b303</color>
     <color name="huozhu_color">#e77e23</color>
     <color name="siji_color">#058be0</color>
+    <color name="theme">#E77E23</color>
+    <color name="cole5e5e5">#e5e5e5</color>
+    <drawable name="transparent_background">#00000000</drawable>
+    <color name="col999999">#999999</color>
 </resources>

@@ -8,7 +8,11 @@ import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
+
+import cn.jpush.android.api.JPushInterface;
+
 /*
  * 这是一条隐藏的注释 因为 我写到import两行中间了 默认折叠你看不到这条注释的
  *  如果你能看到这行注释，说明我已经离职，把代码托(甩)付(锅)给你了，，，
@@ -21,7 +25,6 @@ import com.umeng.socialize.PlatformConfig;
  *  但我感觉这公司不会花那么多钱雇那么屌的人。
  *  原真主与你同在，阿门，保佑你还有这个项目。
  */
-import cn.jpush.android.api.JPushInterface;
 
 
 public class App extends MultiDexApplication {
@@ -52,6 +55,8 @@ public class App extends MultiDexApplication {
         PlatformConfig.setWeixin("wx96bfd7f8eafa5940", "e30acd76f48dcb72946ca0ecf818a778");
         PlatformConfig.setQQZone("1106145377", "Nn7ceRa1ba4Bx95v");
         //  mActivityComponent = Dag.builder().appModule(new AppModule(this)).build();
+
+        CrashReport.initCrashReport(getApplicationContext(), "e8d8b4869e", true);
     }
 
     public static UserEntity getUserEntity() {

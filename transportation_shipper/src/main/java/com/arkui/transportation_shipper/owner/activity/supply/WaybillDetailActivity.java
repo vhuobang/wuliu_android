@@ -3,6 +3,7 @@ package com.arkui.transportation_shipper.owner.activity.supply;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -134,10 +135,14 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
         String[] unloadingAddress = entity.getUnloadingAddress().split(" ");
         mLoadingAddress.setText(loadingAddress[0]);
         mUnloadingAddress.setText(unloadingAddress[0]);
-        mLoadingAddressDetail.setText(loadingAddress[1]);
-        mUnloadingAddressDetail.setText(unloadingAddress[1]);
+        if (loadingAddress.length>1){
+            mLoadingAddressDetail.setText(loadingAddress[1]);
+        }
+        if (unloadingAddress.length>1){
+            mUnloadingAddressDetail.setText(unloadingAddress[1]);
+        }
         mCargoName.setText(entity.getCargoName());
-        mCargoDensity.setText(entity.getCargoDensity() + "吨/方");
+        mCargoDensity.setText(entity.getCargoDensity() + "方/吨");
         mFreightPrice.setText(entity.getFreightPrice() + " 元");
         mCargoPrice.setText(entity.getCargoPrice() + "元");
         mLoadingTime.setText(entity.getLoadingTime());
@@ -147,12 +152,14 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
         mInfomationFee.setText(entity.getInfomationFee() + " 元");
         mRemarks.setText(entity.getRemarks());
         GlideUtils.getInstance().loadRound(mActivity, entity.getAvatar(), mAvatar);
-        mOwnerName.setText(entity.getName());
-        mRegisterYear.setText("注册" + entity.getRegisterYear() + "年" + entity.getCargoNum() + "次");
-        mRatingBar.setRating(Float.parseFloat(entity.getStarRating()));
-
+        mOwnerName.setText(entity.getLogContactName());
+        mRegisterYear.setText("注册" + entity.getRegisterYear() + "年" + "成交量" + entity.getVolume() + "次");
+        if (TextUtils.isEmpty(entity.getStarRating())){
+            mRatingBar.setRating(0);
+        }else {
+            mRatingBar.setRating(Float.parseFloat(entity.getStarRating()));
+        }
     }
-
 
     @OnClick({R.id.bt_start, R.id.phone})
     public void onClick(View view) {
@@ -164,7 +171,7 @@ public class WaybillDetailActivity extends BaseActivity implements OnConfirmClic
                 startActivity(intent);
                 break;
             case R.id.phone: // 拨打电话
-                commonDialog.setContent(mCargoListDetailEntity.getMobile());
+                commonDialog.setContent(mCargoListDetailEntity.getLogContactTel());
                 commonDialog.showDialog(WaybillDetailActivity.this, "phone");
                 break;
         }

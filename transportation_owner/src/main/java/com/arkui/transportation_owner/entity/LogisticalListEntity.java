@@ -9,22 +9,37 @@ import com.google.gson.annotations.SerializedName;
 public class LogisticalListEntity {
 
     /**
-     * id : 2
-     * name : 测试公司
-     * logo : /Public/images/defult.jpg
-     * register_time : 2017-08-11 15:41:07
+     * id : 11
+     * name : 秦
+     * short_name :
+     * logo : Uploads/Avatar/2017-09-22/15060478741009.png
+     * address : 北京-东城区
+     * tel : 18612414195
+     * handler_name : 秦
+     * register_time : 2017-09-21 17:31:32
      * volume : 0
-     * star_rating : 0.00
-     * register_year : 0
-     * status : 0
+     * star_rating : 5.00
+     * register_year : 0.010516679350583
+     * auth_status : 1
+     * status : 1
+     * log_contact_name : null
+     * log_contact_tel : null
      */
 
     @SerializedName("id")
     private String id;
     @SerializedName("name")
     private String name;
+    @SerializedName("short_name")
+    private String shortName;
     @SerializedName("logo")
     private String logo;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("tel")
+    private String tel;
+    @SerializedName("handler_name")
+    private String handlerName;
     @SerializedName("register_time")
     private String registerTime;
     @SerializedName("volume")
@@ -33,30 +48,15 @@ public class LogisticalListEntity {
     private String starRating;
     @SerializedName("register_year")
     private String registerYear;
+    @SerializedName("auth_status")
+    private String authStatus;
     @SerializedName("status")
     private String status;
-    private boolean isCheck;
-    /**
-     * auth_tatus : 0
-     */
-
-    @SerializedName("auth_status")
-    private String authTatus;
-    /**
-     * short_name :
-     * address : 北京昌平区
-     * tel : 18647624075
-     * handler_name : 333
-     */
-
-    @SerializedName("short_name")
-    private String shortName;
-    @SerializedName("address")
-    private String address;
-    @SerializedName("tel")
-    private String tel;
-    @SerializedName("handler_name")
-    private String handlerName;
+    @SerializedName("log_contact_name")
+    private String logContactName;
+    @SerializedName("log_contact_tel")
+    private String logContactTel;
+    private  boolean isCheck;
 
     public boolean isCheck() {
         return isCheck;
@@ -82,12 +82,44 @@ public class LogisticalListEntity {
         this.name = name;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
     public String getLogo() {
         return logo;
     }
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getHandlerName() {
+        return handlerName;
+    }
+
+    public void setHandlerName(String handlerName) {
+        this.handlerName = handlerName;
     }
 
     public String getRegisterTime() {
@@ -122,6 +154,14 @@ public class LogisticalListEntity {
         this.registerYear = registerYear;
     }
 
+    public String getAuthStatus() {
+        return authStatus;
+    }
+
+    public void setAuthStatus(String authStatus) {
+        this.authStatus = authStatus;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -130,43 +170,19 @@ public class LogisticalListEntity {
         this.status = status;
     }
 
-    public String getAuthTatus() {
-        return authTatus;
+    public String getLogContactName() {
+        return logContactName;
     }
 
-    public void setAuthTatus(String authTatus) {
-        this.authTatus = authTatus;
+    public void setLogContactName(String logContactName) {
+        this.logContactName = logContactName;
     }
 
-    public String getShortName() {
-        return shortName;
+    public String getLogContactTel() {
+        return logContactTel;
     }
 
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getHandlerName() {
-        return handlerName;
-    }
-
-    public void setHandlerName(String handlerName) {
-        this.handlerName = handlerName;
+    public void setLogContactTel(String logContactTel) {
+        this.logContactTel = logContactTel;
     }
 }

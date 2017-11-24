@@ -8,6 +8,7 @@ import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
 
 import cn.jpush.android.api.JPushInterface;
@@ -43,6 +44,7 @@ public class App extends MultiDexApplication {
         // Normal app init code...
         PlatformConfig.setWeixin("wx3c39e74c1cfd50ff", "cc9b61cd01e86e82faffd1e63885cf5e");
         PlatformConfig.setQQZone("1106145523", "Z68u61G0Eg1pEO4Y");
+        CrashReport.initCrashReport(getApplicationContext(), "d6fe3a6b65", true);
     }
 
     public static UserEntity getUserEntity() {

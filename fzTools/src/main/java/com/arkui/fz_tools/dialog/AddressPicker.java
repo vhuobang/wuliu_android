@@ -26,6 +26,7 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
     private WheelView mWvProvince;
     private WheelView mWvCity;
     private OnEnsureClickListener onEnsureClickListener;
+    public TextView tv_reset;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -40,8 +41,10 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
 
         TextView mtv_cancel= (TextView) mRootView.findViewById(R.id.tv_cancel);
         TextView tv_submit= (TextView) mRootView.findViewById(R.id.tv_submit);
+        tv_reset = (TextView) mRootView.findViewById(R.id.rest_address);
         mtv_cancel.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
+        tv_reset.setOnClickListener(this);
         initCity(getActivity());
     }
 
@@ -49,9 +52,11 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
        // String string = FileUtil.readAssets(context, "cities.txt");
        // cities = JSON.parseArray(string, City.class);
         CityAdapter provinceAdapter = new CityAdapter(context, cities);
-        provinceAdapter.setTextSize(14);
+        provinceAdapter.setTextSize(20);
         mWvProvince.setViewAdapter(provinceAdapter);
-        mWvCity.setViewAdapter(new CityAdapter(getContext(), cities.get(0).getSub()));
+        CityAdapter cityAdapter = new CityAdapter(getContext(), cities.get(0).getSub());
+        cityAdapter.setTextSize(20);
+        mWvCity.setViewAdapter(cityAdapter);
         mWvProvince.addChangingListener(this);
     }
 
@@ -62,7 +67,9 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        mWvCity.setViewAdapter(new CityAdapter(getContext(), cities.get(newValue).getSub()));
+        CityAdapter cityAdapter = new CityAdapter(getContext(), cities.get(newValue).getSub());
+        cityAdapter.setTextSize(20);
+        mWvCity.setViewAdapter(cityAdapter);
         mWvCity.setCurrentItem(0);
     }
 
@@ -77,6 +84,11 @@ public class AddressPicker extends BaseDialogFragment implements OnWheelChangedL
 
         } else if (i == R.id.tv_cancel) {
             dismiss();
+        }else if (i==R.id.rest_address){
+            if (onEnsureClickListener != null) {
+                onEnsureClickListener.onCityClick("全国");
+                dismiss();
+            }
         }
     }
 

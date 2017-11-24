@@ -26,7 +26,7 @@
                     android:id="@+id/tv_cargo_host"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="张三丰" />
+                    />
             </TableRow>
 
             <TableRow
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -78,7 +78,7 @@
                     android:id="@+id/register_year"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="2年" />
+                    />
             </TableRow>
 
             <TableRow
@@ -94,7 +94,7 @@
                     android:id="@+id/cargo_number"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="125" />
+                     />
             </TableRow>
 
             <TableRow
@@ -132,13 +132,13 @@
 
                 <TextView
                     style="@style/TextView"
-                    android:text="装车开票人" />
+                    android:text="提货公司名称" />
 
                 <TextView
                     android:id="@+id/loading_person_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="吴建国" />
+                     />
             </TableRow>
 
             <TableRow
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -189,7 +189,7 @@
                     android:id="@+id/unloading_person_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="汪红旗" />
+                    />
             </TableRow>
 
             <TableRow
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 

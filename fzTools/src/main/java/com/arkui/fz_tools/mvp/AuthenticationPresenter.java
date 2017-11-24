@@ -12,6 +12,7 @@ import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.api.UserApi;
+import com.arkui.fz_tools.utils.StrUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,10 @@ public class AuthenticationPresenter extends BasePresenter {
         }
         if (TextUtils.isEmpty(id_card)) {
             showToast("请输入身份证号");
+            return;
+        }
+        if(!StrUtil.isLegalId(id_card)){
+            showToast("请输入正确的身份证号！");
             return;
         }
         if (id_photo_front == null) {

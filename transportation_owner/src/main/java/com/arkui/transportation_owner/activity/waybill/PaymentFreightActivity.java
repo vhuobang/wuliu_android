@@ -2,7 +2,9 @@ package com.arkui.transportation_owner.activity.waybill;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +19,10 @@ import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation_owner.R;
+import com.arkui.transportation_owner.activity.my.AccountRechargeActivity;
 import com.arkui.transportation_owner.base.App;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -28,7 +32,7 @@ import butterknife.OnClick;
 import static com.arkui.transportation_owner.R.id.freight_price;
 
 
-public class PaymentFreightActivity extends BaseActivity implements OnConfirmClick, PrePayInterface, PublicInterface {
+public class PaymentFreightActivity extends BaseActivity implements OnConfirmClick, PrePayInterface, PublicInterface, CompoundButton.OnCheckedChangeListener {
 
     public String payType = "pay_freight";
     @BindView(R.id.cargo_wight)
@@ -56,6 +60,7 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
     private String orderNumber;
     private BankPresenter bankPresenter;
     private String money;
+    private DecimalFormat df;
 
     public static void openActivity(Context context, String orderId, String orderNumber) {
         Intent intent = new Intent(context, PaymentFreightActivity.class);
@@ -79,8 +84,10 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("支付运费").setContent("运费信息确认无误，立即支付运费");
         mCommonDialog.setConfirmClick(this);
+        df=new DecimalFormat("0.00");
         prePayPresenter = new PrePayPresenter(this, this);
         bankPresenter = new BankPresenter(this, this);
+        mIsChecked.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -91,8 +98,11 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
     @OnClick(R.id.bt_pay)
     public void onClick() {
         String balance = App.getUserEntity().getBalance();
-        if (Integer.parseInt(balance) < Integer.parseInt(money)){
+        if (Double.parseDouble(balance) < Double.parseDouble(money)){
             Toast.makeText(mActivity,"余额不足",Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("money",money);
+            showActivity(AccountRechargeActivity.class,bundle);
             return;
         }else {
             mCommonDialog.show(getSupportFragmentManager(), "pay");
@@ -105,9 +115,10 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
     public void onConfirmClick() {
         // 选中不扣损耗
         if (mIsChecked.isChecked()) {
-            money = mPrePayEntity.getFreight();
+
+            money = df.format(Double.parseDouble(mPrePayEntity.getFreight()));
         } else {
-            money = mPrePayEntity.getTotalMoney();
+            money = df.format(Double.parseDouble(mPrePayEntity.getTotalMoney()));
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_id", App.getUserId());
@@ -121,13 +132,22 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
     @Override
     public void onSuccess(PrePayEntity entity) {
         mPrePayEntity = entity;
-        mCargoWight.setText(entity.getCarrierNum() + StrUtil.formatUnit(entity.getUnit()));
+        mCargoWight.setText(entity.getUnloadingWeight() + StrUtil.formatUnit(entity.getUnit()));
         mCargoPrice.setText(entity.getCargoPrice() + StrUtil.formatMoneyUnit(entity.getUnit()));
         mFreightPrice.setText(entity.getFreightPrice() + StrUtil.formatMoneyUnit(entity.getUnit()));
-        mLoss.setText(entity.getLoss() + StrUtil.formatUnit(entity.getUnit()));
+        String loss = df.format(Double.parseDouble(entity.getLoss()));
+        mLoss.setText(loss + StrUtil.formatUnit(entity.getUnit()));
         mFreight.setText(entity.getFreight() + "元");
-        mLossMoney.setText(entity.getLossMoney() + "元");
-        mTotalMoney.setText(entity.getTotalMoney() + "元");
+        mLossMoney.setText(df.format(Double.parseDouble(entity.getLossMoney())) + "元");
+        mTotalMoney.setText(df.format(Double.parseDouble(entity.getTotalMoney())) + "元");
+        money = df.format(Double.parseDouble(entity.getTotalMoney()));
+
+        mBtPay.setText("确认支付"+money+"元");
+    }
+
+    @Override
+    public void onPayFail(String errMessage) {
+
     }
 
     // 支付成功
@@ -149,6 +169,15 @@ public class PaymentFreightActivity extends BaseActivity implements OnConfirmCli
         super.onDestroy();
         if (prePayPresenter != null) {
             prePayPresenter.onDestroy();
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked){
+            mBtPay.setText("确认支付"+mPrePayEntity.getFreight()+"元");
+        }else {
+            mBtPay.setText("确认支付"+mPrePayEntity.getTotalMoney()+"元");
         }
     }
 }

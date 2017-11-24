@@ -5,14 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.arkui.transportation_owner.activity.publish.PublishDeclareActivity">
+    >
 
 
     <TextView
         android:textSize="@dimen/sp_14"
         android:textColor="@color/black_list_color"
         android:padding="10dp"
-        android:text="1.发布货源时请确保货源的真实性 \n2.下边太长就不写了,反正以后这里肯定放个网页"
+        android:text="尊敬用户您好：\n
+      1：发布货源时请确认所发布的货源真实性;\n
+      2：发布货源时同批次货源请勿二次发布，以免抢单后导致货源不足;\n
+      3：所发布的货源属危化运输类产品；\n
+      4：为了确保您发布的货源及时被抢单，请保证手机畅通;\n
+      5：如货物剩余吨数不足单次运输，请及时停止发布；
+"
         android:id="@+id/tv_content"
         android:layout_weight="1"
         android:layout_width="match_parent"

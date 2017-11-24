@@ -18,9 +18,13 @@ import com.arkui.transportation.R;
 import com.arkui.transportation.activity.MainActivity;
 import com.arkui.transportation.base.App;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 
 public class LoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
@@ -53,6 +57,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
         ButterKnife.bind(this);
         SystemBarHelper.tintStatusBar(this, getResources().getColor(R.color.white), 0);
         SystemBarHelper.setStatusBarDarkMode(this);
+
         boolean isLogin = SPUtil.getInstance(this).read(Constants.IS_LOGIN, false);
         if (isLogin){
             showActivity(MainActivity.class);
@@ -83,7 +88,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     private void getLogin() {
         String phoneNumber = etPhoneNumber.getText().toString().trim();
         String passWord = etPassword.getText().toString().trim();
-        mPresenter.getLogin(phoneNumber,passWord, Constants.LOGISTICS);
+        mPresenter.getLogin(phoneNumber,passWord, Constants.LOGISTICS,JPushInterface.getRegistrationID(mActivity));
     }
 
     /**
@@ -108,6 +113,12 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+        JPushInterface.setAlias(LoginActivity.this, userEntity.getId(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+            }
+        });
         finish();
     }
 

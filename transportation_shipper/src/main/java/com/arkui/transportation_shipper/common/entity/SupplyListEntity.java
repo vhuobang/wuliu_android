@@ -17,6 +17,8 @@ public class SupplyListEntity {
      * cargo_price : 50.00
      * unit : 1
      * id
+     * freight_price
+     * logistical_name
      */
 
     private String logistical_id;
@@ -30,6 +32,28 @@ public class SupplyListEntity {
     private String unit;
     private String logo;
     private String surplus_num;
+    private String freight_price;
+
+    public String getLogistical_name() {
+        return logistical_name;
+    }
+
+    public void setLogistical_name(String logistical_name) {
+        this.logistical_name = logistical_name;
+    }
+
+    private String logistical_name;
+
+
+    public String getFreight_price() {
+        return freight_price;
+    }
+
+    public void setFreight_price(String freight_price) {
+        this.freight_price = freight_price;
+    }
+
+
 
     public String getSurplus_num() {
         return surplus_num;

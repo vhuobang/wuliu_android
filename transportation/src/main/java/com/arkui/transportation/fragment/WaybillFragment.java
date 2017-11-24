@@ -26,6 +26,7 @@ public class WaybillFragment extends BaseFragment {
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
     private String[] mTitles = {"货主运单", "我的运单"};
+    private MyWaybillFragment myWaybillFragment;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -39,7 +40,7 @@ public class WaybillFragment extends BaseFragment {
 
         ArrayList<Fragment> baseFragmentList = new ArrayList<>();
         OwnerWaybillFragment ownerWaybillFragment=new OwnerWaybillFragment();
-        MyWaybillFragment myWaybillFragment=new MyWaybillFragment();
+        myWaybillFragment = new MyWaybillFragment();
 
         baseFragmentList.add(ownerWaybillFragment);
         baseFragmentList.add(myWaybillFragment);
@@ -52,6 +53,7 @@ public class WaybillFragment extends BaseFragment {
    // 显示  0表示货主运单  1表示 我的运单
     public void setFragmentPosition(int position){
         this.position=position;
+        myWaybillFragment.setCurrentPage(0);
     }
 
 }

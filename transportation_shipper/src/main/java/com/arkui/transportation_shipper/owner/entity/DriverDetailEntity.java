@@ -15,6 +15,7 @@ public class DriverDetailEntity {
      * logistical_name : 个人测试号
      * truck_id : 5
      * unloading_address : 广东-广州 哈哈镜鸭脖子(人民北店)人民北路829-831号越富二期创兴广场1楼05-5号
+     * truck_status
      */
 
     private String cargo_id;
@@ -25,6 +26,15 @@ public class DriverDetailEntity {
     private String logistical_name;
     private String truck_id;
     private String unloading_address;
+    private String truck_status;
+
+    public String getTruck_status() {
+        return truck_status;
+    }
+
+    public void setTruck_status(String truck_status) {
+        this.truck_status = truck_status;
+    }
 
     public String getCargo_id() {
         return cargo_id;

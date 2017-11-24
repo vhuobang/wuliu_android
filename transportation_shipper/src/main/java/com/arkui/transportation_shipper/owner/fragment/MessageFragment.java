@@ -28,7 +28,7 @@ public class MessageFragment extends BaseFragment {
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
     private String[] mTitles = {"运单消息", "系统消息"};
-
+    private  int authType ;
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.fragment_message, container, false);
@@ -42,6 +42,10 @@ public class MessageFragment extends BaseFragment {
 
         List<BaseFragment> baseFragmentList = new ArrayList<>();
         OrderFragment orderFragment = new OrderFragment();
+        authType = getArguments().getInt("authType");
+        Bundle bundle = new Bundle();
+        bundle.putInt("authType", authType);
+        orderFragment.setArguments(bundle);
         SystemFragment systemFragment = new SystemFragment();
 
 

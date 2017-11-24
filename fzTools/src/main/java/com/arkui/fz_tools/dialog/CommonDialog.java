@@ -26,11 +26,21 @@ public class CommonDialog extends BaseDialogFragment implements View.OnClickList
     private TextView mTvCancel;
     private String mConfirmText;
     private boolean mIsCancel = true;
+    private String  additionalContent;
+
+    public String getAdditionalContent() {
+        return additionalContent;
+    }
+
+    public void setAdditionalContent(String additionalContent) {
+        this.additionalContent = additionalContent;
+    }
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         return inflater.inflate(R.layout.layout_common_dialog, container, false);
     }
+
 
     @Override
     protected void initView(View mRootView) {

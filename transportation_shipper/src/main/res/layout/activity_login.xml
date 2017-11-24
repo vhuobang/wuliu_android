@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:src="@mipmap/logo" />
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/wlb_logo" />
 
     <com.arkui.fz_tools.view.ShapeLinearLayout
         android:id="@+id/ll_phone"
@@ -23,7 +23,7 @@
         android:layout_below="@+id/iv_logo"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="25dp"
@@ -102,26 +102,13 @@
 
     </com.arkui.fz_tools.view.ShapeLinearLayout>
 
-    <com.arkui.fz_tools.view.ShapeButton
-        android:id="@+id/bt_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_password"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="85dp"
-        android:text="登录"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_16"
-        app:buttonColor="@color/mainColor"
-        app:radius="10dp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bt_login"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginRight="30dp"
+        android:id="@+id/relativeLayout">
 
         <TextView
             android:id="@+id/tv_driver_login"
@@ -129,7 +116,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="司机登录"
-            android:textSize="@dimen/sp_13" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_forget"
@@ -152,4 +139,19 @@
         android:padding="10dp"
         android:text="还没有账户？立即注册"
         android:textSize="@dimen/sp_12" />
+
+    <com.arkui.fz_tools.view.ShapeButton
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:buttonColor="@color/mainColor"
+        app:radius="10dp"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/tv_register"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

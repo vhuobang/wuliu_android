@@ -174,7 +174,7 @@
                             android:inputType="numberDecimal"
                             android:id="@+id/et_cargo_density"
                             style="@style/EditViewWeight999"
-                            android:hint="请输入货物密度" />
+                            android:hint="请输入货物密度(选填)" />
 
                         <TextView
                             android:id="@+id/tv_density"
@@ -183,7 +183,7 @@
                             android:drawablePadding="5dp"
                             android:drawableRight="@mipmap/zh_down"
                             android:gravity="center"
-                            android:text="吨/方"
+                            android:text="方/吨"
                             android:textColor="@color/black_normal_color"
                             android:textSize="@dimen/sp_14" />
                     </LinearLayout>
@@ -218,7 +218,7 @@
                         android:inputType="numberDecimal"
                         android:id="@+id/et_freight_price"
                         style="@style/EditViewWeight999"
-                        android:hint="用于计算亏损" />
+                        android:hint="用于计算运费" />
 
                     <TextView
                         android:id="@+id/tv_freight_price"
@@ -261,7 +261,7 @@
                         android:inputType="numberDecimal"
                         android:id="@+id/et_cargo_price"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入货物单价" />
+                        android:hint="用于计算亏损" />
 
                     <TextView
                         android:gravity="center"
@@ -411,13 +411,13 @@
                     <EditText
                         android:id="@+id/et_press_charges"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入压车费" />
+                        android:hint="压车费请线下结算" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
-                        android:text="元"
+                        android:text="元/天"
                         android:textColor="@color/black_normal_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -435,7 +435,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装车开票人"
+                    android:text="提货公司名称"
                     android:textColor="@color/black_normal_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -448,7 +448,7 @@
                     <EditText
                         android:id="@+id/et_truck_drawer"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入开票人" />
+                        android:hint="请输入提货公司名称" />
 
                     <ImageView
                         android:id="@+id/iv_truck_drawer"
@@ -476,7 +476,7 @@
                     <EditText
                         android:id="@+id/et_truck_tel"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入装车联系电话" />
+                        android:hint="请输入装车联系电话（选填）" />
 
                     <ImageView
                         android:id="@+id/iv_truck_tel"
@@ -502,7 +502,7 @@
                 <EditText
                     android:id="@+id/et_unloading_contact"
                     style="@style/EditViewWeight999"
-                    android:hint="请输入联系人" />
+                    android:hint="请输入卸车联系人（选填）" />
 
                 <ImageView
                     android:id="@+id/iv_unloading_contact"
@@ -529,7 +529,7 @@
                     <EditText
                         android:id="@+id/et_unloading_tel"
                         style="@style/EditViewWeight999"
-                        android:hint="请输入联系人电话" />
+                        android:hint="请输入卸车联系电话（选填）" />
 
                     <ImageView
                         android:id="@+id/iv_unloading_tel"
@@ -555,6 +555,7 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -580,6 +581,14 @@
                     android:textColor="@drawable/selected_text"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:max_select="-1">
+
+            </com.zhy.view.flowlayout.TagFlowLayout>
 
             <com.arkui.fz_tools.view.ShapeEditText
                 android:id="@+id/et_remarks"

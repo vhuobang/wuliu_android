@@ -7,8 +7,8 @@ android {
         applicationId "com.arkui.transportation"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -65,4 +65,6 @@ dependencies {
     compile 'com.amap.api:search:latest.integration'
     compile files('libs/alipaySdk-20170725.jar')
     compile 'com.android.support:multidex:1.0.0'
+    //bugly
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }

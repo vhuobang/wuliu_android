@@ -74,7 +74,7 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DriverOrderListEntity item = (DriverOrderListEntity) adapter.getItem(position);
-                DriverWaybillDetailActivity.openActivity(getActivity(),type,item.getId());
+                DriverWaybillDetailActivity.openActivity(getActivity(),type,item.getId(),false);
             }
         });
 
@@ -112,8 +112,13 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
 
             @Override
             public void onNext(List<DriverOrderListEntity> value) {
+
                 mRlWaybill.refreshComplete();
                 mWaybillListAdapter.setNewData(value);
+                //成功后才能拿到运单id
+                for (int i=0;i<value.size();i++){
+
+                }
             }
 
             @Override
@@ -136,6 +141,12 @@ public class DriverWaybillListFragment extends BaseLazyFragment implements OnBin
         DriverWaybillListFragment waybillListFragment = new DriverWaybillListFragment();
         waybillListFragment.setArguments(bundle);
         return waybillListFragment;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

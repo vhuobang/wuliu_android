@@ -1,7 +1,6 @@
 package com.arkui.transportation_owner.mvp;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_net.http.ApiException;
@@ -74,8 +73,8 @@ public class LogisticsPresenter extends BasePresenter {
     }
 
     //物流详情
-    public void postLogisticsDetail(String log_id){
-        Observable<LogisticalListEntity> observable = mLogisticalApi.postLogisticalDetail(App.getUserId(),log_id).map(new HttpResultFunc<LogisticalListEntity>());
+    public void postLogisticsDetail(String log_id,String wayBillId){
+        Observable<LogisticalListEntity> observable = mLogisticalApi.postLogisticalDetail(App.getUserId(),log_id,wayBillId).map(new HttpResultFunc<LogisticalListEntity>());
 
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<LogisticalListEntity>(mContext) {
             @Override

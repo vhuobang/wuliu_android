@@ -17,6 +17,7 @@ public class LogisticalListEntity {
      * cargo_num : 1000
      * cargo_name : 铁
      * id : 22
+     * nickname
      */
 
     @SerializedName("loading_address")
@@ -34,6 +35,29 @@ public class LogisticalListEntity {
     @SerializedName("id")
     private String id;
     private String logo;
+
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    @SerializedName("nickname")
+    private String nickname;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @SerializedName("name")
+    private String name;
 
     public String getLogo() {
         return logo;

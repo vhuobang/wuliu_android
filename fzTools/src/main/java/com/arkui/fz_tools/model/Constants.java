@@ -42,5 +42,15 @@ public class Constants {
     public static final String CAR_OWNER_PAY="1"; // 车主端
     public static final String OWNER_PAY="2";  //  货主
     public static final String  LOGISTICS_PAY="3"; // 物流
+  //   货主
+    public static  final  String CARGO_SOFTWARE_DETAILS = NetConstants.BASE_URL+ "App/Public/cargo_software_details";
+    //司机 App/Public/driver_software_details
+    public static  final  String DRIVER_SOFTWARE_DETAILS = NetConstants.BASE_URL+ "App/Public/driver_software_details";
+    //物流 App/Public/log_software_details
+    public static  final  String LOG_SOFTWARE_DETAILS = NetConstants.BASE_URL+ "App/Public/log_software_details";
+    // 车主 App/Public/car_software_details
+    public static  final  String CAR_SOFTWARE_DETAILS = NetConstants.BASE_URL+ "App/Public/car_software_details";
+
+
 
 }

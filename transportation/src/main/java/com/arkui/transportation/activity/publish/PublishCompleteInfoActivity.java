@@ -11,6 +11,7 @@ import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.ui.BaseActivity;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
@@ -62,6 +63,15 @@ public class PublishCompleteInfoActivity extends BaseActivity implements OnVehic
         mEndTimeList.add("7天内结算");
         mEndTimeList.add("15天内结算");
         mEndTimeList.add("30天内结算");
+
+        String logName = SPUtil.getInstance(mActivity).read("logName", "");
+        String logPhoneNumber = SPUtil.getInstance(mActivity).read("logPhoneNumber", "");
+        if (!TextUtils.isEmpty(logName)){
+            contactName.setText(logName);
+        }
+        if (!TextUtils.isEmpty(logPhoneNumber)){
+            etContactPhone.setText(logPhoneNumber);
+        }
         mSelectTypePicker = new SelectTypePicker();
         mSelectTypePicker.setTitle("结算时间").setData(mEndTimeList);
         mSelectTypePicker.setOnTypeClickListener(this);
@@ -79,34 +89,40 @@ public class PublishCompleteInfoActivity extends BaseActivity implements OnVehic
                 String contact = contactName.getText().toString().trim(); //物流联系人
                 String contactPhone = etContactPhone.getText().toString().trim();// 物流电话
                 String infoFee = this.infoFee.getText().toString().trim();//信息费用
-
-                if (TextUtils.isEmpty(hostName)){
-                    Toast.makeText(PublishCompleteInfoActivity.this,"请输入货主名",Toast.LENGTH_SHORT).show();
-                    return;
+                if (TextUtils.isEmpty(infoFee)){
+                    infoFee="0";
                 }
-
-                if (!StrUtil.isMobileNO(hostPhone)){
-                    Toast.makeText(PublishCompleteInfoActivity.this,"请输入货主电话",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(hostName)){
+//                    Toast.makeText(PublishCompleteInfoActivity.this,"请输入货主名",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (!StrUtil.isMobileNO(hostPhone)){
+//                    Toast.makeText(PublishCompleteInfoActivity.this,"请输入货主电话",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if (TextUtils.isEmpty(contact)){
                     Toast.makeText(PublishCompleteInfoActivity.this,"请输入物流联系人",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                SPUtil.getInstance(mActivity).save("logName",contact);
                 if (!StrUtil.isMobileNO(contactPhone)){
                     Toast.makeText(PublishCompleteInfoActivity.this,"请输入物流联系人电话",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(infoFee)){
-                    Toast.makeText(PublishCompleteInfoActivity.this,"输入信息费",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                SPUtil.getInstance(mActivity).save("logPhoneNumber",contactPhone);
+//                if (TextUtils.isEmpty(infoFee)){
+//                    Toast.makeText(PublishCompleteInfoActivity.this,"输入信息费",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 releaseDetails.setOwner_name(hostName);
                 releaseDetails.setOwner_tel(hostPhone);
                 releaseDetails.setLog_contact_name(contact);
                 releaseDetails.setLog_contact_tel(contactPhone);
                 releaseDetails.setInfomation_fee(infoFee);
-                releaseDetails.setLog_settlement_time(mSettleMentTime);
+                String settlementTime = releaseDetails.getSettlementTime();
+
+                releaseDetails.setLog_settlement_time(settlementTime);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("releaseInfo",releaseDetails);
                 showActivity(PublishDeclareActivity.class,bundle);

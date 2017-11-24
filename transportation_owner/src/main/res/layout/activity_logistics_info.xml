@@ -29,7 +29,7 @@
                     android:id="@+id/tv_company_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="北京美化国际物流有限公司" />
+                    />
             </TableRow>
 
             <TableRow
@@ -44,10 +44,11 @@
                     android:id="@+id/tv_company_address"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="北京市昌平区立汤路186号" />
+                    />
             </TableRow>
 
             <TableRow
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -67,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -91,7 +92,7 @@
                     android:id="@+id/tv_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="张无忌" />
+                   />
             </TableRow>
 
 
@@ -107,7 +108,7 @@
                     android:id="@+id/tv_register_year"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="2年" />
+                    />
             </TableRow>
 
             <TableRow
@@ -122,7 +123,7 @@
                     android:id="@+id/deal_number"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="125" />
+                     />
             </TableRow>
 
             <TableRow
@@ -165,7 +166,7 @@
                     android:id="@+id/connect_name"
                     style="@style/TextViewWeight999"
                     android:background="@null"
-                    android:hint="汪红旗" />
+                     />
             </TableRow>
 
             <TableRow
@@ -188,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 

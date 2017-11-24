@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.arkui.fz_tools.dialog.SuccessFullyDialog;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.AppManager;
+import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
@@ -51,11 +53,14 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
     EditText etFree;
     @BindView(R.id.bt_confirm)
     ShapeButton btConfirm;
+    @BindView(R.id.pay_time)
+    TableRow payTime;
     private SelectTypePicker mSelectTypePicker;
     private SuccessFullyDialog mSuccessFullyDialog;
     private String cargoId; // 货源id
     private String payMoneyTime = "1";
     private LogisticalApi mLogisticalApi;
+    private String payment;
 
 
     @Override
@@ -64,9 +69,10 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
         setTitle("完善信息");
     }
 
-    public static void openCompleteInfoActivity(Context context, String cargo_id) {
+    public static void openCompleteInfoActivity(Context context, String cargo_id,String paymentTerms) {
         Intent intent = new Intent(context, CompleteInfoActivity.class);
         intent.putExtra("cargoId", cargo_id);
+        intent.putExtra("payment",paymentTerms);
         context.startActivity(intent);
     }
 
@@ -75,6 +81,18 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
         super.initView();
         ButterKnife.bind(this);
         cargoId = getIntent().getStringExtra("cargoId");
+        payment = getIntent().getStringExtra("payment");
+        String logName = SPUtil.getInstance(mActivity).read("logName", "");
+        String logPhoneNumber = SPUtil.getInstance(mActivity).read("logPhoneNumber", "");
+        if (!TextUtils.isEmpty(logName)){
+            etName.setText(logName);
+        }
+        if (!TextUtils.isEmpty(logPhoneNumber)){
+            etPhone.setText(logPhoneNumber);
+        }
+        if (payment.equals("1")){
+            payTime.setVisibility(View.GONE);
+        }
         mLogisticalApi = RetrofitFactory.createRetrofit(LogisticalApi.class);
 
         List<String> mEndTimeList = new ArrayList<>();
@@ -117,13 +135,17 @@ public class CompleteInfoActivity extends BaseActivity implements OnVehicleTypeC
             Toast.makeText(CompleteInfoActivity.this, "请输入物流联系人", Toast.LENGTH_SHORT).show();
             return;
         }
+        SPUtil.getInstance(mActivity).save("logName",name);
         String phone = etPhone.getText().toString().trim();
         if (!StrUtil.isMobileNO(phone)) {
             Toast.makeText(CompleteInfoActivity.this, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
+        SPUtil.getInstance(mActivity).save("logPhoneNumber",phone);
         String free = etFree.getText().toString().trim();
-
+         if (TextUtils.isEmpty(free)){
+             free="0";
+         }
         hashMap.put("user_id", App.getUserId());
         hashMap.put("cargo_id", cargoId);
         hashMap.put("log_settlement_time", payMoneyTime);

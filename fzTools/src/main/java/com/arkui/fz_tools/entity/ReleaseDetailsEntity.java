@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by 84658 on 2017/8/17.
  */
 
-public class ReleaseDetailsEntity implements Serializable{
+public class ReleaseDetailsEntity implements Serializable {
 
     /**
      * loading_address : 北京
@@ -17,7 +17,7 @@ public class ReleaseDetailsEntity implements Serializable{
      * press_charges : 1000.00
      * unloading_contact : www
      * payment_terms : 1
-     * settlement_time : 2017-08-20 08:00:00
+     * settlement_time :
      * unit : 1
      * truck_drawer : wyh
      * freight_price : 100.00
@@ -29,32 +29,101 @@ public class ReleaseDetailsEntity implements Serializable{
      * truck_tel : 18735111111
      * id : 10
      * remarks : 注意安全
-     *
-     *
-     *
+     * <p>
+     * <p>
+     * <p>
      * // 新加的字段
      * owner_name  货主名字
      * owner_tel 货主电话
      * infomation_fee 信息费用
      * log_settlement_time 物流截至时间
-     *log_contact_name 物流联系人
+     * log_contact_name 物流联系人
      * log_contact_tel//物流联系人电话
      * type
+     * <p>
+     * log_time
+     * <p>
+     * loading_province
+     * unloading_province
+     * loading_city
+     * unloading_city
+     *   "pay_log_time": "2",
+     "get_log_time": "4",
+     *
      */
-//
-//    * // 新加的字段
-//            * owner_name  货主名字
-//    * owner_tel 货主电话
-//    * infomation_fee 信息费用
-//    * log_settlement_time 物流截至时间
-//    *log_contact_name 物流联系人
-//    * log_contact_tel//物流联系人电话
     private String owner_name;
     private String owner_tel;
     private String infomation_fee;
     private String log_settlement_time;
     private String log_contact_name;
     private String log_contact_tel;
+    private String pay_log_time;
+
+    public String getGet_log_time() {
+        return get_log_time;
+    }
+
+    public void setGet_log_time(String get_log_time) {
+        this.get_log_time = get_log_time;
+    }
+
+    public String getPay_log_time() {
+        return pay_log_time;
+    }
+
+    public void setPay_log_time(String pay_log_time) {
+        this.pay_log_time = pay_log_time;
+    }
+
+    private String get_log_time;
+
+    private String loading_province;
+    private String unloading_province;
+    private String loading_city;
+    private String unloading_city;
+
+    public String getLoading_province() {
+        return loading_province;
+    }
+
+    public void setLoading_province(String loading_province) {
+        this.loading_province = loading_province;
+    }
+
+    public String getUnloading_province() {
+        return unloading_province;
+    }
+
+    public void setUnloading_province(String unloading_province) {
+        this.unloading_province = unloading_province;
+    }
+
+    public String getLoading_city() {
+        return loading_city;
+    }
+
+    public void setLoading_city(String loading_city) {
+        this.loading_city = loading_city;
+    }
+
+    public String getUnloading_city() {
+        return unloading_city;
+    }
+
+    public void setUnloading_city(String unloading_city) {
+        this.unloading_city = unloading_city;
+    }
+
+    public String getLog_time() {
+        return log_time;
+    }
+
+    public void setLog_time(String log_time) {
+        this.log_time = log_time;
+    }
+
+    private String log_time;
+
 
     public String getOwner_name() {
         return owner_name;
@@ -150,7 +219,6 @@ public class ReleaseDetailsEntity implements Serializable{
     public void setType(String type) {
         this.type = type;
     }
-
 
 
     public String getLoadingAddress() {

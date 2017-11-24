@@ -6,11 +6,14 @@ import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.dialog.SuccessFullyDialog;
+import com.arkui.fz_tools.entity.EvaluateEvent;
 import com.arkui.fz_tools.mvp.EvaluatePresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation.R;
 import com.arkui.transportation.base.App;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,7 @@ public class PublishEvaluateActivity extends BaseActivity implements PublicInter
     ShapeButton mBtPublish;
     private SuccessFullyDialog mSuccessFullyDialog;
     private EvaluatePresenter evaluatePresenter;
+    private String order_id;
 
 
     @Override
@@ -47,6 +51,7 @@ public class PublishEvaluateActivity extends BaseActivity implements PublicInter
     public void initView() {
         super.initView();
         ButterKnife.bind(this);
+        order_id = getIntent().getStringExtra("wayBillId");
         evaluatePresenter = new EvaluatePresenter(this, this); // 评星
     }
 
@@ -54,7 +59,7 @@ public class PublishEvaluateActivity extends BaseActivity implements PublicInter
     public void onClick() {
         String cargoStarts = String.valueOf(mCargoStarts.getRating());
         String carOwnerStarts = String.valueOf(mCarOwnerStarts.getRating());
-        evaluatePresenter.evaluate(cargoStarts,null,carOwnerStarts, App.getUserId());
+        evaluatePresenter.evaluate(cargoStarts,null,carOwnerStarts, App.getUserId(),"2",order_id);
     }
     @Override
     public void onSuccess() {
@@ -63,6 +68,7 @@ public class PublishEvaluateActivity extends BaseActivity implements PublicInter
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 mSuccessFullyDialog.dismiss();
+                EventBus.getDefault().post(new EvaluateEvent());
                 finish();
             }
         }, 1000);

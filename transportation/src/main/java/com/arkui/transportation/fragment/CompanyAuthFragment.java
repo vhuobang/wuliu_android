@@ -18,7 +18,6 @@ import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.AuthenticationPresenter;
 import com.arkui.fz_tools.mvp.BaseMvpPhotoFragment;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
-import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation.R;
 import com.arkui.transportation.base.App;
@@ -71,7 +70,7 @@ public class CompanyAuthFragment extends BaseMvpPhotoFragment implements Uploadi
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mCommonDialog = new CommonDialog();
-        mCommonDialog.setTitle("个人认证").setContent("个人认证信息已提交到后台进行审核，请耐心等待！").setNoCancel();
+        mCommonDialog.setTitle("公司认证").setContent("公司认证信息已提交到后台进行审核，请耐心等待！").setNoCancel();
         mCommonDialog.setConfirmClick(new OnConfirmClick() {
             @Override
             public void onConfirmClick() {

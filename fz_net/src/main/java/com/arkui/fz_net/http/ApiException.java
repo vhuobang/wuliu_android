@@ -9,7 +9,6 @@ import com.arkui.fz_net.entity.BaseHttpResult;
  */
 public class ApiException extends RuntimeException {
 
-
     private int status;
     private BaseHttpResult mHttpResult;
 

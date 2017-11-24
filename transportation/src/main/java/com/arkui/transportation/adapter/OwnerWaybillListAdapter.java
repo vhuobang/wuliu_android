@@ -1,7 +1,5 @@
 package com.arkui.transportation.adapter;
 
-import android.support.annotation.LayoutRes;
-
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation.R;
 import com.arkui.transportation.entity.LogWayBIllListEntity;
@@ -40,6 +38,7 @@ public class OwnerWaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEnti
                 break;
             case 3:
                 helper.setVisible(R.id.tv_state, true);
+                helper.setText(R.id.tv_state,"运费：" +item.getAllPrice()+"元" );
                 break;
         }
         helper.addOnClickListener(R.id.ll_location);

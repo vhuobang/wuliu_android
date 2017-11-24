@@ -52,10 +52,12 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     private String logisticId;
     CommonDialog commonDialog;
     private LogisticalListEntity logisticalListEntity;
+    private String wayBillId;
 
-    public static void openActivity(Context mContext, String logisticId) {
+    public static void openActivity(Context mContext, String logisticId,String wayBillId) {
         Intent intent = new Intent(mContext, LogisticsInfoActivity.class);
         intent.putExtra("logisticId", logisticId);
+        intent.putExtra("wayBillId",wayBillId);
         mContext.startActivity(intent);
     }
 
@@ -70,7 +72,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         super.initView();
         ButterKnife.bind(this);
         logisticId = getIntent().getStringExtra("logisticId");
-
+        wayBillId = getIntent().getStringExtra("wayBillId");
         commonDialog = new CommonDialog();
         commonDialog.setConfirmClick(this);
         commonDialog.setTitle("拨打电话");
@@ -80,7 +82,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     @Override
     public void initData() {
         mLogisticsPresenter = new LogisticsPresenter(this, this);
-        mLogisticsPresenter.postLogisticsDetail(logisticId);
+        mLogisticsPresenter.postLogisticsDetail(logisticId,wayBillId);
     }
 
     @Override
@@ -97,6 +99,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
     // 返回物流详情
     @Override
     public void onSucceed(LogisticalListEntity logisticalDetails) {
+
         logisticalListEntity = logisticalDetails;
         mTvCompanyName.setText(logisticalDetails.getName());
         mTvCompanyAddress.setText(logisticalDetails.getAddress());
@@ -105,7 +108,8 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         mTvRegisterYear.setText(logisticalDetails.getRegisterYear());
         mDealNumber.setText(logisticalDetails.getVolume());
         mRatingBar.setRating(Float.parseFloat(logisticalDetails.getStarRating()));
-
+        mConnectName.setText(logisticalDetails.getLogContactName());
+        mTvConnectPhone.setText(logisticalDetails.getLogContactTel());
     }
 
     @Override
@@ -130,7 +134,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
                 commonDialog.showDialog(LogisticsInfoActivity.this,"phone");
                 break;
             case R.id.iv_connect_phone:
-                commonDialog.setContent(logisticalListEntity.getTel());
+                commonDialog.setContent(logisticalListEntity.getLogContactTel());
                 commonDialog.showDialog(LogisticsInfoActivity.this,"phone");
                 break;
         }

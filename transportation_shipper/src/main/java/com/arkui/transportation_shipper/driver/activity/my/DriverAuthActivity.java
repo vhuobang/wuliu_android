@@ -14,7 +14,6 @@ import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.AuthenticationPresenter;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
-import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BasePhotoActivity;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
@@ -77,8 +76,8 @@ public class DriverAuthActivity extends BasePhotoActivity implements AddressPick
             }
         });
 
-        setAspectX(3);
-        setAspectY(2);
+//        setAspectY(100);
+//        setAspectX(78);
         mAddressPicker = new AddressPicker();
         //初始化其数据
         LoadCityData.initData(mActivity, new Consumer<List<City>>() {
@@ -152,10 +151,7 @@ public class DriverAuthActivity extends BasePhotoActivity implements AddressPick
         mUploadingPicturePresenter.upPicture(path, "Avatar");
     }
 
-    @OnClick(R.id.bt_submit)
-    public void onClick() {
-        mCommonDialog.show(getSupportFragmentManager(), "auth");
-    }
+
 
     @Override
     public void onCityClick(String city) {
@@ -195,6 +191,7 @@ public class DriverAuthActivity extends BasePhotoActivity implements AddressPick
 
     @Override
     public void onSuccess() {
+        //mCommonDialog.show(getSupportFragmentManager(), "auth");
         mCommonDialog.showDialog(this, "onSuccess");
     }
 

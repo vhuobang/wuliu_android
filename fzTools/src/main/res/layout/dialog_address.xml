@@ -19,12 +19,14 @@
 
 
         <TextView
+            android:id="@+id/rest_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="出发地"
+            android:text="重置"
             android:textColor="@color/black_normal_color"
-            android:textSize="@dimen/sp_14" />
+
+            android:textSize="@dimen/sp_16" />
 
         <TextView
             android:id="@+id/tv_submit"
@@ -47,13 +49,13 @@
         <com.arkui.fz_tools.view.WheelView
             android:id="@+id/wv_province"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_weight="1" />
 
         <com.arkui.fz_tools.view.WheelView
             android:id="@+id/wv_city"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_weight="1" />
 
         <com.arkui.fz_tools.view.WheelView

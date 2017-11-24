@@ -85,11 +85,12 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
     protected void initData() {
         super.initData();
         mCargoListPresenter = new CarGoListPresenter(this, getActivity());
-        Disposable subscribe = RxBus.getDefault().toObservableSticky(RefreshWaybill.class).subscribe(new Consumer<RefreshWaybill>() {
-            @Override
-            public void accept(RefreshWaybill refreshWaybill) throws Exception {
-                LogUtil.e("收到刷新指令！");
-                mPage = 1;
+        if (mType==1){
+            Disposable subscribe = RxBus.getDefault().toObservableSticky(RefreshWaybill.class).subscribe(new Consumer<RefreshWaybill>() {
+                @Override
+                public void accept(RefreshWaybill refreshWaybill) throws Exception {
+                    LogUtil.e("收到刷新指令！");
+                    mPage = 1;
                 /*switch (refreshWaybill.getType()) {
                     case 1:
                         mCargoListPresenter.getCarGoList(App.getUserId(), "0", mPage, 20);
@@ -98,12 +99,14 @@ public class PublishListFragment extends BaseLazyFragment implements OnRefreshLi
                         mCargoListPresenter.getCarGoList(App.getUserId(), "1", mPage, 20);
                         break;
                 }*/
-                mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
-                RxBus.getDefault().removeStickyEvent(RefreshWaybill.class);
-            }
-        });
+                    mCargoListPresenter.getCarGoList(App.getUserId(), getType(), mPage, 20);
+                    RxBus.getDefault().removeStickyEvent(RefreshWaybill.class);
+                }
+            });
 
-        mDisposables.add(subscribe);
+            mDisposables.add(subscribe);
+        }
+
     }
 
     @Override

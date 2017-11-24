@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,11 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
             @Override
             public void accept(LogisticsBusEntity logisticsBusEntity) throws Exception {
                 if(LogisticsBusEntity.LOGISTICS==logisticsBusEntity.getType()){
-                    mLogisticsAdapter.getItem(logisticsBusEntity.getPosition()).setStatus(logisticsBusEntity.getStatus());
+                    String status = logisticsBusEntity.getStatus();
+                    if (TextUtils.isEmpty(status)){
+                        return;
+                    }
+                    mLogisticsAdapter.getItem(logisticsBusEntity.getPosition()).setStatus(status);
                     mLogisticsAdapter.notifyItemChanged(logisticsBusEntity.getPosition());
                 }
             }
@@ -266,7 +271,7 @@ public class LogisticsFragment extends BaseFragment implements OnBindViewHolderL
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String id = mLogisticsAdapter.getItem(position).getId();
         String name = mLogisticsAdapter.getItem(position).getName();
-        String authTatus = mLogisticsAdapter.getItem(position).getAuthTatus();
+        String authTatus = mLogisticsAdapter.getItem(position).getAuthStatus();
         Intent intent = new Intent();
         intent.putExtra("id", id);
         intent.putExtra("title", name);

@@ -126,6 +126,7 @@ public class ConfirmOrderActivity extends BaseActivity implements SelectDriverDi
             public void onApiError(ApiException e) {
                 //super.onApiError(e);
                 ShowToast(e.getMessage());
+                mSelectVehicleDialog.setTruckList(null);
             }
         });
 
@@ -160,14 +161,14 @@ public class ConfirmOrderActivity extends BaseActivity implements SelectDriverDi
             case R.id.ll_vehicle:
                 //mSelectVehicleTypePicker.setData(list).setTitle("车辆选择").show(getSupportFragmentManager(), "vehicle");
                 if (mSelectVehicleDialog.getTruckList() == null) {
-                    ShowToast("没有可指派的车辆");
+                    ShowToast("请到资产管理添加车辆");
                     return;
                 }
                 mSelectVehicleDialog.showDialog(this, "driver");
                 break;
             case R.id.ll_driver:
                 if (mSelectDriverDialog.getDriverList().isEmpty()) {
-                    ShowToast("没有可指派的司机");
+                    ShowToast("请到资产管理添加司机");
                     return;
                 }
                 mSelectDriverDialog.showDialog(this, "driver");
@@ -189,8 +190,12 @@ public class ConfirmOrderActivity extends BaseActivity implements SelectDriverDi
 
         String number = mEtNumber.getText().toString().trim();
 
-        if (TextUtils.isEmpty(number) && Integer.parseInt(number)<=0 ) {
+        if (TextUtils.isEmpty(number) || Double.parseDouble(number)<=0 ) {
             ShowToast("请输入预装吨数");
+            return;
+        }
+        if (Double.parseDouble(number)>50){
+            ShowToast("预装不能超过50吨");
             return;
         }
 

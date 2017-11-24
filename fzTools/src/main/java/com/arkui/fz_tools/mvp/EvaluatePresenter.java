@@ -28,7 +28,8 @@ public class EvaluatePresenter extends BasePresenter {
         mContext =activity;
         mPublicApi = RetrofitFactory.createRetrofit(PublicApi.class);
     }
-    public void evaluate(String cargo_star_num, String log_star_num , String car_star_num, String user_id ){
+    public void evaluate(String cargo_star_num, String log_star_num , String car_star_num, String user_id,String type
+    ,String order_id){
         HashMap<String,Object> hashMap = new HashMap<>();
         if (cargo_star_num!=null){
             hashMap.put("cargo_star_num",cargo_star_num);//货主评星
@@ -41,6 +42,8 @@ public class EvaluatePresenter extends BasePresenter {
         }
 
         hashMap.put("user_id",user_id);
+        hashMap.put("type",type);
+        hashMap.put("order_id",order_id);
         Observable<BaseHttpResult> observable = mPublicApi.getEvaluate(hashMap);
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override

@@ -48,14 +48,14 @@ public class DriverLocationActivity extends BaseActivity {
         mMap.onCreate(savedInstanceState);
         String logStr = getIntent().getStringExtra("log");
         String latStr = getIntent().getStringExtra("lat");
-        double log = 116.397428;
-        double lat= 39.90923;
+        double log = 116.31404;
+        double lat= 40.06726;
         if (!TextUtils.isEmpty(logStr) && !TextUtils.isEmpty(latStr)){
              log = Double.parseDouble(logStr);
              lat = Double.parseDouble(latStr);
         }
 
-        LatLng latLng = new LatLng(log,lat);
+        LatLng latLng = new LatLng(lat,log);
         AMap map = mMap.getMap();
         UiSettings uiSettings = map.getUiSettings();
         uiSettings.setZoomControlsEnabled(false);

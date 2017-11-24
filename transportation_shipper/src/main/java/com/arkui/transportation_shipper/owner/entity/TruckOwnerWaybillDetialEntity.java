@@ -26,8 +26,46 @@ public class TruckOwnerWaybillDetialEntity {
      * loading_photo :
      * order_num
      * total_money
+     * lat
+     * log
+     * message_status
      *
+     * owner_cargo_id
+     *   "cargo_evaluate_status": "0",
+     "log_evaluate_status": "0",
+     "car_evaluate_status": "0",
+     order_money
      */
+    @SerializedName("cargo_evaluate_status")
+    private String cargo_evaluate_status;
+    @SerializedName("log_evaluate_status")
+    private String log_evaluate_status;
+    @SerializedName("car_evaluate_status")
+    private String car_evaluate_status;
+
+    public String getCargo_evaluate_status() {
+        return cargo_evaluate_status;
+    }
+
+    public void setCargo_evaluate_status(String cargo_evaluate_status) {
+        this.cargo_evaluate_status = cargo_evaluate_status;
+    }
+
+    public String getLog_evaluate_status() {
+        return log_evaluate_status;
+    }
+
+    public void setLog_evaluate_status(String log_evaluate_status) {
+        this.log_evaluate_status = log_evaluate_status;
+    }
+
+    public String getCar_evaluate_status() {
+        return car_evaluate_status;
+    }
+
+    public void setCar_evaluate_status(String car_evaluate_status) {
+        this.car_evaluate_status = car_evaluate_status;
+    }
 
     @SerializedName("carrier_num")
     private String carrierNum;
@@ -63,9 +101,70 @@ public class TruckOwnerWaybillDetialEntity {
     private String orderNum;
     @SerializedName("driver_id")
     private String driverId;
-    @SerializedName("total_money") //运单号
+    @SerializedName("log")
+    private String log;
+    @SerializedName("lat")
+    private String lat;
+
+    public String getOrderMoney() {
+        return orderMoney;
+    }
+
+    public void setOrderMoney(String orderMoney) {
+        this.orderMoney = orderMoney;
+    }
+
+    @SerializedName("order_money")
+    private String orderMoney;
+
+    public String getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(String messageStatus) {
+        this.messageStatus = messageStatus;
+    }
+
+    @SerializedName("message_status")
+    private String messageStatus;
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getmTotalMoney() {
+        return mTotalMoney;
+    }
+
+    public void setmTotalMoney(String mTotalMoney) {
+        this.mTotalMoney = mTotalMoney;
+    }
+
+    @SerializedName("total_money")
     private String mTotalMoney;
 
+    public String getmOwnerCargoId() {
+        return mOwnerCargoId;
+    }
+
+    public void setmOwnerCargoId(String mOwnerCargoId) {
+        this.mOwnerCargoId = mOwnerCargoId;
+    }
+
+    @SerializedName("owner_cargo_id") //运单号
+    private String mOwnerCargoId;
     public String getDriverId() {
         return driverId;
     }

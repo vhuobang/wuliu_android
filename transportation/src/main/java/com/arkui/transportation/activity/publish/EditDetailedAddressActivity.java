@@ -90,7 +90,12 @@ public class EditDetailedAddressActivity extends BaseListActivity<String> implem
 
     @OnClick(R.id.tv_cancel)
     public void onClick() {
+        Intent intent=new Intent();
+        String address = mEtSearch.getText().toString().trim();
+        intent.putExtra("address",address);
+        setResult(Activity.RESULT_OK,intent);
         finish();
+
     }
 
 
@@ -112,10 +117,10 @@ public class EditDetailedAddressActivity extends BaseListActivity<String> implem
         //回调给下一页
         String name = mSearchAddressAdapter.getItem(position).getName();
         String address = mSearchAddressAdapter.getItem(position).getAddress();
-
-        Intent intent=new Intent();
-        intent.putExtra("address",name+address);
-        setResult(Activity.RESULT_OK,intent);
-        finish();
+        mEtSearch.setText(name+address);
+//        Intent intent=new Intent();
+//        intent.putExtra("address",name+address);
+//        setResult(Activity.RESULT_OK,intent);
+//        finish();
     }
 }

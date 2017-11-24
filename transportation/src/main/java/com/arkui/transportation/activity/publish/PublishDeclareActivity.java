@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.arkui.fz_net.utils.RxBus;
@@ -123,6 +124,29 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         if (!TextUtils.isEmpty(releaseInfo.getId())){
             map.put("cargo_id",releaseInfo.getId());
         }
+        String[] loadaddress = releaseInfo.getLoadingAddress().split(" ");
+        String[] unloadAddress = releaseInfo.getUnloadingAddress().split(" ");
+        String loadaddres = loadaddress[0];
+        String[] split = loadaddres.split("-");
+        String unloadAddres = unloadAddress[0];
+        String[] split1 = unloadAddres.split("-");
+
+        String loading_province = split[0];
+        String loading_city = split[1];
+        String unloading_province = split1[0];
+        String unloading_city = split1[1];
+        boolean isHave = loading_city.contains("全");
+        boolean isHas =unloading_city.contains("全");
+        if (isHave){
+            loading_city=  loading_city.replace("全", "");
+        }
+        if (isHas){
+            unloading_city=  unloading_city.replace("全", "");
+        }
+        map.put("loading_province",loading_province);
+        map.put("loading_city",loading_city);
+        map.put("unloading_province",unloading_province);
+        map.put("unloading_city",unloading_city);
         mPublishPresenter.postSave(map);
     }
     @Override
@@ -136,7 +160,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         mWeb = new UMWeb(url);
         mWeb.setTitle("危货帮");
         mWeb.setThumb(new UMImage(this, com.arkui.fz_tools.R.mipmap.about_logo));
-        mWeb.setDescription("一个好用的app");
+        mWeb.setDescription("运危货，就找危货帮！");
         switch (type){
             case "wx":
                 showShare("wx");
@@ -152,6 +176,10 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
 
     @Override
     public void onCancelClick() {
+        publishSuccess();
+    }
+    // 发布成功后的界面跳转
+    private void publishSuccess() {
         AppManager.getAppManager().finishActivity(PublishCompleteInfoActivity.class);
         AppManager.getAppManager().finishActivity(MyDeliverActivity.class);
         Intent intent = new Intent(mActivity, MainActivity.class);
@@ -165,6 +193,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
     @Override
     public void onSuccess(PublishBean publishBean) {
         url= url+ publishBean.getId();
+        Log.e("fz", "onSuccess: " + publishBean.getId() );
         mSuccessFullyDialog.show(getSupportFragmentManager(),"full");
     }
 
@@ -210,17 +239,20 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         public void onResult(SHARE_MEDIA platform) {
             Toast.makeText(mActivity, "成功了", Toast.LENGTH_LONG).show();
             SocializeUtils.safeCloseDialog(mDialog);
+            publishSuccess();
         }
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             SocializeUtils.safeCloseDialog(mDialog);
             Toast.makeText(mActivity, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
+            publishSuccess();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
             SocializeUtils.safeCloseDialog(mDialog);
             Toast.makeText(mActivity, "取消了", Toast.LENGTH_LONG).show();
+            publishSuccess();
         }
     };
 

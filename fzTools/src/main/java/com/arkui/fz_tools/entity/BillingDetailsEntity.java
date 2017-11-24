@@ -17,6 +17,7 @@ public class BillingDetailsEntity {
      * created_at : 2017-08-17 13:25:50
      * id : 4
      * cost_name : 充值
+     * order_number
      */
 
     @SerializedName("amount_paid")
@@ -35,6 +36,18 @@ public class BillingDetailsEntity {
     private String id;
     @SerializedName("cost_name")
     private String costName;
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    @SerializedName("order_number")
+    private String orderNumber;
+
 
     public String getAmountPaid() {
         return amountPaid;

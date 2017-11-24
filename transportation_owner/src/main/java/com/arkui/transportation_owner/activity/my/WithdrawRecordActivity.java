@@ -93,9 +93,13 @@ public class WithdrawRecordActivity extends BaseActivity implements OnBindViewHo
      */
     @Override
     public void onFail(String errorMessage) {
-        mRlRecord.refreshComplete();
-        mRlRecord.loadFail();
-        mWithdrawRecord.setNewData(null);
+        if (page==1){
+            mWithdrawRecord.setNewData(null);
+            mRlRecord.loadFail();
+        }else {
+            mRlRecord.refreshComplete();
+            mWithdrawRecord.loadMoreEnd();
+        }
     }
 
     /**

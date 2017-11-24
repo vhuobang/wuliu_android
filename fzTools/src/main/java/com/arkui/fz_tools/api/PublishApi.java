@@ -2,8 +2,10 @@ package com.arkui.fz_tools.api;
 
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.PublishBean;
+import com.arkui.fz_tools.entity.RemarkEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -26,5 +28,9 @@ public interface PublishApi {
     @FormUrlEncoded
     @POST(NetConstants.EDIT_CARGO_INFO)
     Observable<BaseHttpResult> postEditCargo(@FieldMap Map<String,Object> map);
+    //备注 App/Logistical/remark  REMARK
+    @POST(NetConstants.REMARK)
+    Observable<BaseHttpResult<List<RemarkEntity>>> getRemark();
+
 
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.TextView;
 
-import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.ReleaseDetailInterface;
 import com.arkui.fz_tools.entity.PublishParameterEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
@@ -115,11 +114,11 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         mTvUnloadingDetailAddress.setText(unloadingAddress.length >= 2 ? unloadingAddress[1] : "");
 
         mTvCargoName.setText(releaseDetailsEntity.getCargoName());
-        mTvCargoDensity.setText(releaseDetailsEntity.getCargoDensity() +"吨/方");
+        mTvCargoDensity.setText(releaseDetailsEntity.getCargoDensity() +"方/吨");
         mTvFreightPrice.setText(releaseDetailsEntity.getFreightPrice());
-        mTvCargoPrice.setText(releaseDetailsEntity.getCargoDensity() + "吨/方");
+        mTvCargoPrice.setText(releaseDetailsEntity.getCargoPrice());
         mTvLoadingTime.setText(releaseDetailsEntity.getLoadingTime());
-        mTvPressCharges.setText(releaseDetailsEntity.getPressCharges());
+        mTvPressCharges.setText(releaseDetailsEntity.getPressCharges()+ "元/天");
 
         mTvPaymentTerms.setText(StrUtil.formatPayMent(releaseDetailsEntity.getPaymentTerms()));
         mTvSettlementTime.setText(StrUtil.formatSettlementTime(releaseDetailsEntity.getSettlementTime()));

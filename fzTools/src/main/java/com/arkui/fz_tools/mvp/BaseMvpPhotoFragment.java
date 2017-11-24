@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,8 +80,19 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
 
     protected void selectCamera() {
         File file = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
-        mPhotoUri = Uri.fromFile(file);
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            String authority = getActivity().getApplicationInfo().packageName + ".provider";
+            mPhotoUri = FileProvider.getUriForFile(getActivity(), authority, file);
+
+//            ContentValues contentValues = new ContentValues(1);
+//            contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+//            mPhotoUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+        } else {
+            mPhotoUri = Uri.fromFile(file);
+        }
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
@@ -144,14 +156,18 @@ public abstract class BaseMvpPhotoFragment extends BaseMvpFragment implements On
         mPhotoUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
         intent.putExtra("crop", "true");
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", mAspectX);
-        intent.putExtra("aspectY", mAspectY);
+//        intent.putExtra("aspectX", mAspectX);
+//        intent.putExtra("aspectY", mAspectY);
         // outputX,outputY 是剪裁图片的宽高
-       /* intent.putExtra("outputX", 500);
-        intent.putExtra("outputY", 500);*/
+       intent.putExtra("outputX", 500);
+        intent.putExtra("outputY", 500);
         intent.putExtra("return-data", false);
         intent.putExtra("noFaceDetection", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);

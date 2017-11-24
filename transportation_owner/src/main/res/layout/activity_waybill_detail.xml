@@ -66,13 +66,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="张三丰"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
             </TableRow>
 
 
             <TableRow
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0.5dp"
@@ -94,7 +94,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15811145479"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -121,11 +120,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="京Q5457X"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
             </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="挂车车号"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/tv_hand_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="暂时没有"
+                    android:textColor="@color/gray_color"
+                    android:textSize="@dimen/sp_14" />
+            </TableRow>
 
             <TableRow
                 style="@style/TableRow"
@@ -138,7 +155,7 @@
                 <TextView
                     android:id="@+id/tv_product_number"
                     style="@style/TextViewWeight999"
-                    android:text="100吨" />
+                     />
             </TableRow>
 
             <TableRow
@@ -168,6 +185,69 @@
 
                 </LinearLayout>
             </TableRow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/hz_bq" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:layout_weight="1"
+                    android:text="司机信息" />
+            </LinearLayout>
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="司机姓名" />
+
+                <TextView
+                    android:id="@+id/tv_driver_name"
+                    style="@style/TextViewWeight999"
+                    />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="司机电话" />
+
+                <TextView
+                    android:id="@+id/tv_product_phone"
+                    style="@style/TextViewWeight999"
+                    />
+            </TableRow>
+            <TableRow
+                style="@style/TableRow"
+                android:layout_marginTop="0.5dp">
+
+                <TextView
+                    style="@style/TextView"
+                    android:text="司机身份证" />
+
+                <TextView
+                    android:id="@+id/tv_driver_id"
+                    style="@style/TextViewWeight999"
+                    />
+            </TableRow>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -15,12 +15,14 @@ import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.api.PayApi;
+import com.arkui.fz_tools.entity.UnionPayEntity;
 import com.arkui.fz_tools.entity.WxPayEntity;
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.base.App;
+import com.arkui.transportation_owner.pay.BankCardsListActivity;
 import com.arkui.transportation_owner.pay.Wechat;
 import com.arkui.transportation_owner.pay.alipay.Alipay;
 import com.arkui.transportation_owner.pay.alipay.PayResult;
@@ -60,6 +62,10 @@ public class AccountRechargeActivity extends BaseActivity {
         super.initView();
         ButterKnife.bind(this);
         payApi = RetrofitFactory.createRetrofit(PayApi.class);
+        String money = getIntent().getStringExtra("money");
+        if (!TextUtils.isEmpty(money)){
+            mEtMoney.setText(money);
+        }
         mRgRoot.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -81,7 +87,7 @@ public class AccountRechargeActivity extends BaseActivity {
 
     @OnClick(R.id.bt_start)
     public void onClick() {
-        String money = mEtMoney.getText().toString().trim();
+        final String money = mEtMoney.getText().toString().trim();
         if (TextUtils.isEmpty(money)) {
             Toast.makeText(AccountRechargeActivity.this, "请输入充值金额", Toast.LENGTH_SHORT).show();
             return;
@@ -91,7 +97,7 @@ public class AccountRechargeActivity extends BaseActivity {
                 aLiPay(money);
                 break;
             case "wx":
-                Observable<WxPayEntity> observable = payApi.getWxPay(App.getUserId(), money,"wxpay","android", Constants.OWNER_PAY).map(new HttpResultFunc<WxPayEntity>());
+                Observable<WxPayEntity> observable = payApi.getWxPay(App.getUserId(), Double.parseDouble(money)*100+"" ,"wxpay","android", Constants.OWNER_PAY).map(new HttpResultFunc<WxPayEntity>());
                 HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<WxPayEntity>(mActivity) {
                     @Override
                     protected void getDisposable(Disposable d) {
@@ -101,12 +107,27 @@ public class AccountRechargeActivity extends BaseActivity {
                     public void onNext(WxPayEntity value) {
                         Wechat wechat = new Wechat(mActivity);
                         wechat.pay(value);
+
                     }
                 });
 
                 break;
             case "yl":
+                // 点击进去进入选择银行卡列表页面
+                // 银联支付
+                Observable<UnionPayEntity> ob = payApi.getUnion_Pay(App.getUserId(), money).map(new HttpResultFunc<UnionPayEntity>());
+                HttpMethod.getInstance().getNetData(ob, new ProgressSubscriber<UnionPayEntity>(mActivity) {
+                    @Override
+                    protected void getDisposable(Disposable d) {
+                        mDisposables.add(d);
+                    }
 
+                    @Override
+                    public void onNext(UnionPayEntity value) {
+
+                        BankCardsListActivity.openActivity(mActivity,value.getOrderSn(),money);
+                    }
+                });
                 break;
         }
     }
@@ -148,6 +169,7 @@ public class AccountRechargeActivity extends BaseActivity {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(AccountRechargeActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -166,5 +188,8 @@ public class AccountRechargeActivity extends BaseActivity {
             }
         }
     };
-
+    protected void onDestroy() {
+        super.onDestroy();
+        mDisposables.dispose();
+    }
 }

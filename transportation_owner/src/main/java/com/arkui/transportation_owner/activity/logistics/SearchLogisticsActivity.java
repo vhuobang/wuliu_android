@@ -181,7 +181,7 @@ public class SearchLogisticsActivity extends BaseActivity<HistocialSearchEntity>
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String id = mLogisticsAdapter.getItem(position).getId();
         String name = mLogisticsAdapter.getItem(position).getName();
-        String authTatus = mLogisticsAdapter.getItem(position).getAuthTatus();
+        String authTatus = mLogisticsAdapter.getItem(position).getAuthStatus();
         Intent intent = new Intent();
         intent.putExtra("id", id);
         intent.putExtra("title", name);

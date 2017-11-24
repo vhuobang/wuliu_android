@@ -17,6 +17,7 @@ import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.WaybillDetailActivity;
 import com.arkui.transportation.api.LogisticalApi;
+import com.arkui.transportation.base.App;
 import com.arkui.transportation.entity.CargoCarrierListEntity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -70,7 +71,7 @@ public class CarriageListActivity extends BaseListActivity<CargoCarrierListEntit
 
     @Override
     public void initData() {
-        Observable<List<CargoCarrierListEntity>> observable = mLogisticalApi.getCargoCarrierList(cargoId).map(new HttpResultFunc<List<CargoCarrierListEntity>>());
+        Observable<List<CargoCarrierListEntity>> observable = mLogisticalApi.getCargoCarrierList(cargoId, App.getUserId()).map(new HttpResultFunc<List<CargoCarrierListEntity>>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<CargoCarrierListEntity>>(CarriageListActivity.this) {
             @Override
             protected void getDisposable(Disposable d) {

@@ -3,28 +3,22 @@ package com.arkui.transportation_owner.activity.publish;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.help.Inputtips;
 import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
-import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.ui.BaseActivity;
-import com.arkui.fz_tools.ui.BaseListActivity;
 import com.arkui.fz_tools.utils.HistorySearchDividerItem;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.adapter.SearchAddressAdapter;
-import com.arkui.transportation_owner.utils.ListData;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
@@ -96,6 +90,10 @@ public class EditDetailedAddressActivity extends BaseActivity implements Inputti
 
     @OnClick(R.id.tv_cancel)
     public void onClick() {
+        Intent intent=new Intent();
+        String address =  mEtSearch.getText().toString().trim();
+        intent.putExtra("address",address);
+        setResult(Activity.RESULT_OK,intent);
         finish();
     }
 
@@ -118,10 +116,10 @@ public class EditDetailedAddressActivity extends BaseActivity implements Inputti
         //回调给下一页
         String name = mSearchAddressAdapter.getItem(position).getName();
         String address = mSearchAddressAdapter.getItem(position).getAddress();
-
-        Intent intent=new Intent();
-        intent.putExtra("address",name+address);
-        setResult(Activity.RESULT_OK,intent);
-        finish();
+        mEtSearch.setText(name+address);
+//        Intent intent=new Intent();
+//        intent.putExtra("address",name+address);
+//        setResult(Activity.RESULT_OK,intent);
+//        finish();
     }
 }

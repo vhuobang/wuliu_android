@@ -10,6 +10,7 @@ import com.arkui.fz_tools.entity.UserEntity;
 import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.mvp.BaseMvpActivity;
 import com.arkui.fz_tools.mvp.UserPresenter;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.arkui.fz_tools.view.ShapeButton;
 import com.arkui.fz_tools.view.ShapeLinearLayout;
@@ -17,9 +18,13 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.driver.activity.DriverMainActivity;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 
 public class DriverLoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
@@ -74,7 +79,7 @@ public class DriverLoginActivity extends BaseMvpActivity<UserPresenter> implemen
     private void getLogin() {
         String phoneNumber = etPhoneNumber.getText().toString().trim();
         String passWord = etPassword.getText().toString().trim();
-        mPresenter.getLogin(phoneNumber, passWord, Constants.DRIVER);
+        mPresenter.getLogin(phoneNumber, passWord, Constants.DRIVER,JPushInterface.getRegistrationID(mActivity));
     }
 
 
@@ -97,9 +102,16 @@ public class DriverLoginActivity extends BaseMvpActivity<UserPresenter> implemen
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(DriverMainActivity.class);
+        JPushInterface.setAlias(mActivity, userEntity.getId(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+            }
+        });
         //标识位司机登录
         SPUtil.getInstance(mActivity).save("type",Constants.DRIVER);
         finish();
+        AppManager.getAppManager().finishActivity(LoginActivity.class);
     }
 
     @Override

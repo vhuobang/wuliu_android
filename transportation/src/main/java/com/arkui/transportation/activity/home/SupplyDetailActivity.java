@@ -85,6 +85,7 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
     private LogisticalApi logisticalApi;
     private CommonDialog commonDialog;
     private LogisticalDetailEntity entity;
+    private String paymentTerms1;
 
     @Override
     public void setRootView() {
@@ -162,16 +163,17 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
         GlideUtils.getInstance().loadRound(this,entity.getLogo(),ivHeader);
         goodsInfo.setText(logisticalDetailEntity.getCargoName()+"/"+logisticalDetailEntity.getCargoNum()+ StrUtil.formatUnit( logisticalDetailEntity.getUnit())+"/剩余"+
         logisticalDetailEntity.getSurplusNum() + StrUtil.formatUnit(logisticalDetailEntity.getUnit()));
-        cargoDensity.setText(logisticalDetailEntity.getCargoDensity() + "吨/方");
+        cargoDensity.setText(logisticalDetailEntity.getCargoDensity() + "方/吨");
         freightPrice.setText(logisticalDetailEntity.getFreightPrice());
         cargoPrice.setText(logisticalDetailEntity.getCargoPrice());
         loadingTime.setText(logisticalDetailEntity.getLoadingTime());
-        String paymentTerms = logisticalDetailEntity.getPaymentTerms(); // 1.货主2。物流3.货到付款
-        if (paymentTerms.equals("1")){
-            this.paymentTerms.setText("货主");
-        }else if (paymentTerms.equals("2")){
-            this.paymentTerms.setText("物流");
-        }else if (paymentTerms.equals("3")){
+        // 1.货主2。物流3.货到付款
+        paymentTerms1 = logisticalDetailEntity.getPaymentTerms();
+        if (paymentTerms1.equals("1")){
+            this.paymentTerms.setText("货主网上支付");
+        }else if (paymentTerms1.equals("2")){
+            this.paymentTerms.setText("物流网上支付");
+        }else if (paymentTerms1.equals("3")){
             this.paymentTerms.setText("货到付款");
         }
         String settlementTime = logisticalDetailEntity.getSettlementTime();
@@ -202,7 +204,7 @@ public class SupplyDetailActivity extends BaseActivity implements OnConfirmClick
       switch (view.getId()){
           case R.id.bt_start:
               if (mType == 1) {
-                  CompleteInfoActivity.openCompleteInfoActivity(SupplyDetailActivity.this,cargo_id);
+                  CompleteInfoActivity.openCompleteInfoActivity(SupplyDetailActivity.this,cargo_id,paymentTerms1);
               } else {
                   CarriageListActivity.openCarriageListActivity(SupplyDetailActivity.this,cargo_id);
               }

@@ -3,14 +3,17 @@ package com.arkui.fz_tools.api;
 import com.arkui.fz_net.entity.BaseHttpResult;
 import com.arkui.fz_tools.entity.CarGoListEntity;
 import com.arkui.fz_tools.entity.CargoOwnerInfoEntity;
+import com.arkui.fz_tools.entity.CodeEntity;
 import com.arkui.fz_tools.entity.LogWayBIllListEntity;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
 import com.arkui.fz_tools.entity.SystemDetialEntity;
 import com.arkui.fz_tools.entity.UpLoadEntity;
+import com.arkui.fz_tools.entity.VerPicEntity;
 import com.arkui.fz_tools.entity.WayBillDetailEntity;
 import com.arkui.fz_tools.model.NetConstants;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,5 +76,16 @@ public interface PublicApi {
     @FormUrlEncoded
     @POST(NetConstants.EVALUATE)
     Observable<BaseHttpResult> getEvaluate(@FieldMap Map<String,Object> map);
-
+    //  删除消息 notice_del
+    @FormUrlEncoded
+    @POST(NetConstants.NOTICE_DEL)
+    Observable<BaseHttpResult> getNoticeDel(@Field("id") String id);
+    // 获取图形验证码
+    @FormUrlEncoded
+    @POST(NetConstants.GET_CODE)
+    Observable<BaseHttpResult<VerPicEntity>> getVarImageCode(@FieldMap Map<String,Object>  map);
+    // 发送验证码
+    @FormUrlEncoded
+    @POST(NetConstants.SEND_SMS)
+    Observable<BaseHttpResult<CodeEntity>> getSendSms(@FieldMap HashMap<String,Object>  hashMap);
 }

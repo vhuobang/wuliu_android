@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="信息费用"
+            android:text="信息费"
             android:textColor="@color/black_list_color"
             android:textSize="@dimen/sp_15" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="￥100.00"
+            android:text="￥"
             android:textColor="@color/mainColor"
             android:textSize="24sp" />
 
@@ -57,7 +57,7 @@
                 android:id="@+id/tv_name"
                 android:layout_marginLeft="25dp"
                 android:textSize="@dimen/sp_14"
-                android:text="null"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

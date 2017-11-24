@@ -104,6 +104,9 @@ public class DriverMyFragment extends BaseFragment implements UserInterface {
                 if (isUserCertificate.equals("2")) {
                     Toast.makeText(getActivity(), "已认证", Toast.LENGTH_SHORT).show();
                 }
+                if (isUserCertificate.equals("3")) {
+                    showActivity(DriverAuthActivity.class);
+                }
                 break;
         }
     }
@@ -124,7 +127,7 @@ public class DriverMyFragment extends BaseFragment implements UserInterface {
         mUserEntity = userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(), ivHead);
         tvName.setText(userEntity.getNickname());
-
+        App.setUserEntity(userEntity);
         isUserCertificate = userEntity.getIsUserCertificate();
           mIntegral.setText(userEntity.getIntegral());
           mBalance.setText("￥" + userEntity.getBalance());
@@ -137,5 +140,10 @@ public class DriverMyFragment extends BaseFragment implements UserInterface {
         if (isUserCertificate.equals("2")) {
             tvAuth.setText("已认证");
         }
+        if (isUserCertificate.equals("3")) {
+            tvAuth.setText("重新上传");
+        }
+
+
     }
 }

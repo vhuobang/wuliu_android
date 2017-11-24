@@ -1,7 +1,6 @@
 package com.arkui.transportation_shipper.owner.activity.supply;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.SuccessFullyDialog;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.ui.BaseActivity;
-import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.SupplyApi;
 import com.arkui.transportation_shipper.common.base.App;
@@ -85,9 +83,30 @@ public class PayMessageFeeActivity extends BaseActivity {
 
     @OnClick(R.id.bt_start)
     public void onClick() {
-        // mCommonDialog.show(getSupportFragmentManager(), "pay");
+        //
         //拉起支付
-        pay();
+        if (mOrderEntity==null){
+            return;
+        }else {
+            String infomation_fee = mOrderEntity.getInfomation_fee();
+            String balance = App.getUserEntity().getBalance();
+            if (Double.parseDouble(balance) < Double.parseDouble(infomation_fee)){
+                mCommonDialog.show(getSupportFragmentManager(), "pay");
+            }else {
+              CommonDialog  mCommonDialog  = new CommonDialog();
+                mCommonDialog.setTitle("确认支付");
+                mCommonDialog.setContent("确认信息费无误，立即支付").setConfirmText("立即支付");
+                mCommonDialog.showDialog(PayMessageFeeActivity.this,"pay");
+                mCommonDialog.setConfirmClick(new OnConfirmClick() {
+                    @Override
+                    public void onConfirmClick() {
+                        pay();
+                    }
+                });
+
+            }
+        }
+
     }
 
     private void pay() {

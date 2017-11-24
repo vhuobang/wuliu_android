@@ -101,10 +101,16 @@ public abstract class BasePhotoActivity extends BaseActivity implements OnPictur
         this.isCrop = isCrop;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mImageFile = new File(mExternalFilesDir, "IMG_" + TimeUtil.getCurTime("yyyyMMdd_HHmmss") + ".jpg");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             String authority = mActivity.getApplicationInfo().packageName + ".provider";
             mUri = FileProvider.getUriForFile(mActivity, authority, mImageFile);
+
+           // intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            ContentValues contentValues = new ContentValues(1);
+//            contentValues.put(MediaStore.Images.Media.DATA, mImageFile.getAbsolutePath());
+//            mUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
         } else {
             mUri = Uri.fromFile(mImageFile);
         }

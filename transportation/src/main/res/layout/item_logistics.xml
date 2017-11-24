@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="69dp"
+    android:layout_height="90dp"
     android:background="@drawable/touch_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_head"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@mipmap/sy_photo" />
 
     <LinearLayout
@@ -55,6 +55,11 @@
             android:id="@+id/tv_info"
             style="@style/TextView666"
             android:layout_marginTop="10dp"
+            android:text="" />
+        <TextView
+            android:id="@+id/tv_owner_name"
+            style="@style/TextView666"
+            android:layout_marginTop="5dp"
             android:text="" />
 
     </LinearLayout>

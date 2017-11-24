@@ -54,6 +54,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/pay_time"
             android:layout_marginTop="0.5dp"
             style="@style/TableRow">
 

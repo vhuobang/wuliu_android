@@ -67,7 +67,12 @@ public class CarriageDetailActivity extends BaseActivity implements OnBindViewHo
         ButterKnife.bind(this);
         carGoId = getIntent().getStringExtra("carGoId");
         cStatus = getIntent().getStringExtra("c_status");
-        tvState.setText(StrUtil.formatCStatus(cStatus));
+        if (cStatus.equals("1")){
+            tvState.setText("停止发布");
+        }else {
+            tvState.setText(StrUtil.formatCStatus(cStatus));
+        }
+
         statuClickable();
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));

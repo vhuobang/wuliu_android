@@ -18,9 +18,13 @@ import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.owner.activity.MainActivity;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * 车主登陆界面
@@ -96,7 +100,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     private void getLogin() {
         String phoneNumber = etPhoneNumber.getText().toString().trim();
         String passWord = etPassword.getText().toString().trim();
-        mPresenter.getLogin(phoneNumber, passWord, Constants.CAR_OWNER);
+        mPresenter.getLogin(phoneNumber, passWord, Constants.CAR_OWNER,JPushInterface.getRegistrationID(mActivity));
 
     }
 
@@ -119,6 +123,12 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+        JPushInterface.setAlias(mActivity, userEntity.getId(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+            }
+        });
         //标识位车主登录
         SPUtil.getInstance(mActivity).save("type",Constants.CAR_OWNER);
         finish();

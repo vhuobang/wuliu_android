@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,12 +14,9 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.arkui.fz_net.utils.RxBus;
-import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.LogisticsBusEntity;
-import com.arkui.fz_tools.listener.OnBindViewHolderListener;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
-import com.arkui.fz_tools.utils.LogUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_owner.R;
 import com.arkui.transportation_owner.activity.logistics.CityPickerActivity;
@@ -32,10 +27,8 @@ import com.arkui.transportation_owner.adapter.LogisticsAdapter;
 import com.arkui.transportation_owner.entity.LogisticalListEntity;
 import com.arkui.transportation_owner.entity.RefreshLogistics;
 import com.arkui.transportation_owner.mvp.LogisticsPresenter;
-import com.arkui.transportation_owner.utils.ListData;
 import com.arkui.transportation_owner.view.LogisticsView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -181,6 +174,7 @@ public class LogisticsListActivity extends BaseActivity implements OnRefreshList
     @Override
     public void onError() {
         if (mPage == 1) {
+            mLogisticsAdapter.setNewData(null);
             mRlList.loadFail();
         } else {
             mLogisticsAdapter.loadMoreEnd();
@@ -200,7 +194,7 @@ public class LogisticsListActivity extends BaseActivity implements OnRefreshList
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String id = mLogisticsAdapter.getItem(position).getId();
         String name = mLogisticsAdapter.getItem(position).getName();
-        String authTatus = mLogisticsAdapter.getItem(position).getAuthTatus();
+        String authTatus = mLogisticsAdapter.getItem(position).getAuthStatus();
         Intent intent = new Intent();
         intent.putExtra("id", id);
         intent.putExtra("title", name);

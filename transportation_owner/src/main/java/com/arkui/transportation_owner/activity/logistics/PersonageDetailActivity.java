@@ -62,7 +62,7 @@ public class PersonageDetailActivity extends BaseActivity implements LogisticsVi
         super.initData();
         mLogisticsPresenter = new LogisticsPresenter(this, this);
         String id = getIntent().getStringExtra("id");
-        mLogisticsPresenter.postLogisticsDetail(id);
+        mLogisticsPresenter.postLogisticsDetail(id,"");
         mPosition = getIntent().getIntExtra("position", -1);
     }
 

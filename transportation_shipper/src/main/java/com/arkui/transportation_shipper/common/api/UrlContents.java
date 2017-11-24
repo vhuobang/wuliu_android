@@ -8,7 +8,7 @@ public class UrlContents {
     // 服务器根地址
     //   public static final String BASE_URL = "http://shunfengche.181858.com/index.php/";
     //public static final String BASE_URL = "http://wuliu.181858.com/index.php/";
-    public static final String BASE_URL = "http://wuliufz.gotoip1.com/index.php/";
+    public static final String BASE_URL = "http://www.vhuobang.net/index.php/";
     //1. 注册
     public static final String REGISTER = BASE_URL + "App/Users/register";
     //2.登陆
@@ -71,5 +71,7 @@ public class UrlContents {
   public static final String LOADING_LIST_DETAIL =BASE_URL+"App/Driver/loading_list_detail";
    // 司机端提交经纬度
    public static final String DRIVER_POSITION =BASE_URL+"App/TruckOwner/driver_position";
+    //删除待装货订单
+    public static final String CHARGE_BACK =BASE_URL+"App/TruckOwner/chargeBack";
 
 }

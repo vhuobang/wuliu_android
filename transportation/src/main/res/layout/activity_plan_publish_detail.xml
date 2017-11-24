@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="北京昌平区"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心B栋308"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="唐山迁安"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="甲醛/100吨/剩余40吨"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="20.2吨/升"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="100元/吨"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="1000元/吨"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -209,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2017-6-23"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -259,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="7天内结算"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -284,7 +284,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="100元"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -302,7 +302,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装车联系人"
+                    android:text="提货单位"
                     android:textColor="@color/black_normal_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -311,7 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="赵敏"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -328,7 +328,8 @@
                 <TextView
                     android:id="@+id/truck_tel"
                     style="@style/TextViewWeight999"
-                    android:text="15244478521" />
+
+                     />
             </TableRow>
 
             <View style="@style/dividerLine" />
@@ -342,7 +343,7 @@
                 <TextView
                     android:id="@+id/unloading_contact"
                     style="@style/TextViewWeight999"
-                    android:text="张无忌" />
+                   />
             </TableRow>
 
             <View style="@style/dividerLine" />
@@ -355,7 +356,7 @@
 
                 <TextView
                     style="@style/TextViewWeight999"
-                    android:text="15244478521"
+
                     android:id="@+id/unloading_tel" />
             </TableRow>
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.arkui.transportation_owner.activity.my.RechargeSucceedActivity">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -27,8 +26,8 @@
             android:text="恭喜你 提现" />
 
         <TextView
+            android:id="@+id/money"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             android:text="100"
             android:textColor="@color/mainColor" />

@@ -38,6 +38,7 @@ public abstract class ProgressSubscriber<T> implements ProgressCancelListener, S
         mProgressDialogHandler = new ProgressDialogHandler(activity, this, false);
     }
 
+
     public ProgressSubscriber(Activity activity) {
         this.context = activity;
         this.mIsDialog = true;

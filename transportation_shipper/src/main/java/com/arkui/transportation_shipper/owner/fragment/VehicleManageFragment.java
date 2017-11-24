@@ -93,6 +93,7 @@ public class VehicleManageFragment extends BaseFragment implements  BaseQuickAda
             public void onApiError(ApiException e) {
                 super.onApiError(e);
                 mRlVehicle.loadFail(e.getMessage());
+                mVehicleManageAdapter.setNewData(null);
                 mRlVehicle.refreshComplete();
             }
         });

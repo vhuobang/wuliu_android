@@ -2,11 +2,13 @@ package com.arkui.fz_tools.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by 84658 on 2017/8/22.
  */
 
-public class BankCarEntity {
+public class BankCarEntity implements Serializable{
 
     /**
      * number : 6212260200138811936
@@ -18,6 +20,7 @@ public class BankCarEntity {
      * tel : 18734881922
      * id : 4
      * is_default : 0
+     * icon
      */
 
     @SerializedName("number")
@@ -38,6 +41,17 @@ public class BankCarEntity {
     private String id;
     @SerializedName("is_default")
     private String isDefault;
+    @SerializedName("icon")
+    private String icon;
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+
 
     public String getNumber() {
         return number;

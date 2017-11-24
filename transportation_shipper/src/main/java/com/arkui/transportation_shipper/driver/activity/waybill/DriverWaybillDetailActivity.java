@@ -72,11 +72,13 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
     private String orderId;
     private CommonDialog commonDialog;
     private DriverOrderDetailEntity mDriverOrderDetailEntity;
+    private boolean isMessage;
 
-    public static void openActivity(Context context, int type, String orderId) {
+    public static void openActivity(Context context, int type, String orderId,boolean isMessage) {
         Intent intent = new Intent(context, DriverWaybillDetailActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("isMessage",isMessage);
         context.startActivity(intent);
     }
 
@@ -94,6 +96,7 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
 
         mType = getIntent().getIntExtra("type", 0);
         orderId = getIntent().getStringExtra("orderId");
+        isMessage = getIntent().getBooleanExtra("isMessage", false);
         commonDialog = new CommonDialog();
         commonDialog.setTitle("拨打电话");
         commonDialog.setConfirmClick(this);
@@ -102,11 +105,23 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
         switch (mType) {
             case 1:
                 setTitle("待装货详情");
+                if (isMessage){
+                    mTvSubmit.setVisibility(View.GONE);
+                }else {
+                    mTvSubmit.setVisibility(View.VISIBLE);
+                    mTvSubmit.setText("提交装货磅单");
+                }
                 break;
             case 2:
                 setTitle("运输中详情");
                 setRight("查看磅单");
-                mTvSubmit.setText("提交卸货磅单");
+                if (isMessage){
+                    mTvSubmit.setVisibility(View.GONE);
+                }else {
+                    mTvSubmit.setVisibility(View.VISIBLE);
+                    mTvSubmit.setText("提交卸货磅单");
+                }
+
                 break;
             case 3:
                 setTitle("已卸货详情");
@@ -148,13 +163,19 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
         String[] loadingAddress = value.getLoadingAddress().split(" ");
         String[] unloadingAddress = value.getUnloadingAddress().split(" ");
         mLoadingAddress.setText(loadingAddress[0]);
-        mLoadingAddressDetail.setText(loadingAddress[1]);
+        if (loadingAddress.length>1){
+            mLoadingAddressDetail.setText(loadingAddress[1]);
+        }
+
         mUnloadingAddress.setText(unloadingAddress[0]);
-        mLoadingAddressDetail.setText(unloadingAddress[1]);
+        if (unloadingAddress.length>1){
+            mUnloadingAddressDetail.setText(unloadingAddress[1]);
+        }
+
         mTvLicensePlate.setText(value.getLicensePlate());
         mProNumber.setText(value.getCarrierNum() + unit);
         mCargoInfo.setText(value.getCargoName() + " " + value.getCargoNum() + unit);
-        mCargoDensity.setText(value.getCargoDensity() + "吨/方");
+        mCargoDensity.setText(value.getCargoDensity() + "方/吨");
         mTvTime.setText(value.getLoadingTime());
         mTvCargoPerson.setText(value.getTruckDrawer());
         mCargoPhone.setText(value.getTruckTel());
@@ -167,10 +188,10 @@ public class DriverWaybillDetailActivity extends BaseActivity implements OnConfi
     @OnClick(R.id.tv_submit)
     public void onClick() {
         if (mType == 1) {
-            LoadingBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId);
+            LoadingBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId,mDriverOrderDetailEntity.getCarrierNum());
             //showActivity(LoadingBillActivity.class);
         } else {
-            UnloadBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId);
+            UnloadBillActivity.openActivity(DriverWaybillDetailActivity.this, orderId,mDriverOrderDetailEntity.getCarrierNum());
         }
 
     }

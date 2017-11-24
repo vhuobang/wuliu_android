@@ -66,4 +66,9 @@ public class WaybillFragment extends BaseFragment {
         super.initData();
 
     }
+
+    public void setCurrentPage(int page){
+
+//        mViewPager.setCurrentItem(page);
+    }
 }

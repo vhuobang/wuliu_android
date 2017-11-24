@@ -18,7 +18,6 @@ import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.AuthenticationPresenter;
 import com.arkui.fz_tools.mvp.BaseMvpPhotoFragment;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
-import com.arkui.fz_tools.ui.BaseFragment;
 import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.base.App;
@@ -77,8 +76,9 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
             }
         });
 
-        setAspectX(3);
-        setAspectY(2);
+
+//        setAspectY(100);
+//        setAspectX(78);
         mAddressPicker = new AddressPicker();
         //初始化其数据
         LoadCityData.initData(mContext, new Consumer<List<City>>() {

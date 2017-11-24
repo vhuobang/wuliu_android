@@ -126,7 +126,7 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         mWeb = new UMWeb(url);
         mWeb.setTitle("危货帮");
         mWeb.setThumb(new UMImage(this, com.arkui.fz_tools.R.mipmap.about_logo));
-        mWeb.setDescription("一个好用的app");
+        mWeb.setDescription("运危货，就找危货帮！");
         switch (type){
             case "wx":
                 showShare("wx");
@@ -175,17 +175,20 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
         public void onResult(SHARE_MEDIA platform) {
             Toast.makeText(mActivity, "成功了", Toast.LENGTH_LONG).show();
             SocializeUtils.safeCloseDialog(mDialog);
+            publishSuccess();
         }
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             SocializeUtils.safeCloseDialog(mDialog);
             Toast.makeText(mActivity, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
+            publishSuccess();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
             SocializeUtils.safeCloseDialog(mDialog);
             Toast.makeText(mActivity, "取消了", Toast.LENGTH_LONG).show();
+            publishSuccess();
         }
     };
 
@@ -198,6 +201,10 @@ public class PublishDeclareActivity extends BaseActivity implements OnConfirmCli
 
     @Override
     public void onCancelClick() {
+        publishSuccess();
+    }
+
+    private void publishSuccess() {
         AppManager.getAppManager().finishActivity(SelectLogisticsActivity.class);
         AppManager.getAppManager().finishActivity(MyDeliverActivity.class);
 

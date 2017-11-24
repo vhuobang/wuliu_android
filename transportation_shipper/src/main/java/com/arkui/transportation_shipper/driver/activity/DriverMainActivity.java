@@ -1,9 +1,19 @@
 package com.arkui.transportation_shipper.driver.activity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -17,18 +27,31 @@ import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.ui.BaseFragment;
+import com.arkui.fz_tools.utils.AppManager;
 import com.arkui.transportation_shipper.R;
+import com.arkui.transportation_shipper.common.activity.LoginActivity;
 import com.arkui.transportation_shipper.common.api.DriverApi;
+import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.driver.fragment.DriverMyFragment;
 import com.arkui.transportation_shipper.driver.fragment.DriverWaybillFragment;
 import com.arkui.transportation_shipper.owner.fragment.MessageFragment;
+import com.arkui.transportation_shipper.service.MonitorService;
+import com.arkui.transportation_shipper.service.WakeLockService;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.Set;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+
+import static com.arkui.transportation_shipper.R.id.rb_msg;
+import static com.arkui.transportation_shipper.R.id.rb_order;
 
 
 public class DriverMainActivity extends BaseActivity implements AMapLocationListener {
@@ -44,6 +67,13 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
     private DriverApi driverApi;
+    @BindView(R.id.rb_msg)
+    RadioButton radioButtonMsg;
+    @BindView(R.id.rb_order)
+    RadioButton radioButtonOrder;
+    @BindView(R.id.rb_my)
+    RadioButton radioButtonMy;
+    private DriverMainBroadcastReceiver driverMainBroadcastReceiver;
 
     @Override
     public void setRootView() {
@@ -57,10 +87,29 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
         rxPermissions = new RxPermissions(this);
         driverApi = RetrofitFactory.createRetrofit(DriverApi.class);
         mMessageFragment = new MessageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("authType",2); // 代表司机
+        mMessageFragment.setArguments(bundle);
         mDriverOrderFragment = new DriverWaybillFragment();
         mDriverMyFragment = new DriverMyFragment();
-        changeFragment(R.id.fl_content, mMessageFragment);
+        String ts = getIntent().getStringExtra("ts");
+        if (!TextUtils.isEmpty(ts) && ts.equals("推送")){
+            radioButtonMsg.setChecked(true);
+            radioButtonMy.setChecked(false);
+            changeFragment(R.id.fl_content, mMessageFragment);
+        }else {
+            changeFragment(R.id.fl_content, mDriverMyFragment);
+        }
+
         initLocation();
+        initReceiver();
+    }
+
+    private void initReceiver() {
+        driverMainBroadcastReceiver = new DriverMainBroadcastReceiver();
+        //实例化过滤器并设置要过滤的广播
+        IntentFilter intentFilter = new IntentFilter("DriverMainActivity");
+        registerReceiver(driverMainBroadcastReceiver, intentFilter);
     }
 
     private void initLocation() {
@@ -70,11 +119,23 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
                 if (!aBoolean) {
                     Toast.makeText(mActivity, "没有权限，无法定位，建议你允许！", Toast.LENGTH_SHORT).show();
                 } else {
-                   getLocation();
+                  // getLocation();
+                    beginService();
                 }
             }
         });
 
+    }
+
+    private void beginService() {
+        startService(new Intent(DriverMainActivity.this, WakeLockService.class));
+        if (!MonitorService.isRunning) {
+            // 开启监听service
+            MonitorService.isCheck = true;
+            MonitorService.isRunning = true;
+            Intent   monitorService = new Intent(DriverMainActivity.this, MonitorService.class);
+            startService(monitorService);
+        }
     }
 
     /**
@@ -97,14 +158,30 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
 
     }
 
-    @OnClick({ R.id.rb_msg, R.id.rb_order, R.id.rb_my})
+    @OnClick({ rb_msg, rb_order, R.id.rb_my})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rb_msg:
-                changeFragment(R.id.fl_content, mMessageFragment);
+
+            case rb_msg:
+                String isUserCertificate = App.getUserEntity().getIsUserCertificate();
+                if (isUserCertificate.equals("2")){
+
+                    changeFragment(R.id.fl_content, mMessageFragment);
+                }else {
+                    Toast.makeText(mActivity,"请先认证",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
-            case R.id.rb_order:
-                changeFragment(R.id.fl_content, mDriverOrderFragment);
+            case rb_order:
+                String isUserCertificate1 = App.getUserEntity().getIsUserCertificate();
+                if (isUserCertificate1.equals("2")){
+
+                    changeFragment(R.id.fl_content, mDriverOrderFragment);
+
+                }else {
+                    Toast.makeText(mActivity,"请先认证",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.rb_my:
                 changeFragment(R.id.fl_content, mDriverMyFragment);
@@ -164,7 +241,7 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
     }
 
     private void upLocation(double latitude, double longitude) {
-        Observable<BaseHttpResult> observable = driverApi.upDriverPosition(String.valueOf(longitude), String.valueOf(latitude));
+        Observable<BaseHttpResult> observable = driverApi.upDriverPosition(String.valueOf(longitude), String.valueOf(latitude),App.getUserId());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(this) {
             @Override
             protected void getDisposable(Disposable d) {
@@ -174,12 +251,12 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
 
             @Override
             public void onNext(BaseHttpResult value) {
-                  Toast.makeText(mActivity,value.getMessage(),Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(mActivity,value.getMessage(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onApiError(ApiException e) {
-                Toast.makeText(mActivity,e.getMessage(),Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(mActivity,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,5 +281,45 @@ public class DriverMainActivity extends BaseActivity implements AMapLocationList
     protected void onDestroy() {
         super.onDestroy();
         destroyLocation();
+        unregisterReceiver(driverMainBroadcastReceiver);
     }
+    public class DriverMainBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            //利用Intent判断是否有自定义消息
+            String message = intent.getStringExtra("MessageContent");
+            if(message != null && message.equals("异地登陆")){
+                //如果有，则弹出对话框，提示用户下线
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder .setTitle("系统提示").
+                        setMessage("请注意，您的账号异地登陆！").setCancelable(false).
+                        setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //在这里可清除本地的用户信息
+                                App.getInstance().deleteUserInfo();
+                                AppManager.getAppManager().finishAllActivity();
+                                JPushInterface.setAlias(DriverMainActivity.this, "", new TagAliasCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s, Set<String> set) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("重新登录", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //再次执行登录操作
+                        App.getInstance().deleteUserInfo();
+                        AppManager.getAppManager().finishAllActivity();
+                        DriverMainActivity.this.startActivity(new Intent(DriverMainActivity.this,LoginActivity.class));
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
+                alertDialog.show();
+            }
+        }
+    }
+
 }

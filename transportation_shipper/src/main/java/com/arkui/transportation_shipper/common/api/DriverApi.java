@@ -43,7 +43,7 @@ public interface DriverApi {
    // 上传位置
    @FormUrlEncoded
    @POST(UrlContents.DRIVER_POSITION)
-   Observable<BaseHttpResult> upDriverPosition(@Field("log") String log,@Field("lat") String lat);
+   Observable<BaseHttpResult> upDriverPosition(@Field("log") String log,@Field("lat") String lat,@Field("user_id") String userId);
 }
 
 

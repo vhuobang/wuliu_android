@@ -63,6 +63,8 @@ public class MyWaybillFragment extends BaseLazyFragment {
     protected void lazyLoadData() {
 
     }
-
+    public void setCurrentPage(int page){
+        mViewPager.setCurrentItem(page);
+    }
 
 }

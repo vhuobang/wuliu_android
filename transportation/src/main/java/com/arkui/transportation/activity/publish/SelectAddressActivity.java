@@ -87,10 +87,15 @@ public class SelectAddressActivity extends BaseActivity implements AddressPicker
             case R.id.bt_save:
                 String address = mTvAddress.getText().toString().trim();
                 String detailAddress = mTvDetailAddress.getText().toString().trim();
-                if(TextUtils.isEmpty(address)&&TextUtils.isEmpty(detailAddress)){
+                if(TextUtils.isEmpty(address)){
                     ShowToast("请选择地址");
                     return;
                 }
+                if(TextUtils.isEmpty(detailAddress)){
+                    ShowToast("请选择详细地址");
+                    return;
+                }
+
                 Intent intent1=new Intent();
                 intent1.putExtra("address",address+" "+detailAddress);
                 setResult(Activity.RESULT_OK,intent1);

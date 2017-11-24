@@ -20,10 +20,15 @@ public interface LogisticalApi {
     //物流详情
     @FormUrlEncoded
     @POST(NetConstants.LOGISTICAL_DETAILS)
-    Observable<BaseHttpResult<LogisticalListEntity>> postLogisticalDetail(@Field("user_id") String user_id, @Field("log_id") String log_id);
-   // 车主端运单详情
+    Observable<BaseHttpResult<LogisticalListEntity>> postLogisticalDetail(@Field("user_id") String user_id, @Field("log_id") String log_id, @Field("id") String id);
+
+    // 车主端运单详情
     @FormUrlEncoded
     @POST(UrlContents.TRUCK_OWNER_WAYBILL_DETAILS)
     Observable<BaseHttpResult<TruckOwnerWaybillDetialEntity>> getTruckOwnerWaybillDetails(@Field("id") String id);
 
+    // 车主删除订单  App/TruckOwner/chargeBack
+    @FormUrlEncoded
+    @POST(UrlContents.CHARGE_BACK)
+    Observable<BaseHttpResult> getChargeBack(@Field("id") String id);
 }

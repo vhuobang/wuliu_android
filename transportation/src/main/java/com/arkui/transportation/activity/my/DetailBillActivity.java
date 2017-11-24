@@ -1,5 +1,8 @@
 package com.arkui.transportation.activity.my;
 
+import android.text.TextUtils;
+import android.widget.Toast;
+
 import com.arkui.fz_tools._interface.BillingDetailsInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.BillingDetailsEntity;
@@ -50,7 +53,7 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
         onRefreshing();
 
     }
-
+   // 刷新数据
     public void onRefreshing() {
 
         billingDetailsPresenter.getBillingDetails(App.getUserId(), page, pageSize);
@@ -79,6 +82,13 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
           helper.setText(R.id.tv_content,item.getCreatedAt());
           helper.setText(R.id.iv_arrow,item.getUnit()+item
           .getAmountPaid());
+        if (!TextUtils.isEmpty(item.getOrderNumber())){
+            helper.setText(R.id.order_number,"订单号:"+item.getOrderNumber());
+        }else {
+            helper.setVisible(R.id.order_number,false);
+        }
+
+
     }
 
     @Override
@@ -95,9 +105,11 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
             mDetailBillAdapter.setNewData(billingDetailsEntityList);
         } else {
             mDetailBillAdapter.addData(billingDetailsEntityList);
+            mDetailBillAdapter.loadMoreComplete();
         }
-        if (billingDetailsEntityList.size() <= pageSize) {
-            mDetailBillAdapter.loadMoreEnd(false);
+
+        if (billingDetailsEntityList.size() < pageSize) {
+            mDetailBillAdapter.loadMoreEnd();
         }
 
     }
@@ -106,8 +118,14 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
     @Override
     public void onFail(String errorMessage) {
         mRlBill.refreshComplete();
-        mRlBill.loadFail();
-        mDetailBillAdapter.setNewData(null);
+        Toast.makeText(mActivity,errorMessage,Toast.LENGTH_SHORT).show();
+        if (page==1){
+            mRlBill.loadFail();
+            mDetailBillAdapter.setNewData(null);
+        }else {
+            mDetailBillAdapter.loadMoreEnd();
+        }
+
     }
 
     /**
@@ -115,7 +133,7 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
      */
     @Override
     public void onLoadMoreRequested() {
-        page++;
+        page = page+1;
         onRefreshing();
     }
 }

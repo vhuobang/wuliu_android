@@ -89,7 +89,8 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mRlList.setVisibility(View.GONE);
                 mRlSearch.setVisibility(View.VISIBLE);
-                cargoSearchPresenter.getCargoSearchList(App.getUserId(),(String)adapter.getItem(position));
+                HistocialSearchEntity item = (HistocialSearchEntity) adapter.getItem(position);
+                cargoSearchPresenter.getCargoSearchList(App.getUserId(),item.getContent());
             }
         });
         // 搜索结果的 adapter
@@ -133,14 +134,13 @@ public class SearchLogisticsActivity extends BaseActivity implements  OnRefreshL
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     String keyWords = etSearch.getText().toString().trim();
                     if (TextUtils.isEmpty(keyWords)){
                         Toast.makeText(mActivity,"请输入关键字体",Toast.LENGTH_SHORT).show();
                         return false;
                     }
-
                     mRlList.setVisibility(View.GONE);
                     mRlSearch.setVisibility(View.VISIBLE);
                     cargoSearchPresenter.getCargoSearchList(App.getUserId(),keyWords);

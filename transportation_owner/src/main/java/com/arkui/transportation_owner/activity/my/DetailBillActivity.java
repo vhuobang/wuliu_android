@@ -1,5 +1,7 @@
 package com.arkui.transportation_owner.activity.my;
 
+import android.text.TextUtils;
+
 import com.arkui.fz_tools._interface.BillingDetailsInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.entity.BillingDetailsEntity;
@@ -79,6 +81,12 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
         helper.setText(R.id.tv_content,item.getCreatedAt());
         helper.setText(R.id.iv_arrow,item.getUnit()+item
                 .getAmountPaid());
+        if (!TextUtils.isEmpty(item.getOrderNumber())){
+            helper.setText(R.id.order_number,"订单号:"+item.getOrderNumber());
+        }else {
+            helper.setVisible(R.id.order_number,false);
+        }
+
     }
 
     @Override
@@ -95,8 +103,9 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
             mDetailBillAdapter.setNewData(billingDetailsEntityList);
         } else {
             mDetailBillAdapter.addData(billingDetailsEntityList);
+            mDetailBillAdapter.loadMoreComplete();
         }
-        if (billingDetailsEntityList.size() <= pageSize) {
+        if (billingDetailsEntityList.size() < pageSize) {
             mDetailBillAdapter.loadMoreEnd(false);
         }
 
@@ -105,9 +114,13 @@ public class DetailBillActivity extends BaseActivity implements OnBindViewHolder
     // 数据请求失败
     @Override
     public void onFail(String errorMessage) {
-        mDetailBillAdapter.setNewData(null);
+        if (page==1){
+            mRlBill.loadFail();
+            mDetailBillAdapter.setNewData(null);
+        }else {
+            mDetailBillAdapter.loadMoreEnd();
+        }
         mRlBill.refreshComplete();
-        mRlBill.loadFail();
     }
 
     /**

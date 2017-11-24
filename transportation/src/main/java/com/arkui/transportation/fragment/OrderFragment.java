@@ -1,5 +1,6 @@
 package com.arkui.transportation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -7,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.arkui.fz_tools._interface.MessageDelInterface;
 import com.arkui.fz_tools._interface.NoticeInterface;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
+import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.BaseMvpFragment;
+import com.arkui.fz_tools.mvp.MessageDelPresenter;
 import com.arkui.fz_tools.mvp.NoticePresenter;
 import com.arkui.fz_tools.mvp.PublicPresenter;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
@@ -33,7 +38,7 @@ import butterknife.ButterKnife;
 /**
  * 基于基类的Fragment
  */
-public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface, PublicInterface {
+public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener ,NoticeInterface, PublicInterface, OnConfirmClick, MessageDelInterface {
 
     @BindView(R.id.rl_order)
     PullRefreshRecyclerView mRlOrder;
@@ -45,6 +50,8 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     private  String ORDER_TYPE="1";
 
     private PublicPresenter publicPresenter;
+    private CommonDialog commonDialog;
+    private MessageDelPresenter messageDelPresenter;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -55,7 +62,12 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
     protected void initView(View parentView) {
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
+        commonDialog = new CommonDialog();
+        commonDialog.setTitle("删除消息");
+        commonDialog.setContent("确定删除消息？");
+        commonDialog.setConfirmClick(this);
         publicPresenter = new PublicPresenter(this, getActivity());
+        messageDelPresenter = new MessageDelPresenter(this, getActivity());
         mRlOrder.setLayoutManager(new LinearLayoutManager(mContext));
         mOrderMessageAdapter = new CommonAdapter(R.layout.item_system_message,this);
         mRlOrder.setAdapter(mOrderMessageAdapter);
@@ -72,7 +84,22 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
                 publicPresenter.getReadMessage(item.getId());
                 ImageView readPoint = (ImageView) view.findViewById(R.id.red_point);
                 readPoint.setVisibility(View.GONE);
-                WaybillDetailActivity.openActivity(getActivity(), Integer.parseInt(item.getTruck_status()),false,item.getTarget_id());
+                Intent intent = new Intent(getActivity(),WaybillDetailActivity.class);
+                intent.putExtra("type", Integer.parseInt(item.getTruck_status()));
+                intent.putExtra("isMy", false);
+                intent.putExtra("waybillId", item.getTarget_id());
+                intent.putExtra("isMessage",true);
+                startActivity(intent);
+            }
+        });
+
+        mOrderMessageAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                commonDialog.showDialog(getActivity(),"del");
+                NoticeEntity item = (NoticeEntity) adapter.getItem(position);
+                commonDialog.setAdditionalContent(item.getId());
+                return true;
             }
         });
     }
@@ -101,6 +128,7 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         }else {
             helper.getView(R.id.red_point).setVisibility(View.GONE);
         }
+       // helper.addOnClickListener(R.id.tv_del);
     }
 
     @Override
@@ -128,17 +156,11 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
             mRlOrder.refreshComplete();
             if(mOrderMessageAdapter.getItemCount()<10){
                 mOrderMessageAdapter.loadMoreEnd(false);
-            }else{
-                mOrderMessageAdapter.loadMoreEnd(true);
             }
         }else {
             mOrderMessageAdapter.addData(noticeEntityList);
             mOrderMessageAdapter.loadMoreComplete();
-            if (noticeEntityList.size()<pageSize){
-                mOrderMessageAdapter.loadMoreEnd(false);
-            }else {
-                mOrderMessageAdapter.loadMoreEnd(true);
-            }
+
 
         }
 
@@ -154,9 +176,12 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
        */
     @Override
     public void onFail(String message) {
+        if (page==1){
+            mRlOrder.loadFail();
+        }
         mOrderMessageAdapter.loadMoreEnd();
         mRlOrder.refreshComplete();
-        mRlOrder.loadFail();
+
     }
 
     @Override
@@ -169,5 +194,22 @@ public class OrderFragment extends BaseMvpFragment<NoticePresenter> implements O
         super.onDestroy();
      //   mPresenter.onDestroy();
         publicPresenter.onDestroy();
+    }
+
+    @Override
+    public void onConfirmClick() {
+        String additionalContent = commonDialog.getAdditionalContent();
+        messageDelPresenter.getNoticeDel(additionalContent);
+    }
+
+    @Override
+    public void delMessageSuccess() {
+        page=1;
+        getLoadData();
+    }
+
+    @Override
+    public void delMessageFail(String errorMessage) {
+
     }
 }

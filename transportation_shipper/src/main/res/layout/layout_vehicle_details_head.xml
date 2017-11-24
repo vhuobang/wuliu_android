@@ -53,6 +53,28 @@
         </TableRow>
 
         <View style="@style/dividerLine" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="26dp"
+                android:text="挂车号"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_glicense_plate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/gray_color"
+                android:textSize="@dimen/sp_14" />
+        </TableRow>
+
+        <View style="@style/dividerLine" />
 
         <TableRow
             android:layout_width="match_parent"

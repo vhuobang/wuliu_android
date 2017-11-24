@@ -24,7 +24,7 @@
                 android:id="@+id/tv_address"
                 android:drawableRight="@mipmap/sy_down"
                 style="@style/TextViewWeight999"
-                android:text="河北-邢台"
+                android:hint="请选择地址"
                 android:textColor="@color/black_normal_color" />
         </TableRow>
 

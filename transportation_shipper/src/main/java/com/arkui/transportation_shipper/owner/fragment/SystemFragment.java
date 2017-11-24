@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.arkui.fz_tools._interface.MessageDelInterface;
 import com.arkui.fz_tools._interface.NoticeInterface;
 import com.arkui.fz_tools._interface.PublicInterface;
 import com.arkui.fz_tools.adapter.CommonAdapter;
+import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.entity.NoticeEntity;
 import com.arkui.fz_tools.listener.OnBindViewHolderListener;
+import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.mvp.BaseMvpFragment;
+import com.arkui.fz_tools.mvp.MessageDelPresenter;
 import com.arkui.fz_tools.mvp.NoticePresenter;
 import com.arkui.fz_tools.mvp.PublicPresenter;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
@@ -34,14 +38,15 @@ import butterknife.ButterKnife;
 /**
  * 系统消息
  */
-public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,NoticeInterface, PublicInterface {
+public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements OnBindViewHolderListener<NoticeEntity>,OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,NoticeInterface, PublicInterface, OnConfirmClick, MessageDelInterface {
 
     @BindView(R.id.rl_system)
     PullRefreshRecyclerView mRlSystem;
     /* @BindView(R.id.refresh)
      EasyRefreshLayout mRefresh;*/
     private CommonAdapter<NoticeEntity> mAdapter;
-
+    private CommonDialog commonDialog;
+    private MessageDelPresenter messageDelPresenter;
     private  int page=1;
     private int pageSize =10;
     private  String SYSTEM_TYPE="2";
@@ -57,6 +62,11 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
         super.initView(parentView);
         ButterKnife.bind(this, parentView);
         mRlSystem.setOnRefreshListener(this);
+        commonDialog = new CommonDialog();
+        commonDialog.setTitle("删除消息");
+        commonDialog.setContent("确定删除消息？");
+        commonDialog.setConfirmClick(this);
+        messageDelPresenter = new MessageDelPresenter(this,getActivity());
         publicPresenter = new PublicPresenter(this, getActivity());
         mAdapter = new CommonAdapter<NoticeEntity>(R.layout.item_system_message,this);
         mRlSystem.setLayoutManager(new LinearLayoutManager(mContext));
@@ -77,6 +87,16 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
             }
         });
         mAdapter.setOnLoadMoreListener(this,mRlSystem.getRecyclerView());
+
+        mAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                commonDialog.showDialog(getActivity(),"del");
+                NoticeEntity item = (NoticeEntity) adapter.getItem(position);
+                commonDialog.setAdditionalContent(item.getId());
+                return true;
+            }
+        });
     }
 
     @Override
@@ -102,6 +122,7 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
         }else {
             helper.getView(R.id.red_point).setVisibility(View.GONE);
         }
+      //  helper.addOnClickListener(R.id.tv_del);
     }
     // 下拉刷新
     @Override
@@ -121,8 +142,6 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
             mAdapter.setNewData(noticeEntityList);
             mRlSystem.refreshComplete();
             if(mAdapter.getItemCount()<10){
-                mAdapter.loadMoreEnd(true);
-            }else{
                 mAdapter.loadMoreEnd(false);
             }
         }else {
@@ -140,9 +159,12 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
     // 加载数据失败
     @Override
     public void onFail(String message) {
+        if (page==1){
+            mRlSystem.loadFail();
+        }
         mAdapter.loadMoreEnd();
         mRlSystem.refreshComplete();
-        mRlSystem.loadFail();
+
     }
 
     @Override
@@ -155,5 +177,22 @@ public class SystemFragment extends BaseMvpFragment<NoticePresenter> implements 
         publicPresenter.onDestroy();
         mPresenter.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onConfirmClick() {
+        String additionalContent = commonDialog.getAdditionalContent();
+        messageDelPresenter.getNoticeDel(additionalContent);
+    }
+
+    @Override
+    public void delMessageSuccess() {
+        page=1;
+        getLoadData();
+    }
+
+    @Override
+    public void delMessageFail(String errorMessage) {
+
     }
 }

@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.arkui.transportation">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:name=".base.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.user.LoginActivity">
+
+        <activity android:name=".activity.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.user.LoginActivity">
+
         </activity>
         <activity android:name=".activity.home.SupplyDetailActivity" />
         <activity android:name=".activity.home.CompleteInfoActivity" />
@@ -63,6 +69,7 @@
         <activity android:name=".activity.user.PasswordResetActivity" />
         <activity android:name=".activity.user.RegisterActivity" />
         <activity android:name=".activity.user.ClauseActivity" />
+        <activity android:name=".pay.WebViewActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask" />
@@ -91,7 +98,8 @@
             android:name="com.amap.api.v2.apikey"
             android:value="66f2eb1e05cb952a21475d46d9767761" />
 
-        <activity android:name=".activity.my.InviteFriendListActivity"/>
+        <activity android:name=".activity.my.InviteFriendListActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.arkui.transportation.provider"
@@ -101,7 +109,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--微信支付-->
+        <!-- 微信支付 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -117,21 +125,39 @@
             </intent-filter>
         </activity>
 
-        <!--支付宝支付-->
+        <!-- 支付宝支付 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.arkui.transportation" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".pay.BankCardsListActivity" />
+        <activity android:name=".pay.BankCardPayActivity" />
+        <activity android:name=".activity.my.SoftWareDescriptionActivity"></activity>
+
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@
     package="com.arkui.transportation_shipper">
 
     <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,26 +15,27 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.arkui.transportation_shipper.common.base.App"
+        android:name=".common.base.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".owner.activity.MainActivity">
-
-        </activity>
-
-        <activity android:name=".common.activity.LoginActivity">
+        <activity android:name=".owner.activity.MainActivity" />
+        <activity android:name=".owner.activity.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".common.activity.LoginActivity"></activity>
         <activity android:name=".owner.activity.MessageDetailsActivity" />
         <activity android:name=".owner.activity.asset.VehicleDetailsActivity" />
         <activity
@@ -73,8 +75,7 @@
         <activity android:name=".owner.activity.my.PointWithdrawActivity" />
         <activity android:name=".owner.activity.my.WithdrawRecordActivity" />
         <activity android:name=".owner.activity.my.AuthActivity" />
-
-
+        <activity android:name=".owner.activity.my.InviteFriendListActivity" />
         <activity android:name=".common.activity.ForgetPasswordActivity" />
         <activity android:name=".common.activity.PasswordResetActivity" />
         <activity android:name=".common.activity.RegisterActivity" />
@@ -87,6 +88,8 @@
         <activity android:name=".driver.activity.my.DriverAuthActivity" />
         <activity android:name=".driver.activity.waybill.UnloadBillActivity" />
         <activity android:name=".owner.activity.asset.AddVehicleActivity" />
+        <activity android:name=".pay.BankCardsListActivity" />
+        <activity android:name=".pay.WebViewActivity" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -109,7 +112,7 @@
         <activity android:name="com.arkui.share.wxapi.WXEntryActivity" />
 
         <activity-alias
-            android:name="com.arkui.transportation_shipper.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:targetActivity="com.arkui.share.wxapi.WXEntryActivity" />
 
@@ -123,7 +126,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!--微信支付-->
+        <!-- 微信支付 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -139,21 +142,46 @@
             </intent-filter>
         </activity>
 
-        <!--支付宝支付-->
+        <!-- 支付宝支付 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.arkui.transportation_shipper" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.MonitorService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.WakeLockService"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".owner.activity.my.SoftWareDescriptionActivity"></activity>
     </application>
 
 </manifest>

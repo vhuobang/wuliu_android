@@ -24,6 +24,8 @@ public class PasswordResetActivity extends BaseMvpActivity<UserPresenter> implem
     ShapeEditText etConfirmPassword;
     private CommonDialog mCommonDialog;
     private String phone;
+    private String code;
+    private String deviceKey;
 
     @Override
     public void setRootView() {
@@ -36,6 +38,8 @@ public class PasswordResetActivity extends BaseMvpActivity<UserPresenter> implem
         super.initView();
         ButterKnife.bind(this);
         phone = getIntent().getStringExtra("phone");
+        code = getIntent().getStringExtra("code");
+        deviceKey = getIntent().getStringExtra("deviceKey");
         mCommonDialog = new CommonDialog();
         mCommonDialog.setTitle("重置密码").setContent("密码重置成功！").setNoCancel();
         mCommonDialog.setConfirmClick(this);
@@ -45,7 +49,8 @@ public class PasswordResetActivity extends BaseMvpActivity<UserPresenter> implem
     public void onClick() {
         String newPassword = etNewPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
-        mPresenter.getForgetPassword(phone,newPassword,confirmPassword, Constants.OWNER);
+        mPresenter.getForgetPassword(phone,newPassword,confirmPassword, Constants.OWNER,code,deviceKey);
+
 
     }
 

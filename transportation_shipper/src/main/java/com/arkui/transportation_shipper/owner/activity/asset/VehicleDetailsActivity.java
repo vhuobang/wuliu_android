@@ -1,6 +1,7 @@
 package com.arkui.transportation_shipper.owner.activity.asset;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,7 +63,7 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
         mVehicleDetails.setLinearLayoutManager();
         //CommonAdapter<String> mRlVehicleDerailsAdapter=new CommonAdapter<>(R.layout.item_vehicle_details,this);
         //mRlVehicleDerailsAdapter = CommonAdapter.getInstance(R.layout.item_vehicle_details, this);
-        mVehicleDetailsAdapter=new VehicleDetailsAdapter();
+        mVehicleDetailsAdapter = new VehicleDetailsAdapter();
         mVehicleDetails.setAdapter(mVehicleDetailsAdapter);
         mVehicleDetails.addItemDecoration(new AssetDecoration(mActivity, AssetDecoration.VERTICAL_LIST));
         mVehicleDetails.setEnablePullToRefresh(false);
@@ -105,7 +106,9 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
     }
 
     private void setUiData(VehicleDetailEntity value) {
+
         mTruckDetail = value.getTruck_detail();
+        mViewHolder.tv_palte.setText(TextUtils.isEmpty(mTruckDetail.getHand_car())?"无":mTruckDetail.getHand_car());
         mViewHolder.mTvLicensePlate.setText(mTruckDetail.getLicense_plate());
         mViewHolder.mTvSingularNum.setText(mTruckDetail.getSingular_num());
         mViewHolder.mTvType.setText(mTruckDetail.getType());
@@ -136,8 +139,8 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
                 if (mTruckDetail == null)
                     return;
                 //showActivity(VehicleEditedActivity.class);
-                Intent intent=new Intent(mActivity,VehicleEditedActivity.class);
-                intent.putExtra("data",mTruckDetail);
+                Intent intent = new Intent(mActivity, VehicleEditedActivity.class);
+                intent.putExtra("data", mTruckDetail);
                 startActivity(intent);
                 break;
             case R.id.tv_del:
@@ -195,6 +198,8 @@ public class VehicleDetailsActivity extends BaseActivity implements OnBindViewHo
         ImageView mIvFront;
         @BindView(R.id.iv_driving_license)
         ImageView mIvDrivingLicense;
+        @BindView(R.id.tv_glicense_plate)
+        TextView tv_palte;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -58,17 +58,8 @@ public class UserPresenter extends BasePresenter {
     }
 
     // 注册
-    public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code) {
+    public void getRegister(@NonNull String mobile, @NonNull String code, @NonNull String password, @NonNull String confirmPassword, @UserType int type, @Nullable String invitation_code,String deviceKey) {
 
-        if (mMobile == null) {
-            Toast.makeText(mContext, "请获取验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!mMobile.equals(mobile)) {
-            Toast.makeText(mContext, "请重新获取验证码", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
@@ -78,12 +69,12 @@ public class UserPresenter extends BasePresenter {
              Toast.makeText(mContext,"请输入验证码",Toast.LENGTH_SHORT).show();
              return;
          }
-        int verificationCode = Integer.parseInt(code);
-
-        if (verificationCode != mVerificationCode) {
-            Toast.makeText(mContext, "验证码输入不正确", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        int verificationCode = Integer.parseInt(code);
+//
+//        if (verificationCode != mVerificationCode) {
+//            Toast.makeText(mContext, "验证码输入不正确", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         if (password.length() < 6) {
             Toast.makeText(mContext, "密码长度不够", Toast.LENGTH_SHORT).show();
@@ -98,6 +89,8 @@ public class UserPresenter extends BasePresenter {
         parameter.put("mobile", mobile);
         parameter.put("password", Md5Util.getStringMD5(password));
         parameter.put("type", type);
+        parameter.put("code",code);
+        parameter.put("deviceKey",deviceKey);
         if (!TextUtils.isEmpty(invitation_code)) {
             parameter.put("invitation_code", invitation_code);
         }
@@ -150,7 +143,7 @@ public class UserPresenter extends BasePresenter {
 
 
     //登录
-    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type) {
+    public void getLogin(@NonNull String mobile, @NonNull String password, @UserType int type,String rj_id) {
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
@@ -170,6 +163,7 @@ public class UserPresenter extends BasePresenter {
             parameter.put("password", Md5Util.getStringMD5(password));
         }
         parameter.put("type", type);
+        parameter.put("rj_id",rj_id);
         Observable<UserEntity> observable = mUserApi.getLogin(parameter).map(new HttpResultFunc<UserEntity>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<UserEntity>(mContext) {
             @Override
@@ -217,7 +211,7 @@ public class UserPresenter extends BasePresenter {
     }
 
     // 修改密码
-    public void getForgetPassword(String mobile, String password, String confirmPassword, @UserType int type) {
+    public void getForgetPassword(String mobile, String password, String confirmPassword, @UserType int type,String code,String deviceKey) {
         if (!StrUtil.isMobileNO(mobile)) {
             Toast.makeText(mContext, "手机号输入不正确", Toast.LENGTH_SHORT).show();
             return;
@@ -231,10 +225,13 @@ public class UserPresenter extends BasePresenter {
             Toast.makeText(mContext, "两次密码输入不正确", Toast.LENGTH_SHORT).show();
             return;
         }
+
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("mobile", mobile);
         hashMap.put("password", Md5Util.getStringMD5(password));
         hashMap.put("type", type);
+        hashMap.put("code",code);
+        hashMap.put("deviceKey",deviceKey);
         Observable<BaseHttpResult> observable = mUserApi.getForgetPassword(hashMap);
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mContext) {
             @Override

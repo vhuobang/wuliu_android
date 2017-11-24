@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="120dp"
     android:background="@drawable/touch_bg"
     android:orientation="horizontal"
     android:paddingLeft="10dp"
@@ -70,7 +70,12 @@
             android:layout_height="wrap_content"
             android:text="500元/吨   7日内结算"
             android:textColor="@color/gray_color" />
-
+        <TextView
+            android:id="@+id/logic_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="物流："
+            android:textColor="@color/gray_color" />
     </LinearLayout>
 
     <ImageView

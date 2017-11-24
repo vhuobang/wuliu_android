@@ -36,6 +36,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="5dp"
                 android:background="@null"
+                android:inputType="numberDecimal"
                 android:hint="请输入充值金额"
                 android:textColorHint="@color/gray_color" />
 

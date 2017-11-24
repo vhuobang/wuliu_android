@@ -53,6 +53,7 @@
                 android:id="@+id/unloading_weight"
                 style="@style/TextViewWeight"
                 android:background="@null"
+                android:inputType="numberDecimal"
                 android:hint="请输入" />
 
         </LinearLayout>

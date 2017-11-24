@@ -84,7 +84,7 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
 
     @Override
     public void initData() {
-        logisticsPresenter.postLogisticsDetail(logid);
+        logisticsPresenter.postLogisticsDetail(logid,waybill_id);
     }
 
     @Override
@@ -96,7 +96,8 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
         mTvName.setText(logisticalDetails.getHandlerName());
         mTvRegisterYear.setText(logisticalDetails.getRegisterYear());
         mDealNumber.setText(logisticalDetails.getVolume());
-
+            mConnectName.setText(logisticalDetails.getLogContactName());
+        mTvConnectPhone.setText(logisticalDetails.getLogContactTel());
         mRatingBar.setRating(Float.parseFloat(logisticalDetails.getStarRating()));
     }
 
@@ -119,7 +120,8 @@ public class LogisticsInfoActivity extends BaseActivity implements LogisticsView
                 commonDialog.showDialog(LogisticsInfoActivity.this, "phone");
                 break;
             case R.id.iv_connect_phone:
-
+                commonDialog.setContent(entity.getLogContactTel());
+                commonDialog.showDialog(LogisticsInfoActivity.this, "phone");
                 break;
         }
     }

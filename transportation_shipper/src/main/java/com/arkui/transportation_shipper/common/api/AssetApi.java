@@ -74,6 +74,6 @@ public interface AssetApi {
     //删除司机
     @FormUrlEncoded
     @POST(UrlContents.DRIVER_DEL)
-    Observable<BaseHttpResult> postDeleteDriver(@Field("driver_id") String driver_id);
+    Observable<BaseHttpResult> postDeleteDriver(@Field("driver_id") String driver_id,@Field("owner_id") String ownerId);
 
 }

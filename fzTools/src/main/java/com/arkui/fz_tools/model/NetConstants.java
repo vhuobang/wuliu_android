@@ -5,7 +5,7 @@ package com.arkui.fz_tools.model;
  */
 
 public class NetConstants {
-    public static final String BASE_URL =  "http://wuliufz.gotoip1.com/";
+    public static final String BASE_URL =  "http://www.vhuobang.net/";
     //注册
     public static final String REGISTER=BASE_URL+"index.php/App/Users/register";
     //登录
@@ -91,4 +91,26 @@ public class NetConstants {
     public static final String FRIEND_SHARE=BASE_URL+"index.php/App/Public/friend_share";
     // 发货分享 App/Public/share
     public static final String SHARE=BASE_URL+"index.php/App/Public/share";
+    // 备注 App/Logistical/remark
+    public static final String REMARK=BASE_URL+"index.php/App/Logistical/remark";
+    // 消息删除
+    public static final String NOTICE_DEL=BASE_URL+"index.php/App/notice/notice_del";
+    //银联充值
+    public static final String UNION_PAY=BASE_URL+"index.php/App/recharge/union_pay";
+    //免责声明 App/Public/impunity
+    public static final String IMPUNITY=BASE_URL+"index.php/App/Public/impunity";
+     // 支付异步回调
+    public static final String NOTIFY_URL= BASE_URL+"App/Recharge/union_notify";
+  //  public static final String NOTIFY_URL= "http://qiexingqiepai.181858.com/index.php/App/Finance/union_notify";
+   // 提现接口
+     public  static  final  String WITHDRAW = BASE_URL+ "index.php/App/Recharge/auto_withdraw";
+    //积分提现
+     public  static  final  String FINANCE_WITHDRAW = BASE_URL+ "index.php/App/Finance/withdraw";
+    //获取图片验证码  App/user/get_code
+    public  static  final  String GET_CODE = BASE_URL+ "index.php/App/Users/get_code";
+    // 得到验证码 App/Users/send_sms
+    public  static  final  String SEND_SMS = BASE_URL+ "index.php/App/Users/send_sms ";
+
 }
+
+

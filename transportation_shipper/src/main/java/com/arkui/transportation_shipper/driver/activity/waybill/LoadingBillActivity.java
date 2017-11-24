@@ -55,10 +55,12 @@ public class LoadingBillActivity extends BasePhotoActivity implements UploadingP
     private String orderId;
     private UpLoadEntity mUpLoadEntityf;
     private DriverApi driverApi;
+    private String carryNumber;
 
-    public static void openActivity(Context context, String orderId) {
+    public static void openActivity(Context context, String orderId,String carryNumber) {
         Intent intent = new Intent(context, LoadingBillActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("carryNumber",carryNumber);
         context.startActivity(intent);
     }
 
@@ -74,6 +76,7 @@ public class LoadingBillActivity extends BasePhotoActivity implements UploadingP
         super.initView();
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
+        carryNumber = getIntent().getStringExtra("carryNumber");
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = simpleDateFormat.format(date);
@@ -97,6 +100,10 @@ public class LoadingBillActivity extends BasePhotoActivity implements UploadingP
                 String loadingWeight = mEtLoadingWeight.getText().toString().trim();
                 if (TextUtils.isEmpty(loadingWeight)){
                     Toast.makeText(LoadingBillActivity.this,"装货吨数不能为空",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if ( Double.parseDouble(loadingWeight) > Double.parseDouble(carryNumber)+1){
+                    Toast.makeText(mActivity,"装货吨数不能大于预装吨数1吨",Toast.LENGTH_SHORT).show();
                     return;
                 }
                  if (mUpLoadEntityf == null){

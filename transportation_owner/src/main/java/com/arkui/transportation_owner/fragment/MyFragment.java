@@ -119,6 +119,9 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")){
                     Toast.makeText(getActivity(),"已认证",Toast.LENGTH_SHORT).show();
                 }
+                if (isUserCertificate.equals("3") || isCompanyCertificate.equals("3")){
+                    showActivity(AuthActivity.class);
+                }
 
                 break;
 
@@ -144,6 +147,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
         mUserEntity = userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(),ivHead );
         tvName.setText(userEntity.getNickname());
+        App.setUserEntity(userEntity);
         isUserCertificate = userEntity.getIsUserCertificate();
         isCompanyCertificate = userEntity.getIsCompanyCertificate();
         mBalance.setText("￥"+userEntity.getBalance());
@@ -157,6 +161,9 @@ public class MyFragment extends BaseFragment implements UserInterface {
         }
         if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")){
             tvAuth.setText("已认证");
+        }
+        if (isUserCertificate.equals("3") || isCompanyCertificate.equals("3")){
+            tvAuth.setText("重新认证");
         }
     }
 }

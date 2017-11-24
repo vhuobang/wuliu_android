@@ -23,7 +23,8 @@ public class CollectLogisticsAdapter extends BaseQuickAdapter<LogisticalListEnti
         GlideUtils.getInstance().loadRound(mContext, item.getLogo(), (ImageView) helper.getView(R.id.iv_head));
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_info, "已注册" + item.getRegisterYear() + "年 " + "成交" + item.getVolume() + "条");
-        helper.setRating(R.id.rating, Float.parseFloat(item.getStarRating()));
+
+        helper.setRating(R.id.rating, Float.parseFloat(item.getStarRating()!=null?item.getStarRating():"0"));
         helper.addOnClickListener(R.id.iv_select);
         ImageView iv_select = helper.getView(R.id.iv_select);
         iv_select.setSelected(item.isCheck());

@@ -12,7 +12,6 @@ import com.arkui.fz_net.http.HttpResultFunc;
 import com.arkui.fz_net.http.RetrofitFactory;
 import com.arkui.fz_net.subscribers.ProgressSubscriber;
 import com.arkui.fz_tools._interface.UploadingPictureInterface;
-import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.entity.UpLoadEntity;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.UploadingPicturePresenter;
@@ -27,7 +26,6 @@ import com.arkui.transportation_shipper.common.entity.VehicleModelEntity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,13 +47,17 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     ImageView mIvPic;
     @BindView(R.id.iv_pic2)
     ImageView mIvPic2;
+    @BindView(R.id.et_glicense_plate)
+    EditText mEtGlicensePlate;
+    @BindView(R.id.tv_complete)
+    TextView mTvComplete;
     // private SelectPicturePicker mSelectPicturePicker;
     private SelectVehicleModelDialog mSelectVehicleModelDialog;
     private int mType = -1;
     private UploadingPicturePresenter mUploadingPicturePresenter;
     private String mPath1 = null;
     private String mPath2 = null;
-    private String mItemId=null;
+    private String mItemId = null;
     private AssetApi mAssetApi;
 
     @Override
@@ -70,8 +72,8 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         ButterKnife.bind(this);
         initDialog();
         mUploadingPicturePresenter = new UploadingPicturePresenter(this, this);
-        setAspectY(2);
-        setAspectX(3);
+//        setAspectY(100);
+//        setAspectX(78);
     }
 
     @Override
@@ -82,7 +84,7 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         //获取车型
         Observable<List<VehicleModelEntity>> observable = mAssetApi.postCarType().map(new HttpResultFunc<List<VehicleModelEntity>>());
 
-        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<VehicleModelEntity>>(mActivity,false) {
+        HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<List<VehicleModelEntity>>(mActivity, false) {
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -100,11 +102,11 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         mSelectVehicleModelDialog.setOnSelectVehicleModelListener(this);
     }
 
-    @OnClick({R.id.tv_vehicle_model, R.id.tv_complete, R.id.iv_pic, R.id.iv_pic2, R.id.iv_clean})
+    @OnClick({R.id.tv_vehicle_model, R.id.tv_complete, R.id.iv_pic, R.id.iv_pic2, R.id.iv_clean, R.id.iv_delete})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_vehicle_model:
-                if(mSelectVehicleModelDialog.getVehicleModelList().isEmpty())
+                if (mSelectVehicleModelDialog.getVehicleModelList().isEmpty())
                     return;
                 mSelectVehicleModelDialog.showDialog(this, "model");
                 break;
@@ -124,6 +126,10 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
             case R.id.iv_clean:
                 mEtLicensePlate.setText("");
                 break;
+            case R.id.iv_delete:
+                mEtGlicensePlate.setText("");
+                break;
+
         }
     }
 
@@ -133,9 +139,11 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
             ShowToast("请输入车牌号");
             return;
         }
+        String hand_car = mEtGlicensePlate.getText().toString().trim();
+
 
         String type = mTvVehicleModel.getText().toString();
-        if (mItemId==null) {
+        if (mItemId == null) {
             ShowToast("请选择车型");
             return;
         }
@@ -155,6 +163,7 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
         parameter.put("user_id", App.getUserId());
         parameter.put("license_plate", licensePlate);
         parameter.put("type", type);
+        parameter.put("hand_car",hand_car);
         parameter.put("truck_poto", mPath1);
         parameter.put("driving_license_photo", mPath2);
 
@@ -207,6 +216,8 @@ public class AddVehicleActivity extends BasePhotoActivity implements OnVehicleTy
     @Override
     public void selectVehicleModel(String itemText, String itemId) {
         mTvVehicleModel.setText(itemText);
-        mItemId=itemId;
+        mItemId = itemId;
     }
+
+
 }

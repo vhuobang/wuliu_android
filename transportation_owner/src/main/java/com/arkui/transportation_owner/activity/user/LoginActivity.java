@@ -14,9 +14,13 @@ import com.arkui.transportation_owner.activity.MainActivity;
 import com.arkui.transportation_owner.base.App;
 
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 
 public class LoginActivity extends BaseMvpActivity<UserPresenter> implements UserInterface {
@@ -62,7 +66,7 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     private void getLogin() {
         String phone = mEtPhone.getText().toString().trim();
         String password = mEtPassword.getText().toString();
-        mPresenter.getLogin(phone,password, Constants.OWNER);
+        mPresenter.getLogin(phone,password, Constants.OWNER,JPushInterface.getRegistrationID(mActivity));
     }
 
     @Override
@@ -75,6 +79,12 @@ public class LoginActivity extends BaseMvpActivity<UserPresenter> implements Use
     public void loginSucceed(UserEntity userEntity) {
         App.setUserEntity(userEntity);
         showActivity(MainActivity.class);
+        JPushInterface.setAlias(mActivity, userEntity.getId(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+            }
+        });
         finish();
     }
 

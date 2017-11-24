@@ -2,7 +2,6 @@ package com.arkui.fz_net.progress;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +27,7 @@ public class ProgressDialogHandler extends Handler {
         this.mProgressCancelListener = mProgressCancelListener;
         this.cancelable = cancelable;
     }
+
 
     private void initProgressDialog(){
         if (pd == null) {

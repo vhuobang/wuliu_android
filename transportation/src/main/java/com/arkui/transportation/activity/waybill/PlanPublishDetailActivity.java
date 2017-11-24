@@ -11,6 +11,11 @@ import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.publish.PublishCompleteInfoActivity;
+import com.arkui.transportation.entity.EditEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +87,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
         ButterKnife.bind(this);
         carGoId = getIntent().getStringExtra("carGoId");
         releaseDetailPresenter = new ReleaseDetailPresenter(this, this);
+        EventBus.getDefault().register(this);
     }
 
     /**
@@ -97,6 +103,7 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
      * 加载数据
      */
     private void loadData() {
+
         if (carGoId != null) {
             releaseDetailPresenter.getReleaseDetail(carGoId);
         }
@@ -108,6 +115,11 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
 
         EditPlanPublishDetailActivity.showActivity(mActivity,carGoId);
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void event(EditEvent editEvent){
+        loadData();
+    }
+
     //立即发布
     @OnClick(R.id.tv_publish)
     public void onViewClicked() {
@@ -134,14 +146,14 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
 
 
         String unit = StrUtil.formatUnit(entity.getUnit());
-        tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + StrUtil.formatUnit(unit));
-        cargoDensity.setText(entity.getCargoDensity() + "吨/方");
+        tvGoodInfo.setText(entity.getCargoName() + "/" + entity.getCargoNum() + unit);
+        cargoDensity.setText(entity.getCargoDensity() + "方/吨");
         freightPrice.setText(entity.getFreightPrice());
         cargoPrice.setText(entity.getCargoPrice());
         loadingTime.setText(entity.getLoadingTime());
         paymentTerms.setText(StrUtil.formatPayMent(entity.getPaymentTerms()));
         settlementTime.setText(StrUtil.formatSettlementTime(entity.getSettlementTime()));
-        pressCharges.setText(entity.getPressCharges());
+        pressCharges.setText(entity.getPressCharges()+"元/天");
         truckDrawer.setText(entity.getTruckDrawer());
         truckTel.setText(entity.getTruckTel());
         unloadingContact.setText(entity.getUnloadingContact());
@@ -152,5 +164,11 @@ public class PlanPublishDetailActivity extends BaseActivity implements ReleaseDe
     @Override
     public void onFail(String errorMessage) {
         Toast.makeText(PlanPublishDetailActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

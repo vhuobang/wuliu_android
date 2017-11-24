@@ -96,6 +96,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onNext(List<SliderMessageEntity> list) {
+                textListView.onDestroy();
                 if (textList==null){
                     textList = new ArrayList<>();
                 }

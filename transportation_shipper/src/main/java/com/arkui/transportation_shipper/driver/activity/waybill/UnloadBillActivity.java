@@ -53,10 +53,12 @@ public class UnloadBillActivity extends BasePhotoActivity implements UploadingPi
     private UpLoadEntity mUpLoadEntityf;
     private DriverApi driverApi;
     private UploadingPicturePresenter uploadingPicturePresenter;
+    private String carryNumber;
 
-    public static void openActivity(Context context, String orderId) {
+    public static void openActivity(Context context, String orderId,String carryNumber) {
         Intent intent = new Intent(context, UnloadBillActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("carryNumber",carryNumber);
         context.startActivity(intent);
     }
 
@@ -71,6 +73,7 @@ public class UnloadBillActivity extends BasePhotoActivity implements UploadingPi
         super.initView();
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
+        carryNumber = getIntent().getStringExtra("carryNumber");
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = simpleDateFormat.format(date);
@@ -98,6 +101,11 @@ public class UnloadBillActivity extends BasePhotoActivity implements UploadingPi
                     Toast.makeText(UnloadBillActivity.this,"卸货吨数不能为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+               if ( Double.parseDouble(loadingWeight) > Double.parseDouble(carryNumber)+1){
+                   Toast.makeText(UnloadBillActivity.this,"卸货吨数不能大于预装吨数1吨",Toast.LENGTH_SHORT).show();
+                   return;
+               }
                 if (mUpLoadEntityf == null){
                     Toast.makeText(UnloadBillActivity.this,"上传磅单未成功",Toast.LENGTH_SHORT).show();
                     return;

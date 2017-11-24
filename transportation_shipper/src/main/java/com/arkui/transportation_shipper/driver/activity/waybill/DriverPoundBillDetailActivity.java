@@ -3,6 +3,7 @@ package com.arkui.transportation_shipper.driver.activity.waybill;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.DriverApi;
 import com.arkui.transportation_shipper.common.entity.PoundListDetail;
+import com.arkui.transportation_shipper.owner.dialog.ViewVehicleLargeMapDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +24,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 
-public class DriverPoundBillDetailActivity extends BaseActivity {
+public class DriverPoundBillDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
     @BindView(R.id.loading_time)
@@ -39,6 +41,8 @@ public class DriverPoundBillDetailActivity extends BaseActivity {
     ImageView mIvUnloadingPound;
     private String orderId;
     private DriverApi driverApi;
+    private ViewVehicleLargeMapDialog viewVehicleLargeMapDialog;
+    private PoundListDetail poundListDetail;
 
     public static void openActivity(Context context, String orderId) {
         Intent intent = new Intent(context, DriverPoundBillDetailActivity.class);
@@ -59,12 +63,16 @@ public class DriverPoundBillDetailActivity extends BaseActivity {
         ButterKnife.bind(this);
         orderId = getIntent().getStringExtra("orderId");
         driverApi = RetrofitFactory.createRetrofit(DriverApi.class);
+        mIvLoadingPound.setOnClickListener(this);
+        mIvUnloadingPound.setOnClickListener(this);
+        viewVehicleLargeMapDialog = new ViewVehicleLargeMapDialog();
     }
 
     @Override
     public void initData() {
         Observable<PoundListDetail> observable = driverApi.loadingListDetail(orderId).map(new HttpResultFunc<PoundListDetail>());
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<PoundListDetail>(this) {
+
             @Override
             protected void getDisposable(Disposable d) {
                 mDisposables.add(d);
@@ -72,6 +80,7 @@ public class DriverPoundBillDetailActivity extends BaseActivity {
 
             @Override
             public void onNext(PoundListDetail value) {
+                poundListDetail = value;
                 mLoadingTime.setText(value.getLoadingTime());
                 mLoadingNumber.setText(value.getLoadingWeight() + "吨");
                 GlideUtils.getInstance().loadRound(mActivity,value.getLoadingPhoto(),mIvLoadingPound);
@@ -92,4 +101,21 @@ public class DriverPoundBillDetailActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_loading_pound :
+                String loadingPhoto = poundListDetail.getLoadingPhoto();
+                if (!TextUtils.isEmpty(loadingPhoto)){
+                    viewVehicleLargeMapDialog.setImgUrl(loadingPhoto).showDialog(DriverPoundBillDetailActivity.this,"photo");
+                }
+                break;
+            case R.id.iv_unloading_pound:
+                String unloadingPhoto = poundListDetail.getUnloadingPhoto();
+                if (!TextUtils.isEmpty(unloadingPhoto)){
+                    viewVehicleLargeMapDialog.setImgUrl(unloadingPhoto).showDialog(DriverPoundBillDetailActivity.this,"photo");
+                }
+                break;
+        }
+    }
 }

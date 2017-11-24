@@ -45,6 +45,7 @@ public class VehicleDetailEntity {
          * truck_poto : Uploads/Avatar/2017-08-28/15039124235153.png
          * driving_license_photo : Uploads/Avatar/2017-08-28/15039124382406.png
          * created_at : null
+         * hand_car
          */
 
         private String id;
@@ -55,6 +56,15 @@ public class VehicleDetailEntity {
         private String truck_poto;
         private String driving_license_photo;
         private String created_at;
+        private  String hand_car;
+
+        public String getHand_car() {
+            return hand_car;
+        }
+
+        public void setHand_car(String hand_car) {
+            this.hand_car = hand_car;
+        }
 
         public String getId() {
             return id;
@@ -136,6 +146,7 @@ public class VehicleDetailEntity {
             dest.writeString(this.truck_poto);
             dest.writeString(this.driving_license_photo);
             dest.writeString(this.created_at);
+            dest.writeString(this.hand_car);
         }
 
         public TruckDetailBean() {
@@ -150,6 +161,7 @@ public class VehicleDetailEntity {
             this.truck_poto = in.readString();
             this.driving_license_photo = in.readString();
             this.created_at = in.readString();
+            this.hand_car=in.readString();
         }
 
         public static final Parcelable.Creator<TruckDetailBean> CREATOR = new Parcelable.Creator<TruckDetailBean>() {

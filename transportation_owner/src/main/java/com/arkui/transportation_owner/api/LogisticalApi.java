@@ -33,7 +33,7 @@ public interface LogisticalApi {
     //物流详情
     @FormUrlEncoded
     @POST(NetConstants.LOGISTICAL_DETAILS)
-    Observable<BaseHttpResult<LogisticalListEntity>> postLogisticalDetail(@Field("user_id") String user_id,@Field("log_id") String log_id);
+    Observable<BaseHttpResult<LogisticalListEntity>> postLogisticalDetail(@Field("user_id") String user_id,@Field("log_id") String log_id,@Field("id") String id);
 
     //物流收藏和取消收藏
     @FormUrlEncoded

@@ -69,7 +69,7 @@ public class VerticalScrolledListView extends LinearLayout {
                 textView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itemClickListener.onItemClick(index);
+//                        itemClickListener.onItemClick(index);
                     }
                 });
             }

@@ -90,6 +90,14 @@ public class MyWaybillListFragment extends BaseLazyFragment implements OnRefresh
         loadWayBillListData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isHidden()){
+            loadWayBillListData();
+        }
+    }
+
     /**
      * 运单列表
      */

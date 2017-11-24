@@ -3,38 +3,47 @@ package com.arkui.transportation.activity.publish;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arkui.fz_net.utils.RxBus;
 import com.arkui.fz_tools._interface.PublishInterface;
+import com.arkui.fz_tools._interface.RemarkInterface;
+import com.arkui.fz_tools.adapter.FlowLayoutAdapter;
 import com.arkui.fz_tools.dialog.CommonDialog;
 import com.arkui.fz_tools.dialog.EndTimePicker;
 import com.arkui.fz_tools.dialog.SelectTypePicker;
 import com.arkui.fz_tools.entity.PublishBean;
 import com.arkui.fz_tools.entity.ReleaseDetailsEntity;
+import com.arkui.fz_tools.entity.RemarkEntity;
 import com.arkui.fz_tools.listener.OnConfirmClick;
 import com.arkui.fz_tools.listener.OnVehicleTypeClickListener;
 import com.arkui.fz_tools.mvp.PublishPresenter;
+import com.arkui.fz_tools.mvp.RemarkPresenter;
 import com.arkui.fz_tools.ui.BaseActivity;
 import com.arkui.fz_tools.view.ShapeEditText;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.MainActivity;
 import com.arkui.transportation.base.App;
 import com.arkui.transportation.entity.RefreshWaybill;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, OnConfirmClick, EndTimePicker.OnEnsureListener, PublishInterface {
+public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClickListener, OnConfirmClick, EndTimePicker.OnEnsureListener, PublishInterface, RemarkInterface {
 
     @BindView(R.id.tv_selected_1)
     TextView mTvSelected1;
@@ -80,6 +89,8 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     EditText mEtUnloadingTel;
     @BindView(R.id.et_remarks)
     ShapeEditText mEtRemarks;
+    @BindView(R.id.flow_layout)
+    TagFlowLayout mFlowLayout;
     private SelectTypePicker mSelectTypePicker;
     private int mType;
     private List<String> mPaymentList;
@@ -87,13 +98,18 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     private List<String> mStringList;
     private CommonDialog mCommonDialog;
     private EndTimePicker mEndTimePicker;
-    private int mPublishType = 1;
+    private String mPublishType =" ";
     //1、吨；2、方；3、件；4、趟
     private int mUnit = 1;
     private int mPaymentTerms = -1;
     private int mSettlementTime = -1;
     private PublishPresenter mPublishPresenter;
     public boolean mIsSave=false;
+    private FlowLayoutAdapter flowLayoutAdapter;
+    private List<RemarkEntity> remarkEntityList;
+    private String keyWord;
+    private String cargo_density;
+    private String press_charges;
 
     @Override
     public void setRootView() {
@@ -111,8 +127,9 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         mStringList = new ArrayList<>();
         mStringList.add("吨");
         mStringList.add("方");
-        mStringList.add("件");
+        mStringList.add("升");
         mStringList.add("趟");
+
         mSelectTypePicker.setData(mStringList);
 
         mSelectTypePicker.setOnTypeClickListener(this);
@@ -134,8 +151,33 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         mEndTimePicker = new EndTimePicker();
         mEndTimePicker.setOnEnsureListener(this);
         mTvSelected1.setSelected(true);
+        remarkEntityList= new ArrayList<>();
+        initFlowLayout();
     }
+    // FlowLayout
+    private void initFlowLayout() {
+        RemarkPresenter remarkPresenter = new RemarkPresenter(this, this);
+        remarkPresenter.getRemarks();
+        flowLayoutAdapter = new FlowLayoutAdapter(remarkEntityList, this);
+        mFlowLayout.setAdapter(flowLayoutAdapter);
 
+        mFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+            @Override
+            public void onSelected(Set<Integer> selectPosSet) {
+                Iterator<Integer> iterator = selectPosSet.iterator();
+                keyWord = "";
+                mPublishType="";
+                while (iterator.hasNext()){
+                    Integer next = iterator.next();
+                    keyWord += remarkEntityList.get(next).getContent()+";";
+                    mPublishType += next+",";
+                }
+                mEtRemarks.setText(keyWord);
+                Log.e("fz", "onSelected: "+ keyWord  + " ---------" + mPublishType);
+
+            }
+        });
+    }
     @Override
     public void initData() {
         super.initData();
@@ -173,13 +215,13 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
                 mType = 7;
                 mSelectTypePicker.setData(mEndTimeList).setTitle("支付运费").show(getSupportFragmentManager(), "end");
                 break;
-            case R.id.tv_selected_1:
-                mPublishType = 1;
+            case R.id.tv_selected_1: // 没有用了
+               // mPublishType = 1;
                 mTvSelected1.setSelected(true);
                 mTvSelected2.setSelected(false);
                 break;
-            case R.id.tv_selected_2:
-                mPublishType = 2;
+            case R.id.tv_selected_2: // 没有用了
+              //  mPublishType = 2;
                 mTvSelected1.setSelected(false);
                 mTvSelected2.setSelected(true);
                 break;
@@ -226,7 +268,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
                 break;
             case 6:
                 //1、货主网上支付；2、物流网上支付；3货到付款
-                mPaymentTerms = pos + 1;
+                mPaymentTerms = pos + 2;
                 mTvPayment.setText(item);
                 break;
             case 7:
@@ -249,12 +291,12 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         String unloading_address = mTvReceive.getText().toString().trim();
         String cargo_name = mEtCargoName.getText().toString().trim();
         String cargo_num = mEtCargoNum.getText().toString().trim();
-        String cargo_density = mEtCargoDensity.getText().toString().trim();
+        cargo_density = mEtCargoDensity.getText().toString().trim();
         String freight_price = mEtFreightPrice.getText().toString().trim();
         String cargo_price = mEtCargoPrice.getText().toString().trim();
         String loading_time = mTvLoadingTime.getText().toString().trim();
         //String payment_terms = mTvPayment.getText().toString().trim();
-        String press_charges = mEtPressCharges.getText().toString().trim();
+        press_charges = mEtPressCharges.getText().toString().trim();
         String truck_drawer = mEtTruckDrawer.getText().toString().trim();
         String truck_tel = mEtTruckTel.getText().toString().trim();
         String unloading_contact = mEtUnloadingContact.getText().toString().trim();
@@ -278,8 +320,7 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             return;
         }
         if (TextUtils.isEmpty(cargo_density)) {
-            ShowToast("请输入货物密度");
-            return;
+            cargo_density="0";
         }
         if (TextUtils.isEmpty(freight_price)) {
             ShowToast("请输入运费单价");
@@ -302,40 +343,63 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
             return;
         }
         if (TextUtils.isEmpty(press_charges)) {
-            ShowToast("请输入压车费");
-            return;
+            press_charges ="0";
         }
         if (TextUtils.isEmpty(truck_drawer)) {
-            ShowToast("请输入装车开票人");
+            ShowToast("请输入提货公司名称");
             return;
         }
-        if (TextUtils.isEmpty(truck_tel)) {
-            ShowToast("请输入装车联系电话");
-            return;
-        }
-        if (TextUtils.isEmpty(unloading_contact)) {
-            ShowToast("请输入卸车开票人");
-            return;
-        }
-        if (TextUtils.isEmpty(unloading_tel)) {
-            ShowToast("请输入卸车联系电话");
-            return;
-        }
+//        if (TextUtils.isEmpty(truck_tel) || !StrUtil.isMobileNO(truck_tel)) {
+//            ShowToast("请输入正确的装车联系电话");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(unloading_contact) ) {
+//            ShowToast("请输入卸车开票人");
+//            return;
+//        }
+//        if (TextUtils.isEmpty(unloading_tel)|| !StrUtil.isMobileNO(unloading_tel) ) {
+//            ShowToast("请输入卸车联系电话");
+//            return;
+//        }
+        String[] loadaddress = loading_address.split(" ");
+        String[] unloadAddress = unloading_address.split(" ");
+        String loadaddres = loadaddress[0];
+        String[] split = loadaddres.split("-");
+        String unloadAddres = unloadAddress[0];
+        String[] split1 = unloadAddres.split("-");
 
+        String loading_province = split[0];
+        String loading_city = split[1];
+        String unloading_province = split1[0];
+        String unloading_city = split1[1];
+
+        boolean isHave = loading_city.contains("全");
+        boolean isHas =unloading_city.contains("全");
+        if (isHave){
+            loading_city=  loading_city.replace("全", "");
+        }
+        if (isHas){
+            unloading_city=  unloading_city.replace("全", "");
+        }
         Map<String,Object> map=new HashMap<>();
+        map.put("loading_province",loading_province);
+        map.put("loading_city",loading_city);
+        map.put("unloading_province",unloading_province);
+        map.put("unloading_city",unloading_city);
+
         map.put("user_id", App.getUserId());
         map.put("op_status",isSave?0:1);
         map.put("loading_address",loading_address);
         map.put("unloading_address",unloading_address);
         map.put("cargo_name",cargo_name);
         map.put("cargo_num",cargo_num);
-        map.put("cargo_density",cargo_density);
+        map.put("cargo_density", cargo_density);
         map.put("freight_price",freight_price);
         map.put("cargo_price",cargo_price);
         map.put("loading_time",loading_time);
         map.put("payment_terms",mPaymentTerms);
         map.put("settlement_time",mSettlementTime);
-        map.put("press_charges",press_charges);
+        map.put("press_charges", press_charges);
         map.put("truck_drawer",truck_drawer);
         map.put("truck_tel",truck_tel);
         map.put("unloading_contact",unloading_contact);
@@ -382,7 +446,6 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
         }
     }
 
-
     @Override
     public void onSuccess(PublishBean publishBean) {
         mCommonDialog.show(getSupportFragmentManager(), "publish");
@@ -407,5 +470,17 @@ public class MyDeliverActivity extends BaseActivity implements OnVehicleTypeClic
     @Override
     public void onEnsureClick(String time) {
         mTvLoadingTime.setText(time);
+    }
+
+    @Override
+    public void remarkList(List<RemarkEntity> remarkEntities) {
+        remarkEntityList.clear();
+        remarkEntityList.addAll(remarkEntities);
+        flowLayoutAdapter.notifyDataChanged();
+    }
+
+    @Override
+    public void noRemark(String message) {
+        Toast.makeText(mActivity,"暂无备注",Toast.LENGTH_SHORT).show();
     }
 }

@@ -107,7 +107,9 @@ public class MyFragment extends BaseFragment implements UserInterface {
                 if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) {
                     Toast.makeText(getActivity(), "已认证", Toast.LENGTH_SHORT).show();
                 }
-
+                if (isUserCertificate.equals("3") || isCompanyCertificate.equals("3")) {
+                    showActivity(AuthActivity.class);
+                }
                 break;
         }
     }
@@ -127,6 +129,7 @@ public class MyFragment extends BaseFragment implements UserInterface {
     public void loginSucceed(UserEntity userEntity) {
         mUserEntity = userEntity;
         GlideUtils.getInstance().loadRound(getActivity(), userEntity.getAvatar(), ivHead);
+        App.setUserEntity(userEntity);
         tvName.setText(userEntity.getNickname());
         isUserCertificate = userEntity.getIsUserCertificate();
         isCompanyCertificate = userEntity.getIsCompanyCertificate();
@@ -141,6 +144,10 @@ public class MyFragment extends BaseFragment implements UserInterface {
         }
         if (isUserCertificate.equals("2") || isCompanyCertificate.equals("2")) {
             tvAuth.setText("已认证");
+        }
+
+        if (isUserCertificate.equals("3") || isCompanyCertificate.equals("3")) {
+            tvAuth.setText("重新上传");
         }
     }
 

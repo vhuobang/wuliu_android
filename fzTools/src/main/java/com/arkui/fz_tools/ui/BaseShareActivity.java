@@ -57,7 +57,7 @@ public abstract class BaseShareActivity extends BaseActivity{
         mWeb = new UMWeb(url);
         mWeb.setTitle("危货帮");
         mWeb.setThumb(new UMImage(this, R.mipmap.about_logo));
-        mWeb.setDescription("一个好用的app");
+        mWeb.setDescription("运危货，就找危货帮！");
         switch (type){
             case QQ:
                 new ShareAction(mActivity)

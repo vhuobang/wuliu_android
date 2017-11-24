@@ -8,5 +8,5 @@ import com.arkui.fz_tools.entity.PrePayEntity;
 
 public interface PrePayInterface {
     void onSuccess(PrePayEntity prePayEntity);
-    void onFail(String errMessage);
+    void onPayFail(String errMessage);
 }

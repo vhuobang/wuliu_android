@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:src="@mipmap/logo" />
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/wlb_logo" />
 
     <com.arkui.fz_tools.view.ShapeLinearLayout
         android:id="@+id/ll_phone"
@@ -23,7 +23,7 @@
         android:layout_below="@+id/iv_logo"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="25dp"

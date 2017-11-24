@@ -19,9 +19,9 @@ import com.arkui.fz_tools.utils.GlideUtils;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation_shipper.R;
 import com.arkui.transportation_shipper.common.api.AssetApi;
+import com.arkui.transportation_shipper.common.base.App;
 import com.arkui.transportation_shipper.common.entity.DriverListDetailEntity;
 import com.arkui.transportation_shipper.common.entity.RefreshAssetListEntity;
-import com.arkui.transportation_shipper.owner.adapter.CommonAdapter;
 import com.arkui.transportation_shipper.owner.adapter.DriverDetailAdapter;
 import com.arkui.transportation_shipper.owner.dialog.ViewVehicleLargeMapDialog;
 import com.arkui.transportation_shipper.owner.listener.OnBindViewHolderListener;
@@ -160,7 +160,7 @@ public class DriverDetailActivity extends BaseActivity implements OnBindViewHold
     }
 
     private void deleteDriver() {
-        Observable<BaseHttpResult> observable = mAssetApi.postDeleteDriver(mId);
+        Observable<BaseHttpResult> observable = mAssetApi.postDeleteDriver(mId, App.getUserId());
 
         HttpMethod.getInstance().getNetData(observable, new ProgressSubscriber<BaseHttpResult>(mActivity) {
             @Override

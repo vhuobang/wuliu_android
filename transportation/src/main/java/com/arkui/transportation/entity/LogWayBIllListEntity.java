@@ -27,7 +27,30 @@ public class LogWayBIllListEntity {
      * truck_name : 司机2
      * log 精度
      * lat 纬度
+     * loading_weight
+     * unloading_weight
+     * // 可以添加一个支付方式的字段
      */
+    @SerializedName("loading_weight")
+    private String loadingWeight;
+    @SerializedName("unloading_weight")
+    private String unloadingWeight;
+
+    public String getLoadingWeight() {
+        return loadingWeight;
+    }
+
+    public void setLoadingWeight(String loadingWeight) {
+        this.loadingWeight = loadingWeight;
+    }
+
+    public String getUnloadingWeight() {
+        return unloadingWeight;
+    }
+
+    public void setUnloadingWeight(String unloadingWeight) {
+        this.unloadingWeight = unloadingWeight;
+    }
 
     @SerializedName("carrier_num")
     private String carrierNum;

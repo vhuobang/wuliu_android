@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.arkui.fz_tools.utils.AppManager;
+import com.arkui.transportation_owner.activity.my.AccountRechargeActivity;
 import com.arkui.transportation_owner.pay.Constants;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -54,6 +56,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							WXPayEntryActivity.this.finish();
+							AppManager.getAppManager().finishActivity(AccountRechargeActivity.class);
 						}
 					});
 					builder.show();

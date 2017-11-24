@@ -29,35 +29,139 @@ public class WayBillDetailEntity {
      * owner_cargo_id : 11
      * unit
      * logistical_id 物流id
+     * <p>
+     * <p>
+     * <p>
+     * <p>
+     * {
+     * "order_number": "20170908616141504847396",
+     * "owner_name": "Test",
+     * "tel": "",
+     * "license_plate": "京A777777",
+     * "carrier_num": "1",
+     * "unit": "1",
+     * "star_rating": "0.00",
+     * "loading_time": null,
+     * "loading_weight": null,
+     * "loading_photo": null,
+     * "unloading_time": null,
+     * "unloading_weight": null,
+     * "unloading_photo": null,
+     * "owner_cargo_id": "3",
+     * "cargo_id": "8",
+     * "cargo_num": "12",
+     * "freight_price": "20.00",
+     * "logistical_id": "1",
+     * "log": "",
+     * "lat": "",
+     * "all_price": ""
+     * <p>
+     * cargo_evaluate_status": "1",
+     * "log_evaluate_status": "0",
+     * "car_evaluate_status": "0",
+     * "total_money": 5000
+     * payment_terms
+     * order_money
+     * },
      *
-     *
-     *
-     *
-     *  {
-     "order_number": "20170908616141504847396",
-     "owner_name": "Test",
-     "tel": "",
-     "license_plate": "京A777777",
-     "carrier_num": "1",
-     "unit": "1",
-     "star_rating": "0.00",
-     "loading_time": null,
-     "loading_weight": null,
-     "loading_photo": null,
-     "unloading_time": null,
-     "unloading_weight": null,
-     "unloading_photo": null,
-     "owner_cargo_id": "3",
-     "cargo_id": "8",
-     "cargo_num": "12",
-     "freight_price": "20.00",
-     "logistical_id": "1",
-     "log": "",
-     "lat": "",
-     "all_price": ""
-     },
-
+     * car_name
+     * car_tel
+     * car_id_card
+     * hand_car
      */
+    @SerializedName("cargo_evaluate_status") //货主
+    private String cargo_evaluate_status;
+    @SerializedName("log_evaluate_status") //物流
+    private String log_evaluate_status;
+    @SerializedName("car_evaluate_status") //车主
+    private String car_evaluate_status;
+    @SerializedName("car_id_card")
+    private String car_id_card;
+    @SerializedName("car_name")
+    private String car_name;
+    @SerializedName("car_tel")
+    private String car_tel;
+    @SerializedName("payment_terms") //车主
+    private String paymentTerms;
+
+    public String getHandCar() {
+        return handCar;
+    }
+
+    public void setHandCar(String handCar) {
+        this.handCar = handCar;
+    }
+
+    @SerializedName("hand_car") //车主
+    private String handCar;
+
+    public String getCar_id_card() {
+        return car_id_card;
+    }
+
+    public void setCar_id_card(String car_id_card) {
+        this.car_id_card = car_id_card;
+    }
+
+    public String getCar_name() {
+        return car_name;
+    }
+
+    public void setCar_name(String car_name) {
+        this.car_name = car_name;
+    }
+
+    public String getCar_tel() {
+        return car_tel;
+    }
+
+    public void setCar_tel(String car_tel) {
+        this.car_tel = car_tel;
+    }
+
+    public String getOrderMoney() {
+        return orderMoney;
+    }
+
+    public void setOrderMoney(String orderMoney) {
+        this.orderMoney = orderMoney;
+    }
+
+    @SerializedName("order_money") //车主
+    private String orderMoney;
+
+    public String getPaymentTerms() {
+        return paymentTerms;
+    }
+
+    public void setPaymentTerms(String paymentTerms) {
+        this.paymentTerms = paymentTerms;
+    }
+
+
+    public String getCargo_evaluate_status() {
+        return cargo_evaluate_status;
+    }
+
+    public void setCargo_evaluate_status(String cargo_evaluate_status) {
+        this.cargo_evaluate_status = cargo_evaluate_status;
+    }
+
+    public String getLog_evaluate_status() {
+        return log_evaluate_status;
+    }
+
+    public void setLog_evaluate_status(String log_evaluate_status) {
+        this.log_evaluate_status = log_evaluate_status;
+    }
+
+    public String getCar_evaluate_status() {
+        return car_evaluate_status;
+    }
+
+    public void setCar_evaluate_status(String car_evaluate_status) {
+        this.car_evaluate_status = car_evaluate_status;
+    }
 
     @SerializedName("carrier_num")
     private String carrierNum;

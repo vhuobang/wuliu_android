@@ -566,7 +566,7 @@ public class StrUtil {
                 formatStr = "方";
                 break;
             case "3":
-                formatStr = "件";
+                formatStr = "升";
                 break;
             case "4":
                 formatStr = "趟";
@@ -586,7 +586,7 @@ public class StrUtil {
                 formatStr = "元/方";
                 break;
             case "3":
-                formatStr = "元/件";
+                formatStr = "元/升";
                 break;
             case "4":
                 formatStr = "元/趟";
@@ -661,7 +661,7 @@ public class StrUtil {
         String formatStr = null;
         switch (status) {
             case "1":
-                formatStr = "停止发布";
+                formatStr = "发布中";
                 break;
             case "2":
                 formatStr = "已抢完";
@@ -678,5 +678,14 @@ public class StrUtil {
         String[] loading = address.split(" ");
         return loading.length >= 0 ? loading[0] : "";
     }
-
+    /**
+       * 验证输入的身份证号是否合法
+       */
+    public static boolean isLegalId(String id){
+        if (id.toUpperCase().matches("(^\\d{15}$)|(^\\d{17}([0-9]|X)$)")){
+            return true;
+            }else {
+            return false;
+            }
+        }
 }

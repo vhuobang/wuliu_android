@@ -43,7 +43,7 @@ public class PrePayPresenter extends BasePresenter {
 
             @Override
             public void onApiError(ApiException e) {
-                mPrePayInterface.onFail(e.getMessage());
+                mPrePayInterface.onPayFail(e.getMessage());
             }
         });
     }

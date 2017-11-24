@@ -6,7 +6,7 @@ package com.arkui.transportation_owner.api;
 
 public class UrlContents {
     // 服务器根地址
-    public static final String BASE_URL = "http://wuliufz.gotoip1.com/index.php/";
+    public static final String BASE_URL = "http://www.vhuobang.net/index.php/";
     //1. 注册
     public static final String REGISTER = BASE_URL + "App/Users/register";
     //2.登陆

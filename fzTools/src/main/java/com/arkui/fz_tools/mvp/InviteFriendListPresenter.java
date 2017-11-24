@@ -54,7 +54,7 @@ public class InviteFriendListPresenter extends BasePresenter {
 
             @Override
             public void onApiError(ApiException e) {
-                super.onApiError(e);
+            //    super.onApiError(e);
                 mInviteFriendListInterface.onFail(e.getMessage());
             }
         });

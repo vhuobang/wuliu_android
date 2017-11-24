@@ -1,10 +1,12 @@
 package com.arkui.transportation_owner.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.arkui.fz_tools._interface.WaybillListInterface;
 import com.arkui.fz_tools.entity.LogWayBIllListEntity;
@@ -59,7 +61,7 @@ public class WaybillListFragment extends BaseLazyFragment implements OnRefreshLi
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
-                WaybillDetailActivity.openActivity(mContext, mType,item.getId());
+                WaybillDetailActivity.openActivity(mContext, mType,item.getId(),false);
             }
         });
 
@@ -67,7 +69,12 @@ public class WaybillListFragment extends BaseLazyFragment implements OnRefreshLi
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
-               DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
+                if (TextUtils.isEmpty(item.getLat())){
+                    Toast.makeText(getContext(),"司机未上传地址",Toast.LENGTH_SHORT).show();
+                }else {
+                    DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
+                }
+
             }
         });
         mRlList.setAdapter(mListAdapter);
@@ -90,6 +97,14 @@ public class WaybillListFragment extends BaseLazyFragment implements OnRefreshLi
         WaybillListFragment waybillListFragment = new WaybillListFragment();
         waybillListFragment.setArguments(bundle);
         return waybillListFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isHidden()){
+            loadWayBillListData();
+        }
     }
 
     @Override

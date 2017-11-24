@@ -1,5 +1,6 @@
 package com.arkui.transportation.base;
 
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.fastjson.JSON;
@@ -8,6 +9,7 @@ import com.arkui.fz_tools.model.Constants;
 import com.arkui.fz_tools.net.JsonData;
 import com.arkui.fz_tools.utils.SPUtil;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
 
 import cn.jpush.android.api.JPushInterface;
@@ -41,6 +43,15 @@ public class App extends MultiDexApplication {
         // Normal app init code...
         PlatformConfig.setWeixin("wx279a4760d6a5d3d6", "daa919cf4e406ce79477c96f4d5f2f44");
         PlatformConfig.setQQZone("1106220644", "HEloPV9ioZEYnKD3");
+         /* Bugly SDK初始化
+        * 参数1：上下文对象
+        * 参数2：APPID，平台注册时得到,注意替换成你的appId
+        * 参数3：是否开启调试模式，调试模式下会输出'CrashReport'tag的日志
+        */
+        CrashReport.initCrashReport(getApplicationContext(), "98f2a4293a", false);
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 
     public static UserEntity getUserEntity() {

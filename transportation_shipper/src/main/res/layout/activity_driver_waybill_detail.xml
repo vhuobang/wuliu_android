@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="北京昌平区"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心B栋308"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
 
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="唐山迁安"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="回龙观街道金域国际中心"
+
                     android:textColor="@color/black_list_color"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -102,7 +102,7 @@
                 <TextView
                     android:id="@+id/tv_license_plate"
                     style="@style/TextViewWeight"
-                    android:text="京P2345S" />
+                     />
 
             </TableRow>
 
@@ -117,7 +117,7 @@
                 <TextView
                     android:id="@+id/pro_number"
                     style="@style/TextViewWeight"
-                    android:text="20吨" />
+                   />
 
             </TableRow>
 
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="甲醛/100吨/剩余40吨"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -167,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="20.2吨/升"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -185,7 +185,7 @@
                 <TextView
                     android:id="@+id/tv_time"
                     style="@style/TextViewWeight"
-                    android:text="2017-6-28 18:40:28" />
+                   />
 
             </TableRow>
 
@@ -199,7 +199,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装车开票人"
+                    android:text="提货公司名称"
                     android:textColor="@color/black_normal_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -208,7 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="张无忌"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -234,7 +234,7 @@
                     android:id="@+id/cargo_phone"
                     android:layout_gravity="center_vertical"
                     style="@style/TextViewWeight"
-                    android:text="18900025478" />
+                     />
 
                 <ImageView
                     android:id="@+id/iv_cargo_phone"
@@ -265,7 +265,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="赵敏"
+
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 
@@ -290,7 +290,7 @@
                     android:id="@+id/tv_unloading_phone"
                     android:layout_gravity="center_vertical"
                     style="@style/TextViewWeight"
-                    android:text="18900025478" />
+                   />
 
                 <ImageView
                     android:id="@+id/iv_unloading_phone"
@@ -323,7 +323,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="罐体车；随时装货发车，备注信息，罐体车 随时装货发车。罐体车的随时装货发车，备注休车，随时装货发车///"
                     android:textColor="@color/gray_color"
                     android:textSize="@dimen/sp_14" />
 

@@ -2,16 +2,15 @@ package com.arkui.transportation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.arkui.fz_tools.adapter.CommonAdapter;
 import com.arkui.fz_tools.ui.BaseLazyFragment;
-import com.arkui.fz_tools.ui.BaseListLazyFragment;
 import com.arkui.fz_tools.utils.DividerItemDecoration;
-import com.arkui.fz_tools.utils.StrUtil;
 import com.arkui.fz_tools.view.PullRefreshRecyclerView;
 import com.arkui.transportation.R;
 import com.arkui.transportation.activity.waybill.DriverLocationActivity;
@@ -22,7 +21,6 @@ import com.arkui.transportation.entity.LogWayBIllListEntity;
 import com.arkui.transportation.presenter.LogWaybillListPresenter;
 import com.arkui.transportation.view.LogWaybillListView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -86,7 +84,12 @@ public class OwnerWaybillListFragment extends BaseLazyFragment implements LogWay
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 LogWayBIllListEntity item = (LogWayBIllListEntity) adapter.getItem(position);
-                DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
+                if (TextUtils.isEmpty(item.getLat())){
+                    Toast.makeText(getActivity(),"司机未上传坐标",Toast.LENGTH_SHORT).show();
+                }else {
+                    DriverLocationActivity.openActivity(getActivity(),item.getLog(),item.getLat());
+                }
+
             }
         });
     }
@@ -98,7 +101,21 @@ public class OwnerWaybillListFragment extends BaseLazyFragment implements LogWay
     }
 
     public void onRefreshing() {
-        mLogWaybillListPresenter.getWaybillList(App.getUserId(), mType + "", type);
+        if (mType==4){
+            mLogWaybillListPresenter.getLogAgency(App.getUserId());
+        }else {
+            mLogWaybillListPresenter.getWaybillList(App.getUserId(), mType + "", type);
+        }
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isHidden()){
+            onRefreshing();
+        }
     }
 
     @Override
@@ -117,6 +134,7 @@ public class OwnerWaybillListFragment extends BaseLazyFragment implements LogWay
     //数据请求失败
     @Override
     public void onLoadDataFail(String errorMessage) {
+        mCommonAdapter.setNewData(null);
         mRlList.loadFail();
         mRlList.refreshComplete();
     }

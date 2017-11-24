@@ -1,7 +1,6 @@
 package com.arkui.transportation_owner.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +76,9 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
             }
         });
 
-        setAspectX(3);
-        setAspectY(2);
+
+//        setAspectY(100);
+//        setAspectX(78);
         mAddressPicker = new AddressPicker();
         //初始化其数据
         LoadCityData.initData(mContext, new Consumer<List<City>>() {
@@ -89,6 +89,7 @@ public class PersonalAuthFragment extends BaseMvpPhotoFragment implements Upload
             }
         });
         mAddressPicker.setOnEnsureClickListener(this);
+
     }
 
     @Override

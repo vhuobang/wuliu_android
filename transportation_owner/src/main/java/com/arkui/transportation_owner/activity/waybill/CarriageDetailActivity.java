@@ -66,10 +66,13 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
         mId = getIntent().getStringExtra("id");
         cStatus = getIntent().getStringExtra("cStatus");
         tvState.setText(StrUtil.formatCStatus(cStatus));
-
         mRlList.setLinearLayoutManager();
         mRlList.addItemDecoration(new DividerItemDecoration2(mActivity, DividerItemDecoration2.VERTICAL_LIST));
-
+        if (cStatus.equals("1")){
+            tvState.setText("停止发布");
+        }else {
+            tvState.setText(StrUtil.formatCStatus(cStatus));
+        }
         mPublishDetailsAdapter = new PublishDetailsAdapter();
 
         mRlList.setOnRefreshListener(this);
@@ -106,6 +109,7 @@ public class CarriageDetailActivity extends BaseActivity implements OnRefreshLis
     private void statusClickable() {
         switch (cStatus) {
             case "1": //发布中
+
                 tvState.setClickable(true);
                 break;
             case "2":// 已抢完

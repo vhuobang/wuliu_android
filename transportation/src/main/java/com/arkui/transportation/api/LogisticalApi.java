@@ -41,12 +41,12 @@ public interface LogisticalApi {
     //4.承运详情列表 cargo_carrier_list
     @FormUrlEncoded
     @POST(UrlContents.CARGO_CARRIER_LIST)
-    Observable<BaseHttpResult<List<CargoCarrierListEntity>>> getCargoCarrierList(@Field("cargo_id") String carGoId);
+    Observable<BaseHttpResult<List<CargoCarrierListEntity>>> getCargoCarrierList(@Field("cargo_id") String carGoId,@Field("logistical_id") String logistical_id);
 
     //5.已发布货源详情  PUBLISH_DETAILS
     @FormUrlEncoded
     @POST(UrlContents.PUBLISH_DETAILS)
-    Observable<BaseHttpResult<PublishDetialEntity>> getPublishDetails(@Field("cargo_id") String carGoId, @Field("user_id") String UserID);
+    Observable<BaseHttpResult<PublishDetialEntity>> getPublishDetails(@Field("cargo_id") String carGoId, @Field("user_id") String userID);
 
     // UP_CARGO_STATUS 停止发布
     @FormUrlEncoded
@@ -65,6 +65,9 @@ public interface LogisticalApi {
      @FormUrlEncoded
     @POST(UrlContents.CARGO_TOLOGISTICAL_SEARCH)
     Observable<BaseHttpResult<List<CargoSearchListEntity>>> getCargoSearch(@Field("user_id") String userId, @Field("key_word") String keyWord);
-    // 微信支付
+    // 物流待收款列表
+    @FormUrlEncoded
+    @POST(UrlContents.LOG_AGENCY)
+    Observable<BaseHttpResult<List<LogWayBIllListEntity>>> getLogAgency(@Field("user_id") String userId);
 
 }

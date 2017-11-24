@@ -7,4 +7,16 @@
     <color name="mainColor">#E77E23</color>
     <color name="red">#D80808</color>
     <color name="lucency">#00000000</color>
+
+    <array name="array_dot_active">
+        <item>@color/stoke_color</item>
+        <item>@color/stoke_color</item>
+        <item>@color/stoke_color</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/huozhu_color</item>
+        <item>@color/huozhu_color</item>
+        <item>@color/huozhu_color</item>
+    </array>
 </resources>

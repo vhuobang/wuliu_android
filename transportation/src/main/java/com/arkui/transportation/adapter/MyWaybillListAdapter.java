@@ -38,7 +38,7 @@ public class MyWaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,
         helper.setText(R.id.tv_address,split[0]);
         String[] split1 = item.getUnloadingAddress().split(" ");
         helper.setText(R.id.tv_unloading_address,split1[0]);
-        String mType = item.getCargoStatus();
+        String mType = item.getLogStatus();
 
         switch (mType) {
             case "1":
@@ -48,9 +48,19 @@ public class MyWaybillListAdapter extends BaseQuickAdapter<LogWayBIllListEntity,
                 break;
             case "2":
                 helper.setVisible(R.id.ll_location, true);
+                helper.setText(R.id.tv_product_info, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
+                        item.getLoadingWeight()+ StrUtil.formatUnit(item.getUnit()));
                 break;
             case "3":
                 helper.setVisible(R.id.tv_state, true);
+                helper.setText(R.id.tv_state,"运费:" + item.getAllPrice());
+                helper.setText(R.id.tv_product_info, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
+                        item.getUnloadingWeight()+ StrUtil.formatUnit(item.getUnit()));
+                break;
+            case "5":
+                helper.setVisible(R.id.tv_state, false);
+                helper.setText(R.id.tv_product_info, item.getLicensePlate() + "   " + item.getCargoName() +"  "+
+                        item.getUnloadingWeight()+ StrUtil.formatUnit(item.getUnit()));
                 break;
         }
         helper.addOnClickListener(R.id.ll_location);

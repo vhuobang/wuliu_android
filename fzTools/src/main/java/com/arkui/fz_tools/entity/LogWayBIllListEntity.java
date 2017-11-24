@@ -28,7 +28,54 @@ public class LogWayBIllListEntity {
      *
      *log 经度
      * lat 纬度
+     * loading_weight
+     * unloading_weight
+     * payee_name
+     * payment_name
      */
+
+    @SerializedName("loading_weight")
+    private String loadingWeight;
+    @SerializedName("unloading_weight")
+    private String unloadingWeight;
+
+    public String getPayeeName() {
+        return payeeName;
+    }
+
+    public void setPayeeName(String payeeName) {
+        this.payeeName = payeeName;
+    }
+
+    @SerializedName("payee_name")
+    private String payeeName;
+
+    public String getPaymentName() {
+        return paymentName;
+    }
+
+    public void setPaymentName(String paymentName) {
+        this.paymentName = paymentName;
+    }
+
+    @SerializedName("payment_name")
+    private String paymentName;
+
+    public String getLoadingWeight() {
+        return loadingWeight;
+    }
+
+    public void setLoadingWeight(String loadingWeight) {
+        this.loadingWeight = loadingWeight;
+    }
+
+    public String getUnloadingWeight() {
+        return unloadingWeight;
+    }
+
+    public void setUnloadingWeight(String unloadingWeight) {
+        this.unloadingWeight = unloadingWeight;
+    }
 
     @SerializedName("carrier_num")
     private String carrierNum;

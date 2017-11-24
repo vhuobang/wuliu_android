@@ -63,11 +63,14 @@ public abstract   class BaseDialogFragment extends DialogFragment {
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = getGravity(); // 紧贴底部
+      //  lp.height= (int) (dm.heightPixels*getHightScale());
         lp.width = (int) (dm.widthPixels*getWidthScale()); // 宽度持平
         window.setAttributes(lp);
     }
 
-
+    private float getHightScale() {
+        return 0.4f;
+    }
 
     public int getGravity() {
         return Gravity.CENTER;
